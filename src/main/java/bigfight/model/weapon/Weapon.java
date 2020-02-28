@@ -1,33 +1,32 @@
 package bigfight.model.weapon;
 
-import bigfight.model.weapon.WeaponData.WeaponType;
+import bigfight.model.weapon.struct.*;
+import javafx.util.Pair;
 
 public class Weapon {
-    private int damage;
-    private String name;
-    private WeaponType type;
-    private String description;
+    private WeaponModel model;
 
-    public Weapon(String name, int damage, WeaponType type, String description) {
-        this.name = name;
-        this.damage = damage;
-        this.type = type;
-        this.description = description;
+    public Weapon(WeaponModel model) {
+        this.model = model;
     }
 
-    public int getDamage() {
-        return damage;
+    public Pair getDamage() {
+        return model.getDamage();
     }
 
     public String getName() {
-        return name;
+        return model.getName();
     }
 
     public WeaponType getType() {
-        return type;
+        return model.getType();
     }
 
     public String getDescription() {
-        return description;
+        return model.getDescription();
+    }
+
+    public WeaponIdentity getIdentity() {
+        return model.getIdentity();
     }
 }
