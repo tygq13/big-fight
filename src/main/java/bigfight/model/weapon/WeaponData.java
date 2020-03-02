@@ -5,7 +5,6 @@ import javafx.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
-import static java.util.Map.entry;
 
 public class WeaponData {
     public static final WeaponStruct TRIDENT_ONE = new WeaponStruct(
@@ -35,7 +34,7 @@ public class WeaponData {
     private static final WeaponStruct DEMON_SCYTHE_ONE = new WeaponStruct(
             new Pair<>(15, 25),
             WeaponType.BIG,
-            "Mysterious magic makes it your eyes focus on it. Unescapable. Uncounterattackable.",
+            "Mysterious magic makes it your eyes focus on it. Inescapable. Uncounterattackable.",
             WeaponIdentity.DEMON_SCYTHE,
             "demon scythe"
     );
@@ -61,7 +60,7 @@ public class WeaponData {
             new Pair<>(10, 15),
             WeaponType.SMALL,
             "It is the judge used by 'The God of Death' Yama. " +
-                    "When pointed by it, no livings or the dead can escape. Unescapable.",
+                    "When pointed by it, no livings or the dead can escape. Inescapable.",
             WeaponIdentity.JUDGE_PENCIL,
             "judge's pencil"
     );
@@ -72,11 +71,11 @@ public class WeaponData {
 
     public static final Map<WeaponIdentity, WeaponStructArray> ARSENAL = new HashMap<>(
             Map.ofEntries(
-                entry(WeaponIdentity.TRIDENT, TRIDENT_ARRAY),
-                    entry(WeaponIdentity.GAS_HAMMER, GAS_HAMMER_ARRAY),
-                    entry(WeaponIdentity.DEMON_SCYTHE, DEMON_SCYTHE_ARRAY),
-                    entry(WeaponIdentity.METEOR_BALL, METEOR_BALL_ARRAY),
-                    entry(WeaponIdentity.JUDGE_PENCIL, JUDGE_PENCIL_ARRAY)
+                Map.entry(WeaponIdentity.TRIDENT, TRIDENT_ARRAY),
+                    Map.entry(WeaponIdentity.GAS_HAMMER, GAS_HAMMER_ARRAY),
+                    Map.entry(WeaponIdentity.DEMON_SCYTHE, DEMON_SCYTHE_ARRAY),
+                    Map.entry(WeaponIdentity.METEOR_BALL, METEOR_BALL_ARRAY),
+                    Map.entry(WeaponIdentity.JUDGE_PENCIL, JUDGE_PENCIL_ARRAY)
             )
     );
 }

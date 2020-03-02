@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 class WeaponDataTest {
 
     @Test
+    // also test that the WeaponStruct class function correctly
     void test_weapon_struct_accessible_with_example_trident_one() {
         WeaponStruct test = WeaponData.TRIDENT_ONE;
         assertNotNull(test.name);
@@ -20,6 +21,7 @@ class WeaponDataTest {
     }
 
     @Test
+    // also test that the WeaponStructArray class function correctly
     void test_weapon_struct_array_accessible_with_example_trident() {
         WeaponStructArray test = WeaponData.TRIDENT_ARRAY;
         assertNotNull(test.withStar(1));

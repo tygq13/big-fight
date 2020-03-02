@@ -3,6 +3,7 @@ package bigfight.model.warrior;
 import bigfight.data.DataGetter;
 import bigfight.model.weapon.WeaponList;
 import bigfight.algo.BigFightAlgo;
+import bigfight.model.skill.SkillManager;
 
 public class Warrior {
     private DataGetter dataGetter;
@@ -12,11 +13,13 @@ public class Warrior {
     private int agility;
     private int level;
     private WeaponList weaponList;
+    private SkillManager skillManager;
 
     public Warrior(DataGetter dataGetter) {
         this.dataGetter = dataGetter;
         initializeAttributes();
         weaponList = new WeaponList();
+        skillManager = new SkillManager();
         level = 1;
     }
 
@@ -52,6 +55,10 @@ public class Warrior {
 
     public WeaponList getWeaponList() {
         return weaponList;
+    }
+
+    public SkillManager getSkillManager() {
+        return skillManager;
     }
 
 }

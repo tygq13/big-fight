@@ -2,6 +2,7 @@ package bigfight.model.warrior;
 
 import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
+import bigfight.model.skill.SkillManager;
 
 import java.lang.Integer;
 
@@ -67,6 +68,12 @@ class WarriorTest {
     void level_is_initialized_larger_than_1() {
         Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
         assertEquals(1, Integer.compare(warrior.getLevel(), 0));
+    }
+
+    @Test
+    void skills_set_are_initialized() {
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+        assertNotNull(warrior.getSkillManager());
     }
 
 }
