@@ -2,10 +2,10 @@ package bigfight.model.weapon;
 
 import java.util.ArrayList;
 
-public class WeaponList {
+public class WeaponManager {
     private ArrayList<Weapon> weaponList;
 
-    public WeaponList() {
+    public WeaponManager() {
         weaponList = new ArrayList<>();
     }
 

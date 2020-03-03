@@ -5,26 +5,23 @@ import bigfight.model.skill.struct.*;
 public class SkillModel {
     private SkillStruct skill;
 
-    public SkillModel(SkillIdentity identity) {
-        this(identity, 1);
-    }
-
-    public SkillModel(SkillIdentity identity, int star) {
+    public SkillModel(SkillStruct skill) {
+        this.skill = skill;
     }
 
     public String getName() {
-        return "hello";
+        return skill.name;
     }
 
     public SkillIdentity getIdentity() {
-        return SkillIdentity.BORN_AS_STRONG;
+        return skill.identity;
     }
 
     public String getDescription() {
-        return "hello";
+        return skill.description;
     }
 
     public SkillType getType() {
-        return SkillType.PERMANENT;
+        return skill.type;
     }
 }

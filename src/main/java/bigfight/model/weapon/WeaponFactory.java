@@ -2,9 +2,14 @@ package bigfight.model.weapon;
 
 import bigfight.model.weapon.struct.WeaponIdentity;
 
-public class WeaponFactory {
+public class  WeaponFactory {
+    private WeaponData weaponData;
 
-    public static Weapon create(WeaponIdentity identity) {
-        return new Weapon(new WeaponModel(identity));
+    public WeaponFactory(WeaponData weaponData) {
+        this.weaponData = weaponData;
+    }
+
+    public Weapon create(WeaponIdentity identity) {
+        return new Weapon(new WeaponModel(weaponData.getWithStar(identity, 1)));
     }
 }

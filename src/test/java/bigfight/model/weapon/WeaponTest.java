@@ -1,19 +1,26 @@
 package bigfight.model.weapon;
 
 import bigfight.model.weapon.struct.WeaponIdentity;
+import bigfight.model.weapon.struct.WeaponStruct;
 import bigfight.model.weapon.struct.WeaponType;
 
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class WeaponTest {
 
-    // this is to test weapon's damage field can be initialized and accessed
     @Test
-    void weapon_initialized() {
-        WeaponIdentity identity = WeaponIdentity.TRIDENT;
-        Weapon result = new Weapon(new WeaponModel(identity));
+    void weapon_initialized_and_accessible() {
+        // rely on correct construction of WeaponStruct with the existence of WeaponType.SMALL and WeaponIdentity.TRIDENT
+        WeaponStruct testStruct = new WeaponStruct(
+                new Pair<>(1, 1),
+                WeaponType.SMALL,
+                "test",
+                WeaponIdentity.TRIDENT,
+                "test"
+        );
+        Weapon result = new Weapon(new WeaponModel(testStruct));
         assertNotNull(result.getDamage());
         assertNotNull(result.getName());
         assertNotNull(result.getDescription());

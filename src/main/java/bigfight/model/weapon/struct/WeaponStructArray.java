@@ -5,7 +5,7 @@ import bigfight.model.weapon.Weapon;
 import java.util.ArrayList;
 
 public class WeaponStructArray {
-    private ArrayList<WeaponStruct> weaponStructArray;
+    private  ArrayList<WeaponStruct> weaponStructArray;
 
     public WeaponStructArray(WeaponStruct one) {
         weaponStructArray = new ArrayList<>(5);

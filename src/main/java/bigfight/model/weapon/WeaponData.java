@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeaponData {
-    public static final WeaponStruct TRIDENT_ONE = new WeaponStruct(
+    // public for test use, might be wise to refactor this
+    private final WeaponStruct TRIDENT_ONE = new WeaponStruct(
             new Pair<>(25, 50),
             WeaponType.BIG,
             "'The Emperor of Sea' Poseidon's most powerful trident. Need to rest for one round.",
@@ -15,11 +16,11 @@ public class WeaponData {
             "trident"
     );
 
-    public static final WeaponStructArray TRIDENT_ARRAY = new WeaponStructArray(
+    private final WeaponStructArray TRIDENT_ARRAY = new WeaponStructArray(
             TRIDENT_ONE
     );
 
-    private static final WeaponStruct GAS_HAMMER_ONE = new WeaponStruct(
+    private final WeaponStruct GAS_HAMMER_ONE = new WeaponStruct(
             new Pair<>(25, 50),
             WeaponType.BIG,
             "When you get naughty, you will be hit by this hammer. 10% chance ignore opponent's round",
@@ -27,11 +28,11 @@ public class WeaponData {
             "gas hammer"
     );
 
-    private static final WeaponStructArray GAS_HAMMER_ARRAY = new WeaponStructArray(
+    private final WeaponStructArray GAS_HAMMER_ARRAY = new WeaponStructArray(
             GAS_HAMMER_ONE
     );
 
-    private static final WeaponStruct DEMON_SCYTHE_ONE = new WeaponStruct(
+    private final WeaponStruct DEMON_SCYTHE_ONE = new WeaponStruct(
             new Pair<>(15, 25),
             WeaponType.BIG,
             "Mysterious magic makes it your eyes focus on it. Inescapable. Uncounterattackable.",
@@ -39,11 +40,11 @@ public class WeaponData {
             "demon scythe"
     );
 
-    private static final WeaponStructArray DEMON_SCYTHE_ARRAY = new WeaponStructArray(
+    private final WeaponStructArray DEMON_SCYTHE_ARRAY = new WeaponStructArray(
             DEMON_SCYTHE_ONE
     );
 
-    private static final WeaponStruct METEOR_BALL_ONE = new WeaponStruct(
+    private final WeaponStruct METEOR_BALL_ONE = new WeaponStruct(
             new Pair<>(15, 24),
             WeaponType.THROW,
             "In old folk tales, it is remoulded from meteor hammer by Warrior Yuan." +
@@ -52,11 +53,11 @@ public class WeaponData {
             "meteor ball"
     );
 
-    private static final WeaponStructArray METEOR_BALL_ARRAY = new WeaponStructArray(
+    private final WeaponStructArray METEOR_BALL_ARRAY = new WeaponStructArray(
             METEOR_BALL_ONE
     );
 
-    private static final WeaponStruct JUDGE_PENCIL_ONE = new WeaponStruct(
+    private final WeaponStruct JUDGE_PENCIL_ONE = new WeaponStruct(
             new Pair<>(10, 15),
             WeaponType.SMALL,
             "It is the judge used by 'The God of Death' Yama. " +
@@ -65,11 +66,11 @@ public class WeaponData {
             "judge's pencil"
     );
 
-    private static final WeaponStructArray JUDGE_PENCIL_ARRAY = new WeaponStructArray(
+    private final WeaponStructArray JUDGE_PENCIL_ARRAY = new WeaponStructArray(
             JUDGE_PENCIL_ONE
     );
 
-    public static final Map<WeaponIdentity, WeaponStructArray> ARSENAL = new HashMap<>(
+    private final Map<WeaponIdentity, WeaponStructArray> ARSENAL = new HashMap<>(
             Map.ofEntries(
                 Map.entry(WeaponIdentity.TRIDENT, TRIDENT_ARRAY),
                     Map.entry(WeaponIdentity.GAS_HAMMER, GAS_HAMMER_ARRAY),
@@ -78,4 +79,12 @@ public class WeaponData {
                     Map.entry(WeaponIdentity.JUDGE_PENCIL, JUDGE_PENCIL_ARRAY)
             )
     );
+
+    public WeaponStructArray get(WeaponIdentity identity) {
+        return ARSENAL.get(identity);
+    }
+
+    public WeaponStruct getWithStar(WeaponIdentity identity, int star) {
+        return ARSENAL.get(identity).withStar(star);
+    }
 }

@@ -7,12 +7,8 @@ import javafx.util.Pair;
 public class WeaponModel {
     private WeaponStruct data;
 
-    public WeaponModel(WeaponIdentity identity) {
-        this(identity, 1);
-    }
-
-    public WeaponModel(WeaponIdentity identity, int star) {
-        data = WeaponData.ARSENAL.get(identity).withStar(star);
+    public WeaponModel(WeaponStruct data) {
+        this.data = data;
     }
 
     public Pair getDamage() {

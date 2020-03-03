@@ -2,7 +2,6 @@ package bigfight.model.warrior;
 
 import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
-import bigfight.model.skill.SkillManager;
 
 import java.lang.Integer;
 
@@ -59,13 +58,22 @@ class WarriorTest {
     }
 
     @Test
-    void weapons_is_initialized() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
-        assertNotNull(warrior.getWeaponList());
+    void health_initialize_equal_to_health_data() {
+        final int TEST_HEALTH = 65;
+        DataGetter dataGetter = mock(DataGetter.class);
+        when(dataGetter.getInitialHealth()).thenReturn(TEST_HEALTH);
+        Warrior warrior = new Warrior(dataGetter);
+        assertEquals(TEST_HEALTH, warrior.getHealth());
     }
 
     @Test
-    void level_is_initialized_larger_than_1() {
+    void weapons_is_initialized() {
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+        assertNotNull(warrior.getWeaponManager());
+    }
+
+    @Test
+    void level_is_initialized_equal_to_1() {
         Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
         assertEquals(1, Integer.compare(warrior.getLevel(), 0));
     }
@@ -76,4 +84,9 @@ class WarriorTest {
         assertNotNull(warrior.getSkillManager());
     }
 
+    @Test
+    void test_level_up_correct() {
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+
+    }
 }

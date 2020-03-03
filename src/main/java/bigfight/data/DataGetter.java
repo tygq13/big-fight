@@ -10,4 +10,8 @@ public class DataGetter {
     public int getInitialAttributeTotal() {
         return dataConfig.getInitialAttributeTotal();
     }
+
+    public int getInitialHealth() {
+        return dataConfig.getInitialHealth();
+    }
 }

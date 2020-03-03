@@ -1,7 +1,7 @@
 package bigfight.model.warrior;
 
 import bigfight.data.DataGetter;
-import bigfight.model.weapon.WeaponList;
+import bigfight.model.weapon.WeaponManager;
 import bigfight.algo.BigFightAlgo;
 import bigfight.model.skill.SkillManager;
 
@@ -12,14 +12,16 @@ public class Warrior {
     private int strength;
     private int agility;
     private int level;
-    private WeaponList weaponList;
+    private int health;
+    private WeaponManager weaponManager;
     private SkillManager skillManager;
 
     public Warrior(DataGetter dataGetter) {
         this.dataGetter = dataGetter;
-        initializeAttributes();
-        weaponList = new WeaponList();
+        weaponManager = new WeaponManager();
         skillManager = new SkillManager();
+        initializeAttributes();
+        initializeHealth();
         level = 1;
     }
 
@@ -35,6 +37,10 @@ public class Warrior {
             strength += attributeList[1];
             agility += attributeList[2];
         }
+    }
+
+    private void initializeHealth() {
+        health = dataGetter.getInitialHealth();
     }
 
     public int getSpeed() {
@@ -53,8 +59,12 @@ public class Warrior {
         return level;
     }
 
-    public WeaponList getWeaponList() {
-        return weaponList;
+    public int getHealth() {
+        return health;
+    }
+
+    public WeaponManager getWeaponManager() {
+        return weaponManager;
     }
 
     public SkillManager getSkillManager() {
