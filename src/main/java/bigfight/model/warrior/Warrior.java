@@ -1,12 +1,15 @@
 package bigfight.model.warrior;
 
 import bigfight.data.DataGetter;
+import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.EmpowermentFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.algo.BigFightAlgo;
 import bigfight.model.skill.SkillManager;
 
 public class Warrior {
     private DataGetter dataGetter;
+    private EmpowermentFactory empowermentFactory;
 
     private int speed;
     private int strength;
@@ -16,12 +19,14 @@ public class Warrior {
     private WeaponManager weaponManager;
     private SkillManager skillManager;
 
-    public Warrior(DataGetter dataGetter) {
+    public Warrior(DataGetter dataGetter, EmpowermentFactory empowermentFactory) {
         this.dataGetter = dataGetter;
+        this.empowermentFactory = empowermentFactory;
         weaponManager = new WeaponManager();
         skillManager = new SkillManager();
         initializeAttributes();
         initializeHealth();
+        initializeFirstEmpowerment();
         level = 1;
     }
 
@@ -40,7 +45,15 @@ public class Warrior {
     }
 
     private void initializeHealth() {
-        health = dataGetter.getInitialHealth();
+        health   = dataGetter.getInitialHealth();
+    }
+
+    private void initializeFirstEmpowerment() {
+        Empowerment newEmpowerment =
+                empowermentFactory.randomGetNew(weaponManager.getWeaponList(), skillManager.getSkillMap());
+        if (newEmpowerment != null) {
+            newEmpowerment.addTo(weaponManager, skillManager);
+        }
     }
 
     public int getSpeed() {

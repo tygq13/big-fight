@@ -1,5 +1,6 @@
 package bigfight.model.weapon;
 
+import bigfight.model.warrior.component.EmpowermentFactory;
 import bigfight.model.weapon.struct.WeaponIdentity;
 
 public class  WeaponFactory {

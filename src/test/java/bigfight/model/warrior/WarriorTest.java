@@ -5,6 +5,8 @@ import bigfight.data.DataGetter;
 
 import java.lang.Integer;
 
+import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.EmpowermentFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,10 +15,12 @@ import static org.mockito.Mockito.*;
 
 class WarriorTest {
     private static DataGetter defaultDataGetter;
+    private static EmpowermentFactory dummyEmpowermentFactory;
 
     @BeforeAll
     static void setUp() {
         WarriorTest.defaultDataGetter = new DataGetter(new DataConfig());
+        WarriorTest.dummyEmpowermentFactory = mock(EmpowermentFactory.class);
     }
 
     // test involve random
@@ -26,7 +30,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(INITIAL_ATTRIBUTE_TOTAL);
-        Warrior warrior = new Warrior(dataGetter);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
         int total = warrior.getSpeed() + warrior.getStrength() + warrior.getAgility();
         assertEquals(dataGetter.getInitialAttributeTotal(), total);
     }
@@ -38,7 +42,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(BAD_INITIAL);
-        Warrior warrior = new Warrior(dataGetter);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
         assertEquals(1, warrior.getSpeed());
         assertEquals(1, warrior.getStrength());
         assertEquals(1, warrior.getAgility());
@@ -51,7 +55,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(SMALL_INITIAL_VALUE);
-        Warrior warrior = new Warrior(dataGetter);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
         assertEquals(1, Integer.compare(warrior.getSpeed(), 0));
         assertEquals(1, Integer.compare(warrior.getStrength(), 0));
         assertEquals(1, Integer.compare(warrior.getAgility(), 0));
@@ -62,31 +66,37 @@ class WarriorTest {
         final int TEST_HEALTH = 65;
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialHealth()).thenReturn(TEST_HEALTH);
-        Warrior warrior = new Warrior(dataGetter);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
         assertEquals(TEST_HEALTH, warrior.getHealth());
     }
 
     @Test
     void weapons_is_initialized() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
         assertNotNull(warrior.getWeaponManager());
     }
 
     @Test
     void level_is_initialized_equal_to_1() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
         assertEquals(1, Integer.compare(warrior.getLevel(), 0));
     }
 
     @Test
     void skills_set_are_initialized() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
         assertNotNull(warrior.getSkillManager());
     }
 
     @Test
-    void test_level_up_correct() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter);
+    void first_weapon_or_skill_is_gotten() {
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        int result = warrior.getSkillManager().getSize() + warrior.getWeaponManager().getSize();
+        assertEquals(1, result);
+    }
 
+    @Test
+    void test_level_up_correct() {
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
     }
 }

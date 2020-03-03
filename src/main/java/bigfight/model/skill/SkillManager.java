@@ -15,4 +15,12 @@ public class SkillManager {
     public Map<SkillIdentity, SkillModel> getSkillMap() {
         return skillMap;
     }
+
+    public void add(SkillModel model) {
+        skillMap.put(model.getIdentity(), model);
+    }
+
+    public int getSize() {
+        return skillMap.size();
+    }
 }

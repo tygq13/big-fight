@@ -1,6 +1,7 @@
 package bigfight;
 
 import bigfight.data.DataGetter;
+import bigfight.model.warrior.component.EmpowermentFactory;
 import bigfight.ui.Ui;
 import bigfight.command.FightCommand;
 import bigfight.model.warrior.WarriorFactory;
@@ -39,7 +40,7 @@ class MainTest {
     @Test
     void character_initialized() {
         mainRunning.run();
-        verify(warriorFactory, times(2)).create(any(DataGetter.class));
+        verify(warriorFactory, times(2)).create(any(DataGetter.class), any(EmpowermentFactory.class));
     }
 
     @Test

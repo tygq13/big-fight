@@ -13,6 +13,7 @@ public class WeaponManager {
         return weaponList;
     }
 
+    //todo: exception for repeated weapon
     public void add(Weapon weapon) {
         weaponList.add(weapon);
     }
