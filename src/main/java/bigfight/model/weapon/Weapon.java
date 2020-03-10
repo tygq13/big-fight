@@ -10,7 +10,7 @@ public class Weapon {
         this.model = model;
     }
 
-    public Pair getDamage() {
+    public Pair<Integer, Integer> getDamage() {
         return model.getDamage();
     }
 

@@ -7,6 +7,8 @@ public class DataConfig {
     private final int DEFAULT_INITIAL_HEALTH = 65;
     private int initialHealth;
 
+    public static final int DEFAULT_UNARMED_DAMAGE = 10;
+
     // initialize data set to default value
     public DataConfig() {
         initialAttributeTotal = DEFAULT_INITIAL_ATTRIBUTE_TOTAL;

@@ -8,16 +8,14 @@ import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.WeaponModel;
 
 public class Empowerment {
-    private SkillModel skill;
-    private Weapon weapon;
+    public SkillModel skill;
+    public Weapon weapon;
 
-    public Empowerment() {}
-
-    Empowerment(SkillModel model) {
+    public Empowerment(SkillModel model) {
         skill = model;
     }
 
-    Empowerment(Weapon model) {
+    public Empowerment(Weapon model) {
         weapon = model;
     }
 
@@ -29,5 +27,13 @@ public class Empowerment {
             // add to skill manager
             skillManager.add(skill);
         }
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public SkillModel getSkill() {
+        return skill;
     }
 }

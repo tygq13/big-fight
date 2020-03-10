@@ -5,8 +5,14 @@ import bigfight.data.DataGetter;
 
 import java.lang.Integer;
 
+import bigfight.model.skill.SkillFactory;
+import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.EmpowermentFactory;
+import bigfight.model.weapon.Weapon;
+import bigfight.model.weapon.WeaponFactory;
+import bigfight.model.weapon.struct.WeaponIdentity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,7 +96,16 @@ class WarriorTest {
 
     @Test
     void first_weapon_or_skill_is_gotten() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        // set up mocks
+        Weapon dummyWeapon = mock(Weapon.class);
+        SkillModel dummySkill = mock(SkillModel.class);
+        WeaponFactory mockWeaponFactory = mock(WeaponFactory.class);
+        when(mockWeaponFactory.create(any(WeaponIdentity.class))).thenReturn(dummyWeapon);
+        SkillFactory mockSkillFactory = mock(SkillFactory.class);
+        when(mockSkillFactory.create(any(SkillIdentity.class))).thenReturn(dummySkill);
+
+        // test
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, new EmpowermentFactory(mockWeaponFactory, mockSkillFactory));
         int result = warrior.getSkillManager().getSize() + warrior.getWeaponManager().getSize();
         assertEquals(1, result);
     }

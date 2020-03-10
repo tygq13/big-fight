@@ -9,7 +9,7 @@ public class WeaponManager {
         weaponList = new ArrayList<>();
     }
 
-    public ArrayList getWeaponList() {
+    public ArrayList<Weapon> getWeaponList() {
         return weaponList;
     }
 

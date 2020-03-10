@@ -48,7 +48,7 @@ public class WeaponData {
             new Pair<>(15, 24),
             WeaponType.THROW,
             "In old folk tales, it is remoulded from meteor hammer by Warrior Yuan." +
-                    "Increase opponent's escape by 15%",
+                    "Increase opponent's escape by 15% if hit",
             WeaponIdentity.METEOR_BALL,
             "meteor ball"
     );
