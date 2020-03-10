@@ -1,12 +1,12 @@
 # big-fight
 
-Big-Fight is a personal project to practice test-driven development. It is intended to be the simulation of the Chinese game "Q宠大乐斗".
-In the initial stage it will be a command-line text-based game. 
+**Big-Fight is a personal project to practice test-driven development. It is intended to be a simulation of the Chinese game "Q宠大乐斗".
+In the initial stage it will be a command-line text-based game.** 
 
 Cpy right issue: I once informally asked their management team for permission to simulate the game. If it violates any copyright, please contact me and I will turn the repo into private or remove it.
 
 ## The drive
-I was unsatisfied with the CS2113T project. At that time I discover that the game "Q宠大乐斗" which has text UI version and rich mechanism is pretty suitable for a practice project similar to that of CS2113T. After reading some books such as _xunit-test-pattern_ and _tdd-by-example_, I become a fan of tdd and want to try it.
+I was unsatisfied with the CS2113T project. After reading some books such as _xunit-test-pattern_ and _tdd-by-example_, I become a fan of tdd and want to try it. I wanted to do a practice project with more focus on code designing rather than framework or GUI. I picked up "Q宠大乐斗" for childhood memory and its rich mechanism.
 
 The good thing about a personal project is that there is no requirement and no deadline. Mostly importantly, I can be as intolerant to bad code as I like.
 
