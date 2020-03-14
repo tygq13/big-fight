@@ -64,4 +64,8 @@ public class FighterStatus {
     public double getIgnore() {
         return ignore;
     }
+
+    public Weapon getHoldingWeapon() {
+        return holdingWeapon;
+    }
 }

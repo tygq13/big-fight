@@ -1,6 +1,7 @@
 package bigfight.combat;
 
 import bigfight.combat.fighter.*;
+import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 
 import java.util.Random;
@@ -19,7 +20,7 @@ public class Combat {
         FighterStatus opponentStatus = new FighterStatus(opponent);
         int roundDecision = 0;
 
-        Random rand = new Random();
+        CombatRandom rand = new CombatRandom();
         while(heroStatus.getHealth() != 0 || opponentStatus.getHealth() != 0) {
             if (herosRound()) {
                 Empowerment empowerment = hero.SelectEmpowerment(rand);

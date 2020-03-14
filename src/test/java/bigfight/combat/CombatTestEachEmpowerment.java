@@ -2,6 +2,7 @@ package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillModel;
@@ -42,8 +43,8 @@ class CombatTestEachEmpowerment {
         FighterStatus fighter2 = getSimpleFixedFighter();
         SkillModel skill = defaultSkillFactory.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
-        Random random = mock(Random.class);
-        when(random.nextDouble()).thenReturn(NO_ESCAPE);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = 1;

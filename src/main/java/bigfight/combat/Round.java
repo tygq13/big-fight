@@ -1,40 +1,71 @@
 package bigfight.combat;
 
-import bigfight.combat.CombatAlgo;
+import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.util.CombatRandom;
+import bigfight.data.DataConfig;
 import bigfight.model.skill.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
-
-import java.util.Random;
+import bigfight.model.weapon.struct.WeaponType;
 
 public class Round {
     FighterStatus attacker;
     FighterStatus defender;
     Empowerment empowerment;
-    Random rand;
+    CombatRandom random;
 
-    public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, Random rand) {
+    public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random) {
         this.attacker = attacker;
         this.defender = defender;
         this.empowerment = empowerment;
-        this.rand = rand;
+        this.random = random;
     }
 
     public int fight() {
         int roundChange = roundChangeBySpeed(); // use random
         attacker.changeWeapon(empowerment);
+        if (throwWeapon()) {
+            int damage = calculateThrowDamage();
+            if (random.getAttackEscapeRandom() > calculateEscapeChance()) {
+                defender.updateHealth(defender.getHealth() - damage);
+            }
+            return roundChange;
+        }
         int damage = calculateDamage();
-        if (rand.nextDouble() > calculateEscapeChance()) {
+        if (random.getAttackEscapeRandom() > calculateEscapeChance()) {
+            // hit
             defender.updateHealth(defender.getHealth() - damage);
             roundChange += roundChangeSpecial();
+            // counter attack
+            if (random.getCounterAttackRandom() < DataConfig.COUNTER_ATTACK_CHANCE) {
+                if (random.getCounterEscapeRandom() > calculateCounterEscape()) {
+                    int counterDamage = calculateCounterDamage();
+                    attacker.updateHealth((attacker.getHealth() - counterDamage));
+                }
+            }
         }
+
         return roundChange;
     }
 
+    private boolean throwWeapon() {
+        if (empowerment.getWeapon() != null) {
+            Weapon weapon = empowerment.getWeapon();
+            return weapon.getType() == WeaponType.THROW || random.getThrowWeaponRandom() < DataConfig.THROW_WEAPON_CHANCE;
+        }
+        return  false;
+    }
+
+    private int calculateThrowDamage() {
+        double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility());
+        int weaponDamage =  empowerment.getWeapon().getDamage().getKey();
+        return (int) (weaponDamage * (1 + multiply));
+    }
+
     private int calculateDamage() {
-        double multiply = calculateStrengthMultiply();
+        double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength());
         if (empowerment.getWeapon() != null) {
             // attack using weapon
             Weapon weapon = empowerment.getWeapon();
@@ -52,23 +83,31 @@ public class Round {
         return (int) (attacker.getUnarmedDamage() * (1 + multiply));
     }
 
+    private int calculateCounterDamage() {
+        double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength());
+        Weapon weapon = defender.getHoldingWeapon();
+        int damage =  (weapon == null? defender.getUnarmedDamage() : weapon.getDamage().getKey());
+        return (int) (damage * (1 + multiply));
+    }
+
     private double calculateEscapeChance() {
        double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
         return escape;
     }
 
+    private double calculateCounterEscape() {
+        double escape = defender.getFocus() - attacker.getEscape();
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
+        return escape;
+    }
+
     private int roundChangeBySpeed() {
         double ignore = CombatAlgo.ignoreBySpeed(attacker.getSpeed(), defender.getSpeed());
-        if (rand.nextDouble() < ignore) {
+        if (random.getIgnoreRandom() < ignore) {
             return 1;
         }
         return 0;
-    }
-
-    private double calculateStrengthMultiply() {
-        double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength());
-        return multiply;
     }
 
     private int roundChangeSpecial() {

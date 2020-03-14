@@ -8,6 +8,8 @@ public class DataConfig {
     private int initialHealth;
 
     public static final int DEFAULT_UNARMED_DAMAGE = 10;
+    public static final double COUNTER_ATTACK_CHANCE = 0.2;
+    public static final double THROW_WEAPON_CHANCE = 0.1;
 
     // initialize data set to default value
     public DataConfig() {

@@ -1,4 +1,4 @@
-package bigfight.combat;
+package bigfight.combat.util;
 
 public class CombatAlgo {
 
@@ -10,6 +10,9 @@ public class CombatAlgo {
             ignore = 80;
         }
         ignore = ignore / 100.0;
+        if (ignore < 0) {
+            ignore = 0;
+        }
         return ignore;
     }
 
@@ -20,13 +23,29 @@ public class CombatAlgo {
             escape = 80;
         }
         escape = escape / 100.0;
+        if (escape < 0) {
+            escape = 0;
+        }
         return escape;
     }
 
     public static double multiplyByStrength(int first, int second) {
         double multiply = (first - second);
-        // no cap in strength
-        multiply = multiply / 100.0;
+        // no cap in strength, the multiply factor is 0.1%
+        multiply = multiply * 0.01;
+        if (multiply < 0) {
+            multiply = 0;
+        }
+        return multiply;
+    }
+
+    public static double multiplyByAgility(int first, int second) {
+        double multiply = (first - second);
+        // no cap in multiply, the multiply factor is 0.5%
+        multiply = multiply * 0.005;
+        if (multiply < 0) {
+            multiply = 0;
+        }
         return multiply;
     }
 }
