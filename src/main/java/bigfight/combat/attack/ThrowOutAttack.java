@@ -3,6 +3,7 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 
 public class ThrowOutAttack implements Attackable {
@@ -25,6 +26,10 @@ public class ThrowOutAttack implements Attackable {
             double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility() );
             defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
         }
+
+        // loss the weapon after throwing out
+        Weapon unarmed = null;
+        attacker.changeWeapon(new Empowerment(unarmed));
     }
 
     @Override

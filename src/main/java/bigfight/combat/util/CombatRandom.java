@@ -4,10 +4,14 @@ package bigfight.combat.util;
 import java.util.Random;
 
 public class CombatRandom extends Random{
-    Random random;
+    private Random random;
 
     public CombatRandom() {
         random = new Random();
+    }
+
+    public double getRoundRandom() {
+        return random.nextDouble();
     }
 
     public double getIgnoreRandom() {

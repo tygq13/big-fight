@@ -1,5 +1,6 @@
 package bigfight;
 
+import bigfight.combat.fighter.Fighter;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillManager;
@@ -14,13 +15,13 @@ import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 
 public class Main {
-    Ui ui;
-    FightCommand fightCommand;
-    WarriorFactory warriorFactory;
-    DataConfig dataConfig;
-    WeaponFactory weaponFactory;
-    SkillFactory skillFactory;
-    EmpowermentFactory empowermentFactory;
+    private Ui ui;
+    private FightCommand fightCommand;
+    private WarriorFactory warriorFactory;
+    private DataConfig dataConfig;
+    private WeaponFactory weaponFactory;
+    private SkillFactory skillFactory;
+    private EmpowermentFactory empowermentFactory;
 
     public Main() {
         ui = new Ui();
@@ -33,9 +34,10 @@ public class Main {
 
     public void run() {
         ui.showWelcome();
-        fightCommand.execute();
         Warrior mainCharacter = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory);
         Warrior npc = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory);
+        fightCommand = new FightCommand(new Fighter(mainCharacter), new Fighter(npc));
+        fightCommand.execute();
     }
 
     public static void main(String[] args) {

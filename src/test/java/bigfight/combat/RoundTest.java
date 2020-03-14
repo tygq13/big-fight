@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class RoundTest {
+class RoundTest {
     private final double NO_ESCAPE = 1.0;
     private final double NO_IGNORE = 0.0;
     private final double NO_THROW = 1.0;
@@ -183,5 +183,19 @@ public class RoundTest {
 
         new Round(fighter1, fighter2, empowerment, random).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
+    void round_throw_weapon_loss_weapon() {
+        final double THROW_WEAPON = 0.05;
+        FighterStatus fighter1 = getSimpleFixedFighter();
+        FighterStatus fighter2 = getSimpleFixedFighter();
+        Weapon weapon = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
+        Empowerment empowerment = new Empowerment(weapon);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);
+
+        new Round(fighter1, fighter2, empowerment, random).fight();
+        assertNull(fighter1.getHoldingWeapon());
     }
 }
