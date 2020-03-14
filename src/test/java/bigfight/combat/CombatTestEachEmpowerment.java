@@ -5,14 +5,12 @@ import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import org.junit.jupiter.api.Test;
-
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;

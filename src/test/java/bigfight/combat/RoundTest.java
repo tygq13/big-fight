@@ -7,7 +7,7 @@ import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;

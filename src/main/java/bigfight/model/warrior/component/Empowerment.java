@@ -2,10 +2,9 @@
 package bigfight.model.warrior.component;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponManager;
-import bigfight.model.weapon.WeaponModel;
 
 public class Empowerment {
     public SkillModel skill;

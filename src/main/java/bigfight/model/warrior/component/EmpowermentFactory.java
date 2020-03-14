@@ -1,6 +1,7 @@
 package bigfight.model.warrior.component;
 
 import bigfight.model.skill.*;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.weapon.*;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.skill.struct.SkillIdentity;

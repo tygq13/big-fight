@@ -1,9 +1,7 @@
 package bigfight.combat.fighter;
 
-import bigfight.combat.Combat;
-import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.Warrior;

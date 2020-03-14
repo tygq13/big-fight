@@ -4,9 +4,13 @@ import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 
 import java.lang.Integer;
+import java.util.ArrayList;
+import java.util.Map;
 
+import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.BornAsStrong;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.EmpowermentFactory;
@@ -113,5 +117,16 @@ class WarriorTest {
     @Test
     void test_level_up_correct() {
         Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+    }
+
+    @Test
+    void test_permanent_skill_correctly_add_to_attribute_example_BornAsStrong() {
+        BornAsStrong dummySkill = mock(BornAsStrong.class);
+        Empowerment empowerment = new Empowerment(dummySkill);
+        EmpowermentFactory mockFactory = mock(EmpowermentFactory.class);
+        when(mockFactory.randomGetNew(any(ArrayList.class), any(Map.class))).thenReturn(empowerment);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, mockFactory);
+        // after getting the skill, the attribute is at least 4
+        assertTrue(warrior.getStrength() >= 4);
     }
 }

@@ -15,13 +15,13 @@ import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 
 public class Main {
-    private Ui ui;
-    private FightCommand fightCommand;
-    private WarriorFactory warriorFactory;
-    private DataConfig dataConfig;
-    private WeaponFactory weaponFactory;
-    private SkillFactory skillFactory;
-    private EmpowermentFactory empowermentFactory;
+    Ui ui;
+    FightCommand fightCommand;
+    WarriorFactory warriorFactory;
+    DataConfig dataConfig;
+    WeaponFactory weaponFactory;
+    SkillFactory skillFactory;
+    EmpowermentFactory empowermentFactory;
 
     public Main() {
         ui = new Ui();

@@ -1,5 +1,6 @@
 package bigfight.model.skill;
 
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 
 import java.util.HashMap;

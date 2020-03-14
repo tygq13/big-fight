@@ -1,5 +1,6 @@
 package bigfight.model.skill;
 
+import bigfight.model.skill.skills.SkillModel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

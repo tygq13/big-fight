@@ -1,4 +1,4 @@
-package bigfight.model.skill;
+package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.*;
 

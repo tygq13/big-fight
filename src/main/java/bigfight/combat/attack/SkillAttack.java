@@ -1,10 +1,10 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.Combat;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.SkillModel;
+import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.*;
 
 public class SkillAttack implements Attackable {
     private FighterStatus attacker;
@@ -40,7 +40,8 @@ public class SkillAttack implements Attackable {
     public int getRoundChange() {
         switch (skill.getIdentity()) {
             case ROAR:
-                return 1;
+                Roar actualSkill = (Roar) skill;
+                return actualSkill.getIgnore();
             default:
                 return 0;
         }
@@ -52,6 +53,12 @@ public class SkillAttack implements Attackable {
     }
 
     private int getRoarDamage() {
-        return 15;
+        switch (skill.getIdentity()) {
+            case ROAR:
+                Roar actualSkill = (Roar) skill;
+                return actualSkill.getDamage();
+            default:
+                return 0;
+        }
     }
 }

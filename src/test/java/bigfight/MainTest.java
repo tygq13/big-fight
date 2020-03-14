@@ -19,30 +19,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MainTest {
-    @Mock Ui ui;
-    @Mock FightCommand FightCommand;
-    @Mock WarriorFactory warriorFactory;
-    @InjectMocks private Main mainRunning;
-
-    @Test
-    void ui_welcome() {
-        mainRunning.run();
-        verify(ui).showWelcome();
-    }
-
-
-    @Test
-    void fight_command() {
-        mainRunning.run();
-        verify(FightCommand).execute();
-    }
-
-    @Test
-    void character_initialized() {
-        mainRunning.run();
-        verify(warriorFactory, times(2)).create(any(DataGetter.class), any(EmpowermentFactory.class));
-    }
-
     @Test
     void dataConfig_initialized() {
         Main main = new Main();
