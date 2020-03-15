@@ -13,12 +13,5 @@ src/main/resources/docs/
 *.iml
 bin/
 
-# data file
-data/
-src/main/java/META-INF/MANIFEST.MF
-
-# Log files
-*.log
-*.log.*
-*.lck
-logs/
+# data test file
+/data/
