@@ -25,7 +25,9 @@ public class UnarmedAttack implements Attackable {
             int baseDamage = attacker.getUnarmedDamage();
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
             defender.updateHealth(defender.getHealth() - (int) (baseDamage * (1 + multiply)));
+            isEscaped = false;
         }
+        counterAttack();
     }
 
     @Override
@@ -33,8 +35,7 @@ public class UnarmedAttack implements Attackable {
         return 0;
     }
 
-    @Override
-    public void counterAttack() {
+    private void counterAttack() {
         int damage = new CounterAttack(defender, attacker, isEscaped, random).counterAttack();
         attacker.updateHealth(attacker.getHealth() - damage);
     }

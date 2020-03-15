@@ -28,6 +28,7 @@ public class BigTypeAttack implements Attackable{
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
             defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
         }
+        counterAttack();
     }
 
     @Override
@@ -35,8 +36,7 @@ public class BigTypeAttack implements Attackable{
         return 0;
     }
 
-    @Override
-    public void counterAttack() {
+    private void counterAttack() {
         int damage = new CounterAttack(defender, attacker, isEscaped, random).counterAttack();
         attacker.updateHealth(attacker.getHealth() - damage);
     }

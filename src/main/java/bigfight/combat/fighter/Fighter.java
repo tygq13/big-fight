@@ -3,13 +3,12 @@ package bigfight.combat.fighter;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.skill.struct.SkillType;
+import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.Warrior;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 public class Fighter {
@@ -19,7 +18,7 @@ public class Fighter {
     private int health;
     private int unarmedDamage;
     private ArrayList<Weapon> weaponList;
-    private ArrayList<SkillModel> skillList;
+    private SkillList skillList;
 
     public Fighter(Warrior warrior) {
         speed = warrior.getSpeed();
@@ -29,12 +28,8 @@ public class Fighter {
         unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
         weaponList = (ArrayList<Weapon>) warrior.getWeaponManager().getWeaponList().clone();
         // only get the active skills
-        skillList = new ArrayList<>();
-        for (Map.Entry<SkillIdentity, SkillModel> model: warrior.getSkillManager().getSkillMap().entrySet()) {
-            if (model.getValue().getType() != SkillType.PERMANENT) {
-                skillList.add(model.getValue());
-            }
-        }
+        skillList = new SkillList();
+        skillList.addNonPermanentFromMap(warrior.getSkillManager().getSkillMap());
     }
 
     public Empowerment SelectEmpowerment(Random random) {
@@ -73,5 +68,16 @@ public class Fighter {
 
     public int getUnarmedDamage() {
         return unarmedDamage;
+    }
+
+    public SkillList getPassiveSkills() {
+        SkillList result = new SkillList();
+        for(int i = 0; i < skillList.size(); i++) {
+            SkillModel model = skillList.get(i);
+            if (model.getIdentity() == SkillIdentity.APPARENT_DEATH) {
+                result.add(model);
+            }
+        }
+        return result;
     }
 }

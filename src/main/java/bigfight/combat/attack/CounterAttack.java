@@ -3,9 +3,11 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.ApparentDeath;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 
-public class CounterAttack {
+class CounterAttack {
     private FighterStatus defender;
     private FighterStatus attacker;
     private boolean isEscaped;
@@ -18,7 +20,20 @@ public class CounterAttack {
         this.random = random;
     }
 
-    public int counterAttack() {
+    boolean specialCounter() {
+        if (defender.getHealth() <= 0 && defender.hasSkill(SkillIdentity.APPARENT_DEATH)) {
+            ApparentDeath apparentDeath = (ApparentDeath) defender.getSkill(SkillIdentity.APPARENT_DEATH);
+            int lastHealth = apparentDeath.getLastHealth();
+            defender.updateHealth(lastHealth);
+            return true;
+        }
+        return false;
+    }
+
+    int counterAttack() {
+        if (specialCounter()) {
+            return 0;
+        }
         if (counterEscaped()) {
             // the counter attack is escaped
             return 0;
@@ -30,9 +45,9 @@ public class CounterAttack {
         }
     }
 
-    public boolean counterEscaped() {
+    private boolean counterEscaped() {
         double escape = defender.getFocus() - attacker.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        return random.getAttackEscapeRandom() < escape;
+        return random.getCounterEscapeRandom() < escape;
     }
 }

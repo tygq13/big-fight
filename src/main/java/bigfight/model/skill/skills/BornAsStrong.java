@@ -19,6 +19,6 @@ public class BornAsStrong extends SkillModel {
     }
 
     public int upgrade(int base) {
-        return base * (int) (getMultiply()) + getAddition();
+        return (int) (base * (getMultiply()) + getAddition());
     }
 }

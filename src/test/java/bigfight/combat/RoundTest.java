@@ -1,3 +1,4 @@
+// do functional test rather than unit test
 package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
@@ -63,7 +64,7 @@ class RoundTest {
         Weapon weapon = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
 
         // test
@@ -80,7 +81,7 @@ class RoundTest {
         SkillModel skill = defaultSkillFactory.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int DAMAGE = 15; // the damage of one start ROAR is fixed at 15.
@@ -95,7 +96,7 @@ class RoundTest {
         FighterStatus fighter2 = getSimpleFixedFighter();
         Empowerment empowerment = getUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         int EXPECTED_HEALTH = fighter2.getHealth() - fighter1.getUnarmedDamage();
         new Round(fighter1, fighter2, empowerment, random).fight();
@@ -125,7 +126,7 @@ class RoundTest {
         FighterStatus fighter2 = getCustomFighter(5, AGILITY2, 5, 100, 10);
         double escape = CombatAlgo.escapeByAgility(AGILITY1, AGILITY2);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getAttackEscapeRandom()).thenReturn(escape - Math.ulp(1));
+        when(random.getEscapeRandom()).thenReturn(escape - Math.ulp(1));
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         int EXPECTED_HEALTH = fighter2.getHealth(); // escaped, no damage done
 
@@ -141,7 +142,7 @@ class RoundTest {
         FighterStatus fighter2 = getCustomFighter(5, 5, STRENGTH2, 100, 10);
         double multiply = CombatAlgo.multiplyByStrength(STRENGTH1, STRENGTH2);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         int EXPECTED_HEALTH = fighter2.getHealth() - (int) (fighter1.getUnarmedDamage() * (1 + multiply));
 
@@ -157,7 +158,7 @@ class RoundTest {
         Empowerment empowerment = getUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK);
         when(random.getCounterEscapeRandom()).thenReturn(NO_ESCAPE);
 
@@ -177,7 +178,7 @@ class RoundTest {
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);
-        when(random.getAttackEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         double multiply = CombatAlgo.multiplyByAgility(fighter1.getAgility(), fighter2.getAgility());
         int EXPECTED_HEALTH = fighter2.getHealth() - (int) (weapon.getDamage().getKey() * (1 + multiply));
 

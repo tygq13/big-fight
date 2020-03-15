@@ -12,6 +12,7 @@ public class ThrowTypeAttack implements Attackable{
     private FighterStatus defender;
     private Weapon weapon;
     private CombatRandom random;
+    private boolean isEscaped;
 
     public ThrowTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random) {
         this.attacker = attacker;
@@ -24,10 +25,13 @@ public class ThrowTypeAttack implements Attackable{
     public void attack() {
         for (int i = 0; i < 2; i++) {
             if (!escaped()) {
+                isEscaped = false;
                 int weaponDamage = weapon.getDamage().getKey();
                 double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility());
                 defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
             }
+            isEscaped = true;
+            counterAttack();
         }
     }
 
@@ -36,8 +40,8 @@ public class ThrowTypeAttack implements Attackable{
         return 0;
     }
 
-    @Override
-    public void counterAttack() {
+    private void counterAttack() {
+        new CounterAttack(defender, attacker, isEscaped, random).specialCounter();
     }
 
     private boolean escaped() {

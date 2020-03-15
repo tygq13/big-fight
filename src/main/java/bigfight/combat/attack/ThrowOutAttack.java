@@ -11,6 +11,7 @@ public class ThrowOutAttack implements Attackable {
     private FighterStatus defender;
     private Weapon weapon;
     private CombatRandom random;
+    private boolean isEscaped;
 
     public ThrowOutAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random) {
         this.attacker = attacker;
@@ -25,15 +26,18 @@ public class ThrowOutAttack implements Attackable {
             int weaponDamage = weapon.getDamage().getKey();
             double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility() );
             defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
+            isEscaped = false;
         }
+        isEscaped = true;
 
         // loss the weapon after throwing out
         Weapon unarmed = null;
         attacker.changeWeapon(new Empowerment(unarmed));
+        counterAttack();
     }
 
-    @Override
-    public void counterAttack() {
+    private void counterAttack() {
+        new CounterAttack(defender, attacker, isEscaped, random).specialCounter();
     }
 
     @Override

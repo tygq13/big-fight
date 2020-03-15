@@ -26,6 +26,8 @@ import static org.mockito.Mockito.*;
 class WarriorTest {
     private static DataGetter defaultDataGetter;
     private static EmpowermentFactory dummyEmpowermentFactory;
+    private static SkillData defaultSkillDate = new SkillData();
+    private static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillDate);
 
     @BeforeAll
     static void setUp() {
@@ -121,12 +123,12 @@ class WarriorTest {
 
     @Test
     void test_permanent_skill_correctly_add_to_attribute_example_BornAsStrong() {
-        BornAsStrong dummySkill = mock(BornAsStrong.class);
-        Empowerment empowerment = new Empowerment(dummySkill);
+        BornAsStrong bornAsStrong = (BornAsStrong) defaultSkillFactory.create(SkillIdentity.BORN_AS_STRONG);
+        Empowerment empowerment = new Empowerment(bornAsStrong);
         EmpowermentFactory mockFactory = mock(EmpowermentFactory.class);
         when(mockFactory.randomGetNew(any(ArrayList.class), any(Map.class))).thenReturn(empowerment);
         Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, mockFactory);
-        // after getting the skill, the attribute is at least 4
+        // after getting the skill, the attribute is at least 4, bad test though
         assertTrue(warrior.getStrength() >= 4);
     }
 }

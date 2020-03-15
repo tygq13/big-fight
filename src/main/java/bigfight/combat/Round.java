@@ -44,7 +44,6 @@ public class Round {
         if (attack != null) {
             attack.attack();
             roundChange += attack.getRoundChange();
-            attack.counterAttack();
         }
         return roundChange;
     }

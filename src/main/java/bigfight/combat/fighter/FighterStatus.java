@@ -1,5 +1,8 @@
 package bigfight.combat.fighter;
 
+import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 
@@ -10,6 +13,7 @@ public class FighterStatus {
     private int health;
     private int unarmedDamage;
     private Weapon holdingWeapon;
+    private SkillList passiveSkills;
     private double escape;
     private double ignore;
     private double focus;
@@ -20,6 +24,7 @@ public class FighterStatus {
         agility = fighter.getAgility();
         health = fighter.getHealth();
         unarmedDamage = fighter.getUnarmedDamage();
+        passiveSkills = fighter.getPassiveSkills();
         escape = 0;
         ignore = 0;
         focus = 0;
@@ -67,5 +72,17 @@ public class FighterStatus {
 
     public Weapon getHoldingWeapon() {
         return holdingWeapon;
+    }
+
+    public boolean hasSkill(SkillIdentity identity) {
+        return passiveSkills.contains(identity);
+    }
+
+    public SkillModel getSkill(SkillIdentity identity) {
+        return passiveSkills.get(identity);
+    }
+
+    public void removeSkill(SkillIdentity identity) {
+        passiveSkills.remove(identity);
     }
 }

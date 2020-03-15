@@ -22,10 +22,6 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
-    public double getAttackEscapeRandom() {
-        return random.nextDouble();
-    }
-
     public double getCounterAttackRandom() {
         return random.nextDouble();
     }

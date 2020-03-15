@@ -11,6 +11,7 @@ public class SkillAttack implements Attackable {
     private FighterStatus defender;
     private SkillModel skill;
     private CombatRandom random;
+    private boolean isEscaped;
 
     public SkillAttack(FighterStatus attacker, FighterStatus defender, SkillModel skill, CombatRandom random) {
         this.attacker = attacker;
@@ -27,13 +28,16 @@ public class SkillAttack implements Attackable {
         int damage = 0;
         if (random.getEscapeRandom() < escape) {
             // escaped
+            isEscaped = true;
             return;
         }
+        isEscaped = false;
         switch (skill.getIdentity()) {
             case ROAR:
                 damage = getRoarDamage();
         }
         defender.updateHealth(defender.getHealth() - damage);
+        counterAttack();
     }
 
     @Override
@@ -47,9 +51,8 @@ public class SkillAttack implements Attackable {
         }
     }
 
-    @Override
-    public void counterAttack() {
-        // skill well not be counter attacked
+    private void counterAttack() {
+        new CounterAttack(defender, attacker, isEscaped, random).specialCounter();
     }
 
     private int getRoarDamage() {
