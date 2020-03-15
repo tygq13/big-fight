@@ -16,9 +16,17 @@ public class SkillList {
         skillList.add(model);
     }
 
-    public void addNonPermanentFromMap(Map<SkillIdentity, SkillModel> skillMap) {
+    public void addActiveFromMap(Map<SkillIdentity, SkillModel> skillMap) {
         for (Map.Entry<SkillIdentity, SkillModel> model: skillMap.entrySet()) {
-            if (model.getValue().getType() != SkillType.PERMANENT) {
+            if (model.getValue().getType() == SkillType.ACTIVE) {
+                skillList.add(model.getValue());
+            }
+        }
+    }
+
+    public void addSpecialFromMap(Map<SkillIdentity, SkillModel> skillMap) {
+        for (Map.Entry<SkillIdentity, SkillModel> model: skillMap.entrySet()) {
+            if (model.getValue().getType() == SkillType.SPECIAL) {
                 skillList.add(model.getValue());
             }
         }
@@ -52,10 +60,14 @@ public class SkillList {
     }
 
     public void remove(SkillIdentity identity) {
+        SkillModel toRemove = null;
         for(SkillModel model: skillList) {
             if (model.getIdentity() == identity) {
-                skillList.remove(model);
+                toRemove = model;
             }
+        }
+        if (toRemove != null) {
+            skillList.remove(toRemove);
         }
     }
 }

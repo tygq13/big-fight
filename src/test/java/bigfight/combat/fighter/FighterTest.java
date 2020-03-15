@@ -39,10 +39,10 @@ class FighterTest {
 
     @Test
     void selectEmpowerment_weapon_is_discarded_after_selected() {
+        final int SELECT_WEAPON = 0;
         Warrior mockWarrior = twoWeaponWarrior();
-        // next random number to be zero so that a weapon will be selected
         Random random = mock(Random.class);
-        when(random.nextInt()).thenReturn(0);
+        when(random.nextInt()).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
         test.SelectEmpowerment(random);
@@ -52,9 +52,10 @@ class FighterTest {
 
     @Test
     void selectEmpowerment_successfully_return_not_null() {
+        final int SELECT_WEAPON = 0;
         Warrior mockWarrior = twoWeaponWarrior();
         Random random = mock(Random.class);
-        when(random.nextInt()).thenReturn(0);
+        when(random.nextInt()).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
         Empowerment empowerment = test.SelectEmpowerment(random);

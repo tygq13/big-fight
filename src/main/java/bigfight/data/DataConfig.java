@@ -1,5 +1,7 @@
 package bigfight.data;
 
+import bigfight.model.weapon.struct.Damage;
+
 public class DataConfig {
     private final int DEFAULT_INITIAL_ATTRIBUTE_TOTAL = 10;
     private int initialAttributeTotal;
@@ -7,7 +9,7 @@ public class DataConfig {
     private final int DEFAULT_INITIAL_HEALTH = 65;
     private int initialHealth;
 
-    public static final int DEFAULT_UNARMED_DAMAGE = 10;
+    public static final Damage DEFAULT_UNARMED_DAMAGE = new Damage(10, 20);
     public static final double COUNTER_ATTACK_CHANCE = 0.2;
     public static final double THROW_WEAPON_CHANCE = 0.1;
 

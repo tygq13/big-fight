@@ -7,6 +7,7 @@ import bigfight.model.skill.skills.BornAsStrong;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.component.*;
+import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.algo.BigFightAlgo;
 import bigfight.model.skill.SkillManager;
@@ -111,5 +112,18 @@ public class Warrior {
 
     public SkillManager getSkillManager() {
         return skillManager;
+    }
+
+    @Override
+    public String toString() {
+        String result = String.format("Fighter name: %s\n", name)
+                + String.format("Level: %d\n", level)
+                + String.format("Strength: %d\n", strength.value())
+                + String.format("Agility %d\n", agility.value())
+                + String.format("Speed %d\n", speed.value())
+                + String.format("Health %d\n", health);
+        result += "Weapons: " + weaponManager.toString() + System.lineSeparator();
+        result += "Skills: " + skillManager.toString() + System.lineSeparator();
+        return result;
     }
 }

@@ -22,7 +22,7 @@ public class Round {
     }
 
     public int fight() {
-        int roundChange = roundChangeBySpeed(); // use random
+        int roundChange = roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         Attackable attack = null;
         if (empowerment.getSkill() != null) {

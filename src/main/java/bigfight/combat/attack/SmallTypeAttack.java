@@ -22,18 +22,18 @@ public class SmallTypeAttack implements Attackable{
 
     @Override
     public void attack() {
-        String attackString = String.format("%s stand still, suddenly pocketing out a small weapon %s stabbing" +
-                "towards the center of the opponent", attacker.getName(), weapon.getName());
+        String attackString = String.format("%s stand still, suddenly pocketing out a small weapon %s stabbing " +
+                "towards the center of the opponent. ", attacker.getName(), weapon.getName());
         if (escaped()) {
-            attackString += String.format("%s dances in the air, twisting his body and dodge the attack", defender.getName());
+            attackString += String.format("%s dances in the air, twisting his body and dodge the attack. ", defender.getName());
 
             isEscaped = true;
         } else {
-            int weaponDamage = weapon.getDamage().getKey();
+            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
             int damage = (int) (weaponDamage * (1 + multiply));
             defender.updateHealth(defender.getHealth() - damage);
-            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains)",
+            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains). ",
                     defender.getName(), damage, defender.getHealth());
         }
         System.out.println(attackString);

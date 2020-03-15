@@ -4,8 +4,6 @@ import bigfight.combat.fighter.*;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 
-import java.util.Random;
-
 public class Combat {
     private Fighter hero;
     private Fighter opponent;
@@ -23,13 +21,23 @@ public class Combat {
         CombatRandom rand = new CombatRandom();
         while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
             if (heroRound(roundDecision, rand)) {
+                roundDecision -= 1;
                 Empowerment empowerment = hero.SelectEmpowerment(rand);
                 roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand).fight();
+                if (roundDecision == 0) {
+                    // no ignore from the hero's side
+                    roundDecision -= 1;
+                }
             } else {
+                roundDecision += 1;
                 Empowerment empowerment = opponent.SelectEmpowerment(rand);
-                roundDecision += new Round(opponentStatus, heroStatus, empowerment, rand).fight();
+                roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand).fight();
+                if (roundDecision == 0) {
+                    // no ignore from the hero's side
+                    roundDecision += 1;
+                }
             }
-            roundDecision = nextRound(roundDecision);
+            System.out.print(System.lineSeparator());
         }
         return opponentStatus.getHealth() <= 0;
     }
@@ -46,16 +54,6 @@ public class Combat {
         } else {
             // 50-50 chance for both sides
             return rand.getRoundRandom() < 0.5;
-        }
-    }
-
-    private int nextRound(int roundDecision) {
-        if (roundDecision > 0) {
-            return roundDecision - 1;
-        } else if (roundDecision < 0) {
-            return roundDecision + 1;
-        } else {
-            return roundDecision;
         }
     }
 }

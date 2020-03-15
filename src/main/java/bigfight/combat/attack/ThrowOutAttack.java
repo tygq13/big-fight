@@ -25,19 +25,19 @@ public class ThrowOutAttack implements Attackable {
 
     @Override
     public void attack() {
-        String attackString = String.format("%s hurl his weapon %s, pointing towards the head of the opponent.",
+        String attackString = String.format("%s hurl his weapon %s, pointing towards the head of the opponent. ",
                 attacker.getName(), weapon.getName());
         if (!escaped()) {
-            int weaponDamage = weapon.getDamage().getKey();
+            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
             double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility() );
             int damage = (int) (weaponDamage * (1 + multiply));
             defender.updateHealth(defender.getHealth() - damage);
-            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains)",
+            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains). ",
                     defender.getName(), damage, defender.getHealth());
             isEscaped = false;
         }
         isEscaped = true;
-        attackString += String.format("%s dances in the air, twisting his body and dodge the attack", defender.getName());
+        attackString += String.format("%s dances in the air, twisting his body and dodge the attack. ", defender.getName());
 
         // loss the weapon after throwing out
         Weapon unarmed = null;

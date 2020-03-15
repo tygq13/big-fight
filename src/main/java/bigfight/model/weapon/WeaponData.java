@@ -9,7 +9,7 @@ import java.util.Map;
 public class WeaponData {
     // public for test use, might be wise to refactor this
     private final WeaponStruct TRIDENT_ONE = new WeaponStruct(
-            new Pair<>(25, 50),
+            new Damage(25, 50),
             WeaponType.BIG,
             "'The Emperor of Sea' Poseidon's most powerful trident. Need to rest for one round.",
             WeaponIdentity.TRIDENT,
@@ -21,7 +21,7 @@ public class WeaponData {
     );
 
     private final WeaponStruct GAS_HAMMER_ONE = new WeaponStruct(
-            new Pair<>(25, 50),
+            new Damage(25, 50),
             WeaponType.BIG,
             "When you get naughty, you will be hit by this hammer. 10% chance ignore opponent's round",
             WeaponIdentity.GAS_HAMMER,
@@ -33,7 +33,7 @@ public class WeaponData {
     );
 
     private final WeaponStruct DEMON_SCYTHE_ONE = new WeaponStruct(
-            new Pair<>(15, 25),
+            new Damage(15, 25),
             WeaponType.BIG,
             "Mysterious magic makes it your eyes focus on it. Inescapable. Uncounterattackable.",
             WeaponIdentity.DEMON_SCYTHE,
@@ -45,7 +45,7 @@ public class WeaponData {
     );
 
     private final WeaponStruct METEOR_BALL_ONE = new WeaponStruct(
-            new Pair<>(15, 24),
+            new Damage(15, 24),
             WeaponType.THROW,
             "In old folk tales, it is remoulded from meteor hammer by Warrior Yuan." +
                     "Increase opponent's escape by 15% if hit",
@@ -58,7 +58,7 @@ public class WeaponData {
     );
 
     private final WeaponStruct JUDGE_PENCIL_ONE = new WeaponStruct(
-            new Pair<>(10, 15),
+            new Damage(10, 15),
             WeaponType.SMALL,
             "It is the judge used by 'The God of Death' Yama. " +
                     "When pointed by it, no livings or the dead can escape. Inescapable.",

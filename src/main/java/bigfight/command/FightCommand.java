@@ -13,6 +13,11 @@ public class FightCommand {
 
     public void execute() {
         Combat combat = new Combat(fighter1, fighter2);
-        combat.start();
+        boolean isWin = combat.start();
+        if (Boolean.TRUE.equals(isWin)) {
+            System.out.println(String.format("%s has won.", fighter1.getName()));
+        } else {
+            System.out.println(String.format("%s has won.", fighter2.getName()));
+        }
     }
 }

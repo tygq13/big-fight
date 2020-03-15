@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class SkillModelTest {
 
     void model_initialization_and_access_with_example_born_as_strong() {
-        // rely on the correctness of this struct and the existence of SkillType.DAMAGE and SkillIdentity.BORN_AS_STRONG
+        // rely on the correctness of this struct and the existence of SkillType.ACTIVE and SkillIdentity.BORN_AS_STRONG
         SkillStruct testStruct = new SkillStruct(
-                SkillType.DAMAGE,
+                SkillType.ACTIVE,
                 "test",
                 SkillIdentity.BORN_AS_STRONG,
                 "test"

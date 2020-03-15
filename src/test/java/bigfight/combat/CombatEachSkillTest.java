@@ -14,9 +14,11 @@ import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
+import bigfight.model.weapon.struct.Damage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +36,7 @@ class CombatEachSkillTest {
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getUnarmedDamage()).thenReturn(10);
+        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10,10));
         return new FighterStatus(modelFighter);
     }
 
@@ -79,6 +81,7 @@ class CombatEachSkillTest {
         FighterStatus test = getDyingFighterWithApparentDeath();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
 
         new Round(fighter1, test, getUnarmedEmpowerment(), random).fight();
         final int EXPECTED_HEALTH_LEFT = 1;

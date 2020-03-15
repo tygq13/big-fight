@@ -17,7 +17,7 @@ class WeaponModelTest {
     void model_initialized_by_WeaponStruct_and_accessible() {
         // rely on correct construction of WeaponStruct with the existence of WeaponType.SMALL and WeaponIdentity.TRIDENT
         WeaponStruct testStruct = new WeaponStruct(
-                new Pair<>(1, 1),
+                new Damage(1, 1),
                 WeaponType.SMALL,
                 "test",
                 WeaponIdentity.TRIDENT,

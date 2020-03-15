@@ -11,7 +11,7 @@ public class Weapon {
         this.model = model;
     }
 
-    public Pair<Integer, Integer> getDamage() {
+    public Damage getDamage() {
         return model.getDamage();
     }
 

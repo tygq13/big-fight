@@ -7,10 +7,12 @@ import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
+import bigfight.model.weapon.struct.Damage;
 import bigfight.model.weapon.struct.WeaponIdentity;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +31,7 @@ class CombatEachWeaponTest {
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getUnarmedDamage()).thenReturn(10);
+        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new FighterStatus(modelFighter);
     }
 
@@ -39,7 +41,7 @@ class CombatEachWeaponTest {
         when(modelFighter.getAgility()).thenReturn(agility);
         when(modelFighter.getStrength()).thenReturn(strength);
         when(modelFighter.getHealth()).thenReturn(health);
-        when(modelFighter.getUnarmedDamage()).thenReturn(unarmed);
+        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(unarmed, unarmed));
         return new FighterStatus(modelFighter);
     }
 
@@ -103,8 +105,9 @@ class CombatEachWeaponTest {
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(demonScythe.getDamage().lower());
 
-        final int EXPECTED = fighter2.getHealth() - demonScythe.getDamage().getKey();
+        final int EXPECTED = fighter2.getHealth() - demonScythe.getDamage().lower();
         new Round(fighter1, fighter2, empowerment, random).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
         when(random.getThrowWeaponRandom()).thenReturn(THROW);
@@ -124,8 +127,9 @@ class CombatEachWeaponTest {
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(judgePencil.getDamage().lower());
 
-        final int EXPECTED = fighter2.getHealth() - judgePencil.getDamage().getKey();
+        final int EXPECTED = fighter2.getHealth() - judgePencil.getDamage().lower();
         // case of normal attack
         new Round(fighter1, fighter2, empowerment, random).fight();
         assertEquals(EXPECTED, fighter2.getHealth());

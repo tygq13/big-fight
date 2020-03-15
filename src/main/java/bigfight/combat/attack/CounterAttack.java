@@ -38,22 +38,25 @@ class CounterAttack {
             return 0;
         }
         if (random.getCounterAttackRandom() < DataConfig.COUNTER_ATTACK_CHANCE) {
-            return 0;
+            Weapon weapon = defender.getHoldingWeapon();
+            String counterString = String.format("%s skillfully counter-attacks with %s. ", defender.getName(), weapon == null ? "his fist" : weapon.getName());
+            if (counterEscaped()) {
+                // the counter attack is escaped
+                counterString += String.format("%s carefully dodge the counter-attack. ", attacker.getName());
+                System.out.println(counterString);
+                return 0;
+            } else {
+                double multiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
+                // no multiply whatsoever
+                int damage =  (weapon == null
+                        ? random.getWeaponDamageRandom(defender.getUnarmedDamage().lower(), defender.getUnarmedDamage().higher())
+                        : random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher()));
+                counterString += String.format("%s neglect the defence the lose HP %d (HP %d remains). ", attacker.getName(), damage, attacker.getHealth());
+                System.out.println(counterString);
+                return (int) (damage * (1 + multiply));
+            }
         }
-        Weapon weapon = defender.getHoldingWeapon();
-        String counterString = String.format("%s skillfully counter-attacks with %s.", defender.getName(), weapon == null ? "his fist" : weapon.getName());
-        if (counterEscaped()) {
-            // the counter attack is escaped
-            counterString += String.format("%s carefully dodge the counter-attack.", attacker.getName());
-            System.out.println(counterString);
-            return 0;
-        } else {
-            double multiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
-            int damage =  (weapon == null? defender.getUnarmedDamage() : weapon.getDamage().getKey());
-            counterString += String.format("%s neglect the defence the lose HP %d (HP %d remains)", attacker.getName(), damage, attacker.getHealth());
-            System.out.println(counterString);
-            return (int) (damage * (1 + multiply));
-        }
+        return 0;
     }
 
     private boolean counterEscaped() {

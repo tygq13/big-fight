@@ -48,7 +48,7 @@ public class SkillData {
     );
 
     private final SkillStruct ROAR_ONE = new SkillStruct(
-            SkillType.DAMAGE,
+            SkillType.ACTIVE,
             "Your fierce roar scares enemies away.\n" +
                     "Ignore opponent's next round if hit. Cause damage 15.",
             SkillIdentity.ROAR,

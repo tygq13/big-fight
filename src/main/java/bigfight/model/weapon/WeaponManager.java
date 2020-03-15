@@ -21,4 +21,16 @@ public class WeaponManager {
     public int getSize() {
         return weaponList.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (Weapon weapon : weaponList) {
+            result.append(weapon.getName()).append(", ");
+        }
+        if (result.length() > 0) {
+            result.delete(result.length() - 2, result.length());
+        }
+        return result.toString();
+    }
 }

@@ -24,4 +24,16 @@ public class SkillManager {
     public int getSize() {
         return skillMap.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for(Map.Entry<SkillIdentity, SkillModel> skill : skillMap.entrySet()) {
+            result.append(skill.getValue().getName()).append(", ");
+        }
+        if (result.length() > 0) {
+            result.delete(result.length() - 2, result.length());
+        }
+        return result.toString();
+    }
 }

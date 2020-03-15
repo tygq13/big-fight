@@ -22,6 +22,10 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
+    public int getWeaponDamageRandom(int lower, int higher) {
+        return lower + nextInt(higher - lower);
+    }
+
     public double getEscapeRandom() {
         return random.nextDouble();
     }

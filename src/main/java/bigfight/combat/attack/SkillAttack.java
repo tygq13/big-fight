@@ -26,9 +26,9 @@ public class SkillAttack implements Attackable {
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         int damage = 0;
-        String attackString = String.format("%s roar in anger, as if the king of beasts to scare the enemy away", attacker.getName());
+        String attackString = String.format("%s roar in anger, as if the king of beasts to scare the enemy away. ", attacker.getName());
         if (random.getEscapeRandom() < escape) {
-            attackString += String.format("%s sums up his courage and seems unaffected by the attack", defender.getName());
+            attackString += String.format("%s sums up his courage and seems unaffected by the attack. ", defender.getName());
             // escaped
             isEscaped = true;
             System.out.println(attackString);
@@ -40,7 +40,7 @@ public class SkillAttack implements Attackable {
                 damage = getRoarDamage();
         }
         defender.updateHealth(defender.getHealth() - damage);
-        attackString += String.format("%s quivers and lose HP %d (HP %d remains)", defender.getName(), damage, defender.getHealth());
+        attackString += String.format("%s quivers and lose HP %d (HP %d remains). ", defender.getName(), damage, defender.getHealth());
         System.out.println(attackString);
         counterAttack();
     }

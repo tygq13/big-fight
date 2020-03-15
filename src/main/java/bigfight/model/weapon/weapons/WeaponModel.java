@@ -11,7 +11,7 @@ public class WeaponModel {
         this.data = data;
     }
 
-    public Pair getDamage() {
+    public Damage getDamage() {
         return data.damage;
     }
 
