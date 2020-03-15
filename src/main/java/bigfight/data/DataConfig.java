@@ -14,6 +14,7 @@ public class DataConfig {
     // initialize data set to default value
     public DataConfig() {
         initialAttributeTotal = DEFAULT_INITIAL_ATTRIBUTE_TOTAL;
+        initialHealth = DEFAULT_INITIAL_HEALTH;
     }
 
 

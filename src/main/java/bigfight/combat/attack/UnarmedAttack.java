@@ -18,14 +18,22 @@ public class UnarmedAttack implements Attackable {
 
     @Override
     public void attack() {
+        String attackString = String.format("%s's body light as swallow, running towards the opponent in quick step " +
+                "and attack with cannon fist", attacker.getName());
         if (escaped()) {
+            attackString += String.format("%s dances in the air, twisting his body and dodge the attack", defender.getName());
+
             isEscaped = true;
         } else {
             int baseDamage = attacker.getUnarmedDamage();
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            defender.updateHealth(defender.getHealth() - (int) (baseDamage * (1 + multiply)));
+            int damage = (int) (baseDamage * (1 + multiply));
+            defender.updateHealth(defender.getHealth() - damage);
+            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains)",
+                    defender.getName(), damage, defender.getHealth());
             isEscaped = false;
         }
+        System.out.println(attackString);
         counterAttack();
     }
 

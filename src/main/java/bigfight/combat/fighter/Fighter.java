@@ -19,8 +19,10 @@ public class Fighter {
     private int unarmedDamage;
     private ArrayList<Weapon> weaponList;
     private SkillList skillList;
+    private String name;
 
     public Fighter(Warrior warrior) {
+        name = warrior.getName();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
         agility = warrior.getAgility();
@@ -33,17 +35,28 @@ public class Fighter {
     }
 
     public Empowerment SelectEmpowerment(Random random) {
-        int weaponOrSkill = random.nextInt(weaponList.size() + skillList.size());
-        if (weaponOrSkill >= weaponList.size()) {
+        int totalSize = weaponList.size() + skillList.size();
+        int weaponOrSkill = totalSize > 0 ? random.nextInt(totalSize) : 0;
+        Empowerment empowerment = null;
+        if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
+            // create weapon
+            int luckyDraw = random.nextInt(weaponList.size());
+            empowerment = new Empowerment(weaponList.get(luckyDraw));
+            weaponList.remove(luckyDraw);
+        } else if (skillList.size() > 0){
             // create skills
             int luckyDraw = random.nextInt(skillList.size());
-            return new Empowerment(skillList.get(luckyDraw));
+            empowerment =  new Empowerment(skillList.get(luckyDraw));
         } else {
-            int luckyDraw = random.nextInt(weaponList.size());
-            Empowerment empowerment = new Empowerment(weaponList.get(luckyDraw));
-            weaponList.remove(luckyDraw);
-            return empowerment;
+            // create unarmed
+            Weapon weapon = null;
+            empowerment = new Empowerment(weapon);
         }
+        return empowerment;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getWeaponSize() {

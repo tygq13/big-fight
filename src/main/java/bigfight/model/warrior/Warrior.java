@@ -14,6 +14,7 @@ import bigfight.model.skill.SkillManager;
 public class Warrior {
     private DataGetter dataGetter;
     private EmpowermentFactory empowermentFactory;
+    private String name;
 
     private Speed speed;
     private Agility agility;
@@ -23,9 +24,10 @@ public class Warrior {
     private WeaponManager weaponManager;
     private SkillManager skillManager;
 
-    public Warrior(DataGetter dataGetter, EmpowermentFactory empowermentFactory) {
+    public Warrior(DataGetter dataGetter, EmpowermentFactory empowermentFactory, String name) {
         this.dataGetter = dataGetter;
         this.empowermentFactory = empowermentFactory;
+        this.name = name;
         weaponManager = new WeaponManager();
         skillManager = new SkillManager();
         initializeAttributes();
@@ -77,6 +79,10 @@ public class Warrior {
                 }
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getSpeed() {

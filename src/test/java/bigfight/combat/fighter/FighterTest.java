@@ -13,12 +13,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class FighterTest {
+class FighterTest {
 
     private Warrior twoWeaponWarrior() {
         ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
         weaponList.add(mock(Weapon.class));
         weaponList.add(mock(Weapon.class));
+        WeaponManager mockManager = mock(WeaponManager.class);
+        when(mockManager.getWeaponList()).thenReturn(weaponList);
+        Warrior mockWarrior = mock(Warrior.class);
+        when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
+        when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));
+        return mockWarrior;
+    }
+
+    private Warrior noEmpowermentWarrior() {
+        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
         WeaponManager mockManager = mock(WeaponManager.class);
         when(mockManager.getWeaponList()).thenReturn(weaponList);
         Warrior mockWarrior = mock(Warrior.class);
@@ -48,8 +58,16 @@ public class FighterTest {
 
         Fighter test = new Fighter(mockWarrior);
         Empowerment empowerment = test.SelectEmpowerment(random);
-        assertNotNull(empowerment);
+        assertNotNull(empowerment.getWeapon());
     }
 
-    //todo: test selectEmpwerment has good randomisation
+    @Test
+    void selectEmpowerment_gives_unarmed_when_no_weapon_or_skill() {
+        Warrior mockWarrior = noEmpowermentWarrior();
+        Random random = mock(Random.class);
+        Fighter test = new Fighter(mockWarrior);
+        Empowerment empowerment = test.SelectEmpowerment(random);
+        assertNull(empowerment.getWeapon());
+        assertNull(empowerment.getSkill());
+    }
 }

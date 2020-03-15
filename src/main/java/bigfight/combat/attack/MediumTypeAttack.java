@@ -21,13 +21,19 @@ public class MediumTypeAttack implements Attackable{
 
     @Override
     public void attack() {
+        String attackString = String.format("%s hold your breath and prepare to attack, then you wield the medium weapon %s" +
+                "rush towards the opponent", attacker.getName(), weapon.getName());
         if (escaped()) {
             isEscaped = true;
+            attackString += "The enemy dances in the air, twisting his body and dodge the attack";
         } else {
             int weaponDamage = weapon.getDamage().getKey();
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
+            int damage = (int) (weaponDamage * (1 + multiply));
+            defender.updateHealth(defender.getHealth() - damage);
+            attackString += String.format("The enemy covers his wound in pain, losing HP %d (HP %d remains)", damage, defender.getHealth());
         }
+        System.out.println(attackString);
         counterAttack();
     }
 

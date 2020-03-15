@@ -22,13 +22,22 @@ public class ThrowTypeAttack implements Attackable{
     @Override
     public void attack() {
         for (int i = 0; i < 2; i++) {
+            String attackString = String.format("%s swing a circle the weapon %s. The %s fleets towards the opponent",
+                    attacker.getName(), weapon.getName(), weapon.getName());
             if (!escaped()) {
+
                 isEscaped = false;
                 int weaponDamage = weapon.getDamage().getKey();
                 double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility());
-                defender.updateHealth(defender.getHealth() - (int) (weaponDamage * (1 + multiply)));
+                int damage = (int) (weaponDamage * (1 + multiply));
+                defender.updateHealth(defender.getHealth() - damage);
+                attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains)",
+                        defender.getName(), damage, defender.getHealth());
             }
             isEscaped = true;
+            attackString += String.format("%s dances in the air, twisting his body and dodge the attack", defender.getName());
+
+            System.out.println(attackString);
             counterAttack();
         }
     }

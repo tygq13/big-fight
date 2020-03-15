@@ -34,8 +34,8 @@ public class Main {
 
     public void run() {
         ui.showWelcome();
-        Warrior mainCharacter = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory);
-        Warrior npc = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory);
+        Warrior mainCharacter = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, "Hero");
+        Warrior npc = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, "Villain");
         fightCommand = new FightCommand(new Fighter(mainCharacter), new Fighter(npc));
         fightCommand.execute();
     }

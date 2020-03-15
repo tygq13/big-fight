@@ -28,6 +28,7 @@ class WarriorTest {
     private static EmpowermentFactory dummyEmpowermentFactory;
     private static SkillData defaultSkillDate = new SkillData();
     private static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillDate);
+    private static String defaultName = "default";
 
     @BeforeAll
     static void setUp() {
@@ -42,7 +43,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(INITIAL_ATTRIBUTE_TOTAL);
-        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory, defaultName);
         int total = warrior.getSpeed() + warrior.getStrength() + warrior.getAgility();
         assertEquals(dataGetter.getInitialAttributeTotal(), total);
     }
@@ -54,7 +55,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(BAD_INITIAL);
-        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory, defaultName);
         assertEquals(1, warrior.getSpeed());
         assertEquals(1, warrior.getStrength());
         assertEquals(1, warrior.getAgility());
@@ -67,7 +68,7 @@ class WarriorTest {
 
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialAttributeTotal()).thenReturn(SMALL_INITIAL_VALUE);
-        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory, defaultName);
         assertEquals(1, Integer.compare(warrior.getSpeed(), 0));
         assertEquals(1, Integer.compare(warrior.getStrength(), 0));
         assertEquals(1, Integer.compare(warrior.getAgility(), 0));
@@ -78,25 +79,25 @@ class WarriorTest {
         final int TEST_HEALTH = 65;
         DataGetter dataGetter = mock(DataGetter.class);
         when(dataGetter.getInitialHealth()).thenReturn(TEST_HEALTH);
-        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(dataGetter, dummyEmpowermentFactory, defaultName);
         assertEquals(TEST_HEALTH, warrior.getHealth());
     }
 
     @Test
     void weapons_is_initialized() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory, defaultName);
         assertNotNull(warrior.getWeaponManager());
     }
 
     @Test
     void level_is_initialized_equal_to_1() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory, defaultName);
         assertEquals(1, Integer.compare(warrior.getLevel(), 0));
     }
 
     @Test
     void skills_set_are_initialized() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory, defaultName);
         assertNotNull(warrior.getSkillManager());
     }
 
@@ -111,14 +112,14 @@ class WarriorTest {
         when(mockSkillFactory.create(any(SkillIdentity.class))).thenReturn(dummySkill);
 
         // test
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, new EmpowermentFactory(mockWeaponFactory, mockSkillFactory));
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, new EmpowermentFactory(mockWeaponFactory, mockSkillFactory), defaultName);
         int result = warrior.getSkillManager().getSize() + warrior.getWeaponManager().getSize();
         assertEquals(1, result);
     }
 
     @Test
     void test_level_up_correct() {
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, dummyEmpowermentFactory, defaultName);
     }
 
     @Test
@@ -127,7 +128,7 @@ class WarriorTest {
         Empowerment empowerment = new Empowerment(bornAsStrong);
         EmpowermentFactory mockFactory = mock(EmpowermentFactory.class);
         when(mockFactory.randomGetNew(any(ArrayList.class), any(Map.class))).thenReturn(empowerment);
-        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, mockFactory);
+        Warrior warrior = new Warrior(WarriorTest.defaultDataGetter, mockFactory, defaultName);
         // after getting the skill, the attribute is at least 4, bad test though
         assertTrue(warrior.getStrength() >= 4);
     }

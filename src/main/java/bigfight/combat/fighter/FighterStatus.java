@@ -7,6 +7,7 @@ import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 
 public class FighterStatus {
+    private String name;
     private int speed;
     private int strength;
     private int agility;
@@ -19,6 +20,7 @@ public class FighterStatus {
     private double focus;
 
     public FighterStatus(Fighter fighter) {
+        name = fighter.getName();
         speed = fighter.getSpeed();
         strength = fighter.getStrength();
         agility = fighter.getAgility();
@@ -32,6 +34,10 @@ public class FighterStatus {
 
     public void changeWeapon(Empowerment empowerment) {
         holdingWeapon = empowerment.getWeapon();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getSpeed() {
