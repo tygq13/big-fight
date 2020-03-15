@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bigfight.model.warrior.component.EmpowermentTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-15T15:19:50" hostname="LAPTOP-4LQP2O2E" time="0.003">
+  <properties/>
+  <testcase name="empowerment_correctly_add_skill()" classname="bigfight.model.warrior.component.EmpowermentTest" time="0.001"/>
+  <testcase name="empowerment_correctly_add_weapon()" classname="bigfight.model.warrior.component.EmpowermentTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

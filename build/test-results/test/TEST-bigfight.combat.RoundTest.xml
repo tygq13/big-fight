@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bigfight.combat.RoundTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-03-15T15:19:49" hostname="LAPTOP-4LQP2O2E" time="0.077">
+  <properties/>
+  <testcase name="round_ignore_round_by_speed()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_throw_weapon_loss_weapon()" classname="bigfight.combat.RoundTest" time="0.006"/>
+  <testcase name="round_attack_multiplied_by_strength()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_counter_attack_both_unarmed_do_damage()" classname="bigfight.combat.RoundTest" time="0.011"/>
+  <testcase name="round_give_damage_in_simple_weapon_attack_with_example_trident()" classname="bigfight.combat.RoundTest" time="0.008"/>
+  <testcase name="round_attack_miss_by_agility()" classname="bigfight.combat.RoundTest" time="0.006"/>
+  <testcase name="round_throw_weapon_cause_damage()" classname="bigfight.combat.RoundTest" time="0.007"/>
+  <testcase name="round_give_damage_in_simple_attack_with_unarmed()" classname="bigfight.combat.RoundTest" time="0.006"/>
+  <testcase name="round_give_damage_in_simple_skill_attack_with_example_roar()" classname="bigfight.combat.RoundTest" time="0.006"/>
+  <system-out><![CDATA[null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null covers his wound in pain, losing HP 0 (HP 100 remains). 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 0 (HP 100 remains). 
+null hurl his weapon trident, pointing towards the head of the opponent. null covers his wound in pain, losing HP 0 (HP 100 remains). null dances in the air, twisting his body and dodge the attack. 
+null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null covers his wound in pain, losing HP 15 (HP 85 remains). 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 10 (HP 100 remains). 
+null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null covers his wound in pain, losing HP 10 (HP 90 remains). 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 10 (HP 100 remains). 
+As heard a howl, null swing big weapon trident and step forwards. null covers his wound in pain, losing HP 25 (HP 75 remains). 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 25 (HP 100 remains). 
+null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null dances in the air, twisting his body and dodge the attack. 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 0 (HP 100 remains). 
+null hurl his weapon trident, pointing towards the head of the opponent. null covers his wound in pain, losing HP 25 (HP 75 remains). null dances in the air, twisting his body and dodge the attack. 
+null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null covers his wound in pain, losing HP 10 (HP 90 remains). 
+null skillfully counter-attacks with his fist. null neglect the defence the lose HP 10 (HP 100 remains). 
+null roar in anger, as if the king of beasts to scare the enemy away. null quivers and lose HP 15 (HP 85 remains). 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

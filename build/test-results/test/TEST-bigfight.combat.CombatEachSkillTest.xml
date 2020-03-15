@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bigfight.combat.CombatEachSkillTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-15T15:19:49" hostname="LAPTOP-4LQP2O2E" time="0.675">
+  <properties/>
+  <testcase name="roar_ignore_one_round()" classname="bigfight.combat.CombatEachSkillTest" time="0.623"/>
+  <testcase name="apparent_death_survive_deadly_attack()" classname="bigfight.combat.CombatEachSkillTest" time="0.052"/>
+  <system-out><![CDATA[null roar in anger, as if the king of beasts to scare the enemy away. null quivers and lose HP 15 (HP 85 remains). 
+null's body light as a swallow, running towards the opponent in quick step and attack with cannon fist. null covers his wound in pain, losing HP 10 (HP -8 remains). 
+The opponent falls smoothly, breathe stopped, in apparent death
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

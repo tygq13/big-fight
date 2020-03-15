@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bigfight.model.weapon.struct.WeaponStructArrayTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-15T15:19:50" hostname="LAPTOP-4LQP2O2E" time="0.009">
+  <properties/>
+  <testcase name="test_weapon_struct_array_get_with_star()" classname="bigfight.model.weapon.struct.WeaponStructArrayTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
