@@ -43,7 +43,7 @@ public class MediumTypeAttack implements Attackable{
 
     private boolean escaped() {
         double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
 }

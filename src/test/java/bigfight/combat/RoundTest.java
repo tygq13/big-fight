@@ -111,7 +111,7 @@ class RoundTest {
         FighterStatus fighter2 = getCustomFighter(SPEED2, 5, 5, 100, 10);
         double ignore = CombatAlgo.ignoreBySpeed(SPEED1, SPEED2);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getIgnoreRandom()).thenReturn(ignore - Math.ulp(1));
+        when(random.getSpeedIgnoreRandom()).thenReturn(ignore - Math.ulp(1));
 
         int EXPECTED = 1;
         int result = new Round(fighter1, fighter2, getUnarmedEmpowerment(), random).fight();
@@ -124,7 +124,7 @@ class RoundTest {
         final int AGILITY2 = 5;
         FighterStatus fighter1 = getCustomFighter(5, AGILITY1, 5, 100, 10);
         FighterStatus fighter2 = getCustomFighter(5, AGILITY2, 5, 100, 10);
-        double escape = CombatAlgo.escapeByAgility(AGILITY1, AGILITY2);
+        double escape = CombatAlgo.escapeByAgility(AGILITY2, AGILITY1);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(escape - Math.ulp(1));
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);

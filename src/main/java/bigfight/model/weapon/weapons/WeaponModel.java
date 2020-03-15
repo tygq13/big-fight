@@ -1,4 +1,4 @@
-package bigfight.model.weapon;
+package bigfight.model.weapon.weapons;
 
 import bigfight.model.weapon.struct.*;
 

@@ -3,6 +3,7 @@ package bigfight.model.weapon;
 import bigfight.model.weapon.struct.*;
 import bigfight.model.weapon.struct.WeaponStruct;
 
+import bigfight.model.weapon.weapons.WeaponModel;
 import javafx.util.Pair;
 
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
 package bigfight.model.weapon;
 
 import bigfight.model.weapon.struct.*;
+import bigfight.model.weapon.weapons.WeaponModel;
 import javafx.util.Pair;
 
 public class Weapon {
@@ -28,5 +29,9 @@ public class Weapon {
 
     public WeaponIdentity getIdentity() {
         return model.getIdentity();
+    }
+
+    public WeaponModel getModel() {
+        return model;
     }
 }

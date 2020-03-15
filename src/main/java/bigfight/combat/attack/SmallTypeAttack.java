@@ -4,6 +4,7 @@ import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.weapon.Weapon;
+import bigfight.model.weapon.struct.WeaponIdentity;
 
 public class SmallTypeAttack implements Attackable{
     private FighterStatus attacker;
@@ -42,8 +43,11 @@ public class SmallTypeAttack implements Attackable{
     }
 
     private boolean escaped() {
+        if (weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
+            return false;
+        }
         double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
 }

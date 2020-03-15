@@ -24,7 +24,7 @@ public class SkillAttack implements Attackable {
     public void attack() {
         // should add exception if not initialized;
         double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         int damage = 0;
         if (random.getEscapeRandom() < escape) {
             // escaped

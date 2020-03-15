@@ -5,6 +5,7 @@ import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.weapon.*;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.weapon.Weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;

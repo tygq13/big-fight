@@ -50,7 +50,7 @@ public class Round {
 
     private int roundChangeBySpeed() {
         double ignore = CombatAlgo.ignoreBySpeed(attacker.getSpeed(), defender.getSpeed());
-        if (random.getIgnoreRandom() < ignore) {
+        if (random.getSpeedIgnoreRandom() < ignore) {
             return 1;
         }
         return 0;

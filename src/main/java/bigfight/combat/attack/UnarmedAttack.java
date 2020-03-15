@@ -3,7 +3,6 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.weapon.Weapon;
 
 public class UnarmedAttack implements Attackable {
     private FighterStatus attacker;
@@ -42,7 +41,7 @@ public class UnarmedAttack implements Attackable {
 
     private boolean escaped() {
         double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
 }

@@ -4,6 +4,7 @@ import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.weapon.struct.WeaponStruct;
 import bigfight.model.weapon.struct.WeaponType;
 
+import bigfight.model.weapon.weapons.WeaponModel;
 import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

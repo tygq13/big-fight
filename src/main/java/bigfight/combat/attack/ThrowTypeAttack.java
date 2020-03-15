@@ -1,7 +1,5 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.Combat;
-import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
@@ -46,7 +44,7 @@ public class ThrowTypeAttack implements Attackable{
 
     private boolean escaped() {
         double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(attacker.getAgility(), defender.getAgility());
+        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
 }

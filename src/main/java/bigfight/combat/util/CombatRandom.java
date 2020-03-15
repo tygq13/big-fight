@@ -18,6 +18,10 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
+    public double getSpeedIgnoreRandom() {
+        return random.nextDouble();
+    }
+
     public double getEscapeRandom() {
         return random.nextDouble();
     }

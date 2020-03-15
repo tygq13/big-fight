@@ -1,7 +1,5 @@
 package bigfight.model.weapon.struct;
 
-import bigfight.model.weapon.Weapon;
-
 import java.util.ArrayList;
 
 public class WeaponStructArray {

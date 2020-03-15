@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CombatTestEachSkill {
+class CombatEachSkillTest {
     private static WeaponData defaultWeaponData = new WeaponData();
     private static WeaponFactory defaultWeaponFactory = new WeaponFactory(defaultWeaponData);
     private static SkillData defaultSkillDate = new SkillData();
