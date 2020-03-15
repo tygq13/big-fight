@@ -11,21 +11,30 @@ I was unsatisfied with the CS2113T project. After reading some books such as _xu
 The good thing about a personal project is that there is no requirement and no deadline. Mostly importantly, I can be as intolerant to bad code as I like.
 
 ## How to run
-The program is not runnable yet. Will complete version 1.0 and give a runnable jar file soon :)
+1. Download the jar file from release 1.0.
+2. Execute in command line: java -jar big-fight.jar
 
 ## Milestones
-Currently 1.0
+Current release: 1.0
+Next version: 2.0
 
 1. Milestone 1.0
     1. Able to simulate a fight between two warriors of level 1. No command interaction.
     2. Has at least 5 weapons and 5 skills. 
     3. Basic fight mechanism of attack, dodge, ignore and counter-attack. Consistent with the original game
+
+2. MileStone 2.0
+    1. Warrior able to level up
+    2. Warrior can power-up the weapons and skills. At least 10 weapons and 10 skills.
+    3. Warrior's weapons could inlay jewels
+    4. Basic interaction of select opponents to fight, show certain info of the warrior etc.
+    5. 100 layers for the Glory Tower
  
  ## Some reflection and refactoring note
  Difficulty to test: in-method new object, callback, private, static, intricate mechanism, intricate interaction, random
  
  Some problems pondering in my head:
  * The current feel is more like development with test rather then development driven by test
- * I massively use encapsulation but use _no_ inheritance and interface
+ * I massively use encapsulation but use few inheritance and interface
  * How much should I test the mechanism in method? Should I test the interface only?
- * Some compromise in code usefully for testing might be not as ideal if look at the development code only
+ * Some code good for tests are not good in purely performance.
