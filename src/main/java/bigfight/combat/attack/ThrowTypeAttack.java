@@ -4,26 +4,28 @@ import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.weapon.Weapon;
+import bigfight.ui.Uiable;
 
 public class ThrowTypeAttack implements Attackable{
     private FighterStatus attacker;
     private FighterStatus defender;
     private Weapon weapon;
     private CombatRandom random;
+    private Uiable ui;
     private boolean isEscaped;
 
-    public ThrowTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random) {
+    public ThrowTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;
         this.random = random;
+        this.ui = ui;
     }
 
     @Override
     public void attack() {
         for (int i = 0; i < 2; i++) {
-            String attackString = String.format("%s swing a circle the weapon %s. The %s fleets towards the opponent. ",
-                    attacker.getName(), weapon.getName(), weapon.getName());
+            ui.printWeaponThrowAttack(attacker.getName(), weapon.getName());
             if (!escaped()) {
 
                 isEscaped = false;
@@ -31,13 +33,10 @@ public class ThrowTypeAttack implements Attackable{
                 double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility());
                 int damage = (int) (weaponDamage * (1 + multiply));
                 defender.updateHealth(defender.getHealth() - damage);
-                attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains). ",
-                        defender.getName(), damage, defender.getHealth());
+                ui.printInjury(defender.getName(), damage, defender.getHealth());
             }
             isEscaped = true;
-            attackString += String.format("%s dances in the air, twisting his body and dodge the attack. ", defender.getName());
-
-            System.out.println(attackString);
+            ui.printDodge(defender.getName());
             counterAttack();
         }
     }
@@ -48,7 +47,7 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private void counterAttack() {
-        new CounterAttack(defender, attacker, isEscaped, random).specialCounter();
+        new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
     private boolean escaped() {

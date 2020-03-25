@@ -7,18 +7,21 @@ import bigfight.combat.attack.*;
 import bigfight.data.DataConfig;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.struct.WeaponType;
+import bigfight.ui.Uiable;
 
 public class Round {
     private FighterStatus attacker;
     private FighterStatus defender;
     private Empowerment empowerment;
     private CombatRandom random;
+    private Uiable ui;
 
-    public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random) {
+    public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.empowerment = empowerment;
         this.random = random;
+        this.ui = ui;
     }
 
     public int fight() {
@@ -26,19 +29,19 @@ public class Round {
         attacker.changeWeapon(empowerment);
         Attackable attack = null;
         if (empowerment.getSkill() != null) {
-            attack = new SkillAttack(attacker, defender, empowerment.getSkill(), random);
+            attack = new SkillAttack(attacker, defender, empowerment.getSkill(), random, ui);
         } else if (empowerment.getWeapon() == null) {
-            attack = new UnarmedAttack(attacker, defender, random);
+            attack = new UnarmedAttack(attacker, defender, random, ui);
         } else if (empowerment.getWeapon().getType() == WeaponType.THROW) {
-            attack = new ThrowTypeAttack(attacker, defender, empowerment.getWeapon(), random);
+            attack = new ThrowTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         } else if (random.getThrowWeaponRandom() < DataConfig.THROW_WEAPON_CHANCE) {
-            attack = new ThrowOutAttack(attacker, defender, empowerment.getWeapon(), random);
+            attack = new ThrowOutAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         } else if (empowerment.getWeapon().getType() == WeaponType.SMALL) {
-            attack = new SmallTypeAttack(attacker, defender, empowerment.getWeapon(), random);
+            attack = new SmallTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         } else if (empowerment.getWeapon().getType() == WeaponType.MEDIUM) {
-            attack = new MediumTypeAttack(attacker, defender, empowerment.getWeapon(), random);
+            attack = new MediumTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         } else if (empowerment.getWeapon().getType() == WeaponType.BIG) {
-            attack = new BigTypeAttack(attacker, defender, empowerment.getWeapon(), random);
+            attack = new BigTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         }
         // else throw exception
         if (attack != null) {

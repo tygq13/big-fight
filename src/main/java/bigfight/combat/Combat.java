@@ -3,14 +3,17 @@ package bigfight.combat;
 import bigfight.combat.fighter.*;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.ui.Uiable;
 
 public class Combat {
     private Fighter hero;
     private Fighter opponent;
+    private Uiable ui;
 
-    public Combat(Fighter first, Fighter second) {
+    public Combat(Fighter first, Fighter second, Uiable ui) {
         hero = first;
         opponent = second;
+        this.ui = ui;
     }
 
     public boolean start() {
@@ -23,7 +26,7 @@ public class Combat {
             if (heroRound(roundDecision, rand)) {
                 roundDecision -= 1;
                 Empowerment empowerment = hero.SelectEmpowerment(rand);
-                roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand).fight();
+                roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
                     roundDecision -= 1;
@@ -31,7 +34,7 @@ public class Combat {
             } else {
                 roundDecision += 1;
                 Empowerment empowerment = opponent.SelectEmpowerment(rand);
-                roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand).fight();
+                roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
                     roundDecision += 1;

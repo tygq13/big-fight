@@ -5,6 +5,7 @@ import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.*;
+import bigfight.ui.Uiable;
 
 public class SkillAttack implements Attackable {
     private FighterStatus attacker;
@@ -12,12 +13,14 @@ public class SkillAttack implements Attackable {
     private SkillModel skill;
     private CombatRandom random;
     private boolean isEscaped;
+    private Uiable ui;
 
-    public SkillAttack(FighterStatus attacker, FighterStatus defender, SkillModel skill, CombatRandom random) {
+    public SkillAttack(FighterStatus attacker, FighterStatus defender, SkillModel skill, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.skill = skill;
         this.random = random;
+        this.ui = ui;
     }
 
     @Override
@@ -26,12 +29,11 @@ public class SkillAttack implements Attackable {
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         int damage = 0;
-        String attackString = String.format("%s roar in anger, as if the king of beasts to scare the enemy away. ", attacker.getName());
+        ui.printSkillRoarAttack(attacker.getName());
         if (random.getEscapeRandom() < escape) {
-            attackString += String.format("%s sums up his courage and seems unaffected by the attack. ", defender.getName());
+            ui.printSkillRoarDodge(defender.getName());
             // escaped
             isEscaped = true;
-            System.out.println(attackString);
             return;
         }
         isEscaped = false;
@@ -40,8 +42,7 @@ public class SkillAttack implements Attackable {
                 damage = getRoarDamage();
         }
         defender.updateHealth(defender.getHealth() - damage);
-        attackString += String.format("%s quivers and lose HP %d (HP %d remains). ", defender.getName(), damage, defender.getHealth());
-        System.out.println(attackString);
+        ui.printInjury(defender.getName(), damage, defender.getHealth());
         counterAttack();
     }
 
@@ -57,7 +58,7 @@ public class SkillAttack implements Attackable {
     }
 
     private void counterAttack() {
-        new CounterAttack(defender, attacker, isEscaped, random).specialCounter();
+        new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
     private int getRoarDamage() {

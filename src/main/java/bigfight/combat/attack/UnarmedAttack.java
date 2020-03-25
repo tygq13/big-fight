@@ -3,36 +3,36 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.ui.Uiable;
 
 public class UnarmedAttack implements Attackable {
     private FighterStatus attacker;
     private FighterStatus defender;
     private CombatRandom random;
+    private Uiable ui;
     private boolean isEscaped;
 
-    public UnarmedAttack(FighterStatus attacker, FighterStatus defender,  CombatRandom random) {
+    public UnarmedAttack(FighterStatus attacker, FighterStatus defender, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.random = random;
+        this.ui = ui;
     }
 
     @Override
     public void attack() {
-        String attackString = String.format("%s's body light as a swallow, running towards the opponent in quick step " +
-                "and attack with cannon fist. ", attacker.getName());
+        ui.printUnarmedAttack(attacker.getName());
         if (escaped()) {
-            attackString += String.format("%s dances in the air, twisting his body and dodge the attack. ", defender.getName());
+            ui.printDodge(defender.getName());
             isEscaped = true;
         } else {
             int baseDamage = random.getWeaponDamageRandom(attacker.getUnarmedDamage().lower(), attacker.getUnarmedDamage().higher());
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
             int damage = (int) (baseDamage * (1 + multiply));
             defender.updateHealth(defender.getHealth() - damage);
-            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains). ",
-                    defender.getName(), damage, defender.getHealth());
+            ui.printInjury(defender.getName(), damage, defender.getHealth());
             isEscaped = false;
         }
-        System.out.println(attackString);
         counterAttack();
     }
 
@@ -42,7 +42,7 @@ public class UnarmedAttack implements Attackable {
     }
 
     private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random).counterAttack();
+        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
         attacker.updateHealth(attacker.getHealth() - damage);
     }
 

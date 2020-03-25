@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.warrior.WarriorTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-15T15:19:50" hostname="LAPTOP-4LQP2O2E" time="0.042">
+<testsuite name="bigfight.model.warrior.WarriorTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-03-25T14:24:49" hostname="LAPTOP-4LQP2O2E" time="0.044">
   <properties/>
-  <testcase name="health_initialize_equal_to_health_data()" classname="bigfight.model.warrior.WarriorTest" time="0.015"/>
+  <testcase name="health_initialize_equal_to_health_data()" classname="bigfight.model.warrior.WarriorTest" time="0.012"/>
   <testcase name="weapons_is_initialized()" classname="bigfight.model.warrior.WarriorTest" time="0.001"/>
-  <testcase name="first_weapon_or_skill_is_gotten()" classname="bigfight.model.warrior.WarriorTest" time="0.011"/>
-  <testcase name="level_is_initialized_equal_to_1()" classname="bigfight.model.warrior.WarriorTest" time="0.001"/>
+  <testcase name="first_weapon_or_skill_is_gotten()" classname="bigfight.model.warrior.WarriorTest" time="0.014"/>
+  <testcase name="level_is_initialized_equal_to_1()" classname="bigfight.model.warrior.WarriorTest" time="0.0"/>
   <testcase name="attribute_initialized_equal_to_one_when_bad_attribute_total()" classname="bigfight.model.warrior.WarriorTest" time="0.002"/>
   <testcase name="test_level_up_correct()" classname="bigfight.model.warrior.WarriorTest" time="0.001"/>
-  <testcase name="skills_set_are_initialized()" classname="bigfight.model.warrior.WarriorTest" time="0.001"/>
+  <testcase name="skills_set_are_initialized()" classname="bigfight.model.warrior.WarriorTest" time="0.0"/>
   <testcase name="test_permanent_skill_correctly_add_to_attribute_example_BornAsStrong()" classname="bigfight.model.warrior.WarriorTest" time="0.003"/>
   <testcase name="attribute_initialzed_larger_than_zero_with_small_attribute_total()" classname="bigfight.model.warrior.WarriorTest" time="0.001"/>
   <testcase name="attribute_initialized_equal_to_attribute_total()" classname="bigfight.model.warrior.WarriorTest" time="0.002"/>
