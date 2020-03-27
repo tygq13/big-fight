@@ -2,7 +2,7 @@ package bigfight.combat.fighter;
 
 import bigfight.data.DataConfig;
 import bigfight.model.skill.struct.SkillList;
-import bigfight.model.warrior.Warrior;
+import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
@@ -39,7 +39,7 @@ public class Fighter {
     public Empowerment SelectEmpowerment(Random random) {
         int totalSize = weaponList.size() + activeSkillList.size();
         int weaponOrSkill = totalSize > 0 ? random.nextInt(totalSize + 1) : 0;
-        Empowerment empowerment = null;
+        Empowerment empowerment;
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
             // create weapon
             int luckyDraw = random.nextInt(weaponList.size());

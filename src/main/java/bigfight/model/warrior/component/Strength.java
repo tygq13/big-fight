@@ -2,7 +2,6 @@ package bigfight.model.warrior.component;
 
 public class Strength {
     private int base;
-    private int bornAsStrong;
     private int total;
     public Strength() {
         base = 0;

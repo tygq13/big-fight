@@ -1,17 +1,12 @@
 // do functional test rather than unit test
 package bigfight.combat;
 
-import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.Warrior;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.weapon.WeaponFactory;
-import bigfight.model.weapon.WeaponManager;
 import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 

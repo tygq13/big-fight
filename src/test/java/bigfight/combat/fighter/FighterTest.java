@@ -1,7 +1,7 @@
 package bigfight.combat.fighter;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.warrior.Warrior;
+import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponManager;

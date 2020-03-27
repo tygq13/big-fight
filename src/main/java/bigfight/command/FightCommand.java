@@ -4,7 +4,7 @@ import bigfight.combat.Combat;
 import bigfight.combat.fighter.Fighter;
 import bigfight.ui.Uiable;
 
-public class FightCommand {
+public class FightCommand implements Commandable{
     private Fighter fighter1;
     private Fighter fighter2;
     private Uiable ui;
@@ -15,6 +15,7 @@ public class FightCommand {
         this.ui = ui;
     }
 
+    @Override
     public void execute() {
         Combat combat = new Combat(fighter1, fighter2, ui);
         boolean isWin = combat.start();

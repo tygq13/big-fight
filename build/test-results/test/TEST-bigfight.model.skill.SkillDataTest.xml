@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.skill.SkillDataTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-25T14:24:49" hostname="LAPTOP-4LQP2O2E" time="0.0">
+<testsuite name="bigfight.model.skill.SkillDataTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-27T17:03:45" hostname="LAPTOP-4LQP2O2E" time="0.001">
   <properties/>
-  <testcase name="all_skill_identity_exist_in_skill_map()" classname="bigfight.model.skill.SkillDataTest" time="0.0"/>
+  <testcase name="all_skill_identity_exist_in_skill_map()" classname="bigfight.model.skill.SkillDataTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
