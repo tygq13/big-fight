@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.fighter.FighterTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-27T17:03:44" hostname="LAPTOP-4LQP2O2E" time="0.09">
+<testsuite name="bigfight.combat.fighter.FighterTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-28T09:34:29" hostname="LAPTOP-4LQP2O2E" time="0.056">
   <properties/>
-  <testcase name="selectEmpowerment_successfully_return_not_null()" classname="bigfight.combat.fighter.FighterTest" time="0.084"/>
-  <testcase name="selectEmpowerment_weapon_is_discarded_after_selected()" classname="bigfight.combat.fighter.FighterTest" time="0.003"/>
+  <testcase name="selectEmpowerment_successfully_return_not_null()" classname="bigfight.combat.fighter.FighterTest" time="0.052"/>
+  <testcase name="selectEmpowerment_weapon_is_discarded_after_selected()" classname="bigfight.combat.fighter.FighterTest" time="0.002"/>
   <testcase name="selectEmpowerment_gives_unarmed_when_no_weapon_or_skill()" classname="bigfight.combat.fighter.FighterTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

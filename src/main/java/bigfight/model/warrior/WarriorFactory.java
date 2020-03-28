@@ -11,11 +11,14 @@ import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.database.Account;
+import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
 
 public class WarriorFactory {
 
-    public Warrior create(DataGetter dataGetter, EmpowermentFactory empowermentFactory, String name) {
+    public Warrior create(DataGetter dataGetter, EmpowermentFactory empowermentFactory, WarriorDatabase warriorDatabase, String name) {
+        Account account = warriorDatabase.createAccount(name);
         Speed speed = new Speed();
         Agility agility = new Agility();
         Strength strength = new Strength();
@@ -23,15 +26,17 @@ public class WarriorFactory {
         int health = dataGetter.getInitialHealth();
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
+        Friends friends = new Friends();
         initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, empowermentFactory);
-        Warrior warrior = WarriorBuilder.stepBuilder()
-                .name(name)
+        Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
+                .account(account)
                 .strength(strength)
                 .agility(agility)
                 .speed(speed)
                 .health(health)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
+                .friends(friends)
                 .build();
         return warrior;
     }

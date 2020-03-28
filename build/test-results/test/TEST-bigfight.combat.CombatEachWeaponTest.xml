@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.CombatEachWeaponTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-03-27T17:03:44" hostname="LAPTOP-4LQP2O2E" time="0.035">
+<testsuite name="bigfight.combat.CombatEachWeaponTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-03-28T09:34:28" hostname="LAPTOP-4LQP2O2E" time="0.026">
   <properties/>
-  <testcase name="test_judge_pencil_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.01"/>
-  <testcase name="test_death_scythe_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.012"/>
-  <testcase name="test_gas_hammer_ignore_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.006"/>
-  <testcase name="test_trident_rest_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.005"/>
+  <testcase name="test_judge_pencil_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.007"/>
+  <testcase name="test_death_scythe_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.007"/>
+  <testcase name="test_gas_hammer_ignore_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.005"/>
+  <testcase name="test_trident_rest_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,13 +1,12 @@
 package bigfight.model.warrior.builder;
 
-import bigfight.data.DataGetter;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.database.Account;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.skill.SkillManager;
 
 public class Warrior {
-    private String name;
-
+    private Account account;
     private Speed speed;
     private Agility agility;
     private Strength strength;
@@ -15,9 +14,12 @@ public class Warrior {
     private int health;
     private WeaponManager weaponManager;
     private SkillManager skillManager;
+    private Friends friends;
 
-    Warrior(String name, Strength strength, Agility agility, Speed speed, int health, WeaponManager weaponManager, SkillManager skillManager) {
-        this.name = name;
+    // although the interface is package private, lock ensures that only builder can access it
+    Warrior(WarriorBuilder.Lock lock, Account account, Strength strength, Agility agility, Speed speed, int health,
+            WeaponManager weaponManager, SkillManager skillManager, Friends friends) {
+        this.account = account;
         this.strength = strength;
         this.agility = agility;
         this.speed = speed;
@@ -25,10 +27,11 @@ public class Warrior {
         level = 1;
         this.weaponManager = weaponManager;
         this.skillManager = skillManager;
+        this.friends = friends;
     }
 
     public String getName() {
-        return name;
+        return account.getName();
     }
 
     public int getSpeed() {
@@ -59,9 +62,13 @@ public class Warrior {
         return skillManager;
     }
 
+    public Friends getFriends() {
+        return friends;
+    }
+
     @Override
     public String toString() {
-        String result = String.format("Fighter name: %s\n", name)
+        String result = String.format("Fighter name: %s\n", account.getName())
                 + String.format("Level: %d\n", level)
                 + String.format("Strength: %d\n", strength.value())
                 + String.format("Agility %d\n", agility.value())
@@ -71,4 +78,5 @@ public class Warrior {
         result += "Skills: " + skillManager.toString() + System.lineSeparator();
         return result;
     }
+
 }

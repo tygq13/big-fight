@@ -1,19 +1,27 @@
 package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Agility;
+import bigfight.model.warrior.component.Friends;
 import bigfight.model.warrior.component.Speed;
 import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.database.Account;
+import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
 
 public class WarriorBuilder {
-    public static NameStep stepBuilder() {
-        return new WarriorSteps();
+    static final class Lock {
+        private Lock() {}
     }
 
-    public interface NameStep {
-        StrengthStep name(String name);
+    private static final Lock lock = new Lock();
+
+    public static AccountStep stepBuilder(WarriorDatabase warriorDatabase) {
+        return new WarriorSteps(warriorDatabase);
+    }
+
+    public interface AccountStep {
+        StrengthStep account(Account account);
     }
 
     public interface StrengthStep {
@@ -37,26 +45,36 @@ public class WarriorBuilder {
     }
 
     public interface SkillManagerStep {
-        BuildStep skillManager(SkillManager skillManager);
+        FriendsStep skillManager(SkillManager skillManager);
+    }
+
+    public interface FriendsStep {
+        BuildStep friends(Friends friends);
     }
 
     public interface BuildStep {
         Warrior build();
     }
 
-    private static class WarriorSteps implements NameStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
-            WeaponManagerStep, SkillManagerStep, BuildStep {
-        private String name;
+    private static class WarriorSteps implements AccountStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
+            WeaponManagerStep, SkillManagerStep, FriendsStep, BuildStep {
+        private WarriorDatabase warriorDatabase;
+        private Account account;
         private Strength strength;
         private Agility agility;
         private Speed speed;
         private int health;
         private WeaponManager weaponManager;
         private SkillManager skillManager;
+        private Friends friends;
+
+        WarriorSteps(WarriorDatabase warriorDatabase) {
+            this.warriorDatabase = warriorDatabase;
+        }
 
         @Override
-        public StrengthStep name(String name) {
-            this.name = name;
+        public StrengthStep account(Account account) {
+            this.account = account;
             return this;
         }
 
@@ -91,14 +109,22 @@ public class WarriorBuilder {
         }
 
         @Override
-        public BuildStep skillManager(SkillManager skillManager) {
+        public FriendsStep skillManager(SkillManager skillManager) {
             this.skillManager = skillManager;
             return this;
         }
 
         @Override
+        public BuildStep friends(Friends friends) {
+            this.friends = friends;
+            return this;
+        }
+
+        @Override
         public Warrior build() {
-            return new Warrior(name, strength, agility, speed, health, weaponManager, skillManager);
+            Warrior result = new Warrior(lock, account, strength, agility, speed, health, weaponManager, skillManager, friends);
+            warriorDatabase.insertWarrior(account, result);
+            return result;
         }
     }
 
