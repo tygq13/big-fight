@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.data.DataConfigTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-28T09:34:29" hostname="LAPTOP-4LQP2O2E" time="0.001">
+<testsuite name="bigfight.data.DataConfigTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-28T13:08:51" hostname="LAPTOP-4LQP2O2E" time="0.001">
   <properties/>
   <testcase name="initial_attribute_total_initialized()" classname="bigfight.data.DataConfigTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

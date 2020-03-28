@@ -8,6 +8,11 @@ public class Agility {
         total = 0;
     }
 
+    public Agility(int base) {
+        this.base = base;
+        total = this.base;
+    }
+
     public void add(int increment) {
         total += increment;
     }

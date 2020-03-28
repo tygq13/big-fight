@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.warrior.component.EmpowermentTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-28T09:34:29" hostname="LAPTOP-4LQP2O2E" time="0.002">
+<testsuite name="bigfight.model.warrior.component.EmpowermentTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-28T13:08:51" hostname="LAPTOP-4LQP2O2E" time="0.002">
   <properties/>
   <testcase name="empowerment_correctly_add_skill()" classname="bigfight.model.warrior.component.EmpowermentTest" time="0.001"/>
-  <testcase name="empowerment_correctly_add_weapon()" classname="bigfight.model.warrior.component.EmpowermentTest" time="0.001"/>
+  <testcase name="empowerment_correctly_add_weapon()" classname="bigfight.model.warrior.component.EmpowermentTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

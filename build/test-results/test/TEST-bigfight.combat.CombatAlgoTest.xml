@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.CombatAlgoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-28T09:34:28" hostname="LAPTOP-4LQP2O2E" time="0.002">
+<testsuite name="bigfight.combat.CombatAlgoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-28T13:08:51" hostname="LAPTOP-4LQP2O2E" time="0.002">
   <properties/>
-  <testcase name="escapeByAgility_bound_correct()" classname="bigfight.combat.CombatAlgoTest" time="0.0"/>
-  <testcase name="ignoreBySpeed_bound_correct()" classname="bigfight.combat.CombatAlgoTest" time="0.0"/>
+  <testcase name="escapeByAgility_bound_correct()" classname="bigfight.combat.CombatAlgoTest" time="0.001"/>
+  <testcase name="ignoreBySpeed_bound_correct()" classname="bigfight.combat.CombatAlgoTest" time="0.001"/>
   <testcase name="multiplyByStrength_bound_correct()" classname="bigfight.combat.CombatAlgoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

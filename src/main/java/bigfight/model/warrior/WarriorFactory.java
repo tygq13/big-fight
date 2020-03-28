@@ -13,6 +13,7 @@ import bigfight.model.warrior.builder.WarriorBuilder;
 import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
+import bigfight.model.warrior.npc.NpcIdentity;
 import bigfight.model.weapon.WeaponManager;
 
 public class WarriorFactory {
@@ -26,7 +27,7 @@ public class WarriorFactory {
         int health = dataGetter.getInitialHealth();
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
-        Friends friends = new Friends();
+        Friends friends = getInitialFriends(warriorDatabase);
         initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, empowermentFactory);
         Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
@@ -78,5 +79,13 @@ public class WarriorFactory {
                 }
             }
         }
+    }
+
+    private Friends getInitialFriends(WarriorDatabase warriorDatabase) {
+        Friends friends = new Friends();
+        for(NpcIdentity identity : NpcIdentity.getArray()) {
+            friends.add(identity.getValue());
+        }
+        return friends;
     }
 }

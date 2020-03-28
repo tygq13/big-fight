@@ -10,10 +10,13 @@ import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.EmpowermentFactory;
+import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
+import bigfight.model.warrior.npc.NpcIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.struct.WeaponIdentity;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -28,7 +31,17 @@ class WarriorFactoryTest {
     private static SkillData defaultSkillData = new SkillData();
     private static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillData);
     private static String defaultName = "TEST";
-    private static WarriorDatabase mockDatabase = mock(WarriorDatabase.class);
+    private static WarriorDatabase mockDatabase;
+    private static WarriorDatabase defaultDatabase = new WarriorDatabase();
+
+    @BeforeAll
+    static void setUp() {
+        // set up mock database that returns mock account
+        Account mockAccount = mock(Account.class);
+        when(mockAccount.getId()).thenReturn(0);
+        mockDatabase = mock(WarriorDatabase.class);
+        when(mockDatabase.createAccount(any())).thenReturn(mockAccount);
+    }
 
     @Test
     void create_warrior_attribute_initialized_equal_to_attribute_total() {
@@ -128,5 +141,14 @@ class WarriorFactoryTest {
 
         // after getting the skill, the attribute is at least 4, bad test though
         assertTrue(warrior.getStrength() >= 4);
+    }
+
+    @Test
+    void test_npc_friends_initialized_with_NOOB() {
+        final int NPC_NOOB_INDEX = 0;
+        WarriorFactory test = new WarriorFactory();
+        Warrior warrior = test.create(defaultDataGetter, dummyEmpowermentFactory, defaultDatabase, defaultName);
+        Warrior NOOB = defaultDatabase.getNpc(NpcIdentity.NOOB);
+        assertEquals(NOOB.getId(), warrior.getFriend(NPC_NOOB_INDEX));
     }
 }

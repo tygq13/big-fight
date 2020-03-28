@@ -34,6 +34,10 @@ public class Warrior {
         return account.getName();
     }
 
+    public int getId() {
+        return account.getId();
+    }
+
     public int getSpeed() {
         return speed.value();
     }
@@ -64,6 +68,10 @@ public class Warrior {
 
     public Friends getFriends() {
         return friends;
+    }
+
+    public int getFriend(int index) {
+        return friends.get(index);
     }
 
     @Override

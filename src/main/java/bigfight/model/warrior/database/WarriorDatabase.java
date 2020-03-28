@@ -1,6 +1,8 @@
 package bigfight.model.warrior.database;
 
 
+import bigfight.model.warrior.npc.NpcFactory;
+import bigfight.model.warrior.npc.NpcIdentity;
 import bigfight.model.warrior.builder.Warrior;
 
 import java.util.HashMap;
@@ -13,17 +15,18 @@ public class WarriorDatabase {
     }
     private static AccountLock lock = new AccountLock();
 
-    private HashMap<Account, Warrior> database;
+    private HashMap<Integer, Warrior> database;
 
     public WarriorDatabase() {
         serialNumber = 0;
         database = new HashMap<>();
+        initializeNpc();
     }
 
     public Account createAccount(String name) {
         Account result = new Account(lock, name, serialNumber);
+        database.put(serialNumber, null);
         serialNumber += 1;
-        database.put(result, null);
         return result;
     }
 
@@ -31,11 +34,23 @@ public class WarriorDatabase {
         return database.size();
     }
 
-    public void insertWarrior(Account account, Warrior warrior) {
-        database.replace(account, warrior);
+    public void insertWarrior(int id, Warrior warrior) {
+        database.replace(id, warrior);
     }
 
-    public Warrior get(Account account) {
-        return database.get(account);
+    public Warrior get(int id) {
+        return database.get(id);
+    }
+
+    private void initializeNpc() {
+        for (NpcIdentity identity : NpcIdentity.getArray()) {
+            //todo: need to check the identity's value increase in sequence from zero
+            Account account = createAccount(identity.toString());
+            Warrior npc = NpcFactory.create(identity, account, this);
+        }
+    }
+
+    public Warrior getNpc(NpcIdentity identity) {
+        return database.get(identity.getValue());
     }
 }

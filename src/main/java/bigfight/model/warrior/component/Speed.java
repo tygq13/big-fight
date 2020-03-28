@@ -8,6 +8,11 @@ public class Speed {
         total = 0;
     }
 
+    public Speed(int base) {
+        this.base = base;
+        total = this.base;
+    }
+
     public void add(int increment) {
         total += increment;
     }

@@ -64,6 +64,6 @@ class WarriorBuilderTest {
                 .friends(mock(Friends.class))
                 .build();
 
-        assertNotNull(warriorDatabase.get(account));
+        assertNotNull(warriorDatabase.get(account.getId()));
     }
 }

@@ -123,7 +123,7 @@ public class WarriorBuilder {
         @Override
         public Warrior build() {
             Warrior result = new Warrior(lock, account, strength, agility, speed, health, weaponManager, skillManager, friends);
-            warriorDatabase.insertWarrior(account, result);
+            warriorDatabase.insertWarrior(account.getId(), result);
             return result;
         }
     }
