@@ -6,6 +6,7 @@ import bigfight.model.warrior.component.Friends;
 import bigfight.model.warrior.component.Speed;
 import bigfight.model.warrior.component.Strength;
 import bigfight.model.warrior.database.Account;
+import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
 

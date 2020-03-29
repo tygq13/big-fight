@@ -1,6 +1,5 @@
 package bigfight;
 
-import bigfight.combat.fighter.Fighter;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.warrior.component.EmpowermentFactory;
@@ -8,11 +7,9 @@ import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.ui.EnUi;
-import bigfight.command.FightCommand;
-import bigfight.model.warrior.builder.Warrior;
+import bigfight.logic.command.FightCommand;
 import bigfight.model.warrior.WarriorFactory;
 import bigfight.data.DataConfig;
-import bigfight.data.DataGetter;
 
 public class Main {
     EnUi ui;
@@ -36,12 +33,6 @@ public class Main {
 
     public void run() {
         ui.showWelcome();
-        Warrior mainCharacter = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, warriorDatabase, "Hero");
-        Warrior npc = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, warriorDatabase,"Villain");
-        System.out.println(mainCharacter);
-        System.out.println(npc);
-        fightCommand = new FightCommand(new Fighter(mainCharacter), new Fighter(npc), ui);
-        fightCommand.execute();
     }
 
     public static void main(String[] args) {

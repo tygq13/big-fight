@@ -8,6 +8,16 @@ public class EnUi implements Uiable{
     }
 
     @Override
+    public void printWin() {
+        System.out.println("You have won");
+    }
+
+    @Override
+    public void printLose() {
+        System.out.println("You have lost");
+    }
+
+    @Override
     public void printWeaponSmallAttack(String fighterName, String weaponName) {
         String result = String.format("%s stand still, suddenly pocketing out a small weapon %s stabbing " +
                 "towards the center of the opponent. ", fighterName, weaponName);

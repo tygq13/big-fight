@@ -3,6 +3,9 @@ package bigfight.ui;
 public interface Uiable {
     void showWelcome();
 
+    void printWin();
+    void printLose();
+
     void printWeaponSmallAttack(String fighterName, String weaponName);
     void printWeaponMediumAttack(String fighterName, String weaponName);
     void printWeaponBigAttack(String fighterName, String weaponName);

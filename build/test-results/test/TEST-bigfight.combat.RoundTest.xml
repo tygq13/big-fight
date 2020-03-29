@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.RoundTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-03-28T13:08:51" hostname="LAPTOP-4LQP2O2E" time="0.048">
+<testsuite name="bigfight.combat.RoundTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:11" hostname="LAPTOP-4LQP2O2E" time="0.082">
   <properties/>
-  <testcase name="round_ignore_round_by_speed()" classname="bigfight.combat.RoundTest" time="0.007"/>
-  <testcase name="round_throw_weapon_loss_weapon()" classname="bigfight.combat.RoundTest" time="0.005"/>
-  <testcase name="round_attack_multiplied_by_strength()" classname="bigfight.combat.RoundTest" time="0.007"/>
-  <testcase name="round_counter_attack_both_unarmed_do_damage()" classname="bigfight.combat.RoundTest" time="0.006"/>
-  <testcase name="round_give_damage_in_simple_weapon_attack_with_example_trident()" classname="bigfight.combat.RoundTest" time="0.004"/>
-  <testcase name="round_attack_miss_by_agility()" classname="bigfight.combat.RoundTest" time="0.004"/>
-  <testcase name="round_throw_weapon_cause_damage()" classname="bigfight.combat.RoundTest" time="0.005"/>
-  <testcase name="round_give_damage_in_simple_attack_with_unarmed()" classname="bigfight.combat.RoundTest" time="0.004"/>
-  <testcase name="round_give_damage_in_simple_skill_attack_with_example_roar()" classname="bigfight.combat.RoundTest" time="0.003"/>
+  <testcase name="round_ignore_round_by_speed()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_throw_weapon_loss_weapon()" classname="bigfight.combat.RoundTest" time="0.006"/>
+  <testcase name="round_attack_multiplied_by_strength()" classname="bigfight.combat.RoundTest" time="0.008"/>
+  <testcase name="round_counter_attack_both_unarmed_do_damage()" classname="bigfight.combat.RoundTest" time="0.008"/>
+  <testcase name="round_give_damage_in_simple_weapon_attack_with_example_trident()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_attack_miss_by_agility()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_throw_weapon_cause_damage()" classname="bigfight.combat.RoundTest" time="0.007"/>
+  <testcase name="round_give_damage_in_simple_attack_with_unarmed()" classname="bigfight.combat.RoundTest" time="0.01"/>
+  <testcase name="round_give_damage_in_simple_skill_attack_with_example_roar()" classname="bigfight.combat.RoundTest" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

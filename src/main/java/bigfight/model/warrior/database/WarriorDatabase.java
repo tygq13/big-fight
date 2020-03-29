@@ -24,7 +24,8 @@ public class WarriorDatabase {
     }
 
     public Account createAccount(String name) {
-        Account result = new Account(lock, name, serialNumber);
+        DatabaseAccessor accessor = new DatabaseAccessor(this);
+        Account result = new Account(lock, name, serialNumber, accessor);
         database.put(serialNumber, null);
         serialNumber += 1;
         return result;

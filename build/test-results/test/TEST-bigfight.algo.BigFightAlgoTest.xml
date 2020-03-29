@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.algo.BigFightAlgoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-28T13:08:50" hostname="LAPTOP-4LQP2O2E" time="0.018">
+<testsuite name="bigfight.algo.BigFightAlgoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:10" hostname="LAPTOP-4LQP2O2E" time="0.026">
   <properties/>
-  <testcase name="uniform_random_distribution_with_sum_equal_to_total()" classname="bigfight.algo.BigFightAlgoTest" time="0.018"/>
+  <testcase name="uniform_random_distribution_with_sum_equal_to_total()" classname="bigfight.algo.BigFightAlgoTest" time="0.026"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

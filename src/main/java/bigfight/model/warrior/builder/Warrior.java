@@ -1,9 +1,12 @@
 package bigfight.model.warrior.builder;
 
+import bigfight.logic.command.Commandable;
 import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.database.Account;
+import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.skill.SkillManager;
+import bigfight.ui.Uiable;
 
 public class Warrior {
     private Account account;
@@ -28,6 +31,10 @@ public class Warrior {
         this.weaponManager = weaponManager;
         this.skillManager = skillManager;
         this.friends = friends;
+    }
+
+    public void execute(Commandable command, Uiable ui) {
+        command.execute(this, ui);
     }
 
     public String getName() {
@@ -72,6 +79,10 @@ public class Warrior {
 
     public int getFriend(int index) {
         return friends.get(index);
+    }
+
+    public DatabaseAccessor getDatabaseAccessor() {
+        return account.getDatabaseAccessor();
     }
 
     @Override
