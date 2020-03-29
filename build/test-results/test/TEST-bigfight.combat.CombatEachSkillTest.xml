@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.CombatEachSkillTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:11" hostname="LAPTOP-4LQP2O2E" time="0.04">
+<testsuite name="bigfight.combat.CombatEachSkillTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T05:25:42" hostname="LAPTOP-4LQP2O2E" time="0.029">
   <properties/>
-  <testcase name="roar_ignore_one_round()" classname="bigfight.combat.CombatEachSkillTest" time="0.01"/>
-  <testcase name="apparent_death_survive_deadly_attack()" classname="bigfight.combat.CombatEachSkillTest" time="0.029"/>
+  <testcase name="roar_ignore_one_round()" classname="bigfight.combat.CombatEachSkillTest" time="0.007"/>
+  <testcase name="apparent_death_survive_deadly_attack()" classname="bigfight.combat.CombatEachSkillTest" time="0.022"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

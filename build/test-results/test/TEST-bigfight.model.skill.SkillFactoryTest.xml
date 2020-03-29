@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.skill.SkillFactoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:11" hostname="LAPTOP-4LQP2O2E" time="0.03">
+<testsuite name="bigfight.model.skill.SkillFactoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-29T05:25:42" hostname="LAPTOP-4LQP2O2E" time="0.027">
   <properties/>
-  <testcase name="test_create_skill_with_example_identity_born_as_strong()" classname="bigfight.model.skill.SkillFactoryTest" time="0.03"/>
+  <testcase name="test_create_skill_with_example_identity_born_as_strong()" classname="bigfight.model.skill.SkillFactoryTest" time="0.027"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

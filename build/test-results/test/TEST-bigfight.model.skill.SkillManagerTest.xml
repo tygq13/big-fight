@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.skill.SkillManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:11" hostname="LAPTOP-4LQP2O2E" time="0.029">
+<testsuite name="bigfight.model.skill.SkillManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T05:25:42" hostname="LAPTOP-4LQP2O2E" time="0.015">
   <properties/>
-  <testcase name="get_size_of_skill_set()" classname="bigfight.model.skill.SkillManagerTest" time="0.027"/>
+  <testcase name="get_size_of_skill_set()" classname="bigfight.model.skill.SkillManagerTest" time="0.014"/>
   <testcase name="skills_map_initialize()" classname="bigfight.model.skill.SkillManagerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

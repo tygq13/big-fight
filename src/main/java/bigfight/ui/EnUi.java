@@ -1,6 +1,13 @@
 package bigfight.ui;
 
+import java.util.Scanner;
+
 public class EnUi implements Uiable{
+    private Scanner in = new Scanner((System.in));
+    @Override
+    public String readCommand() {
+        return in.nextLine();
+    }
 
     @Override
     public void showWelcome() {

@@ -2,6 +2,7 @@ package bigfight.ui;
 
 public interface Uiable {
     void showWelcome();
+    String readCommand();
 
     void printWin();
     void printLose();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.model.warrior.component.EmpowermentFactoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T03:02:12" hostname="LAPTOP-4LQP2O2E" time="0.265">
+<testsuite name="bigfight.model.warrior.component.EmpowermentFactoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-29T05:25:43" hostname="LAPTOP-4LQP2O2E" time="0.18">
   <properties/>
-  <testcase name="randomGetNew_correctly_gets_the_only_possible_weapon()" classname="bigfight.model.warrior.component.EmpowermentFactoryTest" time="0.114"/>
-  <testcase name="randomGetNew_return_default_empowerment_when_full()" classname="bigfight.model.warrior.component.EmpowermentFactoryTest" time="0.15"/>
+  <testcase name="randomGetNew_correctly_gets_the_only_possible_weapon()" classname="bigfight.model.warrior.component.EmpowermentFactoryTest" time="0.076"/>
+  <testcase name="randomGetNew_return_default_empowerment_when_full()" classname="bigfight.model.warrior.component.EmpowermentFactoryTest" time="0.103"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
