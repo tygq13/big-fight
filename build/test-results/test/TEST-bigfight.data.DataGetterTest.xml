@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.data.DataGetterTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-16T09:37:46" hostname="LAPTOP-4LQP2O2E" time="0.001">
-  <properties/>
-  <testcase name="get_initial_attribute_total()" classname="bigfight.data.DataGetterTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
