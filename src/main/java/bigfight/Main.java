@@ -1,48 +1,57 @@
 package bigfight;
 
-import bigfight.combat.fighter.Fighter;
+import bigfight.data.DataGetter;
+import bigfight.logic.command.Commandable;
+import bigfight.logic.parser.Parser;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillManager;
+import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.EmpowermentFactory;
+import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
-import bigfight.ui.Ui;
-import bigfight.command.FightCommand;
-import bigfight.model.warrior.Warrior;
+import bigfight.ui.EnUi;
 import bigfight.model.warrior.WarriorFactory;
 import bigfight.data.DataConfig;
-import bigfight.data.DataGetter;
+import bigfight.util.BigFightException;
 
 public class Main {
-    Ui ui;
-    FightCommand fightCommand;
+    EnUi ui;
     WarriorFactory warriorFactory;
     DataConfig dataConfig;
     WeaponFactory weaponFactory;
     SkillFactory skillFactory;
     EmpowermentFactory empowermentFactory;
+    WarriorDatabase warriorDatabase;
 
     public Main() {
-        ui = new Ui();
+        ui = new EnUi();
         dataConfig = new DataConfig();
         warriorFactory = new WarriorFactory();
         weaponFactory = new WeaponFactory(new WeaponData());
         skillFactory = new SkillFactory(new SkillData());
         empowermentFactory = new EmpowermentFactory(weaponFactory, skillFactory);
+        warriorDatabase = new WarriorDatabase();
     }
 
-    public void run() {
+    public void run() throws BigFightException {
         ui.showWelcome();
-        Warrior mainCharacter = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, "Hero");
-        Warrior npc = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, "Villain");
-        System.out.println(mainCharacter);
-        System.out.println(npc);
-        fightCommand = new FightCommand(new Fighter(mainCharacter), new Fighter(npc));
-        fightCommand.execute();
+        Warrior warrior = warriorFactory.create(new DataGetter(dataConfig), empowermentFactory, warriorDatabase, "hero");
+        while (true) {
+            String input = ui.readCommand();
+            if (input.equals("exit") || input.equals("quit")) {
+                break;
+            }
+            try {
+                Commandable command = Parser.parse(input);
+                warrior.execute(command, ui);
+            } catch (BigFightException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BigFightException {
         new Main().run();
     }
 }

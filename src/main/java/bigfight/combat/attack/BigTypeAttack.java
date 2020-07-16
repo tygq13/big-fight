@@ -7,37 +7,37 @@ import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.weapon.weapons.GasHammer;
 import bigfight.model.weapon.weapons.Trident;
+import bigfight.ui.Uiable;
 
 public class BigTypeAttack implements Attackable{
     private FighterStatus attacker;
     private FighterStatus defender;
     private Weapon weapon;
     private CombatRandom random;
+    private Uiable ui;
     private boolean isEscaped;
 
-    public BigTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random) {
+    public BigTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;
         this.random = random;
+        this.ui = ui;
     }
 
     @Override
     public void attack() {
-        String attackString = String.format("As heard a howl, %s swing big weapon %s and step forwards. ",
-                attacker.getName(), weapon.getName());
+        ui.printWeaponBigAttack(attacker.getName(), weapon.getName());
         if (escaped()) {
-            attackString += String.format("%s dances in the air, twisting his body and dodge the attack. ", defender.getName());
+            ui.printDodge(defender.getName());
             isEscaped = true;
         } else {
             int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
             double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
             int damage = (int) (weaponDamage * (1 + multiply));
             defender.updateHealth(defender.getHealth() - damage);
-            attackString += String.format("%s covers his wound in pain, losing HP %d (HP %d remains). ",
-                    defender.getName(), damage, defender.getHealth());
+            ui.printInjury(defender.getName(), damage, defender.getHealth());
         }
-        System.out.println(attackString);
         counterAttack();
     }
 
@@ -55,7 +55,7 @@ public class BigTypeAttack implements Attackable{
     }
 
     private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random).counterAttack();
+        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
         attacker.updateHealth(attacker.getHealth() - damage);
     }
 

@@ -7,18 +7,21 @@ import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.ApparentDeath;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
+import bigfight.ui.Uiable;
 
 class CounterAttack {
     private FighterStatus defender;
     private FighterStatus attacker;
     private boolean isEscaped;
     private CombatRandom random;
+    private Uiable ui;
 
-    CounterAttack(FighterStatus defender, FighterStatus attacker, boolean isEscaped, CombatRandom random) {
+    CounterAttack(FighterStatus defender, FighterStatus attacker, boolean isEscaped, CombatRandom random, Uiable ui) {
         this.defender = defender;
         this.attacker = attacker;
         this.isEscaped = isEscaped;
         this.random = random;
+        this.ui = ui;
     }
 
     boolean specialCounter() {
@@ -27,7 +30,7 @@ class CounterAttack {
             int lastHealth = apparentDeath.getLastHealth();
             defender.updateHealth(lastHealth);
             defender.removeSkill(SkillIdentity.APPARENT_DEATH);
-            System.out.println("The opponent falls smoothly, breathe stopped, in apparent death");
+            ui.printSkillApparentDeath(defender.getName());
             return true;
         }
         return false;
@@ -39,11 +42,11 @@ class CounterAttack {
         }
         if (random.getCounterAttackRandom() < DataConfig.COUNTER_ATTACK_CHANCE) {
             Weapon weapon = defender.getHoldingWeapon();
-            String counterString = String.format("%s skillfully counter-attacks with %s. ", defender.getName(), weapon == null ? "his fist" : weapon.getName());
+            ui.printCounterAttackWeapon(defender.getName(), weapon == null ? "his fist" : weapon.getName());
+
             if (counterEscaped()) {
                 // the counter attack is escaped
-                counterString += String.format("%s carefully dodge the counter-attack. ", attacker.getName());
-                System.out.println(counterString);
+                ui.printCounterAttackDodge(attacker.getName());
                 return 0;
             } else {
                 double multiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
@@ -51,8 +54,7 @@ class CounterAttack {
                 int damage =  (weapon == null
                         ? random.getWeaponDamageRandom(defender.getUnarmedDamage().lower(), defender.getUnarmedDamage().higher())
                         : random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher()));
-                counterString += String.format("%s neglect the defence the lose HP %d (HP %d remains). ", attacker.getName(), damage, attacker.getHealth());
-                System.out.println(counterString);
+                ui.printCounterAttackInjury(attacker.getName(), damage, attacker.getHealth());
                 return (int) (damage * (1 + multiply));
             }
         }
