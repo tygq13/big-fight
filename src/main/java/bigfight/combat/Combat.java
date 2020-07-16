@@ -11,7 +11,7 @@ public class Combat {
     private Uiable ui;
 
     final private int HERO_TURN = 1;
-    final private int VILLAIN_TURN = -1;
+    final private int OPPONENT_TURN = -1;
 
     public Combat(Fighter first, Fighter second, Uiable ui) {
         hero = first;
@@ -27,12 +27,12 @@ public class Combat {
         CombatRandom rand = new CombatRandom();
         while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
             if (heroRound(roundDecision, rand)) {
-                roundDecision += VILLAIN_TURN;
+                roundDecision += OPPONENT_TURN;
                 Empowerment empowerment = hero.SelectEmpowerment(rand);
                 roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
-                    roundDecision += VILLAIN_TURN;
+                    roundDecision += OPPONENT_TURN;
                 }
             } else {
                 roundDecision += HERO_TURN;
