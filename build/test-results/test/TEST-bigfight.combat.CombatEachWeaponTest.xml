@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bigfight.combat.CombatEachWeaponTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-03-29T05:25:42" hostname="LAPTOP-4LQP2O2E" time="0.037">
+<testsuite name="bigfight.combat.CombatEachWeaponTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-07-16T07:37:42" hostname="LAPTOP-4LQP2O2E" time="0.047">
   <properties/>
-  <testcase name="test_judge_pencil_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.01"/>
+  <testcase name="test_judge_pencil_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.013"/>
   <testcase name="test_death_scythe_unescapable()" classname="bigfight.combat.CombatEachWeaponTest" time="0.012"/>
-  <testcase name="test_gas_hammer_ignore_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.008"/>
-  <testcase name="test_trident_rest_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.006"/>
+  <testcase name="test_gas_hammer_ignore_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.01"/>
+  <testcase name="test_trident_rest_one_round()" classname="bigfight.combat.CombatEachWeaponTest" time="0.009"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
