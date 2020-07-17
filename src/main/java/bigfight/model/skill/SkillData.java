@@ -12,7 +12,7 @@ public class SkillData {
             SkillType.PERMANENT,
             "You are a warrior with enormous strength.\n" +
                     "Your strength increase: basic strength * 50% + 3\n" +
-                    "After level 60, the chance of getting this skill largely increases at every 5 level.",
+                    "After level 60, you have high chance of getting this skill at every 5 levels.",
             SkillIdentity.BORN_AS_STRONG,
             "born as strong"
     );
@@ -25,7 +25,7 @@ public class SkillData {
             SkillType.PERMANENT,
             "Your agile body dodges every attacks.\n" +
                     "Your agility increase: basic agility * 50% + 3.\n" +
-                    "After level 60, the chance of getting this skill largely increases at every 5 level.",
+                    "After level 60, you have high chance of getting this skill at every 5 levels.",
             SkillIdentity.AGILE_BODY,
             "agile body"
     );
@@ -38,7 +38,7 @@ public class SkillData {
             SkillType.PERMANENT,
             "You are always a step ahead of cataclysm.\n" +
                     "Your speed increase: basic speed * 50% + 3.\n" +
-                    "After level 60, the chance of getting this skill largely increases at every 5 level.",
+                    "After level 60, you have high chance of getting this skill at every 5 levels.",
             SkillIdentity.A_STEP_AHEAD,
             "a step ahead"
     );
@@ -61,9 +61,9 @@ public class SkillData {
 
     private final SkillStruct APPARENT_DEATH_ONE = new SkillStruct(
             SkillType.SPECIAL,
-            "Upmost danger lies in the apparent death.\n" +
+            "The utmost danger lies in the enemy's apparent death.\n" +
                     "Upon fatal damage, you will not die but leave with 1 health.\n" +
-                    "After level 60, the chance of getting this skill largely increases at every 5 level.",
+                    "After level 60, you have high chance of getting this skill at every 5 levels.",
             SkillIdentity.APPARENT_DEATH,
             "apparent death"
     );

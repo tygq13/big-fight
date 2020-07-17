@@ -20,6 +20,7 @@ public class WarriorDatabase {
     public WarriorDatabase() {
         serialNumber = 0;
         database = new HashMap<>();
+        // get default nps
         initializeNpc();
     }
 
