@@ -3,10 +3,7 @@ package bigfight.model.warrior;
 import bigfight.algo.BigFightAlgo;
 import bigfight.data.DataGetter;
 import bigfight.model.skill.SkillManager;
-import bigfight.model.skill.skills.AStepAhead;
-import bigfight.model.skill.skills.AgileBody;
-import bigfight.model.skill.skills.BornAsStrong;
-import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
@@ -24,11 +21,11 @@ public class WarriorFactory {
         Agility agility = new Agility();
         Strength strength = new Strength();
         initializeAttributes(strength, agility, speed, dataGetter);
-        int health = dataGetter.getInitialHealth();
+        Health health = new Health(dataGetter.getInitialHealth());
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
         Friends friends = getInitialFriends(warriorDatabase);
-        initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, empowermentFactory);
+        initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, health, empowermentFactory);
         Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
                 .strength(strength)
@@ -56,8 +53,9 @@ public class WarriorFactory {
         }
     }
 
+    // todo: move this logic to level-up
     private void initializeEmpowerment(WeaponManager weaponManager, SkillManager skillManager, Strength strength,
-                                       Agility agility, Speed speed, EmpowermentFactory empowermentFactory) {
+                                       Agility agility, Speed speed, Health health, EmpowermentFactory empowermentFactory) {
         Empowerment newEmpowerment =
                 empowermentFactory.randomGetNew(weaponManager.getWeaponList(), skillManager.getSkillMap());
         if (newEmpowerment != null) {
@@ -67,15 +65,19 @@ public class WarriorFactory {
                 switch (skillModel.getIdentity()) {
                     case BORN_AS_STRONG:
                         BornAsStrong bornAsStrong = (BornAsStrong) skillModel;
-                        strength.add(bornAsStrong.upgrade(strength.getBase()));
+                        bornAsStrong.upgrade(strength);
                         break;
                     case AGILE_BODY:
                         AgileBody agileBody = (AgileBody) skillModel;
-                        agility.add(agileBody.upgrade(agility.getBase()));
+                        agileBody.upgrade(agility);
                         break;
                     case A_STEP_AHEAD:
                         AStepAhead aStepAhead = (AStepAhead) skillModel;
-                        speed.add(aStepAhead.upgrade(speed.getBase()));
+                        aStepAhead.upgrade(speed);
+                    case STRONG_PHYSIQUE:
+                        StrongPhysique strongPhysique = (StrongPhysique) skillModel;
+                        strongPhysique.upgrade(health);
+
                 }
             }
         }

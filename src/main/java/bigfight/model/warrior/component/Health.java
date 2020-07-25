@@ -1,14 +1,14 @@
 package bigfight.model.warrior.component;
 
-public class Speed {
+public class Health {
     private int base;
     private int total;
-    public Speed() {
+    public Health() {
         base = 0;
         total = 0;
     }
 
-    public Speed(int base) {
+    public Health(int base) {
         this.base = base;
         total = this.base;
     }

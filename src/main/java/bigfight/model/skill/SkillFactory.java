@@ -23,6 +23,8 @@ public class SkillFactory {
                 return new Roar(skillData.getWithStar(identity, 1));
             case APPARENT_DEATH:
                 return new ApparentDeath(skillData.getWithStar(identity, 1));
+            case STRONG_PHYSIQUE:
+                return new StrongPhysique(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

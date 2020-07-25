@@ -13,14 +13,14 @@ public class Warrior {
     private Speed speed;
     private Agility agility;
     private Strength strength;
+    private Health health;
     private int level;
-    private int health;
     private WeaponManager weaponManager;
     private SkillManager skillManager;
     private Friends friends;
 
     // although the interface is package private, lock ensures that only builder can access it
-    Warrior(WarriorBuilder.Lock lock, Account account, Strength strength, Agility agility, Speed speed, int health,
+    Warrior(WarriorBuilder.Lock lock, Account account, Strength strength, Agility agility, Speed speed, Health health,
             WeaponManager weaponManager, SkillManager skillManager, Friends friends) {
         this.account = account;
         this.strength = strength;
@@ -62,7 +62,7 @@ public class Warrior {
     }
 
     public int getHealth() {
-        return health;
+        return health.value();
     }
 
     public WeaponManager getWeaponManager() {
@@ -97,5 +97,4 @@ public class Warrior {
         result += "Skills: " + skillManager.toString() + System.lineSeparator();
         return result;
     }
-
 }

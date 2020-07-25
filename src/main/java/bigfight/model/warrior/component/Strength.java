@@ -15,7 +15,7 @@ public class Strength {
         total = this.base;
     }
 
-    public void add(int increment) {
+    public void addToAddition(int increment) {
         total += increment;
     }
 

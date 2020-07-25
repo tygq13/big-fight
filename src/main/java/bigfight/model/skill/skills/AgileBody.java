@@ -1,6 +1,7 @@
 package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.SkillStruct;
+import bigfight.model.warrior.component.Agility;
 
 public class AgileBody extends SkillModel {
     private final double AGILE_BODY_ONE_MULTIPLY = 0.5;
@@ -18,7 +19,9 @@ public class AgileBody extends SkillModel {
         return AGILE_BODY_ONE_ADDITION;
     }
 
-    public int upgrade(int base) {
-        return base * (int) (getMultiply()) + getAddition();
+    public void upgrade(Agility agility) {
+        // todo: got problem here
+        int addition = (int) (agility.getBase() * AGILE_BODY_ONE_MULTIPLY + AGILE_BODY_ONE_ADDITION);
+        agility.addToBase(addition);
     }
 }

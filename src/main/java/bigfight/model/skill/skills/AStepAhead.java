@@ -1,6 +1,7 @@
 package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.SkillStruct;
+import bigfight.model.warrior.component.Speed;
 
 public class AStepAhead extends SkillModel {
     private final double A_STEP_AHEAD_ONE_MULTIPLY = 0.5;
@@ -18,7 +19,9 @@ public class AStepAhead extends SkillModel {
         return A_STEP_AHEAD_ONE_ADDITION;
     }
 
-    public int upgrade(int base) {
-        return base * (int) (getMultiply()) + getAddition();
+    public void upgrade(Speed speed) {
+        // todo: got problem here
+        int addition = (int) (speed.getBase() * A_STEP_AHEAD_ONE_MULTIPLY + A_STEP_AHEAD_ONE_ADDITION);
+        speed.addToBase(addition);
     }
 }

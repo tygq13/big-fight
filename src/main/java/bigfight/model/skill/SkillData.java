@@ -6,6 +6,7 @@ import com.sun.tools.attach.AgentInitializationException;
 import java.util.HashMap;
 import java.util.Map;
 
+// note: permanent skill type is untested.
 public class SkillData {
 
     private final SkillStruct BORN_AS_STRONG_ONE = new SkillStruct(
@@ -72,13 +73,27 @@ public class SkillData {
             APPARENT_DEATH_ONE
     );
 
+    private final SkillStruct STRONG_PHYSIQUE = new SkillStruct(
+            SkillType.PERMANENT,
+            "Persistent training makes your body particularly strong. \n" +
+                    "Your health increases by 15% + 8. \n" +
+                    "After level 60, you have high chance of getting this skill at every 5 levels.\n",
+            SkillIdentity.STRONG_PHYSIQUE,
+            "strong physique"
+    );
+
+    private final SkillStructArray STRONG_PHYSIQUE_ARRAY = new SkillStructArray(
+            STRONG_PHYSIQUE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
                     Map.entry(SkillIdentity.AGILE_BODY, AGILE_BODY_ARRAY),
                     Map.entry(SkillIdentity.A_STEP_AHEAD, A_STEP_AHEAD_ARRAY),
                     Map.entry(SkillIdentity.ROAR, ROAR_ARRAY),
-                    Map.entry(SkillIdentity.APPARENT_DEATH, APPARENT_DEATH_ARRAY)
+                    Map.entry(SkillIdentity.APPARENT_DEATH, APPARENT_DEATH_ARRAY),
+                    Map.entry(SkillIdentity.STRONG_PHYSIQUE, STRONG_PHYSIQUE_ARRAY)
             )
     );
 

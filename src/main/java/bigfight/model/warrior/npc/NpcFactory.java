@@ -4,6 +4,7 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
 import bigfight.model.warrior.component.Agility;
+import bigfight.model.warrior.component.Health;
 import bigfight.model.warrior.component.Speed;
 import bigfight.model.warrior.component.Strength;
 import bigfight.model.warrior.database.Account;
@@ -25,7 +26,7 @@ public class NpcFactory {
         Strength strength = new Strength(2);
         Agility agility = new Agility(2);
         Speed speed = new Speed(2);
-        int health = 3;
+        Health health = new Health(3);
         WeaponManager weaponManager = new WeaponManager(); // no weapon
         SkillManager skillManager = new SkillManager(); // no skill
         return WarriorBuilder.stepBuilder(warriorDatabase)

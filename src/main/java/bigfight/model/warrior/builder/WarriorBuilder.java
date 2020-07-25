@@ -1,10 +1,7 @@
 package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.warrior.component.Agility;
-import bigfight.model.warrior.component.Friends;
-import bigfight.model.warrior.component.Speed;
-import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.warrior.database.WarriorDatabase;
@@ -38,7 +35,7 @@ public class WarriorBuilder {
     }
 
     public interface HealthStep {
-        WeaponManagerStep health(int health);
+        WeaponManagerStep health(Health health);
     }
 
     public interface WeaponManagerStep {
@@ -64,7 +61,7 @@ public class WarriorBuilder {
         private Strength strength;
         private Agility agility;
         private Speed speed;
-        private int health;
+        private Health health;
         private WeaponManager weaponManager;
         private SkillManager skillManager;
         private Friends friends;
@@ -98,7 +95,7 @@ public class WarriorBuilder {
         }
 
         @Override
-        public WeaponManagerStep health(int health) {
+        public WeaponManagerStep health(Health health) {
             this.health = health;
             return this;
         }

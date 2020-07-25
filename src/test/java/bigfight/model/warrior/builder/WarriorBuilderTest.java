@@ -1,10 +1,7 @@
 package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.warrior.component.Agility;
-import bigfight.model.warrior.component.Friends;
-import bigfight.model.warrior.component.Speed;
-import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
@@ -22,7 +19,7 @@ class WarriorBuilderTest {
         final Strength STRENGTH = new Strength();
         final Agility AGILITY = new Agility();
         final Speed SPEED = new Speed();
-        final int HEALTH = 10;
+        final Health HEALTH = new Health(10);
         final WeaponManager WEAPON_MANAGER = new WeaponManager();
         final SkillManager SKILL_MANAGER = new SkillManager();
         final Friends friends = new Friends();
@@ -42,7 +39,7 @@ class WarriorBuilderTest {
         assertEquals(STRENGTH.getBase(), test.getStrength());
         assertEquals(AGILITY.getBase(), test.getAgility());
         assertEquals(SPEED.getBase(), test.getSpeed());
-        assertEquals(HEALTH, test.getHealth());
+        assertEquals(HEALTH.getBase(), test.getHealth());
         assertNotNull(test.getWeaponManager());
         assertNotNull(test.getSkillManager());
         assertNotNull(test.getFriends());
@@ -58,7 +55,7 @@ class WarriorBuilderTest {
                 .strength(mock(Strength.class))
                 .agility(mock(Agility.class))
                 .speed(mock(Speed.class))
-                .health(0)
+                .health(mock(Health.class))
                 .weaponManager(mock(WeaponManager.class))
                 .skillManager(mock(SkillManager.class))
                 .friends(mock(Friends.class))
