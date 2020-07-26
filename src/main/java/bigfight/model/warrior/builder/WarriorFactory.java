@@ -1,6 +1,7 @@
 package bigfight.model.warrior;
 
 import bigfight.algo.BigFightAlgo;
+import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.*;
@@ -28,6 +29,7 @@ public class WarriorFactory {
         initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, health, empowermentFactory);
         Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
+                .level(1)
                 .strength(strength)
                 .agility(agility)
                 .speed(speed)
@@ -37,6 +39,41 @@ public class WarriorFactory {
                 .friends(friends)
                 .build();
         return warrior;
+    }
+
+    public void levelUp(Warrior warrior) {
+        warrior.levelIncrement();
+        warrior.health.addToAddition(DataConfig.LEVEL_UP_HEALTH_ADDITION);
+        int[] distribution = BigFightAlgo.uniformRandomDistribute(3, DataConfig.LEVEL_UP_ATTRIBUTE_ADDITION_NORMAL);
+        strength.addToAddition(distribution[0]);
+        agility.addToAddition(distribution[1]);
+        speed.addToAddition(distribution[2]);
+
+        Empowerment newEmpowerment =
+                empowermentFactory.randomGetNew(weaponManager.getWeaponList(), skillManager.getSkillMap());
+        if (newEmpowerment != null) {
+            newEmpowerment.addTo(weaponManager, skillManager);
+            if (newEmpowerment.getSkill() != null && newEmpowerment.getSkill().getType() == SkillType.PERMANENT) {
+                SkillModel skillModel = newEmpowerment.getSkill();
+                switch (skillModel.getIdentity()) {
+                    case BORN_AS_STRONG:
+                        BornAsStrong bornAsStrong = (BornAsStrong) skillModel;
+                        bornAsStrong.upgrade(strength);
+                        break;
+                    case AGILE_BODY:
+                        AgileBody agileBody = (AgileBody) skillModel;
+                        agileBody.upgrade(agility);
+                        break;
+                    case A_STEP_AHEAD:
+                        AStepAhead aStepAhead = (AStepAhead) skillModel;
+                        aStepAhead.upgrade(speed);
+                    case STRONG_PHYSIQUE:
+                        StrongPhysique strongPhysique = (StrongPhysique) skillModel;
+                        strongPhysique.upgrade(health);
+
+                }
+            }
+        }
     }
 
     private void initializeAttributes(Strength strength, Agility agility, Speed speed, DataGetter dataGetter) {
