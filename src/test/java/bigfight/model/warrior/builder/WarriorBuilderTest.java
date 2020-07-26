@@ -16,30 +16,33 @@ class WarriorBuilderTest {
     void build_warrior_successful() {
         final Account account = mock(Account.class);
         when(account.getName()).thenReturn("TEST");
-        final Strength STRENGTH = new Strength();
-        final Agility AGILITY = new Agility();
-        final Speed SPEED = new Speed();
-        final Health HEALTH = new Health(10);
-        final WeaponManager WEAPON_MANAGER = new WeaponManager();
-        final SkillManager SKILL_MANAGER = new SkillManager();
+        final int LEVEL = 1;
+        final Strength strength = new Strength();
+        final Agility agility = new Agility();
+        final Speed speed = new Speed();
+        final Health health = new Health(10);
+        final WeaponManager weaponManager = new WeaponManager();
+        final SkillManager skillManager = new SkillManager();
         final Friends friends = new Friends();
 
         Warrior test = WarriorBuilder.stepBuilder(mock(WarriorDatabase.class))
                 .account(account)
-                .strength(STRENGTH)
-                .agility(AGILITY)
-                .speed(SPEED)
-                .health(HEALTH)
-                .weaponManager(WEAPON_MANAGER)
-                .skillManager(SKILL_MANAGER)
+                .level(LEVEL)
+                .strength(strength)
+                .agility(agility)
+                .speed(speed)
+                .health(health)
+                .weaponManager(weaponManager)
+                .skillManager(skillManager)
                 .friends(friends)
                 .build();
         assertNotNull(test);
         assertEquals(account.getName(), test.getName());
-        assertEquals(STRENGTH.getBase(), test.getStrength());
-        assertEquals(AGILITY.getBase(), test.getAgility());
-        assertEquals(SPEED.getBase(), test.getSpeed());
-        assertEquals(HEALTH.getBase(), test.getHealth());
+        assertEquals(LEVEL, test.getLevel());
+        assertEquals(strength.getBase(), test.getStrength());
+        assertEquals(agility.getBase(), test.getAgility());
+        assertEquals(speed.getBase(), test.getSpeed());
+        assertEquals(health.getBase(), test.getHealth());
         assertNotNull(test.getWeaponManager());
         assertNotNull(test.getSkillManager());
         assertNotNull(test.getFriends());
@@ -52,6 +55,7 @@ class WarriorBuilderTest {
 
         WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
+                .level(1)
                 .strength(mock(Strength.class))
                 .agility(mock(Agility.class))
                 .speed(mock(Speed.class))

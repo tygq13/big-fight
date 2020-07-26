@@ -22,6 +22,6 @@ public class AStepAhead extends SkillModel {
     public void upgrade(Speed speed) {
         // todo: got problem here
         int addition = (int) (speed.getBase() * A_STEP_AHEAD_ONE_MULTIPLY + A_STEP_AHEAD_ONE_ADDITION);
-        speed.addToBase(addition);
+        speed.addToAddition(addition);
     }
 }

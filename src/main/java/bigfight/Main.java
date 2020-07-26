@@ -11,7 +11,7 @@ import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.ui.EnUi;
-import bigfight.model.warrior.WarriorFactory;
+import bigfight.model.warrior.builder.WarriorFactory;
 import bigfight.data.DataConfig;
 import bigfight.util.BigFightException;
 

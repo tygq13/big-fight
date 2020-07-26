@@ -22,6 +22,6 @@ public class AgileBody extends SkillModel {
     public void upgrade(Agility agility) {
         // todo: got problem here
         int addition = (int) (agility.getBase() * AGILE_BODY_ONE_MULTIPLY + AGILE_BODY_ONE_ADDITION);
-        agility.addToBase(addition);
+        agility.addToAddition(addition);
     }
 }

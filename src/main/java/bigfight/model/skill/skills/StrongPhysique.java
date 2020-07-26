@@ -20,8 +20,7 @@ public class StrongPhysique extends SkillModel{
     }
 
     public void upgrade(Health health) {
-        // todo: got problem here
         int addition = (int) (health.getBase() * STRONG_PHYSIQUE_ONE_MULTIPLY + STRONG_PHYSIQUE_ONE_ADDITION);
-        health.addToBase(addition);
+        health.addToAddition(addition);
     }
 }

@@ -19,7 +19,11 @@ public class WarriorBuilder {
     }
 
     public interface AccountStep {
-        StrengthStep account(Account account);
+        LevelStep account(Account account);
+    }
+
+    public interface LevelStep {
+        StrengthStep level(int level);
     }
 
     public interface StrengthStep {
@@ -54,10 +58,11 @@ public class WarriorBuilder {
         Warrior build();
     }
 
-    private static class WarriorSteps implements AccountStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
+    private static class WarriorSteps implements AccountStep, LevelStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
             WeaponManagerStep, SkillManagerStep, FriendsStep, BuildStep {
         private WarriorDatabase warriorDatabase;
         private Account account;
+        private int level;
         private Strength strength;
         private Agility agility;
         private Speed speed;
@@ -71,8 +76,14 @@ public class WarriorBuilder {
         }
 
         @Override
-        public StrengthStep account(Account account) {
+        public LevelStep account(Account account) {
             this.account = account;
+            return this;
+        }
+
+        @Override
+        public StrengthStep level(int level) {
+            this.level = level;
             return this;
         }
 

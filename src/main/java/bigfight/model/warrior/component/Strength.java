@@ -1,7 +1,5 @@
 package bigfight.model.warrior.component;
 
-import java.security.PublicKey;
-
 public class Strength {
     private int base;
     private int total;

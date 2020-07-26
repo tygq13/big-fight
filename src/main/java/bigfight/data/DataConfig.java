@@ -9,6 +9,9 @@ public class DataConfig {
     private final int DEFAULT_INITIAL_HEALTH = 65;
     private int initialHealth;
 
+    public static int LEVEL_UP_ATTRIBUTE_ADDITION_NORMAL = 1;
+    public static int LEVEL_UP_HEALTH_ADDITION = 2;
+
     public static final Damage DEFAULT_UNARMED_DAMAGE = new Damage(10, 20);
     public static final double COUNTER_ATTACK_CHANCE = 0.2;
     public static final double THROW_WEAPON_CHANCE = 0.1;

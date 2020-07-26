@@ -31,6 +31,7 @@ public class NpcFactory {
         SkillManager skillManager = new SkillManager(); // no skill
         return WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
+                .level(1)
                 .strength(strength)
                 .agility(agility)
                 .speed(speed)

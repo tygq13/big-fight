@@ -1,6 +1,10 @@
 package bigfight.model.warrior.builder;
 
+import bigfight.algo.BigFightAlgo;
+import bigfight.data.DataConfig;
 import bigfight.logic.command.Commandable;
+import bigfight.model.skill.skills.*;
+import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
@@ -9,15 +13,15 @@ import bigfight.model.skill.SkillManager;
 import bigfight.ui.Uiable;
 
 public class Warrior {
-    private Account account;
-    private Speed speed;
-    private Agility agility;
-    private Strength strength;
-    private Health health;
-    private int level;
-    private WeaponManager weaponManager;
-    private SkillManager skillManager;
-    private Friends friends;
+    protected Account account;
+    protected Speed speed;
+    protected Agility agility;
+    protected Strength strength;
+    protected Health health;
+    protected int level;
+    protected WeaponManager weaponManager;
+    protected SkillManager skillManager;
+    protected Friends friends;
 
     // although the interface is package private, lock ensures that only builder can access it
     Warrior(WarriorBuilder.Lock lock, Account account, Strength strength, Agility agility, Speed speed, Health health,
@@ -97,4 +101,5 @@ public class Warrior {
         result += "Skills: " + skillManager.toString() + System.lineSeparator();
         return result;
     }
+
 }

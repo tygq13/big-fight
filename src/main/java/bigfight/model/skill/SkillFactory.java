@@ -25,6 +25,8 @@ public class SkillFactory {
                 return new ApparentDeath(skillData.getWithStar(identity, 1));
             case STRONG_PHYSIQUE:
                 return new StrongPhysique(skillData.getWithStar(identity, 1));
+            case BALANCED_GROWTH:
+                return new BalancedGrowth(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

@@ -21,6 +21,6 @@ public class BornAsStrong extends SkillModel {
 
     public void upgrade(Strength strength) {
         int addition = (int) (strength.getBase() * BORN_AS_STRONG_ONE_MULTIPLY + BORN_AS_STRONG_ONE_ADDITION);
-        strength.addToBase(addition);
+        strength.addToAddition(addition);
     }
 }

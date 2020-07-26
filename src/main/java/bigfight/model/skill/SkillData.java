@@ -73,7 +73,7 @@ public class SkillData {
             APPARENT_DEATH_ONE
     );
 
-    private final SkillStruct STRONG_PHYSIQUE = new SkillStruct(
+    private final SkillStruct STRONG_PHYSIQUE_ONE = new SkillStruct(
             SkillType.PERMANENT,
             "Persistent training makes your body particularly strong. \n" +
                     "Your health increases by 15% + 8. \n" +
@@ -83,7 +83,19 @@ public class SkillData {
     );
 
     private final SkillStructArray STRONG_PHYSIQUE_ARRAY = new SkillStructArray(
-            STRONG_PHYSIQUE
+            STRONG_PHYSIQUE_ONE
+    );
+
+    private final SkillStruct BALANCED_GROWTH_ONE = new SkillStruct(
+            SkillType.PERMANENT,
+            "You do not leave out any weakness. \n" +
+                    "All your properties increase by basic *21% + 2.\n",
+            SkillIdentity.BALANCED_GROWTH,
+            "balanced growth"
+    );
+
+    private final SkillStructArray BALANCED_GROWTH_ARRAY = new SkillStructArray(
+            BALANCED_GROWTH_ONE
     );
 
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
@@ -93,7 +105,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.A_STEP_AHEAD, A_STEP_AHEAD_ARRAY),
                     Map.entry(SkillIdentity.ROAR, ROAR_ARRAY),
                     Map.entry(SkillIdentity.APPARENT_DEATH, APPARENT_DEATH_ARRAY),
-                    Map.entry(SkillIdentity.STRONG_PHYSIQUE, STRONG_PHYSIQUE_ARRAY)
+                    Map.entry(SkillIdentity.STRONG_PHYSIQUE, STRONG_PHYSIQUE_ARRAY),
+                    Map.entry(SkillIdentity.BALANCED_GROWTH, BALANCED_GROWTH_ARRAY)
             )
     );
 
