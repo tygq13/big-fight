@@ -25,7 +25,7 @@ public class Fighter {
         name = warrior.getName();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
-        agility = warrior.getAgility();
+        agility = warrior.getBasicAttribute();
         health = warrior.getHealth();
         unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
         weaponList = (ArrayList<Weapon>) warrior.getWeaponManager().getWeaponList().clone();

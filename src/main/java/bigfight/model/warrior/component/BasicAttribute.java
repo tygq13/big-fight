@@ -1,14 +1,14 @@
 package bigfight.model.warrior.component;
 
-public class Strength {
+public class BasicAttribute {
     private int base;
     private int total;
-    public Strength() {
+    public BasicAttribute() {
         base = 0;
         total = 0;
     }
 
-    public Strength(int base) {
+    public BasicAttribute(int base) {
         this.base = base;
         total = this.base;
     }
@@ -29,5 +29,4 @@ public class Strength {
     public int getBase() {
         return base;
     }
-
 }

@@ -2,7 +2,7 @@ package bigfight.combat.fighter;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.builder.Warrior;
-import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.*;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponManager;
 
@@ -21,6 +21,7 @@ class FighterTest {
         weaponList.add(mock(Weapon.class));
         WeaponManager mockManager = mock(WeaponManager.class);
         when(mockManager.getWeaponList()).thenReturn(weaponList);
+
         Warrior mockWarrior = mock(Warrior.class);
         when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
         when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));
@@ -31,6 +32,7 @@ class FighterTest {
         ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
         WeaponManager mockManager = mock(WeaponManager.class);
         when(mockManager.getWeaponList()).thenReturn(weaponList);
+
         Warrior mockWarrior = mock(Warrior.class);
         when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
         when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));

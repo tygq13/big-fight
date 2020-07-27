@@ -7,6 +7,7 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.warrior.npc.NpcIdentity;
@@ -16,11 +17,11 @@ public class WarriorFactory {
 
     public Warrior create(DataGetter dataGetter, EmpowermentFactory empowermentFactory, WarriorDatabase warriorDatabase, String name) {
         Account account = warriorDatabase.createAccount(name);
-        Speed speed = new Speed();
-        Agility agility = new Agility();
-        Strength strength = new Strength();
+        BasicAttribute speed = new BasicAttribute();
+        BasicAttribute agility = new BasicAttribute();
+        BasicAttribute strength = new BasicAttribute();
         initializeAttributes(strength, agility, speed, dataGetter);
-        Health health = new Health(dataGetter.getInitialHealth());
+        BasicAttribute health = new BasicAttribute(dataGetter.getInitialHealth());
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
         Friends friends = getInitialFriends(warriorDatabase);
@@ -50,7 +51,7 @@ public class WarriorFactory {
         giveEmpowerment(warrior, empowermentFactory);
     }
 
-    private void initializeAttributes(Strength strength, Agility agility, Speed speed, DataGetter dataGetter) {
+    private void initializeAttributes(BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, DataGetter dataGetter) {
         // each attribute is at least one
         int valueLeft = dataGetter.getInitialAttributeTotal() - 3;
         speed.addToBase(1);

@@ -2,6 +2,7 @@ package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
@@ -17,10 +18,10 @@ class WarriorBuilderTest {
         final Account account = mock(Account.class);
         when(account.getName()).thenReturn("TEST");
         final int LEVEL = 1;
-        final Strength strength = new Strength();
-        final Agility agility = new Agility();
-        final Speed speed = new Speed();
-        final Health health = new Health(10);
+        final BasicAttribute strength = new BasicAttribute();
+        final BasicAttribute agility = new BasicAttribute();
+        final BasicAttribute speed = new BasicAttribute();
+        final BasicAttribute health = new BasicAttribute(10);
         final WeaponManager weaponManager = new WeaponManager();
         final SkillManager skillManager = new SkillManager();
         final Friends friends = new Friends();
@@ -40,7 +41,7 @@ class WarriorBuilderTest {
         assertEquals(account.getName(), test.getName());
         assertEquals(LEVEL, test.getLevel());
         assertEquals(strength.getBase(), test.getStrength());
-        assertEquals(agility.getBase(), test.getAgility());
+        assertEquals(agility.getBase(), test.getBasicAttribute());
         assertEquals(speed.getBase(), test.getSpeed());
         assertEquals(health.getBase(), test.getHealth());
         assertNotNull(test.getWeaponManager());
@@ -56,10 +57,10 @@ class WarriorBuilderTest {
         WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
                 .level(1)
-                .strength(mock(Strength.class))
-                .agility(mock(Agility.class))
-                .speed(mock(Speed.class))
-                .health(mock(Health.class))
+                .strength(mock(BasicAttribute.class))
+                .agility(mock(BasicAttribute.class))
+                .speed(mock(BasicAttribute.class))
+                .health(mock(BasicAttribute.class))
                 .weaponManager(mock(WeaponManager.class))
                 .skillManager(mock(SkillManager.class))
                 .friends(mock(Friends.class))

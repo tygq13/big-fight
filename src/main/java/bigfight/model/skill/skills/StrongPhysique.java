@@ -1,7 +1,7 @@
 package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.Health;
+import bigfight.model.warrior.component.BasicAttribute;
 
 public class StrongPhysique extends SkillModel{
     private final double STRONG_PHYSIQUE_ONE_MULTIPLY = 0.15;
@@ -19,7 +19,8 @@ public class StrongPhysique extends SkillModel{
         return STRONG_PHYSIQUE_ONE_ADDITION;
     }
 
-    public void upgrade(Health health) {
+
+    public void upgrade(BasicAttribute health) {
         int addition = (int) (health.getBase() * STRONG_PHYSIQUE_ONE_MULTIPLY + STRONG_PHYSIQUE_ONE_ADDITION);
         health.addToAddition(addition);
     }

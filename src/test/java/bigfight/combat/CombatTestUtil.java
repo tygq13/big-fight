@@ -8,6 +8,7 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponData;
@@ -61,14 +62,16 @@ public class CombatTestUtil {
         return weapon;
     }
 
+
     public static FighterStatus createDyingFighterWithApparentDeath() {
         SkillModel skill = defaultSkillFactory.create(SkillIdentity.APPARENT_DEATH);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
+        BasicAttribute health = mock(BasicAttribute.class);
+        when(health.value()).thenReturn(2);
         Warrior warrior = mock(Warrior.class);
         when(warrior.getSkillManager()).thenReturn(skillManager);
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
-        when(warrior.getHealth()).thenReturn(2);
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }

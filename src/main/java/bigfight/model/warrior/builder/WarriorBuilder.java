@@ -2,8 +2,11 @@ package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.database.Account;
-import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
 
@@ -27,19 +30,19 @@ public class WarriorBuilder {
     }
 
     public interface StrengthStep {
-        AgilityStep strength(Strength strength);
+        AgilityStep strength(BasicAttribute strength);
     }
 
     public interface  AgilityStep {
-        SpeedStep agility(Agility agility);
+        SpeedStep agility(BasicAttribute agility);
     }
 
     public interface SpeedStep {
-        HealthStep speed(Speed speed);
+        HealthStep speed(BasicAttribute speed);
     }
 
     public interface HealthStep {
-        WeaponManagerStep health(Health health);
+        WeaponManagerStep health(BasicAttribute health);
     }
 
     public interface WeaponManagerStep {
@@ -63,10 +66,10 @@ public class WarriorBuilder {
         private WarriorDatabase warriorDatabase;
         private Account account;
         private int level;
-        private Strength strength;
-        private Agility agility;
-        private Speed speed;
-        private Health health;
+        private BasicAttribute strength;
+        private BasicAttribute agility;
+        private BasicAttribute speed;
+        private BasicAttribute health;
         private WeaponManager weaponManager;
         private SkillManager skillManager;
         private Friends friends;
@@ -88,25 +91,25 @@ public class WarriorBuilder {
         }
 
         @Override
-        public AgilityStep strength(Strength strength) {
+        public AgilityStep strength(BasicAttribute strength) {
             this.strength = strength;
             return this;
         }
 
         @Override
-        public SpeedStep agility(Agility agility) {
+        public SpeedStep agility(BasicAttribute agility) {
             this.agility = agility;
             return this;
         }
 
         @Override
-        public HealthStep speed(Speed speed) {
+        public HealthStep speed(BasicAttribute speed) {
             this.speed = speed;
             return this;
         }
 
         @Override
-        public WeaponManagerStep health(Health health) {
+        public WeaponManagerStep health(BasicAttribute health) {
             this.health = health;
             return this;
         }

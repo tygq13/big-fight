@@ -1,7 +1,7 @@
 package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.component.BasicAttribute;
 
 public class BornAsStrong extends SkillModel {
     private final double BORN_AS_STRONG_ONE_MULTIPLY = 0.5;
@@ -19,7 +19,7 @@ public class BornAsStrong extends SkillModel {
         return BORN_AS_STRONG_ONE_ADDITION;
     }
 
-    public void upgrade(Strength strength) {
+    public void upgrade(BasicAttribute strength) {
         int addition = (int) (strength.getBase() * BORN_AS_STRONG_ONE_MULTIPLY + BORN_AS_STRONG_ONE_ADDITION);
         strength.addToAddition(addition);
     }

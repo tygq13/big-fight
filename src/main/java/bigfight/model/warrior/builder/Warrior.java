@@ -1,11 +1,9 @@
 package bigfight.model.warrior.builder;
 
-import bigfight.algo.BigFightAlgo;
-import bigfight.data.DataConfig;
 import bigfight.logic.command.Commandable;
-import bigfight.model.skill.skills.*;
-import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.WeaponAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.weapon.WeaponManager;
@@ -14,17 +12,18 @@ import bigfight.ui.Uiable;
 
 public class Warrior {
     protected Account account;
-    protected Speed speed;
-    protected Agility agility;
-    protected Strength strength;
-    protected Health health;
+    protected BasicAttribute speed;
+    protected BasicAttribute agility;
+    protected BasicAttribute strength;
+    protected BasicAttribute health;
     protected int level;
     protected WeaponManager weaponManager;
     protected SkillManager skillManager;
     protected Friends friends;
+    protected WeaponAttribute weaponAttribute;
 
     // although the interface is package private, lock ensures that only builder can access it
-    Warrior(WarriorBuilder.Lock lock, Account account, Strength strength, Agility agility, Speed speed, Health health,
+    Warrior(WarriorBuilder.Lock lock, Account account, BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, BasicAttribute health,
             WeaponManager weaponManager, SkillManager skillManager, Friends friends) {
         this.account = account;
         this.strength = strength;
@@ -35,6 +34,7 @@ public class Warrior {
         this.weaponManager = weaponManager;
         this.skillManager = skillManager;
         this.friends = friends;
+        weaponAttribute = new WeaponAttribute();
     }
 
     public void execute(Commandable command, Uiable ui) {
@@ -53,20 +53,36 @@ public class Warrior {
         return speed.value();
     }
 
+    public BasicAttribute getSpeedObj() {
+        return speed;
+    }
+
     public int getStrength() {
         return strength.value();
     }
 
-    public int getAgility() {
+    public BasicAttribute getStrengthObj() {
+        return strength;
+    }
+
+    public int getBasicAttribute() {
         return agility.value();
     }
 
-    public int getLevel() {
-        return level;
+    public BasicAttribute getAgilityObj() {
+        return agility;
     }
 
     public int getHealth() {
         return health.value();
+    }
+
+    public BasicAttribute getHealthObj() {
+        return health;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public WeaponManager getWeaponManager() {
@@ -87,6 +103,10 @@ public class Warrior {
 
     public DatabaseAccessor getDatabaseAccessor() {
         return account.getDatabaseAccessor();
+    }
+
+    public WeaponAttribute getWeaponAttribute() {
+        return weaponAttribute;
     }
 
     @Override

@@ -2,6 +2,7 @@ package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
@@ -16,10 +17,10 @@ public class WarriorTestUtil {
         final Account account = mock(Account.class);
         when(account.getName()).thenReturn("TEST");
         final int LEVEL = level;
-        final Strength strengthInit = new Strength(strength);
-        final Agility agilityInit = new Agility(agility);
-        final Speed speedInit = new Speed(speed);
-        final Health healthInit = new Health(health);
+        final BasicAttribute strengthInit = new BasicAttribute(strength);
+        final BasicAttribute agilityInit = new BasicAttribute(agility);
+        final BasicAttribute speedInit = new BasicAttribute(speed);
+        final BasicAttribute healthInit = new BasicAttribute(health);
         final WeaponManager weaponManager = new WeaponManager();
         final SkillManager skillManager = new SkillManager();
         final Friends friends = new Friends();
@@ -42,10 +43,10 @@ public class WarriorTestUtil {
         final Account account = mock(Account.class);
         when(account.getName()).thenReturn("TEST");
         final int LEVEL = 1;
-        final Strength strengthInit = new Strength(1);
-        final Agility agilityInit = new Agility(1);
-        final Speed speedInit = new Speed(1);
-        final Health healthInit = new Health(1);
+        final BasicAttribute strengthInit = new BasicAttribute(1);
+        final BasicAttribute agilityInit = new BasicAttribute(1);
+        final BasicAttribute speedInit = new BasicAttribute(1);
+        final BasicAttribute healthInit = new BasicAttribute(1);
         final Friends friends = new Friends();
 
         Warrior warrior = WarriorBuilder.stepBuilder(mock(WarriorDatabase.class))

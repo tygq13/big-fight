@@ -8,8 +8,6 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.BornAsStrong;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.builder.Warrior;
-import bigfight.model.warrior.builder.WarriorFactory;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.EmpowermentFactory;
 import bigfight.model.warrior.database.Account;
@@ -57,7 +55,7 @@ class WarriorFactoryTest {
         when(dataGetter.getInitialAttributeTotal()).thenReturn(INITIAL_ATTRIBUTE_TOTAL);
         WarriorFactory test = new WarriorFactory();
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
-        int total = warrior.getSpeed() + warrior.getStrength() + warrior.getAgility();
+        int total = warrior.getSpeed() + warrior.getStrength() + warrior.getBasicAttribute();
         assertEquals(dataGetter.getInitialAttributeTotal(), total);
     }
 
@@ -71,7 +69,7 @@ class WarriorFactoryTest {
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
         assertEquals(1, warrior.getSpeed());
         assertEquals(1, warrior.getStrength());
-        assertEquals(1, warrior.getAgility());
+        assertEquals(1, warrior.getBasicAttribute());
     }
 
     @Test
@@ -84,7 +82,7 @@ class WarriorFactoryTest {
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
         assertEquals(1, Integer.compare(warrior.getSpeed(), 0));
         assertEquals(1, Integer.compare(warrior.getStrength(), 0));
-        assertEquals(1, Integer.compare(warrior.getAgility(), 0));
+        assertEquals(1, Integer.compare(warrior.getBasicAttribute(), 0));
     }
 
     @Test
@@ -170,7 +168,7 @@ class WarriorFactoryTest {
         testFactory.warriorLevelUp(testWarrior, mock(EmpowermentFactory.class));
         // test
         int expectedAttributeTotal = STRENGTH + AGILITY + SPEED + DataConfig.LEVEL_UP_ATTRIBUTE_ADDITION_NORMAL;
-        int actualAttributeTotal = testWarrior.getStrength() + testWarrior.getAgility() + testWarrior.getSpeed();
+        int actualAttributeTotal = testWarrior.getStrength() + testWarrior.getBasicAttribute() + testWarrior.getSpeed();
         assertEquals(expectedAttributeTotal, actualAttributeTotal);
         int expectedHealth = HEALTH + DataConfig.LEVEL_UP_HEALTH_ADDITION;
         assertEquals(expectedHealth, testWarrior.getHealth());
@@ -191,7 +189,7 @@ class WarriorFactoryTest {
 
 
     @Test
-    void test_permanent_skill_correctly_added__when_gained_in_level_up_with_example_born_as_strong() {
+    void test_permanent_skill_correctly_added_when_level_up_with_example_born_as_strong() {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
         EmpowermentFactory empowermentFactory = mock(EmpowermentFactory.class);
