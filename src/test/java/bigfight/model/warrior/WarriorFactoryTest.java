@@ -1,4 +1,4 @@
-package bigfight.model.warrior.builder;
+package bigfight.model.warrior;
 
 import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
@@ -8,6 +8,9 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.BornAsStrong;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.warrior.WarriorFactory;
+import bigfight.model.warrior.builder.Warrior;
+import bigfight.model.warrior.builder.WarriorTestUtil;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.EmpowermentFactory;
 import bigfight.model.warrior.database.Account;
@@ -189,19 +192,16 @@ class WarriorFactoryTest {
 
 
     @Test
-    void test_permanent_skill_correctly_added_when_level_up_with_example_born_as_strong() {
+    void test_permanent_skill_upgraded_when_gained_in_level_up_with_example_born_as_strong() {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
         EmpowermentFactory empowermentFactory = mock(EmpowermentFactory.class);
         BornAsStrong bornAsStrong = (BornAsStrong) defaultSkillFactory.create(SkillIdentity.BORN_AS_STRONG);
-        Empowerment empowerment = new Empowerment(bornAsStrong);
+        BornAsStrong bornAsStrongSpy = spy(bornAsStrong);
+        Empowerment empowerment = new Empowerment(bornAsStrongSpy);
         when(empowermentFactory.randomGetNew(any(), any())).thenReturn(empowerment);
         WarriorFactory testFactory = new WarriorFactory();
         testFactory.warriorLevelUp(testWarrior, empowermentFactory);
-        int currentBase = testWarrior.strength.getBase();
-        int expectedTotal = currentBase + (int) (currentBase * bornAsStrong.getMultiply()) + bornAsStrong.getAddition();
-        assertEquals(expectedTotal, testWarrior.getStrength());
-        // test the attribute added to addition instead of total
-        assertNotEquals(testWarrior.strength.getBase(), testWarrior.strength.value());
+        verify(bornAsStrongSpy).upgrade(any());
     }
 }

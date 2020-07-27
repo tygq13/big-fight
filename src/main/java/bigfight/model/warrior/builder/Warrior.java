@@ -11,16 +11,16 @@ import bigfight.model.skill.SkillManager;
 import bigfight.ui.Uiable;
 
 public class Warrior {
-    protected Account account;
-    protected BasicAttribute speed;
-    protected BasicAttribute agility;
-    protected BasicAttribute strength;
-    protected BasicAttribute health;
-    protected int level;
-    protected WeaponManager weaponManager;
-    protected SkillManager skillManager;
-    protected Friends friends;
-    protected WeaponAttribute weaponAttribute;
+    private Account account;
+    private BasicAttribute speed;
+    private BasicAttribute agility;
+    private BasicAttribute strength;
+    private BasicAttribute health;
+    private int level;
+    private WeaponManager weaponManager;
+    private SkillManager skillManager;
+    private Friends friends;
+    private WeaponAttribute weaponAttribute;
 
     // although the interface is package private, lock ensures that only builder can access it
     Warrior(WarriorBuilder.Lock lock, Account account, BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, BasicAttribute health,
@@ -83,6 +83,10 @@ public class Warrior {
 
     public int getLevel() {
         return level;
+    }
+
+    public void levelUp() {
+        level += 1;
     }
 
     public WeaponManager getWeaponManager() {
