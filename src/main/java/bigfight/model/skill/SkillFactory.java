@@ -27,6 +27,8 @@ public class SkillFactory {
                 return new StrongPhysique(skillData.getWithStar(identity, 1));
             case BALANCED_GROWTH:
                 return new BalancedGrowth(skillData.getWithStar(identity, 1));
+            case WEAPONS_HANDY:
+                return new WeaponsHandy(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

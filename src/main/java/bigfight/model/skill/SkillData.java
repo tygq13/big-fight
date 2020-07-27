@@ -98,6 +98,18 @@ public class SkillData {
             BALANCED_GROWTH_ONE
     );
 
+    private final SkillStruct WEAPONS_HANDY_ONE = new SkillStruct(
+            SkillType.PERMANENT,
+            "All kinds of weapons become handy in your hands. \n" +
+                    "Your weapon damage increases by 20%.\n",
+            SkillIdentity.WEAPONS_HANDY,
+            "weapons handy"
+    );
+
+    private final SkillStructArray WEAPONS_HANDY_ARRAY = new SkillStructArray(
+            WEAPONS_HANDY_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -106,7 +118,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.ROAR, ROAR_ARRAY),
                     Map.entry(SkillIdentity.APPARENT_DEATH, APPARENT_DEATH_ARRAY),
                     Map.entry(SkillIdentity.STRONG_PHYSIQUE, STRONG_PHYSIQUE_ARRAY),
-                    Map.entry(SkillIdentity.BALANCED_GROWTH, BALANCED_GROWTH_ARRAY)
+                    Map.entry(SkillIdentity.BALANCED_GROWTH, BALANCED_GROWTH_ARRAY),
+                    Map.entry(SkillIdentity.WEAPONS_HANDY, WEAPONS_HANDY_ARRAY)
             )
     );
 

@@ -78,4 +78,18 @@ public class PermanentSkillTest {
         assertEquals(expectedTotal, testWarrior.getSpeed());
     }
 
+    @Test
+    void weapons_handy_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        WeaponsHandy weaponsHandy = (WeaponsHandy) defaultSkillFactory.create(SkillIdentity.WEAPONS_HANDY);
+        double bigExpected = testWarrior.getWeaponAttribute().bigExtraPercentageDamage + weaponsHandy.getExtra();
+        double mediumExpected = testWarrior.getWeaponAttribute().mediumExtraPercentageDamage + weaponsHandy.getExtra();
+        double smallExpected = testWarrior.getWeaponAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
+        
+        weaponsHandy.upgrade(testWarrior.getWeaponAttribute());
+        assertEquals(bigExpected, testWarrior.getWeaponAttribute().bigExtraPercentageDamage);
+        assertEquals(mediumExpected, testWarrior.getWeaponAttribute().mediumExtraPercentageDamage);
+        assertEquals(smallExpected, testWarrior.getWeaponAttribute().smallExtraPercentageDamage);
+    }
+
 }
