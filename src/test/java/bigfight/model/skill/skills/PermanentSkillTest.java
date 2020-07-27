@@ -85,11 +85,13 @@ public class PermanentSkillTest {
         double bigExpected = testWarrior.getWeaponAttribute().bigExtraPercentageDamage + weaponsHandy.getExtra();
         double mediumExpected = testWarrior.getWeaponAttribute().mediumExtraPercentageDamage + weaponsHandy.getExtra();
         double smallExpected = testWarrior.getWeaponAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
-        
+        double throwExpected = testWarrior.getWeaponAttribute().throwExtraPercentageDamage + weaponsHandy.getExtra();
+
         weaponsHandy.upgrade(testWarrior.getWeaponAttribute());
         assertEquals(bigExpected, testWarrior.getWeaponAttribute().bigExtraPercentageDamage);
         assertEquals(mediumExpected, testWarrior.getWeaponAttribute().mediumExtraPercentageDamage);
         assertEquals(smallExpected, testWarrior.getWeaponAttribute().smallExtraPercentageDamage);
+        assertEquals(throwExpected, testWarrior.getWeaponAttribute().throwExtraPercentageDamage);
     }
 
 }

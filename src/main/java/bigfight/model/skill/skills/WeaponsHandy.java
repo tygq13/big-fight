@@ -18,6 +18,7 @@ public class WeaponsHandy extends SkillModel {
         weaponAttribute.bigExtraPercentageDamage += getExtra();
         weaponAttribute.mediumExtraPercentageDamage += getExtra();
         weaponAttribute.smallExtraPercentageDamage += getExtra();
+        weaponAttribute.throwExtraPercentageDamage += getExtra();
     }
 }
 

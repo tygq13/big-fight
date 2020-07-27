@@ -94,6 +94,10 @@ public class WarriorFactory {
                     case BALANCED_GROWTH:
                         BalancedGrowth balancedGrowth = (BalancedGrowth) skillModel;
                         balancedGrowth.upgrade(warrior.getStrengthObj(), warrior.getAgilityObj(), warrior.getSpeedObj());
+                        break;
+                    case WEAPONS_HANDY:
+                        WeaponsHandy weaponsHandy = (WeaponsHandy) skillModel;
+                        weaponsHandy.upgrade(warrior.getWeaponAttribute());
                 }
             }
         }
