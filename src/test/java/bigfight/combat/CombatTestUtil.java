@@ -10,11 +10,13 @@ import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.WeaponAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.Damage;
+import bigfight.model.weapon.struct.WeaponType;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -31,6 +33,18 @@ public class CombatTestUtil {
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
+        when(modelFighter.getWeaponAttribute()).thenReturn(mock(WeaponAttribute.class));
+        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
+        return new FighterStatus(modelFighter);
+    }
+
+    public static FighterStatus createSimpleFixedFighter(WeaponAttribute weaponAttribute) {
+        Fighter modelFighter = mock(Fighter.class);
+        when(modelFighter.getSpeed()).thenReturn(5);
+        when(modelFighter.getAgility()).thenReturn(5);
+        when(modelFighter.getStrength()).thenReturn(5);
+        when(modelFighter.getHealth()).thenReturn(100);
+        when(modelFighter.getWeaponAttribute()).thenReturn(weaponAttribute);
         when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new FighterStatus(modelFighter);
     }
@@ -59,6 +73,16 @@ public class CombatTestUtil {
         when(damage.lower()).thenReturn(0);
         when(damage.higher()).thenReturn(0);
         when(weapon.getDamage()).thenReturn(damage);
+        return weapon;
+    }
+
+    public static Weapon createBigWeapon() {
+        Weapon weapon = mock(Weapon.class);
+        Damage damage = mock(Damage.class);
+        when(damage.lower()).thenReturn(10);
+        when(damage.higher()).thenReturn(10);
+        when(weapon.getDamage()).thenReturn(damage);
+        when(weapon.getType()).thenReturn(WeaponType.BIG);
         return weapon;
     }
 

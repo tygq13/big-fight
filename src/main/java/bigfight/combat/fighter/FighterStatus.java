@@ -4,6 +4,7 @@ import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.WeaponAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
 
@@ -13,6 +14,7 @@ public class FighterStatus {
     private int strength;
     private int agility;
     private int health;
+    private WeaponAttribute weaponAttribute;
     private Damage unarmedDamage;
     private Weapon holdingWeapon;
     private SkillList specialSkills;
@@ -26,6 +28,7 @@ public class FighterStatus {
         strength = fighter.getStrength();
         agility = fighter.getAgility();
         health = fighter.getHealth();
+        weaponAttribute = fighter.getWeaponAttribute();
         unarmedDamage = fighter.getUnarmedDamage();
         specialSkills = fighter.getSpecialSkills();
         escape = 0;
@@ -79,6 +82,10 @@ public class FighterStatus {
 
     public Weapon getHoldingWeapon() {
         return holdingWeapon;
+    }
+
+    public WeaponAttribute getWeaponAttribute() {
+        return weaponAttribute;
     }
 
     public boolean hasSkill(SkillIdentity identity) {

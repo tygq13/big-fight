@@ -30,9 +30,7 @@ public class ThrowOutAttack implements Attackable {
     public void attack() {
         ui.printThrowOutAttack(attacker.getName(), weapon.getName());
         if (!escaped()) {
-            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-            double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility() );
-            int damage = (int) (weaponDamage * (1 + multiply));
+            int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             isEscaped = false;
@@ -70,5 +68,14 @@ public class ThrowOutAttack implements Attackable {
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
+    }
+
+    private int calculateDamage() {
+        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
+        double extraDamageMultiply = attacker.getWeaponAttribute().bigExtraPercentageDamage;
+        double multiply = strengthMultiply + extraDamageMultiply;
+        int damage = (int) (weaponDamage * (1 + multiply));
+        return damage;
     }
 }

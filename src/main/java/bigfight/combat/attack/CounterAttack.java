@@ -49,13 +49,9 @@ class CounterAttack {
                 ui.printCounterAttackDodge(attacker.getName());
                 return 0;
             } else {
-                double multiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
-                // no multiply whatsoever
-                int damage =  (weapon == null
-                        ? random.getWeaponDamageRandom(defender.getUnarmedDamage().lower(), defender.getUnarmedDamage().higher())
-                        : random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher()));
+                int damage = calculateDamage();
                 ui.printCounterAttackInjury(attacker.getName(), damage, attacker.getHealth());
-                return (int) (damage * (1 + multiply));
+                return damage;
             }
         }
         return 0;
@@ -65,5 +61,24 @@ class CounterAttack {
         double escape = defender.getFocus() - attacker.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getCounterEscapeRandom() < escape;
+    }
+
+    private int calculateDamage() {
+        double strengthMultiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
+        Weapon weapon = defender.getHoldingWeapon();
+        if (weapon == null) {
+            int unarmedDamage = random.getWeaponDamageRandom(defender.getUnarmedDamage().lower(), defender.getUnarmedDamage().higher());
+            return (int) (unarmedDamage * (1 + strengthMultiply));
+        } else {
+            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+            double extraDamageMultiply = 0;
+            switch (weapon.getType()) {
+                case BIG:
+                    extraDamageMultiply = defender.getWeaponAttribute().bigExtraPercentageDamage;
+
+            }
+            double totalMultiply = strengthMultiply + extraDamageMultiply;
+            return (int) (weaponDamage * (1 + totalMultiply));
+        }
     }
 }

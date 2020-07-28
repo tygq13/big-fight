@@ -29,9 +29,7 @@ public class MediumTypeAttack implements Attackable{
             isEscaped = true;
             ui.printDodge(defender.getName());
         } else {
-            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-            double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            int damage = (int) (weaponDamage * (1 + multiply));
+            int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
         }
@@ -52,5 +50,14 @@ public class MediumTypeAttack implements Attackable{
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
+    }
+
+    private int calculateDamage() {
+        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
+        double extraDamageMultiply = attacker.getWeaponAttribute().bigExtraPercentageDamage;
+        double multiply = strengthMultiply + extraDamageMultiply;
+        int damage = (int) (weaponDamage * (1 + multiply));
+        return damage;
     }
 }

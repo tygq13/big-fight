@@ -113,6 +113,10 @@ public class Warrior {
         return weaponAttribute;
     }
 
+    public WeaponAttribute getWeaponAttributeCopy() {
+        return (WeaponAttribute) weaponAttribute.clone();
+    }
+
     @Override
     public String toString() {
         String result = String.format("Fighter name: %s\n", account.getName())

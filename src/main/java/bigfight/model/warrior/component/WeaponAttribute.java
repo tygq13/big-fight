@@ -1,6 +1,6 @@
 package bigfight.model.warrior.component;
 
-public class WeaponAttribute {
+public class WeaponAttribute implements Cloneable{
     public double bigHitRate = 0;
     public double mediumHitRate = 0;
     public double smallHitRate = 0;
@@ -53,4 +53,74 @@ public class WeaponAttribute {
     public double mediumTenacity = 0;
     public double smallTenacity = 0;
     public double throwTenacity = 0;
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getCause());
+        }
+        return null;
+    }
+
+    /*
+    // use this instead of clone method to avoid handling of unnecessary exception
+    public WeaponAttribute getCopy() {
+        WeaponAttribute weaponAttribute = new WeaponAttribute();
+        weaponAttribute.bigHitRate = bigHitRate;
+        weaponAttribute.mediumHitRate = mediumHitRate;
+        weaponAttribute.smallHitRate = smallHitRate;
+        weaponAttribute.throwHitRate = throwHitRate;
+
+        weaponAttribute.bigEvasionRate = bigEvasionRate;
+        weaponAttribute.mediumEvasionRate = mediumEvasionRate;
+        weaponAttribute.smallEvasionRate = smallEvasionRate;
+        weaponAttribute.throwEvasionRate = throwEvasionRate;
+
+        weaponAttribute.bigCriticalChance = bigCriticalChance;
+        weaponAttribute.mediumCriticalChance = mediumCriticalChance;
+        weaponAttribute.smallCriticalChance = smallCriticalChance;
+        weaponAttribute.throwCriticalChance = throwCriticalChance;
+
+        weaponAttribute.bigAntiCriticalChance = bigAntiCriticalChance;
+        weaponAttribute.mediumAntiCriticalChance = mediumAntiCriticalChance;
+        weaponAttribute.smallAntiCriticalChance = smallAntiCriticalChance;
+        weaponAttribute.throwAntiCriticalChance = throwAntiCriticalChance;
+
+        weaponAttribute.weaponCriticalDamage = weaponCriticalDamage;
+        weaponAttribute.weaponAntiCriticalDamage = weaponAntiCriticalDamage;
+
+        weaponAttribute.bigExtraDamage = bigExtraDamage;
+        weaponAttribute.mediumExtraDamage = mediumExtraDamage;
+        weaponAttribute.smallExtraDamage = smallExtraDamage;
+        weaponAttribute.throwExtraDamage = throwExtraDamage;
+
+        weaponAttribute.bigExtraPercentageDamage = bigExtraPercentageDamage;
+        weaponAttribute.mediumExtraPercentageDamage = mediumExtraPercentageDamage;
+        weaponAttribute.smallExtraPercentageDamage = smallExtraPercentageDamage;
+        weaponAttribute.throwExtraPercentageDamage = throwExtraPercentageDamage;
+
+        weaponAttribute.bigPenetrate = bigPenetrate;
+        weaponAttribute.mediumPenetrate = mediumPenetrate;
+        weaponAttribute.smallPenetrate = smallPenetrate;
+        weaponAttribute.throwPenetrate = throwPenetrate;
+
+        weaponAttribute.bigAntiPenetrate = bigAntiPenetrate;
+        weaponAttribute.mediumAntiPenetrate = mediumAntiPenetrate;
+        weaponAttribute.smallAntiPenetrate = smallAntiPenetrate;
+        weaponAttribute.throwAntiPenetrate = throwAntiPenetrate;
+
+        weaponAttribute.bigAntiTenacity = bigAntiTenacity;
+        weaponAttribute.mediumAntiTenacity = mediumAntiTenacity;
+        weaponAttribute.smallAntiTenacity = smallAntiTenacity;
+        weaponAttribute.throwAntiTenacity = throwAntiTenacity;
+
+        weaponAttribute.bigTenacity = bigTenacity;
+        weaponAttribute.mediumTenacity = mediumTenacity;
+        weaponAttribute.smallTenacity = smallTenacity;
+        weaponAttribute.throwTenacity = throwTenacity;
+        return weaponAttribute;
+    }
+
+     */
 }

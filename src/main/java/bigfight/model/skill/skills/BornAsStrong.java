@@ -19,6 +19,7 @@ public class BornAsStrong extends SkillModel {
         return BORN_AS_STRONG_ONE_ADDITION;
     }
 
+    // in fact better to change according to skill flag. but can skip since it is simple
     public void upgrade(BasicAttribute strength) {
         int addition = (int) (strength.getBase() * BORN_AS_STRONG_ONE_MULTIPLY + BORN_AS_STRONG_ONE_ADDITION);
         strength.addToAddition(addition);
