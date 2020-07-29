@@ -1,6 +1,9 @@
 package bigfight.combat.fighter;
 
+import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
+import bigfight.model.skill.skills.FastHands;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Empowerment;
@@ -41,18 +44,26 @@ public class Fighter {
         specialSkillList.addSpecialFromMap(warrior.getSkillManager().getSkillMap());
     }
 
-    public Empowerment SelectEmpowerment(Random random) {
+    public Empowerment SelectEmpowerment(CombatRandom random) {
         int totalSize = weaponList.size() + activeSkillList.size();
-        int weaponOrSkill = totalSize > 0 ? random.nextInt(totalSize + 1) : 0;
-        Empowerment empowerment;
+        if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
+            totalSize += 1;
+        }
+        // special case
+        Empowerment empowerment = selectExtraChanceEmpowerment(totalSize, random);
+        if (empowerment != null) {
+            return empowerment;
+        }
+        // normal case
+        int weaponOrSkill = totalSize > 0 ? random.selectWeaponOrSkill(totalSize + 1) : 0;
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
             // create weapon
-            int luckyDraw = random.nextInt(weaponList.size());
+            int luckyDraw = random.selectWhichEmpowerment(weaponList.size());
             empowerment = new Empowerment(weaponList.get(luckyDraw));
             weaponList.remove(luckyDraw);
         } else if (weaponOrSkill > weaponList.size() && activeSkillList.size() > 0){
             // create skills
-            int luckyDraw = random.nextInt(activeSkillList.size());
+            int luckyDraw = random.selectWhichEmpowerment(activeSkillList.size());
             empowerment =  new Empowerment(activeSkillList.get(luckyDraw));
         } else {
             // create unarmed
@@ -100,5 +111,16 @@ public class Fighter {
 
     SkillList getSpecialSkills() {
         return specialSkillList;
+    }
+
+    private Empowerment selectExtraChanceEmpowerment(int totalSize, CombatRandom random) {
+        if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
+            FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
+            double chance = (1.0 / totalSize) * fastHands.getExtraChance();
+            if (random.selectExtraChanceEmpowerment() < chance) {
+                return new Empowerment(fastHands);
+            }
+        }
+        return null;
     }
 }

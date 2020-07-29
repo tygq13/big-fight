@@ -9,7 +9,8 @@ public enum SkillIdentity {
     WEAPONS_HANDY,
     BODY_COMBAT_SKILLED,
     SIXTH_SENSE,
-    BOLT_FROM_THE_BLUE;
+    BOLT_FROM_THE_BLUE,
+    FAST_HANDS;
 
     // use static constant to avoid copying of enum array
     private static SkillIdentity[] array = SkillIdentity.values();

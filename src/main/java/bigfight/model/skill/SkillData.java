@@ -146,6 +146,18 @@ public class SkillData {
             BOLT_FROM_THE_BLUE_ONE
     );
 
+    private final SkillStruct FAST_HANDS_ONE = new SkillStruct(
+            SkillType.SPECIAL,
+            "Your fast hands make the attack non-stop.\n" +
+                    "Extra 20% chance of using this skill. Attack the opponent twice.\n",
+            SkillIdentity.FAST_HANDS,
+            "fast hands"
+    );
+
+    private final SkillStructArray FAST_HANDS_ARRAY = new SkillStructArray(
+            FAST_HANDS_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -158,7 +170,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.WEAPONS_HANDY, WEAPONS_HANDY_ARRAY),
                     Map.entry(SkillIdentity.BODY_COMBAT_SKILLED, BODY_COMBAT_SKILLED_ARRAY),
                     Map.entry(SkillIdentity.SIXTH_SENSE, SIXTH_SENSE_ARRAY),
-                    Map.entry(SkillIdentity.BOLT_FROM_THE_BLUE, BOLT_FROM_THE_BLUE_ARRAY)
+                    Map.entry(SkillIdentity.BOLT_FROM_THE_BLUE, BOLT_FROM_THE_BLUE_ARRAY),
+                    Map.entry(SkillIdentity.FAST_HANDS, FAST_HANDS_ARRAY)
             )
     );
 

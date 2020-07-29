@@ -41,4 +41,16 @@ public class CombatRandom extends Random{
     public double getThrowWeaponRandom() {
         return random.nextDouble();
     }
+
+    public int selectWeaponOrSkill(int size) {
+        return random.nextInt(size);
+    }
+
+    public int selectWhichEmpowerment(int size) {
+        return random.nextInt(size);
+    }
+
+    public double selectExtraChanceEmpowerment() {
+        return random.nextDouble();
+    }
 }
