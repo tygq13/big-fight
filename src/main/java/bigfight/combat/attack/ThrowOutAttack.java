@@ -65,7 +65,17 @@ public class ThrowOutAttack implements Attackable {
         if (weapon.getIdentity() == WeaponIdentity.DEMON_SCYTHE || weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
             return false;
         }
-        double escape = attacker.getFocus() - defender.getEscape();
+        double escape = 0;
+        switch (weapon.getType()) {
+            case BIG:
+                escape = attacker.getAdvancedAttribute().bigHitRate - defender.getAdvancedAttribute().bigEvasionRate;
+                break;
+            case MEDIUM:
+                escape = attacker.getAdvancedAttribute().mediumHitRate - defender.getAdvancedAttribute().mediumEvasionRate;
+                break;
+            case SMALL:
+                escape = attacker.getAdvancedAttribute().smallHitRate - defender.getAdvancedAttribute().smallEvasionRate;
+        }
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
@@ -73,7 +83,17 @@ public class ThrowOutAttack implements Attackable {
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
         double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        double extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
+        double extraDamageMultiply = 0;
+        switch (weapon.getType()) {
+            case BIG:
+                extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
+                break;
+            case MEDIUM:
+                extraDamageMultiply = attacker.getAdvancedAttribute().mediumExtraPercentageDamage;
+            break;
+            case SMALL:
+                extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
+        }
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (weaponDamage * (1 + multiply));
         return damage;

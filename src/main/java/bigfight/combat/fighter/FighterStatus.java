@@ -19,9 +19,6 @@ public class FighterStatus {
     private Damage unarmedDamage;
     private Weapon holdingWeapon;
     private SkillList specialSkills;
-    private double escape;
-    private double ignore;
-    private double focus;
 
     public FighterStatus(Fighter fighter) {
         name = fighter.getName();
@@ -33,9 +30,6 @@ public class FighterStatus {
         advancedAttribute = fighter.getAdvancedAttribute();
         unarmedDamage = fighter.getUnarmedDamage();
         specialSkills = fighter.getSpecialSkills();
-        escape = 0;
-        ignore = 0;
-        focus = 0;
     }
 
     public void changeWeapon(Empowerment empowerment) {
@@ -72,18 +66,6 @@ public class FighterStatus {
 
     public Damage getUnarmedDamage() {
         return unarmedDamage;
-    }
-
-    public double getFocus() {
-        return focus;
-    }
-
-    public double getEscape() {
-        return escape;
-    }
-
-    public double getIgnore() {
-        return ignore;
     }
 
     public Weapon getHoldingWeapon() {

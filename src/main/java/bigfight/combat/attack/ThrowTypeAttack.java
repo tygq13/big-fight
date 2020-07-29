@@ -29,9 +29,7 @@ public class ThrowTypeAttack implements Attackable{
             if (!escaped()) {
 
                 isEscaped = false;
-                int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-                double multiply = CombatAlgo.multiplyByAgility(attacker.getAgility(), defender.getAgility());
-                int damage = (int) (weaponDamage * (1 + multiply));
+                int damage = calculateDamage();
                 defender.updateHealth(defender.getHealth() - damage);
                 ui.printInjury(defender.getName(), damage, defender.getHealth());
             }
@@ -51,8 +49,17 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private boolean escaped() {
-        double escape = attacker.getFocus() - defender.getEscape();
+        double escape = attacker.getAdvancedAttribute().throwHitRate - defender.getAdvancedAttribute().throwEvasionRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
+    }
+
+    private int calculateDamage() {
+        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
+        double extraDamageMultiply = attacker.getAdvancedAttribute().throwExtraPercentageDamage;
+        double multiply = strengthMultiply + extraDamageMultiply;
+        int damage = (int) (weaponDamage * (1 + multiply));
+        return damage;
     }
 }

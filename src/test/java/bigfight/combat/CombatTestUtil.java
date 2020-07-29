@@ -26,6 +26,7 @@ public class CombatTestUtil {
     public static WeaponFactory defaultWeaponFactory = new WeaponFactory(defaultWeaponData);
     private static SkillData defaultSkillDate = new SkillData();
     public static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillDate);
+    public static AdvancedAttribute defaultAttribute = new AdvancedAttribute();
 
     public static FighterStatus createSimpleFixedFighter() {
         Fighter modelFighter = mock(Fighter.class);
@@ -75,6 +76,7 @@ public class CombatTestUtil {
         when(damage.lower()).thenReturn(0);
         when(damage.higher()).thenReturn(0);
         when(weapon.getDamage()).thenReturn(damage);
+        when(weapon.getType()).thenReturn(WeaponType.BIG);
         return weapon;
     }
 
@@ -98,6 +100,7 @@ public class CombatTestUtil {
         Warrior warrior = mock(Warrior.class);
         when(warrior.getSkillManager()).thenReturn(skillManager);
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
+        when(warrior.getWeaponAttributeCopy()).thenReturn(defaultAttribute);
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }

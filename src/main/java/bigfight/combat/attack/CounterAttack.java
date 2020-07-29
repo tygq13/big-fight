@@ -46,12 +46,12 @@ class CounterAttack {
             Weapon weapon = defender.getHoldingWeapon();
             ui.printCounterAttackWeapon(defender.getName(), weapon == null ? "his fist" : weapon.getName());
 
-            if (counterEscaped()) {
+            if (counterEscaped(weapon)) {
                 // the counter attack is escaped
                 ui.printCounterAttackDodge(attacker.getName());
                 return 0;
             } else {
-                int damage = calculateDamage();
+                int damage = calculateDamage(weapon);
                 ui.printCounterAttackInjury(attacker.getName(), damage, attacker.getHealth());
                 return damage;
             }
@@ -59,15 +59,32 @@ class CounterAttack {
         return 0;
     }
 
-    private boolean counterEscaped() {
-        double escape = defender.getFocus() - attacker.getEscape();
+    private boolean counterEscaped(Weapon weapon) {
+        double escape = 0;
+        if (weapon == null) {
+            escape = attacker.getAdvancedAttribute().unarmedHitRate - defender.getAdvancedAttribute().unarmedEvasionRate;
+        } else {
+            switch (weapon.getType()) {
+                case BIG:
+                    escape = attacker.getAdvancedAttribute().bigHitRate - defender.getAdvancedAttribute().bigEvasionRate;
+                    break;
+                case MEDIUM:
+                    escape = attacker.getAdvancedAttribute().mediumHitRate - defender.getAdvancedAttribute().mediumEvasionRate;
+                    break;
+                case SMALL:
+                    escape = attacker.getAdvancedAttribute().smallHitRate - defender.getAdvancedAttribute().smallEvasionRate;
+                    break;
+                case THROW:
+                    // todo: in fact not possible to have throw
+                    escape = attacker.getAdvancedAttribute().throwHitRate - defender.getAdvancedAttribute().throwEvasionRate;
+            }
+        }
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getCounterEscapeRandom() < escape;
     }
 
-    private int calculateDamage() {
+    private int calculateDamage(Weapon weapon) {
         double strengthMultiply = CombatAlgo.multiplyByStrength(defender.getStrength(), attacker.getStrength());
-        Weapon weapon = defender.getHoldingWeapon();
         if (weapon == null) {
             int unarmedDamage = random.getWeaponDamageRandom(defender.getUnarmedDamage().lower(), defender.getUnarmedDamage().higher());
             return (int) (unarmedDamage * (1 + strengthMultiply));

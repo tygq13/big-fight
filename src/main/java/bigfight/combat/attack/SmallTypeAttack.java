@@ -51,7 +51,7 @@ public class SmallTypeAttack implements Attackable{
         if (weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
             return false;
         }
-        double escape = attacker.getFocus() - defender.getEscape();
+        double escape = attacker.getAdvancedAttribute().smallHitRate - defender.getAdvancedAttribute().smallEvasionRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }
@@ -59,7 +59,7 @@ public class SmallTypeAttack implements Attackable{
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
         double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        double extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
+        double extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (weaponDamage * (1 + multiply));
         return damage;
