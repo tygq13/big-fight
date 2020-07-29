@@ -16,6 +16,7 @@ public class Fighter {
     private int strength;
     private int agility;
     private int health;
+    private int level;
     private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
     private ArrayList<Weapon> weaponList;
@@ -29,6 +30,7 @@ public class Fighter {
         strength = warrior.getStrength();
         agility = warrior.getBasicAttribute();
         health = warrior.getHealth();
+        level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttributeCopy();
         unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
         weaponList = (ArrayList<Weapon>) warrior.getWeaponManager().getWeaponList().clone();
@@ -82,6 +84,10 @@ public class Fighter {
 
     public int getHealth() {
         return health;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public AdvancedAttribute getAdvancedAttribute() {

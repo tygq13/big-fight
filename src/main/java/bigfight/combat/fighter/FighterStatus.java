@@ -14,6 +14,7 @@ public class FighterStatus {
     private int strength;
     private int agility;
     private int health;
+    private int level;
     private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
     private Weapon holdingWeapon;
@@ -28,6 +29,7 @@ public class FighterStatus {
         strength = fighter.getStrength();
         agility = fighter.getAgility();
         health = fighter.getHealth();
+        level = fighter.getLevel();
         advancedAttribute = fighter.getAdvancedAttribute();
         unarmedDamage = fighter.getUnarmedDamage();
         specialSkills = fighter.getSpecialSkills();
@@ -58,6 +60,10 @@ public class FighterStatus {
 
     public int getHealth() {
         return health;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public void updateHealth(int newHealth) {

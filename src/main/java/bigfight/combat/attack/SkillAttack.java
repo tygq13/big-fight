@@ -28,19 +28,15 @@ public class SkillAttack implements Attackable {
         // should add exception if not initialized;
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        int damage = 0;
         ui.printSkillRoarAttack(attacker.getName());
         if (random.getEscapeRandom() < escape) {
-            ui.printSkillRoarDodge(defender.getName());
             // escaped
+            ui.printSkillRoarDodge(defender.getName());
             isEscaped = true;
             return;
         }
         isEscaped = false;
-        switch (skill.getIdentity()) {
-            case ROAR:
-                damage = getRoarDamage();
-        }
+        int damage = getSkillDamage();
         defender.updateHealth(defender.getHealth() - damage);
         ui.printInjury(defender.getName(), damage, defender.getHealth());
         counterAttack();
@@ -61,11 +57,16 @@ public class SkillAttack implements Attackable {
         new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
-    private int getRoarDamage() {
+    private int getSkillDamage() {
          switch (skill.getIdentity()) {
-            case ROAR:
+            case ROAR: {
                 Roar actualSkill = (Roar) skill;
                 return actualSkill.getDamage();
+            }
+             case BOLT_FROM_THE_BLUE: {
+                 BoltFromTheBlue actualSkill = (BoltFromTheBlue) skill;
+                 return actualSkill.getDamage() + (int) (attacker.getLevel() * actualSkill.getLevelMultiply());
+             }
             default:
                 return 0;
         }

@@ -3,13 +3,11 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
-import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.ApparentDeath;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
-import java.util.Random;
 
 class CounterAttack {
     private FighterStatus defender;

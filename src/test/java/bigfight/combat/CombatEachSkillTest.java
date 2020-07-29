@@ -4,6 +4,7 @@ package bigfight.combat;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillFactory;
+import bigfight.model.skill.skills.BoltFromTheBlue;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
@@ -49,6 +50,23 @@ class CombatEachSkillTest {
         new Round(fighter1, test, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
         final int EXPECTED_HEALTH_LEFT = 1;
         assertEquals(EXPECTED_HEALTH_LEFT, test.getHealth());
+    }
+
+    @Test
+    void bolt_from_the_blue_level_multiply() {
+        // fighter with equal attributes
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        SkillModel skill = defaultSkillFactory.create(SkillIdentity.BOLT_FROM_THE_BLUE);
+        BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (boltFromTheBlue.getDamage() + (fighter1.getLevel() * boltFromTheBlue.getLevelMultiply()));
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
     }
 
 }

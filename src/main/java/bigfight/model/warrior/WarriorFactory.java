@@ -106,7 +106,6 @@ public class WarriorFactory {
                     case SIXTH_SENSE:
                         SixSense sixSense = (SixSense) skillModel;
                         sixSense.upgrade(warrior.getAdvancedAttribute());
-                        break;
                 }
             }
         }

@@ -4,7 +4,7 @@ import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.AdvancedAttribute;
 
 public class SixSense extends SkillModel {
-    private final double SIX_SENSE_ONE = 0.2;
+    private final double SIX_SENSE_ONE = 0.3;
 
     public SixSense(SkillStruct skill) {
         super(skill);

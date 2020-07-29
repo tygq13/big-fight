@@ -33,6 +33,7 @@ public class CombatTestUtil {
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
+        when(modelFighter.getLevel()).thenReturn(1);
         when(modelFighter.getAdvancedAttribute()).thenReturn(mock(AdvancedAttribute.class));
         when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new FighterStatus(modelFighter);

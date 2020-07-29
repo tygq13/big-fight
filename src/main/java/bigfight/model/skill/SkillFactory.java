@@ -33,6 +33,8 @@ public class SkillFactory {
                 return new BodyCombatSkilled(skillData.getWithStar(identity, 1));
             case SIXTH_SENSE:
                 return new SixSense(skillData.getWithStar(identity, 1));
+            case BOLT_FROM_THE_BLUE:
+                return new BoltFromTheBlue(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

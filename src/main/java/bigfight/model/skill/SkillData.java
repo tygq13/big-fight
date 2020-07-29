@@ -119,7 +119,7 @@ public class SkillData {
     );
 
     private final SkillStructArray BODY_COMBAT_SKILLED_ARRAY = new SkillStructArray(
-            BORN_AS_STRONG_ONE
+            BODY_COMBAT_SKILLED_ONE
     );
 
     private final SkillStruct SIXTH_SENSE_ONE = new SkillStruct(
@@ -134,6 +134,18 @@ public class SkillData {
             SIXTH_SENSE_ONE
     );
 
+    private final SkillStruct BOLT_FROM_THE_BLUE_ONE = new SkillStruct(
+            SkillType.ACTIVE,
+            "This break-up letter is the bolt from the blue to him/her. \n" +
+                    "Cause damage 15 + your level * 1.5. \n",
+            SkillIdentity.BOLT_FROM_THE_BLUE,
+            "bolt from the blue"
+    );
+
+    private final SkillStructArray BOLT_FROM_THE_BLUE_ARRAY = new SkillStructArray(
+            BOLT_FROM_THE_BLUE_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -145,7 +157,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.BALANCED_GROWTH, BALANCED_GROWTH_ARRAY),
                     Map.entry(SkillIdentity.WEAPONS_HANDY, WEAPONS_HANDY_ARRAY),
                     Map.entry(SkillIdentity.BODY_COMBAT_SKILLED, BODY_COMBAT_SKILLED_ARRAY),
-                    Map.entry(SkillIdentity.SIXTH_SENSE, SIXTH_SENSE_ARRAY)
+                    Map.entry(SkillIdentity.SIXTH_SENSE, SIXTH_SENSE_ARRAY),
+                    Map.entry(SkillIdentity.BOLT_FROM_THE_BLUE, BOLT_FROM_THE_BLUE_ARRAY)
             )
     );
 
