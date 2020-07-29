@@ -10,7 +10,7 @@ import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.warrior.component.WeaponAttribute;
+import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
@@ -33,18 +33,18 @@ public class CombatTestUtil {
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getWeaponAttribute()).thenReturn(mock(WeaponAttribute.class));
+        when(modelFighter.getAdvancedAttribute()).thenReturn(mock(AdvancedAttribute.class));
         when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new FighterStatus(modelFighter);
     }
 
-    public static FighterStatus createSimpleFixedFighter(WeaponAttribute weaponAttribute) {
+    public static FighterStatus createSimpleFixedFighter(AdvancedAttribute advancedAttribute) {
         Fighter modelFighter = mock(Fighter.class);
         when(modelFighter.getSpeed()).thenReturn(5);
         when(modelFighter.getAgility()).thenReturn(5);
         when(modelFighter.getStrength()).thenReturn(5);
         when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getWeaponAttribute()).thenReturn(weaponAttribute);
+        when(modelFighter.getAdvancedAttribute()).thenReturn(advancedAttribute);
         when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new FighterStatus(modelFighter);
     }
@@ -55,6 +55,7 @@ public class CombatTestUtil {
         when(modelFighter.getAgility()).thenReturn(agility);
         when(modelFighter.getStrength()).thenReturn(strength);
         when(modelFighter.getHealth()).thenReturn(health);
+        when(modelFighter.getAdvancedAttribute()).thenReturn(mock(AdvancedAttribute.class));
         when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(unarmed, unarmed));
         return new FighterStatus(modelFighter);
     }

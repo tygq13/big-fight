@@ -4,7 +4,7 @@ import bigfight.data.DataConfig;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.warrior.component.WeaponAttribute;
+import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
 
@@ -16,7 +16,7 @@ public class Fighter {
     private int strength;
     private int agility;
     private int health;
-    private WeaponAttribute weaponAttribute;
+    private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
     private ArrayList<Weapon> weaponList;
     private SkillList activeSkillList;
@@ -29,7 +29,7 @@ public class Fighter {
         strength = warrior.getStrength();
         agility = warrior.getBasicAttribute();
         health = warrior.getHealth();
-        weaponAttribute = warrior.getWeaponAttributeCopy();
+        advancedAttribute = warrior.getWeaponAttributeCopy();
         unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
         weaponList = (ArrayList<Weapon>) warrior.getWeaponManager().getWeaponList().clone();
         // only get the active skills
@@ -84,8 +84,8 @@ public class Fighter {
         return health;
     }
 
-    public WeaponAttribute getWeaponAttribute() {
-        return weaponAttribute;
+    public AdvancedAttribute getAdvancedAttribute() {
+        return advancedAttribute;
     }
 
     public Damage getUnarmedDamage() {

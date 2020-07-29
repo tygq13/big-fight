@@ -97,7 +97,16 @@ public class WarriorFactory {
                         break;
                     case WEAPONS_HANDY:
                         WeaponsHandy weaponsHandy = (WeaponsHandy) skillModel;
-                        weaponsHandy.upgrade(warrior.getWeaponAttribute());
+                        weaponsHandy.upgrade(warrior.getAdvancedAttribute());
+                        break;
+                    case BODY_COMBAT_SKILLED:
+                        BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) skillModel;
+                        bodyCombatSkilled.upgrade(warrior.getAdvancedAttribute());
+                        break;
+                    case SIXTH_SENSE:
+                        SixSense sixSense = (SixSense) skillModel;
+                        sixSense.upgrade(warrior.getAdvancedAttribute());
+                        break;
                 }
             }
         }

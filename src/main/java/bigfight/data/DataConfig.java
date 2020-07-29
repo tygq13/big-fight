@@ -13,7 +13,6 @@ public class DataConfig {
     public static int LEVEL_UP_HEALTH_ADDITION = 2;
 
     public static final Damage DEFAULT_UNARMED_DAMAGE = new Damage(10, 20);
-    public static final double COUNTER_ATTACK_CHANCE = 0.2;
     public static final double THROW_WEAPON_CHANCE = 0.1;
 
     // initialize data set to default value

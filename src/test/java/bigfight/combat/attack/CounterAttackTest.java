@@ -15,13 +15,14 @@ class CounterAttackTest {
     @Test
     void ui_is_executed_counter_attack_and_escape() {
         double COUNTER_ATTACK = -1.0;
+        double NO_COUNTER_ATTACK = 1.0;
         double ESCAPE = -1.0;
         EnUi ui = mock(EnUi.class);
         EnUi uiSpy = spy(ui);
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK);
+        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK).thenReturn(NO_COUNTER_ATTACK);
         when(random.getCounterEscapeRandom()).thenReturn(ESCAPE);
         // use unarmed attack as the instance
         UnarmedAttack test = new UnarmedAttack(fighter1, fighter2, random, uiSpy);

@@ -110,6 +110,30 @@ public class SkillData {
             WEAPONS_HANDY_ONE
     );
 
+    private final SkillStruct BODY_COMBAT_SKILLED_ONE = new SkillStruct(
+            SkillType.PERMANENT,
+            "You focus on body-combat all along.\n" +
+                    "Your unarmed attack damage increases by 20%.\n",
+            SkillIdentity.BODY_COMBAT_SKILLED,
+            "body combat skilled"
+    );
+
+    private final SkillStructArray BODY_COMBAT_SKILLED_ARRAY = new SkillStructArray(
+            BORN_AS_STRONG_ONE
+    );
+
+    private final SkillStruct SIXTH_SENSE_ONE = new SkillStruct(
+            SkillType.PERMANENT,
+            "You watch for opponent’s weakness when they attack and clinch the chance to counter-attack.\n" +
+                    "You have 30% chance of counter-attack upon inflicted damage.\n",
+            SkillIdentity.SIXTH_SENSE,
+            "sixth sense"
+    );
+
+    private final SkillStructArray SIXTH_SENSE_ARRAY = new SkillStructArray(
+            SIXTH_SENSE_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -119,7 +143,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.APPARENT_DEATH, APPARENT_DEATH_ARRAY),
                     Map.entry(SkillIdentity.STRONG_PHYSIQUE, STRONG_PHYSIQUE_ARRAY),
                     Map.entry(SkillIdentity.BALANCED_GROWTH, BALANCED_GROWTH_ARRAY),
-                    Map.entry(SkillIdentity.WEAPONS_HANDY, WEAPONS_HANDY_ARRAY)
+                    Map.entry(SkillIdentity.WEAPONS_HANDY, WEAPONS_HANDY_ARRAY),
+                    Map.entry(SkillIdentity.BODY_COMBAT_SKILLED, BODY_COMBAT_SKILLED_ARRAY),
+                    Map.entry(SkillIdentity.SIXTH_SENSE, SIXTH_SENSE_ARRAY)
             )
     );
 

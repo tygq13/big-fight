@@ -9,6 +9,8 @@ import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
+import java.util.Random;
+
 class CounterAttack {
     private FighterStatus defender;
     private FighterStatus attacker;
@@ -40,7 +42,9 @@ class CounterAttack {
         if (specialCounter()) {
             return 0;
         }
-        if (random.getCounterAttackRandom() < DataConfig.COUNTER_ATTACK_CHANCE) {
+        // Could change it to the specific attack type to have recursive counter-attack, but the counter-attack mechanism
+        // for now is still unclear.
+        if (isCounter()) {
             Weapon weapon = defender.getHoldingWeapon();
             ui.printCounterAttackWeapon(defender.getName(), weapon == null ? "his fist" : weapon.getName());
 
@@ -74,11 +78,27 @@ class CounterAttack {
             double extraDamageMultiply = 0;
             switch (weapon.getType()) {
                 case BIG:
-                    extraDamageMultiply = defender.getWeaponAttribute().bigExtraPercentageDamage;
+                    extraDamageMultiply = defender.getAdvancedAttribute().bigExtraPercentageDamage;
+                    break;
+                case MEDIUM:
+                    extraDamageMultiply = defender.getAdvancedAttribute().mediumExtraPercentageDamage;
+                    break;
+                case SMALL:
+                    extraDamageMultiply = defender.getAdvancedAttribute().smallExtraPercentageDamage;
+                    break;
+                case THROW:
+                    extraDamageMultiply = defender.getAdvancedAttribute().throwExtraPercentageDamage;
 
             }
             double totalMultiply = strengthMultiply + extraDamageMultiply;
             return (int) (weaponDamage * (1 + totalMultiply));
         }
+    }
+
+    private boolean isCounter() {
+        if (!isEscaped) {
+            return random.getCounterAttackRandom() < defender.getAdvancedAttribute().counterAttackChance;
+        }
+        return false;
     }
 }

@@ -26,9 +26,7 @@ public class UnarmedAttack implements Attackable {
             ui.printDodge(defender.getName());
             isEscaped = true;
         } else {
-            int baseDamage = random.getWeaponDamageRandom(attacker.getUnarmedDamage().lower(), attacker.getUnarmedDamage().higher());
-            double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            int damage = (int) (baseDamage * (1 + multiply));
+            int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             isEscaped = false;
@@ -50,5 +48,14 @@ public class UnarmedAttack implements Attackable {
         double escape = attacker.getFocus() - defender.getEscape();
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
+    }
+
+    private int calculateDamage() {
+        int baseDamage = random.getWeaponDamageRandom(attacker.getUnarmedDamage().lower(), attacker.getUnarmedDamage().higher());
+        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
+        double extraDamageMultiply = attacker.getAdvancedAttribute().unarmedExtraPercentageDamage;
+        double multiply = strengthMultiply + extraDamageMultiply;
+        int damage = (int) (baseDamage * (1 + multiply));
+        return damage;
     }
 }

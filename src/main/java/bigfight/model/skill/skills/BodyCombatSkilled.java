@@ -3,10 +3,10 @@ package bigfight.model.skill.skills;
 import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.AdvancedAttribute;
 
-public class WeaponsHandy extends SkillModel {
+public class BodyCombatSkilled extends SkillModel {
     private final double WEAPONS_HANDY_ONE = 0.2;
 
-    public WeaponsHandy(SkillStruct skill) {
+    public BodyCombatSkilled(SkillStruct skill) {
         super(skill);
     }
 
@@ -15,10 +15,7 @@ public class WeaponsHandy extends SkillModel {
     }
 
     public void upgrade(AdvancedAttribute advancedAttribute) {
-        advancedAttribute.bigExtraPercentageDamage += getExtra();
-        advancedAttribute.mediumExtraPercentageDamage += getExtra();
-        advancedAttribute.smallExtraPercentageDamage += getExtra();
-        advancedAttribute.throwExtraPercentageDamage += getExtra();
+        advancedAttribute.unarmedExtraPercentageDamage += getExtra();
     }
 }
 

@@ -3,7 +3,7 @@ package bigfight.model.warrior.builder;
 import bigfight.logic.command.Commandable;
 import bigfight.model.warrior.component.*;
 import bigfight.model.warrior.component.BasicAttribute;
-import bigfight.model.warrior.component.WeaponAttribute;
+import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.weapon.WeaponManager;
@@ -20,7 +20,7 @@ public class Warrior {
     private WeaponManager weaponManager;
     private SkillManager skillManager;
     private Friends friends;
-    private WeaponAttribute weaponAttribute;
+    private AdvancedAttribute advancedAttribute;
 
     // although the interface is package private, lock ensures that only builder can access it
     Warrior(WarriorBuilder.Lock lock, Account account, BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, BasicAttribute health,
@@ -34,7 +34,7 @@ public class Warrior {
         this.weaponManager = weaponManager;
         this.skillManager = skillManager;
         this.friends = friends;
-        weaponAttribute = new WeaponAttribute();
+        advancedAttribute = new AdvancedAttribute();
     }
 
     public void execute(Commandable command, Uiable ui) {
@@ -109,12 +109,12 @@ public class Warrior {
         return account.getDatabaseAccessor();
     }
 
-    public WeaponAttribute getWeaponAttribute() {
-        return weaponAttribute;
+    public AdvancedAttribute getAdvancedAttribute() {
+        return advancedAttribute;
     }
 
-    public WeaponAttribute getWeaponAttributeCopy() {
-        return (WeaponAttribute) weaponAttribute.clone();
+    public AdvancedAttribute getWeaponAttributeCopy() {
+        return (AdvancedAttribute) advancedAttribute.clone();
     }
 
     @Override

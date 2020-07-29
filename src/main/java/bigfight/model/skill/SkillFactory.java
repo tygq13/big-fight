@@ -29,6 +29,10 @@ public class SkillFactory {
                 return new BalancedGrowth(skillData.getWithStar(identity, 1));
             case WEAPONS_HANDY:
                 return new WeaponsHandy(skillData.getWithStar(identity, 1));
+            case BODY_COMBAT_SKILLED:
+                return new BodyCombatSkilled(skillData.getWithStar(identity, 1));
+            case SIXTH_SENSE:
+                return new SixSense(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

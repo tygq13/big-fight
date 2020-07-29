@@ -125,14 +125,15 @@ class RoundTest {
 
     @Test
     void round_counter_attack_both_unarmed_do_damage() {
-        final double COUNTER_ATTACK = 0.1;
+        final double COUNTER_ATTACK = -1.0;
+        final double NO_COUNTER_ATTACK = 1;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK);
+        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK).thenReturn(NO_COUNTER_ATTACK);
         when(random.getCounterEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
 

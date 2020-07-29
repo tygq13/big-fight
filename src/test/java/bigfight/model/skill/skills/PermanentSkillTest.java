@@ -82,16 +82,36 @@ public class PermanentSkillTest {
     void weapons_handy_upgrade_correct() {
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
         WeaponsHandy weaponsHandy = (WeaponsHandy) defaultSkillFactory.create(SkillIdentity.WEAPONS_HANDY);
-        double bigExpected = testWarrior.getWeaponAttribute().bigExtraPercentageDamage + weaponsHandy.getExtra();
-        double mediumExpected = testWarrior.getWeaponAttribute().mediumExtraPercentageDamage + weaponsHandy.getExtra();
-        double smallExpected = testWarrior.getWeaponAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
-        double throwExpected = testWarrior.getWeaponAttribute().throwExtraPercentageDamage + weaponsHandy.getExtra();
+        double bigExpected = testWarrior.getAdvancedAttribute().bigExtraPercentageDamage + weaponsHandy.getExtra();
+        double mediumExpected = testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage + weaponsHandy.getExtra();
+        double smallExpected = testWarrior.getAdvancedAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
+        double throwExpected = testWarrior.getAdvancedAttribute().throwExtraPercentageDamage + weaponsHandy.getExtra();
 
-        weaponsHandy.upgrade(testWarrior.getWeaponAttribute());
-        assertEquals(bigExpected, testWarrior.getWeaponAttribute().bigExtraPercentageDamage);
-        assertEquals(mediumExpected, testWarrior.getWeaponAttribute().mediumExtraPercentageDamage);
-        assertEquals(smallExpected, testWarrior.getWeaponAttribute().smallExtraPercentageDamage);
-        assertEquals(throwExpected, testWarrior.getWeaponAttribute().throwExtraPercentageDamage);
+        weaponsHandy.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigExtraPercentageDamage);
+        assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage);
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallExtraPercentageDamage);
+        assertEquals(throwExpected, testWarrior.getAdvancedAttribute().throwExtraPercentageDamage);
+    }
+
+    @Test
+    void body_combat_skilled_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) defaultSkillFactory.create(SkillIdentity.BODY_COMBAT_SKILLED);
+        double expected = testWarrior.getAdvancedAttribute().unarmedExtraPercentageDamage + bodyCombatSkilled.getExtra();
+
+        bodyCombatSkilled.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(expected, testWarrior.getAdvancedAttribute().unarmedExtraPercentageDamage);
+    }
+
+    @Test
+    void sixth_sense_skilled_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        SixSense sixthSense = (SixSense) defaultSkillFactory.create(SkillIdentity.SIXTH_SENSE);
+        double expected = testWarrior.getAdvancedAttribute().counterAttackChance + sixthSense.getChance();
+
+        sixthSense.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(expected, testWarrior.getAdvancedAttribute().counterAttackChance);
     }
 
 }

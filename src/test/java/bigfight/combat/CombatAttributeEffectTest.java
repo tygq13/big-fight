@@ -5,7 +5,7 @@ import bigfight.combat.attack.UnarmedAttack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.warrior.component.WeaponAttribute;
+import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.EnUi;
 
@@ -19,6 +19,7 @@ public class CombatAttributeEffectTest {
     private final double NO_THROW = 1.0;
     private final double THROW = 0.0;
     private final double COUNTER_ATTACK = -1.0;
+    private final double NO_COUNTER_ATTACK = 1.0;
     private final double NO_COUNTER_ESCAPE = 1.0;
 
     @Test
@@ -26,9 +27,9 @@ public class CombatAttributeEffectTest {
     void test_extra_percentage_damage_effective_in_attack_example_big() {
         double EXTRA_PERCENTAGE = 0.2;
         int WEAPON_DAMAGE = 10;
-        WeaponAttribute weaponAttribute = new WeaponAttribute();
-        weaponAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter(weaponAttribute);
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
@@ -45,20 +46,37 @@ public class CombatAttributeEffectTest {
     void test_extra_percentage_damage_effective_in_counter_attack() {
         double EXTRA_PERCENTAGE = 0.2;
         int WEAPON_DAMAGE = 10;
-        WeaponAttribute weaponAttribute = new WeaponAttribute();
-        weaponAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(weaponAttribute);
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
         Weapon weapon = CombatTestUtil.createBigWeapon();
         fighter2.changeWeapon(new Empowerment(weapon));
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK);
+        when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK).thenReturn(NO_COUNTER_ATTACK);
         when(random.getCounterEscapeRandom()).thenReturn(NO_COUNTER_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
         int expectedHealth = fighter1.getHealth() - (int) (WEAPON_DAMAGE * (1 + EXTRA_PERCENTAGE));
         new UnarmedAttack(fighter1, fighter2, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter1.getHealth());
+    }
+
+    @Test
+    void test_unarmed_extra_percentage_damage_effective_in_attack() {
+        double EXTRA_PERCENTAGE = 0.2;
+        int UNARMED_DAMAGE = 10;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.unarmedExtraPercentageDamage = EXTRA_PERCENTAGE;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(UNARMED_DAMAGE);
+        // test
+        int expectedHealth = fighter2.getHealth() - (int) (UNARMED_DAMAGE * (1 + EXTRA_PERCENTAGE));
+        new UnarmedAttack(fighter1, fighter2, random, mock(EnUi.class)).attack();
+        assertEquals(expectedHealth, fighter2.getHealth());
     }
 }
