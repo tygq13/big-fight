@@ -3,6 +3,8 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.HakiProtect;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
@@ -68,6 +70,7 @@ public class BigTypeAttack implements Attackable{
         double extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (weaponDamage * (1 + multiply));
+        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }
 }

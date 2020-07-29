@@ -6,7 +6,6 @@ import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
-import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
@@ -88,12 +87,24 @@ public class CombatTestUtil {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.APPARENT_DEATH);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
-        BasicAttribute health = mock(BasicAttribute.class);
-        when(health.value()).thenReturn(2);
         Warrior warrior = mock(Warrior.class);
         when(warrior.getSkillManager()).thenReturn(skillManager);
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
+        when(warrior.getHealth()).thenReturn(3);
+        Fighter fighter = new Fighter(warrior);
+        return new FighterStatus(fighter);
+    }
+
+    public static FighterStatus createLargeHealthFighterWithHakiProtect() {
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT);
+        SkillManager skillManager = new SkillManager();
+        skillManager.add(skill);
+        Warrior warrior = mock(Warrior.class);
+        when(warrior.getSkillManager()).thenReturn(skillManager);
+        when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
+        when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
+        when(warrior.getHealth()).thenReturn(100000000);
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }

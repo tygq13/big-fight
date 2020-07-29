@@ -56,6 +56,7 @@ public class UnarmedAttack implements Attackable {
         double extraDamageMultiply = attacker.getAdvancedAttribute().unarmedExtraPercentageDamage;
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (baseDamage * (1 + multiply));
+        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }
 }

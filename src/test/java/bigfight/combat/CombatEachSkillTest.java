@@ -6,6 +6,7 @@ import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.BoltFromTheBlue;
+import bigfight.model.skill.skills.HakiProtect;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
@@ -84,6 +85,46 @@ class CombatEachSkillTest {
         final int EXPECTED = fighter2.getHealth() - DAMAGE * 2;
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    // big, medium, small, throw, throwout are just copy paste. Not used in skill.
+    void haki_protect_effective_example_unarmed() {
+        final int DAMAGE = 10;
+        final double INVOKE_HAKI = 0;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
+        HakiProtect hakiProtect = (HakiProtect) skill;
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
+        final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (DAMAGE * (1 - hakiProtect.getProtectionPercentage()));
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
+    void haki_protect_evoke_limitation() {
+        final int DAMAGE = 10;
+        final double INVOKE_HAKI = 0;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
+        HakiProtect hakiProtect = (HakiProtect) skill;
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
+        final int MAX_INVOCATION = hakiProtect.getRemainingUsage();
+        // invoke n times
+        for (int i = 0; i < MAX_INVOCATION; i += 1) {
+            new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        }
+        final int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE;
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
 
 }

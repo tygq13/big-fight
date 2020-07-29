@@ -37,6 +37,8 @@ public class SkillFactory {
                 return new BoltFromTheBlue(skillData.getWithStar(identity, 1));
             case FAST_HANDS:
                 return new FastHands(skillData.getWithStar(identity, 1));
+            case HAKI_PROTECT:
+                return new HakiProtect(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

@@ -57,4 +57,8 @@ public class CombatRandom extends Random{
     public double selectUnarmed() {
         return random.nextDouble();
     }
+
+    public double getHakiProtectRandom() {
+        return random.nextDouble();
+    }
 }

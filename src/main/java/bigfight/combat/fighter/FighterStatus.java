@@ -83,7 +83,7 @@ public class FighterStatus {
     }
 
     public boolean hasSkill(SkillIdentity identity) {
-        return specialSkills.contains(identity);
+        return specialSkills != null && specialSkills.contains(identity);
     }
 
     public SkillModel getSkill(SkillIdentity identity) {

@@ -57,6 +57,7 @@ public class SmallTypeAttack implements Attackable{
         double extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (weaponDamage * (1 + multiply));
+        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }
 }
