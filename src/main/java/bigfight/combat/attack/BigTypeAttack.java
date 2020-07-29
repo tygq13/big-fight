@@ -3,6 +3,7 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.weapon.weapons.GasHammer;
@@ -36,7 +37,7 @@ public class BigTypeAttack implements Attackable{
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
         }
-        counterAttack();
+        new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
     }
 
     @Override
@@ -50,11 +51,6 @@ public class BigTypeAttack implements Attackable{
                 return random.getIgnoreRandom() < gasHammer.getIgnoreChance() ? 1 : 0;
         }
         return 0;
-    }
-
-    private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
-        attacker.updateHealth(attacker.getHealth() - damage);
     }
 
     private boolean escaped() {

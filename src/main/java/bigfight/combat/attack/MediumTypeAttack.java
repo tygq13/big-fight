@@ -33,17 +33,12 @@ public class MediumTypeAttack implements Attackable{
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
         }
-        counterAttack();
+        new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
     }
 
     @Override
     public int getRoundChange() {
         return 0;
-    }
-
-    private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
-        attacker.updateHealth(attacker.getHealth() - damage);
     }
 
     private boolean escaped() {

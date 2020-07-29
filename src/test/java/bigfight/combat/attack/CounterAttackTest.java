@@ -28,7 +28,6 @@ class CounterAttackTest {
         UnarmedAttack test = new UnarmedAttack(fighter1, fighter2, random, uiSpy);
         test.attack();
         verify(uiSpy, atLeastOnce()).printCounterAttackWeapon(any(), any());
-        verify(uiSpy, atLeastOnce()).printCounterAttackDodge(any());
     }
 
     @Test
