@@ -46,21 +46,22 @@ public class Fighter {
 
     public Empowerment SelectEmpowerment(CombatRandom random) {
         int totalSize = weaponList.size() + activeSkillList.size();
+        if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
+            // unarmed attack
+            Weapon weapon = null;
+            return new Empowerment(weapon);
+        }
         Empowerment empowerment;
-        int weaponOrSkill = totalSize > 0 ? random.selectWeaponOrSkill(totalSize + 1) : 0;
+        int weaponOrSkill = random.selectWeaponOrSkill(totalSize);
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
             // create weapon
             int luckyDraw = random.selectWhichEmpowerment(weaponList.size());
             empowerment = new Empowerment(weaponList.get(luckyDraw));
             weaponList.remove(luckyDraw);
-        } else if (weaponOrSkill > weaponList.size() && activeSkillList.size() > 0){
+        } else {
             // create skills
             int luckyDraw = random.selectWhichEmpowerment(activeSkillList.size());
             empowerment =  new Empowerment(activeSkillList.get(luckyDraw));
-        } else {
-            // create unarmed
-            Weapon weapon = null;
-            empowerment = new Empowerment(weapon);
         }
         return empowerment;
     }

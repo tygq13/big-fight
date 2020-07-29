@@ -53,4 +53,8 @@ public class CombatRandom extends Random{
     public double selectSpecialSkill() {
         return random.nextDouble();
     }
+
+    public double selectUnarmed() {
+        return random.nextDouble();
+    }
 }

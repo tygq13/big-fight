@@ -19,6 +19,8 @@ import static org.mockito.Mockito.*;
 
 class FighterTest {
     private double EPSILON = 0.01;
+    private static final double NOT_UNARMED = 1;
+    private static final int SELECT_WEAPON = 0;
 
     private Warrior twoWeaponWarrior() {
         ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
@@ -46,9 +48,9 @@ class FighterTest {
 
     @Test
     void selectEmpowerment_weapon_is_discarded_after_selected() {
-        final int SELECT_WEAPON = 0;
         Warrior mockWarrior = twoWeaponWarrior();
         CombatRandom random = mock(CombatRandom.class);
+        when(random.selectUnarmed()).thenReturn(NOT_UNARMED);
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
@@ -59,9 +61,9 @@ class FighterTest {
 
     @Test
     void selectEmpowerment_successfully_return_not_null() {
-        final int SELECT_WEAPON = 0;
         Warrior mockWarrior = twoWeaponWarrior();
         CombatRandom random = mock(CombatRandom.class);
+        when(random.selectUnarmed()).thenReturn(NOT_UNARMED);
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
