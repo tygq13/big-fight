@@ -29,6 +29,7 @@ public class Combat {
             if (heroRound(roundDecision, rand)) {
                 roundDecision += OPPONENT_TURN;
                 Empowerment empowerment = hero.SelectEmpowerment(rand);
+                hero.selectSpecialSkill(heroStatus.getFighterFlag(), rand);
                 roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side

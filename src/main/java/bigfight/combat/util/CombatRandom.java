@@ -50,7 +50,7 @@ public class CombatRandom extends Random{
         return random.nextInt(size);
     }
 
-    public double selectExtraChanceEmpowerment() {
+    public double selectSpecialSkill() {
         return random.nextDouble();
     }
 }

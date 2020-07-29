@@ -46,15 +46,7 @@ public class Fighter {
 
     public Empowerment SelectEmpowerment(CombatRandom random) {
         int totalSize = weaponList.size() + activeSkillList.size();
-        if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
-            totalSize += 1;
-        }
-        // special case
-        Empowerment empowerment = selectExtraChanceEmpowerment(totalSize, random);
-        if (empowerment != null) {
-            return empowerment;
-        }
-        // normal case
+        Empowerment empowerment;
         int weaponOrSkill = totalSize > 0 ? random.selectWeaponOrSkill(totalSize + 1) : 0;
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
             // create weapon
@@ -113,14 +105,14 @@ public class Fighter {
         return specialSkillList;
     }
 
-    private Empowerment selectExtraChanceEmpowerment(int totalSize, CombatRandom random) {
+    public void selectSpecialSkill(FighterFlag fighterFlag, CombatRandom random) {
+        int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
         if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
             FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
             double chance = (1.0 / totalSize) * fastHands.getExtraChance();
-            if (random.selectExtraChanceEmpowerment() < chance) {
-                return new Empowerment(fastHands);
+            if (random.selectSpecialSkill() < chance) {
+                fighterFlag.fastHandsFlag = true;
             }
         }
-        return null;
     }
 }

@@ -83,9 +83,7 @@ class FighterTest {
     void selectEmpowerment_fast_hand_extra_chance() {
         // create warrior with two skills, one of them is fast hands
         Warrior mockWarrior = mock(Warrior.class);
-        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
         WeaponManager weaponManager = mock(WeaponManager.class);
-        when(weaponManager.getWeaponList()).thenReturn(weaponList);
         SkillManager skillManager = new SkillManager();
         FastHands fastHands = (FastHands) CombatTestUtil.defaultSkillFactory.create(SkillIdentity.FAST_HANDS);
         skillManager.add(fastHands);
@@ -94,20 +92,17 @@ class FighterTest {
         when(mockWarrior.getWeaponManager()).thenReturn(weaponManager);
 
         // test
-        final double SELECT_EXTRA = 0;
-        final double NOT_SELECT_EXTRA = (1.0 / 2.0) * fastHands.getExtraChance() + EPSILON;
+        final double SELECT = 0;
+        final double NOT_SELECT = (1.0 / 2.0) * fastHands.getExtraChance() + EPSILON;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectExtraChanceEmpowerment()).thenReturn(NOT_SELECT_EXTRA).thenReturn(SELECT_EXTRA);
-        when(random.selectWeaponOrSkill(anyInt())).thenReturn(0); // not select any empowerment
-        Fighter test = new Fighter(mockWarrior);
+        when(random.selectSpecialSkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        Fighter testFighter = new Fighter(mockWarrior);
+        FighterFlag test = new FighterFlag();
         // test not selected by extra chance
-        Empowerment empowerment = test.SelectEmpowerment(random);
-        assertNull(empowerment.getSkill());
-        assertNull(empowerment.getWeapon());
+        testFighter.selectSpecialSkill(test, random);
+        assertFalse(test.fastHandsFlag);
         // test selected by extra chance
-        empowerment = test.SelectEmpowerment(random);
-        assertNotNull(empowerment.getSkill());
-        final SkillIdentity EXPECTED_IDENTITY = SkillIdentity.FAST_HANDS;
-        assertEquals(EXPECTED_IDENTITY, empowerment.getSkill().getIdentity());
+        testFighter.selectSpecialSkill(test, random);
+        assertTrue(test.fastHandsFlag);
     }
 }

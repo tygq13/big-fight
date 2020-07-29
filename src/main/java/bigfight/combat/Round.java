@@ -27,6 +27,7 @@ public class Round {
     public int fight() {
         int roundChange = roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
+        // todo: print weapon ui here instead of insides the attack
         Attackable attack = null;
         if (empowerment.getSkill() != null) {
             attack = new SkillAttack(attacker, defender, empowerment.getSkill(), random, ui);
@@ -47,6 +48,11 @@ public class Round {
         if (attack != null) {
             attack.attack();
             roundChange += attack.getRoundChange();
+            // double hit
+            if (attacker.getFighterFlag().fastHandsFlag) {
+                attack.attack();
+                roundChange += attack.getRoundChange();
+            }
         }
         return roundChange;
     }

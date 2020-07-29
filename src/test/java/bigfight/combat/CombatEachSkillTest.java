@@ -69,4 +69,20 @@ class CombatEachSkillTest {
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
+    @Test
+    void fast_hand_hit_twice() {
+        final int DAMAGE = 10;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        fighter1.getFighterFlag().fastHandsFlag = true;
+        Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        // test
+        final int EXPECTED = fighter2.getHealth() - DAMAGE * 2;
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
 }

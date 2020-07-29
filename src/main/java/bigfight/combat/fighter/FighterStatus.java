@@ -19,6 +19,7 @@ public class FighterStatus {
     private Damage unarmedDamage;
     private Weapon holdingWeapon;
     private SkillList specialSkills;
+    private FighterFlag fighterFlag;
 
     public FighterStatus(Fighter fighter) {
         name = fighter.getName();
@@ -30,6 +31,7 @@ public class FighterStatus {
         advancedAttribute = fighter.getAdvancedAttribute();
         unarmedDamage = fighter.getUnarmedDamage();
         specialSkills = fighter.getSpecialSkills();
+        fighterFlag = new FighterFlag();
     }
 
     public void changeWeapon(Empowerment empowerment) {
@@ -74,6 +76,10 @@ public class FighterStatus {
 
     public AdvancedAttribute getAdvancedAttribute() {
         return advancedAttribute;
+    }
+
+    public FighterFlag getFighterFlag() {
+        return fighterFlag;
     }
 
     public boolean hasSkill(SkillIdentity identity) {

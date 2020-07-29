@@ -1,6 +1,7 @@
 package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.FighterFlag;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
