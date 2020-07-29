@@ -15,9 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CombatAttributeEffectTest {
     private final double NO_ESCAPE = 1.0;
-    private final double ESCAPE = 0.0;
     private final double NO_THROW = 1.0;
-    private final double THROW = 0.0;
     private final double COUNTER_ATTACK = -1.0;
     private final double NO_COUNTER_ATTACK = 1.0;
     private final double NO_COUNTER_ESCAPE = 1.0;

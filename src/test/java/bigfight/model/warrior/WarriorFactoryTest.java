@@ -2,13 +2,11 @@ package bigfight.model.warrior;
 
 import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
-import bigfight.model.skill.SkillData;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.BornAsStrong;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.WarriorFactory;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorTestUtil;
 import bigfight.model.warrior.component.Empowerment;
@@ -21,25 +19,26 @@ import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.WeaponIdentity;
+import bigfight.model.skill.SkillFactoryUtil;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class WarriorFactoryTest {
     private static DataGetter defaultDataGetter = new DataGetter(new DataConfig());
     private static EmpowermentFactory dummyEmpowermentFactory = mock(EmpowermentFactory.class);
-    private static SkillData defaultSkillData = new SkillData();
-    private static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillData);
-    private static WeaponFactory defaultWeaponFactory = new WeaponFactory(new WeaponData());
     private static String defaultName = "TEST";
     private static WarriorDatabase mockDatabase;
     private static WarriorDatabase defaultDatabase = new WarriorDatabase();
-    private static EmpowermentFactory defaultEmpowermentFactory = new EmpowermentFactory(defaultWeaponFactory, defaultSkillFactory);
+    private static EmpowermentFactory DEFAULT_EMPOWERMENT_FACTORY = new EmpowermentFactory(DEFAULT_WEAPON_FACTORY, DEFAULT_SKILL_FACTORY);
 
     @BeforeAll
     static void setUp() {
@@ -139,7 +138,7 @@ class WarriorFactoryTest {
     @Test
     void test_permanent_skill_correctly_add_to_attribute_example_BornAsStrong() {
         // ensure that it get the skill BornAsStrong
-        BornAsStrong bornAsStrong = (BornAsStrong) defaultSkillFactory.create(SkillIdentity.BORN_AS_STRONG);
+        BornAsStrong bornAsStrong = (BornAsStrong) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
         Empowerment empowerment = new Empowerment(bornAsStrong);
         EmpowermentFactory mockFactory = mock(EmpowermentFactory.class);
         when(mockFactory.randomGetNew(any(ArrayList.class), any(Map.class))).thenReturn(empowerment);
@@ -185,7 +184,7 @@ class WarriorFactoryTest {
         int expectedSize = emptyWeapon.getSize() + emptySkill.getSize() + 1;
         Warrior testWarrior = WarriorTestUtil.createCustomEmpowermentWarrior(emptyWeapon, emptySkill);
         WarriorFactory testFactory = new WarriorFactory();
-        testFactory.warriorLevelUp(testWarrior, defaultEmpowermentFactory);
+        testFactory.warriorLevelUp(testWarrior, DEFAULT_EMPOWERMENT_FACTORY);
         int result = testWarrior.getWeaponManager().getSize() + testWarrior.getSkillManager().getSize();
         assertEquals(expectedSize, result);
     }
@@ -196,7 +195,7 @@ class WarriorFactoryTest {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
         EmpowermentFactory empowermentFactory = mock(EmpowermentFactory.class);
-        BornAsStrong bornAsStrong = (BornAsStrong) defaultSkillFactory.create(SkillIdentity.BORN_AS_STRONG);
+        BornAsStrong bornAsStrong = (BornAsStrong) SkillFactoryUtil.DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
         BornAsStrong bornAsStrongSpy = spy(bornAsStrong);
         Empowerment empowerment = new Empowerment(bornAsStrongSpy);
         when(empowermentFactory.randomGetNew(any(), any())).thenReturn(empowerment);

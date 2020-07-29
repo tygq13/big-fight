@@ -1,10 +1,7 @@
 package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
-import bigfight.combat.fighter.FighterFlag;
 import bigfight.combat.fighter.FighterStatus;
-import bigfight.model.skill.SkillData;
-import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -13,21 +10,16 @@ import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
-import bigfight.model.weapon.WeaponData;
-import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.Damage;
 import bigfight.model.weapon.struct.WeaponType;
 
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CombatTestUtil {
-    private static WeaponData defaultWeaponData = new WeaponData();
-    public static WeaponFactory defaultWeaponFactory = new WeaponFactory(defaultWeaponData);
-    private static SkillData defaultSkillDate = new SkillData();
-    public static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillDate);
-    public static AdvancedAttribute defaultAttribute = new AdvancedAttribute();
+    public static AdvancedAttribute DEFAULT_ADVANCED_ATTRIBUTE = new AdvancedAttribute();
 
     public static FighterStatus createSimpleFixedFighter() {
         Fighter modelFighter = mock(Fighter.class);
@@ -93,7 +85,7 @@ public class CombatTestUtil {
 
 
     public static FighterStatus createDyingFighterWithApparentDeath() {
-        SkillModel skill = defaultSkillFactory.create(SkillIdentity.APPARENT_DEATH);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.APPARENT_DEATH);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
         BasicAttribute health = mock(BasicAttribute.class);
@@ -101,7 +93,7 @@ public class CombatTestUtil {
         Warrior warrior = mock(Warrior.class);
         when(warrior.getSkillManager()).thenReturn(skillManager);
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
-        when(warrior.getWeaponAttributeCopy()).thenReturn(defaultAttribute);
+        when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }

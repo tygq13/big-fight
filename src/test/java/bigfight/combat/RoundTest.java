@@ -5,17 +5,17 @@ import bigfight.combat.fighter.FighterStatus;
 
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
-import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 
 import org.junit.jupiter.api.Test;
+import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -23,15 +23,13 @@ class RoundTest {
     private final double NO_ESCAPE = 1.0;
     private final double NO_THROW = 1.0;
 
-    private static WeaponFactory defaultWeaponFactory = CombatTestUtil.defaultWeaponFactory;
-    private static SkillFactory defaultSkillFactory = CombatTestUtil.defaultSkillFactory;
     private static Uiable mockUi = mock(EnUi.class);
 
     @Test
     void round_give_damage_in_simple_weapon_attack_with_example_trident() {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        Weapon weapon = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
+        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -49,7 +47,7 @@ class RoundTest {
     void round_give_damage_in_simple_skill_attack_with_example_roar() {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        SkillModel skill = defaultSkillFactory.create(SkillIdentity.ROAR);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -149,7 +147,7 @@ class RoundTest {
         final double THROW_WEAPON = 0.05;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        Weapon weapon = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
+        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);
@@ -167,7 +165,7 @@ class RoundTest {
         final double THROW_WEAPON = 0.05;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        Weapon weapon = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
+        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);

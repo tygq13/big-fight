@@ -23,7 +23,7 @@ public class NpcFactory {
         BasicAttribute strength = new BasicAttribute(2);
         BasicAttribute basicAttribute = new BasicAttribute(2);
         BasicAttribute speed = new BasicAttribute(2);
-        BasicAttribute health = new BasicAttribute(3);
+        BasicAttribute health = new BasicAttribute(50);
         WeaponManager weaponManager = new WeaponManager(); // no weapon
         SkillManager skillManager = new SkillManager(); // no skill
         return WarriorBuilder.stepBuilder(warriorDatabase)

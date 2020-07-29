@@ -4,6 +4,7 @@ package bigfight.combat;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillFactory;
+import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.BoltFromTheBlue;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -12,13 +13,13 @@ import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 
 import org.junit.jupiter.api.Test;
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CombatEachSkillTest {
-    private static SkillFactory defaultSkillFactory = CombatTestUtil.defaultSkillFactory;
     private static Uiable mockUi = mock(EnUi.class);
 
     private final double NO_ESCAPE = 1.0;
@@ -28,7 +29,7 @@ class CombatEachSkillTest {
         // fighter with equal attributes
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        SkillModel skill = defaultSkillFactory.create(SkillIdentity.ROAR);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -57,7 +58,7 @@ class CombatEachSkillTest {
         // fighter with equal attributes
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        SkillModel skill = defaultSkillFactory.create(SkillIdentity.BOLT_FROM_THE_BLUE);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.BOLT_FROM_THE_BLUE);
         BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);

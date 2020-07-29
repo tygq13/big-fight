@@ -1,24 +1,20 @@
 package bigfight.model.skill.skills;
 
-import bigfight.model.skill.SkillData;
-import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorTestUtil;
 import org.junit.jupiter.api.Test;
 
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PermanentSkillTest {
-    private static SkillData defaultSkillData = new SkillData();
-    private static SkillFactory defaultSkillFactory = new SkillFactory(defaultSkillData);
-
 
     @Test
     void born_as_strong_upgrade_correct() {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
-        BornAsStrong bornAsStrong = (BornAsStrong) defaultSkillFactory.create(SkillIdentity.BORN_AS_STRONG);
+        BornAsStrong bornAsStrong = (BornAsStrong) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
         bornAsStrong.upgrade(testWarrior.getStrengthObj());
         int expectedBase = STRENGTH;
         int expectedTotal = expectedBase + (int) (expectedBase * bornAsStrong.getMultiply()) + bornAsStrong.getAddition();
@@ -30,7 +26,7 @@ public class PermanentSkillTest {
     void agile_body_upgrade_correct() {
         final int AGILITY = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, AGILITY,1,1,1);
-        AgileBody agileBody = (AgileBody) defaultSkillFactory.create(SkillIdentity.AGILE_BODY);
+        AgileBody agileBody = (AgileBody) DEFAULT_SKILL_FACTORY.create(SkillIdentity.AGILE_BODY);
         agileBody.upgrade(testWarrior.getAgilityObj());
         int expectedBase = AGILITY;
         int expectedTotal = expectedBase + (int) (expectedBase * agileBody.getMultiply()) + agileBody.getAddition();
@@ -42,7 +38,7 @@ public class PermanentSkillTest {
     void a_step_ahead_upgrade_correct() {
         final int SPEED = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1,SPEED,1,1);
-        AStepAhead aStepAhead = (AStepAhead) defaultSkillFactory.create(SkillIdentity.A_STEP_AHEAD);
+        AStepAhead aStepAhead = (AStepAhead) DEFAULT_SKILL_FACTORY.create(SkillIdentity.A_STEP_AHEAD);
         aStepAhead.upgrade(testWarrior.getSpeedObj());
         int expectedBase = SPEED;
         int expectedTotal = expectedBase + (int) (expectedBase * aStepAhead.getMultiply()) + aStepAhead.getAddition();
@@ -54,7 +50,7 @@ public class PermanentSkillTest {
     void strong_physique_upgrade_correct() {
         final int HEALTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,HEALTH,1);
-        StrongPhysique strongPhysique = (StrongPhysique) defaultSkillFactory.create(SkillIdentity.STRONG_PHYSIQUE);
+        StrongPhysique strongPhysique = (StrongPhysique) DEFAULT_SKILL_FACTORY.create(SkillIdentity.STRONG_PHYSIQUE);
         strongPhysique.upgrade(testWarrior.getHealthObj());
         int expectedBase = HEALTH;
         int expectedTotal = expectedBase + (int) (expectedBase * strongPhysique.getMultiply()) + strongPhysique.getAddition();
@@ -66,7 +62,7 @@ public class PermanentSkillTest {
     void balanced_growth_upgrade_correct() {
         final int BASE = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(BASE, BASE, BASE,1,1);
-        BalancedGrowth balancedGrowth = (BalancedGrowth) defaultSkillFactory.create(SkillIdentity.BALANCED_GROWTH);
+        BalancedGrowth balancedGrowth = (BalancedGrowth) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BALANCED_GROWTH);
         balancedGrowth.upgrade(testWarrior.getStrengthObj(), testWarrior.getAgilityObj(), testWarrior.getSpeedObj());
         int expectedBase = BASE;
         int expectedTotal = expectedBase + (int) (expectedBase * balancedGrowth.getMultiply()) + balancedGrowth.getAddition();
@@ -81,7 +77,7 @@ public class PermanentSkillTest {
     @Test
     void weapons_handy_upgrade_correct() {
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
-        WeaponsHandy weaponsHandy = (WeaponsHandy) defaultSkillFactory.create(SkillIdentity.WEAPONS_HANDY);
+        WeaponsHandy weaponsHandy = (WeaponsHandy) DEFAULT_SKILL_FACTORY.create(SkillIdentity.WEAPONS_HANDY);
         double bigExpected = testWarrior.getAdvancedAttribute().bigExtraPercentageDamage + weaponsHandy.getExtra();
         double mediumExpected = testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage + weaponsHandy.getExtra();
         double smallExpected = testWarrior.getAdvancedAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
@@ -97,7 +93,7 @@ public class PermanentSkillTest {
     @Test
     void body_combat_skilled_upgrade_correct() {
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
-        BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) defaultSkillFactory.create(SkillIdentity.BODY_COMBAT_SKILLED);
+        BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BODY_COMBAT_SKILLED);
         double expected = testWarrior.getAdvancedAttribute().unarmedExtraPercentageDamage + bodyCombatSkilled.getExtra();
 
         bodyCombatSkilled.upgrade(testWarrior.getAdvancedAttribute());
@@ -107,7 +103,7 @@ public class PermanentSkillTest {
     @Test
     void sixth_sense_skilled_upgrade_correct() {
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
-        SixSense sixthSense = (SixSense) defaultSkillFactory.create(SkillIdentity.SIXTH_SENSE);
+        SixSense sixthSense = (SixSense) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SIXTH_SENSE);
         double expected = testWarrior.getAdvancedAttribute().counterAttackChance + sixthSense.getChance();
 
         sixthSense.upgrade(testWarrior.getAdvancedAttribute());

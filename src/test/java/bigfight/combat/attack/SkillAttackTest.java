@@ -3,10 +3,14 @@ package bigfight.combat.attack;
 import bigfight.combat.CombatTestUtil;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.SkillFactory;
+import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.ui.EnUi;
 import org.junit.jupiter.api.Test;
+
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -20,7 +24,7 @@ class SkillAttackTest {
         EnUi uiSpy = spy(ui);
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        SkillModel skill = CombatTestUtil.defaultSkillFactory.create(SkillIdentity.ROAR);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
         SkillAttack test = new SkillAttack(fighter1, fighter2, skill, random, uiSpy);

@@ -18,6 +18,8 @@ public class FightCommand implements Commandable{
     public void execute(Warrior warrior, Uiable ui) {
         DatabaseAccessor accessor = warrior.getDatabaseAccessor();
         Warrior opponent = accessor.find(warrior.getFriend(friendIndex));
+        System.out.println(warrior);
+        System.out.println(opponent);
         Combat combat = new Combat(new Fighter(warrior), new Fighter(opponent), ui);
         boolean isWin = combat.start();
         if (Boolean.TRUE.equals(isWin)) {

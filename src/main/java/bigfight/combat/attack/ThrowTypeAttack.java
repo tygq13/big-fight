@@ -32,9 +32,10 @@ public class ThrowTypeAttack implements Attackable{
                 int damage = calculateDamage();
                 defender.updateHealth(defender.getHealth() - damage);
                 ui.printInjury(defender.getName(), damage, defender.getHealth());
+            } else {
+                isEscaped = true;
+                ui.printDodge(defender.getName());
             }
-            isEscaped = true;
-            ui.printDodge(defender.getName());
             counterAttack();
         }
     }

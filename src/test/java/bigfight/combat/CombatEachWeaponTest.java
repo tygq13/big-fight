@@ -10,13 +10,13 @@ import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 
 import org.junit.jupiter.api.Test;
+import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CombatEachWeaponTest {
-    private static WeaponFactory defaultWeaponFactory = CombatTestUtil.defaultWeaponFactory;
     private static Uiable mockUi = mock(EnUi.class);
 
     private final double NO_ESCAPE = 1.0;
@@ -28,7 +28,7 @@ class CombatEachWeaponTest {
     void test_trident_rest_one_round() {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        Weapon trident = defaultWeaponFactory.create(WeaponIdentity.TRIDENT);
+        Weapon trident = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(trident);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -50,7 +50,7 @@ class CombatEachWeaponTest {
         final double IGNORE = 0.0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        Weapon gasHammer = defaultWeaponFactory.create(WeaponIdentity.GAS_HAMMER);
+        Weapon gasHammer = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.GAS_HAMMER);
         Empowerment empowerment = new Empowerment(gasHammer);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -72,7 +72,7 @@ class CombatEachWeaponTest {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         // defender has high escape
         FighterStatus fighter2 = CombatTestUtil.createCustomFighter(5,100,5, 100, 10);
-        Weapon demonScythe = defaultWeaponFactory.create(WeaponIdentity.DEMON_SCYTHE);
+        Weapon demonScythe = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.DEMON_SCYTHE);
         Empowerment empowerment = new Empowerment(demonScythe);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
@@ -94,7 +94,7 @@ class CombatEachWeaponTest {
     void test_judge_pencil_unescapable() {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createCustomFighter(5,100,5, 100, 10);
-        Weapon judgePencil = defaultWeaponFactory.create(WeaponIdentity.JUDGE_PENCIL);
+        Weapon judgePencil = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.JUDGE_PENCIL);
         Empowerment empowerment = new Empowerment(judgePencil);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);

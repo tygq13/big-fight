@@ -124,7 +124,7 @@ public class Warrior {
                 + String.format("Strength: %d\n", strength.value())
                 + String.format("Agility %d\n", agility.value())
                 + String.format("Speed %d\n", speed.value())
-                + String.format("Health %d\n", health);
+                + String.format("Health %d\n", health.value());
         result += "Weapons: " + weaponManager.toString() + System.lineSeparator();
         result += "Skills: " + skillManager.toString() + System.lineSeparator();
         return result;

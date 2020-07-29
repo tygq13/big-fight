@@ -1,10 +1,8 @@
 package bigfight.combat.fighter;
 
-import bigfight.combat.CombatTestUtil;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.FastHands;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.*;
 import bigfight.model.weapon.Weapon;
@@ -14,6 +12,8 @@ import java.util.ArrayList;
 import bigfight.combat.util.CombatRandom;
 
 import org.junit.jupiter.api.Test;
+
+import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -85,9 +85,9 @@ class FighterTest {
         Warrior mockWarrior = mock(Warrior.class);
         WeaponManager weaponManager = mock(WeaponManager.class);
         SkillManager skillManager = new SkillManager();
-        FastHands fastHands = (FastHands) CombatTestUtil.defaultSkillFactory.create(SkillIdentity.FAST_HANDS);
+        FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
         skillManager.add(fastHands);
-        skillManager.add(CombatTestUtil.defaultSkillFactory.create(SkillIdentity.ROAR));
+        skillManager.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
         when(mockWarrior.getSkillManager()).thenReturn(skillManager);
         when(mockWarrior.getWeaponManager()).thenReturn(weaponManager);
 
