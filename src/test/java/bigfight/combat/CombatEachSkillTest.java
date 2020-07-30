@@ -5,10 +5,7 @@ import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillFactoryUtil;
-import bigfight.model.skill.skills.BoltFromTheBlue;
-import bigfight.model.skill.skills.HakiProtect;
-import bigfight.model.skill.skills.SeaIsUnfathomable;
-import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.ui.EnUi;
@@ -162,4 +159,19 @@ class CombatEachSkillTest {
         assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
     }
 
+    @Test
+    void tornado_strength_multiply() {
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TORNADO);
+        Tornado tornado = (Tornado) skill;
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (tornado.getDamage() + (fighter1.getStrength() * tornado.getStrengthMultiply()));
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
 }

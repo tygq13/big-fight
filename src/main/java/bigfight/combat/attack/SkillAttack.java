@@ -12,7 +12,6 @@ public class SkillAttack implements Attackable {
     private FighterStatus defender;
     private SkillModel skill;
     private CombatRandom random;
-    private boolean isEscaped;
     private Uiable ui;
 
     public SkillAttack(FighterStatus attacker, FighterStatus defender, SkillModel skill, CombatRandom random, Uiable ui) {
@@ -63,6 +62,10 @@ public class SkillAttack implements Attackable {
              case BOLT_FROM_THE_BLUE: {
                  BoltFromTheBlue actualSkill = (BoltFromTheBlue) skill;
                  return actualSkill.getDamage() + (int) (attacker.getLevel() * actualSkill.getLevelMultiply());
+             }
+             case TORNADO: {
+                 Tornado actualSkill = (Tornado) skill;
+                 return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
              }
             default:
                 return 0;

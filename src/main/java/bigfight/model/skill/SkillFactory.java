@@ -45,6 +45,10 @@ public class SkillFactory {
                 return new StoneSkin(skillData.getWithStar(identity, 1));
             case RIPPLESLESS_STEPS:
                 return new RipplelessSteps(skillData.getWithStar(identity, 1));
+            case TORNADO:
+                return new Tornado(skillData.getWithStar(identity, 1));
+            case HEAVY_USUAL:
+                return new HeavyUsual(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

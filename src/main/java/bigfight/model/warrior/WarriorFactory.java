@@ -74,6 +74,7 @@ public class WarriorFactory {
             newEmpowerment.addTo(warrior.getWeaponManager(), warrior.getSkillManager());
             if (newEmpowerment.getSkill() != null && newEmpowerment.getSkill().getType() == SkillType.PERMANENT) {
                 SkillModel skillModel = newEmpowerment.getSkill();
+                // todo: refactor to combine basic attributes and advanced attributes?
                 switch (skillModel.getIdentity()) {
                     case BORN_AS_STRONG:
                         BornAsStrong bornAsStrong = (BornAsStrong) skillModel;
@@ -106,6 +107,18 @@ public class WarriorFactory {
                     case SIXTH_SENSE:
                         SixSense sixSense = (SixSense) skillModel;
                         sixSense.upgrade(warrior.getAdvancedAttribute());
+                        break;
+                    case STONE_SKIN:
+                        StoneSkin stoneSkin = (StoneSkin) skillModel;
+                        stoneSkin.upgrade(warrior.getAdvancedAttribute());
+                        break;
+                    case RIPPLESLESS_STEPS:
+                        RipplelessSteps ripplelessSteps = (RipplelessSteps) skillModel;
+                        ripplelessSteps.upgrade(warrior.getAdvancedAttribute());
+                        break;
+                    case HEAVY_USUAL:
+                        HeavyUsual heavyUsual = (HeavyUsual) skillModel;
+                        heavyUsual.upgrade(warrior.getAdvancedAttribute());
                 }
             }
         }

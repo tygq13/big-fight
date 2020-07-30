@@ -148,4 +148,14 @@ public class PermanentSkillTest {
         assertEquals(skillExpected, testWarrior.getAdvancedAttribute().skillEvasionRate);
     }
 
+    @Test
+    void heavy_usual_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        HeavyUsual heavyUsual = (HeavyUsual) DEFAULT_SKILL_FACTORY.create(SkillIdentity.HEAVY_USUAL);
+        double bigExpected = testWarrior.getAdvancedAttribute().bigExtraDamage + heavyUsual.getExtraDamage();
+
+        heavyUsual.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigExtraDamage);
+    }
+
 }

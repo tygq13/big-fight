@@ -4,12 +4,12 @@ import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.AdvancedAttribute;
 
 public class RipplelessSteps extends SkillModel {
-    private final double RIPPLELESS_STESPS_ONE = 0.07;
+    private final double RIPPLELESS_STESPS_ZERO = 0.07;
 
     public RipplelessSteps(SkillStruct skill) {super(skill);}
 
     public double getEvasion() {
-        return RIPPLELESS_STESPS_ONE;
+        return RIPPLELESS_STESPS_ZERO;
     }
 
     public void upgrade(AdvancedAttribute advancedAttribute) {

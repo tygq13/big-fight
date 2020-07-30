@@ -9,7 +9,7 @@ import java.util.Map;
 // note: permanent skill type is untested.
 public class SkillData {
 
-    private final SkillStruct BORN_AS_STRONG_ONE = new SkillStruct(
+    private final SkillStruct BORN_AS_STRONG_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You are a warrior with enormous strength.\n" +
                     "Your strength increase: basic strength * 50% + 3\n" +
@@ -19,10 +19,10 @@ public class SkillData {
     );
 
     private final SkillStructArray BORN_AS_STRONG_ARRAY = new SkillStructArray(
-            BORN_AS_STRONG_ONE
+            BORN_AS_STRONG_ZERO
     );
 
-    private final SkillStruct AGILE_BODY_ONE = new SkillStruct(
+    private final SkillStruct AGILE_BODY_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "Your agile body dodges every attacks.\n" +
                     "Your agility increase: basic agility * 50% + 3.\n" +
@@ -32,10 +32,10 @@ public class SkillData {
     );
 
     private final SkillStructArray AGILE_BODY_ARRAY = new SkillStructArray(
-            AGILE_BODY_ONE
+            AGILE_BODY_ZERO
     );
 
-    private final SkillStruct A_STEP_AHEAD_ONE = new SkillStruct(
+    private final SkillStruct A_STEP_AHEAD_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You are always a step ahead of cataclysm.\n" +
                     "Your speed increase: basic speed * 50% + 3.\n" +
@@ -45,10 +45,10 @@ public class SkillData {
     );
 
     private final SkillStructArray A_STEP_AHEAD_ARRAY = new SkillStructArray(
-            A_STEP_AHEAD_ONE
+            A_STEP_AHEAD_ZERO
     );
 
-    private final SkillStruct ROAR_ONE = new SkillStruct(
+    private final SkillStruct ROAR_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "Your fierce roar scares enemies away.\n" +
                     "Ignore opponent's next round if hit. Cause damage 15.",
@@ -57,10 +57,10 @@ public class SkillData {
     );
 
     private final SkillStructArray ROAR_ARRAY = new SkillStructArray(
-            ROAR_ONE
+            ROAR_ZERO
     );
 
-    private final SkillStruct APPARENT_DEATH_ONE = new SkillStruct(
+    private final SkillStruct APPARENT_DEATH_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "The utmost danger lies in the enemy's apparent death.\n" +
                     "Upon fatal damage, you will not die but leave with 1 health.\n" +
@@ -70,10 +70,10 @@ public class SkillData {
     );
 
     private final SkillStructArray APPARENT_DEATH_ARRAY = new SkillStructArray(
-            APPARENT_DEATH_ONE
+            APPARENT_DEATH_ZERO
     );
 
-    private final SkillStruct STRONG_PHYSIQUE_ONE = new SkillStruct(
+    private final SkillStruct STRONG_PHYSIQUE_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "Persistent training makes your body particularly strong. \n" +
                     "Your health increases by 15% + 8. \n" +
@@ -83,10 +83,10 @@ public class SkillData {
     );
 
     private final SkillStructArray STRONG_PHYSIQUE_ARRAY = new SkillStructArray(
-            STRONG_PHYSIQUE_ONE
+            STRONG_PHYSIQUE_ZERO
     );
 
-    private final SkillStruct BALANCED_GROWTH_ONE = new SkillStruct(
+    private final SkillStruct BALANCED_GROWTH_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You do not leave out any weakness. \n" +
                     "All your properties increase by basic *21% + 2.\n",
@@ -95,10 +95,10 @@ public class SkillData {
     );
 
     private final SkillStructArray BALANCED_GROWTH_ARRAY = new SkillStructArray(
-            BALANCED_GROWTH_ONE
+            BALANCED_GROWTH_ZERO
     );
 
-    private final SkillStruct WEAPONS_HANDY_ONE = new SkillStruct(
+    private final SkillStruct WEAPONS_HANDY_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "All kinds of weapons become handy in your hands. \n" +
                     "Your weapon damage increases by 20%.\n",
@@ -107,10 +107,10 @@ public class SkillData {
     );
 
     private final SkillStructArray WEAPONS_HANDY_ARRAY = new SkillStructArray(
-            WEAPONS_HANDY_ONE
+            WEAPONS_HANDY_ZERO
     );
 
-    private final SkillStruct BODY_COMBAT_SKILLED_ONE = new SkillStruct(
+    private final SkillStruct BODY_COMBAT_SKILLED_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You focus on body-combat all along.\n" +
                     "Your unarmed attack damage increases by 20%.\n",
@@ -119,10 +119,10 @@ public class SkillData {
     );
 
     private final SkillStructArray BODY_COMBAT_SKILLED_ARRAY = new SkillStructArray(
-            BODY_COMBAT_SKILLED_ONE
+            BODY_COMBAT_SKILLED_ZERO
     );
 
-    private final SkillStruct SIXTH_SENSE_ONE = new SkillStruct(
+    private final SkillStruct SIXTH_SENSE_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You watch for opponent’s weakness when they attack and clinch the chance to counter-attack.\n" +
                     "You have 30% chance of counter-attack upon inflicted damage.\n",
@@ -131,10 +131,10 @@ public class SkillData {
     );
 
     private final SkillStructArray SIXTH_SENSE_ARRAY = new SkillStructArray(
-            SIXTH_SENSE_ONE
+            SIXTH_SENSE_ZERO
     );
 
-    private final SkillStruct BOLT_FROM_THE_BLUE_ONE = new SkillStruct(
+    private final SkillStruct BOLT_FROM_THE_BLUE_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "This break-up letter is the bolt from the blue to him/her. \n" +
                     "Cause damage 15 + your level * 1.5. \n",
@@ -143,10 +143,10 @@ public class SkillData {
     );
 
     private final SkillStructArray BOLT_FROM_THE_BLUE_ARRAY = new SkillStructArray(
-            BOLT_FROM_THE_BLUE_ONE
+            BOLT_FROM_THE_BLUE_ZERO
     );
 
-    private final SkillStruct FAST_HANDS_ONE = new SkillStruct(
+    private final SkillStruct FAST_HANDS_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "Your fast hands make the attack non-stop.\n" +
                     "Extra 20% chance of using this skill. Attack the opponent twice.\n",
@@ -155,10 +155,10 @@ public class SkillData {
     );
 
     private final SkillStructArray FAST_HANDS_ARRAY = new SkillStructArray(
-            FAST_HANDS_ONE
+            FAST_HANDS_ZERO
     );
 
-    private final SkillStruct HAKI_PROTECT_ONE = new SkillStruct(
+    private final SkillStruct HAKI_PROTECT_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "The overlord can knock off opponent simply by haki.\n" +
                     "15% chance of repelling 50% damage of unarmed and weapons attacks.\n" +
@@ -169,10 +169,10 @@ public class SkillData {
     );
 
     private final SkillStructArray HAKI_PROTECT_ARRAY = new SkillStructArray(
-            HAKI_PROTECT_ONE
+            HAKI_PROTECT_ZERO
     );
 
-    private final SkillStruct SEA_IS_UNFATHOMABLE_ONE = new SkillStruct(
+    private final SkillStruct SEA_IS_UNFATHOMABLE_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "Your strong internal organs make you unafraid of any attack.\n" +
                     "Reflect 100% damage. \n" +
@@ -183,10 +183,10 @@ public class SkillData {
     );
 
     private final SkillStructArray SEA_IS_UNFATHOMABLE_ARRAY = new SkillStructArray(
-            SEA_IS_UNFATHOMABLE_ONE
+            SEA_IS_UNFATHOMABLE_ZERO
     );
 
-    private final SkillStruct STONE_SKIN_ONE = new SkillStruct(
+    private final SkillStruct STONE_SKIN_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "Your innate stone skin makes you very tough.\n" +
                     "Reduce 20% of unarmed and weapon damages.\n" +
@@ -196,10 +196,10 @@ public class SkillData {
     );
 
     private final SkillStructArray STONE_SKIN_ARRAY = new SkillStructArray(
-            STONE_SKIN_ONE
+            STONE_SKIN_ZERO
     );
 
-    private final SkillStruct RIPPLELESS_STEPS_ONE = new SkillStruct(
+    private final SkillStruct RIPPLELESS_STEPS_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "No one can guess your next move.\n" +
                     "Increases 7% chance of evasion.\n" +
@@ -209,7 +209,31 @@ public class SkillData {
     );
 
     private final SkillStructArray RIPPLELESS_STEPS_ARRAY = new SkillStructArray(
-            RIPPLELESS_STEPS_ONE
+            RIPPLELESS_STEPS_ZERO
+    );
+
+    private final SkillStruct TORNADO_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "No one can endure the ripping force in the centre of a tornado.\n" +
+                    "Cause damage of 20 + strength*80%.\n",
+            SkillIdentity.TORNADO,
+            "tornado"
+    );
+
+    private final SkillStructArray TORNADO_ARRAY = new SkillStructArray(
+            TORNADO_ZERO
+    );
+
+    private final SkillStruct HEAVY_USUAL_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "All kinds of heavy weapons become easy for you.\n" +
+                    "Increase 10% damage of big weapons.\n",
+            SkillIdentity.HEAVY_USUAL,
+            "heavy-usual"
+    );
+
+    private final SkillStructArray HEAVY_USUAL_ARRAY = new SkillStructArray(
+            HEAVY_USUAL_ZERO
     );
 
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
@@ -229,7 +253,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.HAKI_PROTECT, HAKI_PROTECT_ARRAY),
                     Map.entry(SkillIdentity.SEA_IS_UNFATHOMABLE, SEA_IS_UNFATHOMABLE_ARRAY),
                     Map.entry(SkillIdentity.STONE_SKIN, STONE_SKIN_ARRAY),
-                    Map.entry(SkillIdentity.RIPPLESLESS_STEPS, RIPPLELESS_STEPS_ARRAY)
+                    Map.entry(SkillIdentity.RIPPLESLESS_STEPS, RIPPLELESS_STEPS_ARRAY),
+                    Map.entry(SkillIdentity.TORNADO, TORNADO_ARRAY),
+                    Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY)
             )
     );
 
