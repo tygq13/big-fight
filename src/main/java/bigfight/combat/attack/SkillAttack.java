@@ -26,7 +26,7 @@ public class SkillAttack implements Attackable {
     @Override
     public void attack() {
         // should add exception if not initialized;
-        double escape = attacker.getAdvancedAttribute().skillHitRate - defender.getAdvancedAttribute().skillEvasionRate;
+        double escape = defender.getAdvancedAttribute().skillEvasionRate - attacker.getAdvancedAttribute().skillHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         ui.printSkillRoarAttack(attacker.getName());
         if (random.getEscapeRandom() < escape) {

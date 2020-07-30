@@ -61,7 +61,7 @@ public class BigTypeAttack implements Attackable{
         if (weapon.getIdentity() == WeaponIdentity.DEMON_SCYTHE) {
             return false;
         }
-        double escape = attacker.getAdvancedAttribute().bigHitRate - defender.getAdvancedAttribute().bigEvasionRate;
+        double escape = defender.getAdvancedAttribute().bigEvasionRate - attacker.getAdvancedAttribute().bigHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }

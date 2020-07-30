@@ -128,4 +128,24 @@ public class PermanentSkillTest {
         assertEquals(unarmedExpected, testWarrior.getAdvancedAttribute().antiUnarmedExtraPercentageDamage);
     }
 
+    @Test
+    void rippleless_steps_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        RipplelessSteps ripplelessSteps = (RipplelessSteps) DEFAULT_SKILL_FACTORY.create(SkillIdentity.RIPPLESLESS_STEPS);
+        double bigExpected = testWarrior.getAdvancedAttribute().bigEvasionRate + ripplelessSteps.getEvasion();
+        double mediumExpected = testWarrior.getAdvancedAttribute().mediumEvasionRate + ripplelessSteps.getEvasion();
+        double smallExpected = testWarrior.getAdvancedAttribute().smallEvasionRate + ripplelessSteps.getEvasion();
+        double throwExpected = testWarrior.getAdvancedAttribute().throwEvasionRate + ripplelessSteps.getEvasion();
+        double unarmedExpected = testWarrior.getAdvancedAttribute().unarmedEvasionRate + ripplelessSteps.getEvasion();
+        double skillExpected = testWarrior.getAdvancedAttribute().skillEvasionRate + ripplelessSteps.getEvasion();
+
+        ripplelessSteps.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigEvasionRate);
+        assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().mediumEvasionRate);
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallEvasionRate);
+        assertEquals(throwExpected, testWarrior.getAdvancedAttribute().throwEvasionRate);
+        assertEquals(unarmedExpected, testWarrior.getAdvancedAttribute().unarmedEvasionRate);
+        assertEquals(skillExpected, testWarrior.getAdvancedAttribute().skillEvasionRate);
+    }
+
 }

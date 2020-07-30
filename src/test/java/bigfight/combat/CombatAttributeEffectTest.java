@@ -14,6 +14,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CombatAttributeEffectTest {
+    private final static double EPSILON = 0.001;
     private final double NO_ESCAPE = 1.0;
     private final double NO_THROW = 1.0;
     private final double COUNTER_ATTACK = -1.0;
@@ -79,7 +80,7 @@ public class CombatAttributeEffectTest {
     }
 
     @Test
-    // skill medium, small, throw and unarmed since they copy from big type.
+    // skill medium, small, throw ,unarmed and counter since they copy from big type.
     void test_anti_extra_percentage_damage_effective_in_attack_example_big() {
         double EXTRA_PERCENTAGE = 0.2;
         int WEAPON_DAMAGE = 10;
@@ -94,6 +95,26 @@ public class CombatAttributeEffectTest {
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
         int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 - EXTRA_PERCENTAGE));
+        new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
+        assertEquals(expectedHealth, fighter2.getHealth());
+    }
+
+    @Test
+    // skip medium, small, throw, unarmed, counter, and skill.
+    void test_evasion_rate_effective_in_attack_example_big() {
+        double EXTRA_PERCENTAGE = 0.2;
+        int WEAPON_DAMAGE = 10;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.bigEvasionRate = EXTRA_PERCENTAGE;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Weapon weapon = CombatTestUtil.createBigWeapon();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(EXTRA_PERCENTAGE - EPSILON);
+        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
+        // test
+        int expectedHealth = fighter2.getHealth();
         new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter2.getHealth());
     }

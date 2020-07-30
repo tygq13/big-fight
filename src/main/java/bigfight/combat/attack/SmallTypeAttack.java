@@ -47,7 +47,7 @@ public class SmallTypeAttack implements Attackable{
         if (weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
             return false;
         }
-        double escape = attacker.getAdvancedAttribute().smallHitRate - defender.getAdvancedAttribute().smallEvasionRate;
+        double escape = defender.getAdvancedAttribute().smallEvasionRate - attacker.getAdvancedAttribute().smallHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }

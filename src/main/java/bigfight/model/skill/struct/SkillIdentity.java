@@ -13,7 +13,8 @@ public enum SkillIdentity {
     FAST_HANDS,
     HAKI_PROTECT,
     SEA_IS_UNFATHOMABLE,
-    STONE_SKIN;
+    STONE_SKIN,
+    RIPPLESLESS_STEPS;
 
 
     // use static constant to avoid copying of enum array

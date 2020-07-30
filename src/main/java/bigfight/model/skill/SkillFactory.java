@@ -43,6 +43,8 @@ public class SkillFactory {
                 return new SeaIsUnfathomable(skillData.getWithStar(identity, 1));
             case STONE_SKIN:
                 return new StoneSkin(skillData.getWithStar(identity, 1));
+            case RIPPLESLESS_STEPS:
+                return new RipplelessSteps(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

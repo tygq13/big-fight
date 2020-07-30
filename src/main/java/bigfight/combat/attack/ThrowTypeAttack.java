@@ -49,7 +49,7 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private boolean escaped() {
-        double escape = attacker.getAdvancedAttribute().throwHitRate - defender.getAdvancedAttribute().throwEvasionRate;
+        double escape = defender.getAdvancedAttribute().throwEvasionRate - attacker.getAdvancedAttribute().throwHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
     }

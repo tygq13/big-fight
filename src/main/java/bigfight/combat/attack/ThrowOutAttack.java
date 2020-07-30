@@ -64,13 +64,13 @@ public class ThrowOutAttack implements Attackable {
         double escape = 0;
         switch (weapon.getType()) {
             case BIG:
-                escape = attacker.getAdvancedAttribute().bigHitRate - defender.getAdvancedAttribute().bigEvasionRate;
+                escape = defender.getAdvancedAttribute().bigEvasionRate - attacker.getAdvancedAttribute().bigHitRate;
                 break;
             case MEDIUM:
-                escape = attacker.getAdvancedAttribute().mediumHitRate - defender.getAdvancedAttribute().mediumEvasionRate;
+                escape = defender.getAdvancedAttribute().mediumEvasionRate - attacker.getAdvancedAttribute().mediumHitRate;
                 break;
             case SMALL:
-                escape = attacker.getAdvancedAttribute().smallHitRate - defender.getAdvancedAttribute().smallEvasionRate;
+                escape = defender.getAdvancedAttribute().smallEvasionRate - attacker.getAdvancedAttribute().smallHitRate;
         }
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         return random.getEscapeRandom() < escape;
