@@ -77,4 +77,24 @@ public class CombatAttributeEffectTest {
         new UnarmedAttack(fighter1, fighter2, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter2.getHealth());
     }
+
+    @Test
+    // skill medium, small, throw and unarmed since they copy from big type.
+    void test_anti_extra_percentage_damage_effective_in_attack_example_big() {
+        double EXTRA_PERCENTAGE = 0.2;
+        int WEAPON_DAMAGE = 10;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.antiBigExtraPercentageDamage = EXTRA_PERCENTAGE;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Weapon weapon = CombatTestUtil.createBigWeapon();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
+        // test
+        int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 - EXTRA_PERCENTAGE));
+        new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
+        assertEquals(expectedHealth, fighter2.getHealth());
+    }
 }

@@ -83,12 +83,15 @@ public class ThrowOutAttack implements Attackable {
         switch (weapon.getType()) {
             case BIG:
                 extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
+                extraDamageMultiply -= defender.getAdvancedAttribute().antiBigExtraPercentageDamage;
                 break;
             case MEDIUM:
                 extraDamageMultiply = attacker.getAdvancedAttribute().mediumExtraPercentageDamage;
+                extraDamageMultiply -= defender.getAdvancedAttribute().antiMediumExtraPercentageDamage;
             break;
             case SMALL:
                 extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
+                extraDamageMultiply -= defender.getAdvancedAttribute().antiSmallExtraPercentageDamage;
         }
         double multiply = strengthMultiply + extraDamageMultiply;
         int damage = (int) (weaponDamage * (1 + multiply));

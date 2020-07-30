@@ -186,6 +186,19 @@ public class SkillData {
             SEA_IS_UNFATHOMABLE_ONE
     );
 
+    private final SkillStruct STONE_SKIN_ONE = new SkillStruct(
+            SkillType.PERMANENT,
+            "Your innate stone skin makes you very tough.\n" +
+                    "Reduce 20% of unarmed and weapon damages.\n" +
+                    "After level 60, you have high chance of getting this skill at every 5 levels.\n",
+            SkillIdentity.STONE_SKIN,
+            "stone skin"
+    );
+
+    private final SkillStructArray STONE_SKIN_ARRAY = new SkillStructArray(
+            STONE_SKIN_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -201,7 +214,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.BOLT_FROM_THE_BLUE, BOLT_FROM_THE_BLUE_ARRAY),
                     Map.entry(SkillIdentity.FAST_HANDS, FAST_HANDS_ARRAY),
                     Map.entry(SkillIdentity.HAKI_PROTECT, HAKI_PROTECT_ARRAY),
-                    Map.entry(SkillIdentity.SEA_IS_UNFATHOMABLE, SEA_IS_UNFATHOMABLE_ARRAY)
+                    Map.entry(SkillIdentity.SEA_IS_UNFATHOMABLE, SEA_IS_UNFATHOMABLE_ARRAY),
+                    Map.entry(SkillIdentity.STONE_SKIN, STONE_SKIN_ARRAY)
             )
     );
 

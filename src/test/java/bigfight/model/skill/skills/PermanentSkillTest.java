@@ -110,4 +110,22 @@ public class PermanentSkillTest {
         assertEquals(expected, testWarrior.getAdvancedAttribute().counterAttackChance);
     }
 
+    @Test
+    void stone_skin_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        StoneSkin stoneSkin = (StoneSkin) DEFAULT_SKILL_FACTORY.create(SkillIdentity.STONE_SKIN);
+        double bigExpected = testWarrior.getAdvancedAttribute().antiBigExtraPercentageDamage + stoneSkin.getExtra();
+        double mediumExpected = testWarrior.getAdvancedAttribute().antiMediumExtraPercentageDamage + stoneSkin.getExtra();
+        double smallExpected = testWarrior.getAdvancedAttribute().antiSmallExtraPercentageDamage + stoneSkin.getExtra();
+        double throwExpected = testWarrior.getAdvancedAttribute().antiThrowExtraPercentageDamage + stoneSkin.getExtra();
+        double unarmedExpected = testWarrior.getAdvancedAttribute().antiUnarmedExtraPercentageDamage + stoneSkin.getExtra();
+
+        stoneSkin.upgrade(testWarrior.getAdvancedAttribute());
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().antiBigExtraPercentageDamage);
+        assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().antiMediumExtraPercentageDamage);
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().antiSmallExtraPercentageDamage);
+        assertEquals(throwExpected, testWarrior.getAdvancedAttribute().antiThrowExtraPercentageDamage);
+        assertEquals(unarmedExpected, testWarrior.getAdvancedAttribute().antiUnarmedExtraPercentageDamage);
+    }
+
 }

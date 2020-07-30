@@ -41,6 +41,8 @@ public class SkillFactory {
                 return new HakiProtect(skillData.getWithStar(identity, 1));
             case SEA_IS_UNFATHOMABLE:
                 return new SeaIsUnfathomable(skillData.getWithStar(identity, 1));
+            case STONE_SKIN:
+                return new StoneSkin(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }
