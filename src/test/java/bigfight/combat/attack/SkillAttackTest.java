@@ -24,10 +24,10 @@ class SkillAttackTest {
         EnUi uiSpy = spy(ui);
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
-        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
+        SkillModel roar = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
-        SkillAttack test = new SkillAttack(fighter1, fighter2, skill, random, uiSpy);
+        SkillAttack test = new SkillAttack(fighter1, fighter2, roar, random, uiSpy);
         test.attack();
         verify(uiSpy, atLeastOnce()).printSkillRoarAttack(any());
         verify(uiSpy, atLeastOnce()).printSkillRoarDodge(any());

@@ -30,7 +30,7 @@ class CounterAttack {
             defender.removeSkill(SkillIdentity.APPARENT_DEATH);
             ui.printSkillApparentDeath(defender.getName());
             return true;
-        } else if (defender.hasSkill(SkillIdentity.SEA_IS_UNFATHOMABLE)) {
+        } else if (damage != 0 && defender.hasSkill(SkillIdentity.SEA_IS_UNFATHOMABLE)) {
             SeaIsUnfathomable seaIsUnfathomable = (SeaIsUnfathomable) defender.getSkill(SkillIdentity.SEA_IS_UNFATHOMABLE);
             if (seaIsUnfathomable.getRemainingUsage() > 0 && random.getSeaReflectRandom() < seaIsUnfathomable.getInvocationChance()) {
                 seaIsUnfathomable.invoke();

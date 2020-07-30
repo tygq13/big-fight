@@ -174,4 +174,25 @@ class CombatEachSkillTest {
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
+
+    @Test
+    void hit_from_god_seckill() {
+        final double HIT = -1.0;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HIT_FROM_GOD);
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getHitFromGodRandom()).thenReturn(HIT);
+
+        // test
+        int EXPECTED = 1;
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void disarm_() {
+
+    }
 }

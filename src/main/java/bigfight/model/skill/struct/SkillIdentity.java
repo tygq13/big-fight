@@ -16,7 +16,9 @@ public enum SkillIdentity {
     STONE_SKIN,
     RIPPLESLESS_STEPS,
     TORNADO,
-    HEAVY_USUAL;
+    HEAVY_USUAL,
+    HIT_FROM_GOD,
+    DISARM;
 
 
     // use static constant to avoid copying of enum array

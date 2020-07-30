@@ -236,6 +236,30 @@ public class SkillData {
             HEAVY_USUAL_ZERO
     );
 
+    private final SkillStruct HIT_FROM_GOD_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "The legendary skill that can seckill your opponent.\n" +
+                    "Have 8% chance of reducing opponent’s health to 1.\n",
+            SkillIdentity.HIT_FROM_GOD,
+            "hit from god"
+    );
+
+    private final SkillStructArray HIT_FROM_GOD_ARRAY = new SkillStructArray(
+            HIT_FROM_GOD_ZERO
+    );
+
+    private final SkillStruct DISARM_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Others' weapon is the best weapon.\n" +
+                    "Seize your opponent’s weapon. This skill is unescapable.\n",
+            SkillIdentity.DISARM,
+            "disarm"
+    );
+
+    private final SkillStructArray DISARM_ARRAY = new SkillStructArray(
+            DISARM_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -255,7 +279,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.STONE_SKIN, STONE_SKIN_ARRAY),
                     Map.entry(SkillIdentity.RIPPLESLESS_STEPS, RIPPLELESS_STEPS_ARRAY),
                     Map.entry(SkillIdentity.TORNADO, TORNADO_ARRAY),
-                    Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY)
+                    Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY),
+                    Map.entry(SkillIdentity.HIT_FROM_GOD, HIT_FROM_GOD_ARRAY),
+                    Map.entry(SkillIdentity.DISARM, DISARM_ARRAY)
             )
     );
 

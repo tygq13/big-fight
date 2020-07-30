@@ -54,7 +54,7 @@ class FighterTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        test.SelectEmpowerment(random);
+        test.selectEmpowerment(random);
         final int EXPECTED = 1;
         assertEquals(EXPECTED, test.getWeaponSize());
     }
@@ -67,7 +67,7 @@ class FighterTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment = test.SelectEmpowerment(random);
+        Empowerment empowerment = test.selectEmpowerment(random);
         assertNotNull(empowerment.getWeapon());
     }
 
@@ -76,7 +76,7 @@ class FighterTest {
         Warrior mockWarrior = noEmpowermentWarrior();
         CombatRandom random = mock(CombatRandom.class);
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment = test.SelectEmpowerment(random);
+        Empowerment empowerment = test.selectEmpowerment(random);
         assertNull(empowerment.getWeapon());
         assertNull(empowerment.getSkill());
     }
@@ -97,14 +97,14 @@ class FighterTest {
         final double SELECT = 0;
         final double NOT_SELECT = (1.0 / 2.0) * fastHands.getExtraChance() + EPSILON;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectSpecialSkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
         FighterFlag test = new FighterFlag();
         // test not selected by extra chance
-        testFighter.selectSpecialSkill(test, random);
+        testFighter.selectAuxiliarySkill(test, random);
         assertFalse(test.fastHandsFlag);
         // test selected by extra chance
-        testFighter.selectSpecialSkill(test, random);
+        testFighter.selectAuxiliarySkill(test, random);
         assertTrue(test.fastHandsFlag);
     }
 }

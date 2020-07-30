@@ -2,6 +2,7 @@ package bigfight.combat;
 
 import bigfight.combat.fighter.*;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.ui.Uiable;
 
@@ -28,8 +29,8 @@ public class Combat {
         while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
             if (heroRound(roundDecision, rand)) {
                 roundDecision += OPPONENT_TURN;
-                Empowerment empowerment = hero.SelectEmpowerment(rand);
-                hero.selectSpecialSkill(heroStatus.getFighterFlag(), rand);
+                Empowerment empowerment = selectEmpowerment(hero, opponentStatus, rand);
+                hero.selectAuxiliarySkill(heroStatus.getFighterFlag(), rand);
                 roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
@@ -37,7 +38,8 @@ public class Combat {
                 }
             } else {
                 roundDecision += HERO_TURN;
-                Empowerment empowerment = opponent.SelectEmpowerment(rand);
+                Empowerment empowerment = selectEmpowerment(opponent, heroStatus, rand);
+                opponent.selectAuxiliarySkill(heroStatus.getFighterFlag(), rand);
                 roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
@@ -62,5 +64,15 @@ public class Combat {
             // 50-50 chance for both sides
             return rand.getRoundRandom() < 0.5;
         }
+    }
+
+    private Empowerment selectEmpowerment(Fighter hero, FighterStatus opponent, CombatRandom random) {
+        Empowerment empowerment = hero.selectEmpowerment(random);
+        // this feature untested
+        while (empowerment.getSkill() != null && empowerment.getSkill().getIdentity() == SkillIdentity.DISARM &&
+            opponent.getHoldingWeapon() == null) {
+            empowerment = hero.selectEmpowerment(random);
+        }
+        return empowerment;
     }
 }

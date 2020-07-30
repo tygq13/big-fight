@@ -50,7 +50,7 @@ public class CombatRandom extends Random{
         return random.nextInt(size);
     }
 
-    public double selectSpecialSkill() {
+    public double selectAuxiliarySkillRandom() {
         return random.nextDouble();
     }
 
@@ -63,6 +63,10 @@ public class CombatRandom extends Random{
     }
 
     public double getSeaReflectRandom() {
+        return random.nextDouble();
+    }
+
+    public double getHitFromGodRandom() {
         return random.nextDouble();
     }
 }

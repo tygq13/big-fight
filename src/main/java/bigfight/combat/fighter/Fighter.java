@@ -12,7 +12,6 @@ import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Fighter {
     private int speed;
@@ -44,7 +43,7 @@ public class Fighter {
         specialSkillList.addSpecialFromMap(warrior.getSkillManager().getSkillMap());
     }
 
-    public Empowerment SelectEmpowerment(CombatRandom random) {
+    public Empowerment selectEmpowerment(CombatRandom random) {
         int totalSize = weaponList.size() + activeSkillList.size();
         if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
             // unarmed attack
@@ -106,12 +105,12 @@ public class Fighter {
         return specialSkillList;
     }
 
-    public void selectSpecialSkill(FighterFlag fighterFlag, CombatRandom random) {
+    public void selectAuxiliarySkill(FighterFlag fighterFlag, CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
         if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
             FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
             double chance = (1.0 / totalSize) * fastHands.getExtraChance();
-            if (random.selectSpecialSkill() < chance) {
+            if (random.selectAuxiliarySkillRandom() < chance) {
                 fighterFlag.fastHandsFlag = true;
             }
         }
