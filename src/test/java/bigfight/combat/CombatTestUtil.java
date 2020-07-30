@@ -108,4 +108,17 @@ public class CombatTestUtil {
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }
+
+    public static FighterStatus createHealthyFighterWithSeaIsUnfathomable() {
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SEA_IS_UNFATHOMABLE);
+        SkillManager skillManager = new SkillManager();
+        skillManager.add(skill);
+        Warrior warrior = mock(Warrior.class);
+        when(warrior.getSkillManager()).thenReturn(skillManager);
+        when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
+        when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
+        when(warrior.getHealth()).thenReturn(100000000);
+        Fighter fighter = new Fighter(warrior);
+        return new FighterStatus(fighter);
+    }
 }

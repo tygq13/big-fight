@@ -7,6 +7,7 @@ import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.BoltFromTheBlue;
 import bigfight.model.skill.skills.HakiProtect;
+import bigfight.model.skill.skills.SeaIsUnfathomable;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
@@ -106,7 +107,7 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void haki_protect_evoke_limitation() {
+    void haki_protect_invoke_limitation() {
         final int DAMAGE = 10;
         final double INVOKE_HAKI = 0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
@@ -125,6 +126,40 @@ class CombatEachSkillTest {
         final int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE;
         new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
+    void sea_is_unfathomable_reflect() {
+        final int DAMAGE = 10;
+        final double INVOKE_SKILL = 0;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        when(random.getSeaReflectRandom()).thenReturn(INVOKE_SKILL);
+
+        final int EXPECTED_HEALTH = fighter1.getHealth() - DAMAGE;
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
+    }
+
+    @Test
+    void sea_is_unfathomable_invoke_limitation() {
+        final int DAMAGE = 10;
+        final double INVOKE_SKILL = 0;
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        when(random.getSeaReflectRandom()).thenReturn(INVOKE_SKILL);
+        // use once to reduce remaining invocation to zero
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        // test
+        final int EXPECTED_HEALTH = fighter1.getHealth();
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
     }
 
 }

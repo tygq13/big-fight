@@ -172,6 +172,20 @@ public class SkillData {
             HAKI_PROTECT_ONE
     );
 
+    private final SkillStruct SEA_IS_UNFATHOMABLE_ONE = new SkillStruct(
+            SkillType.SPECIAL,
+            "Your strong internal organs make you unafraid of any attack.\n" +
+                    "Reflect 100% damage. \n" +
+                    "You can only use this skill once.\n" +
+                    "After level 60, you have high chance of getting this skill at every 5 levels.\n",
+            SkillIdentity.SEA_IS_UNFATHOMABLE,
+            "sea is unfathomable"
+    );
+
+    private final SkillStructArray SEA_IS_UNFATHOMABLE_ARRAY = new SkillStructArray(
+            SEA_IS_UNFATHOMABLE_ONE
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -186,7 +200,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.SIXTH_SENSE, SIXTH_SENSE_ARRAY),
                     Map.entry(SkillIdentity.BOLT_FROM_THE_BLUE, BOLT_FROM_THE_BLUE_ARRAY),
                     Map.entry(SkillIdentity.FAST_HANDS, FAST_HANDS_ARRAY),
-                    Map.entry(SkillIdentity.HAKI_PROTECT, HAKI_PROTECT_ARRAY)
+                    Map.entry(SkillIdentity.HAKI_PROTECT, HAKI_PROTECT_ARRAY),
+                    Map.entry(SkillIdentity.SEA_IS_UNFATHOMABLE, SEA_IS_UNFATHOMABLE_ARRAY)
             )
     );
 

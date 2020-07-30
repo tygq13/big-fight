@@ -61,4 +61,8 @@ public class CombatRandom extends Random{
     public double getHakiProtectRandom() {
         return random.nextDouble();
     }
+
+    public double getSeaReflectRandom() {
+        return random.nextDouble();
+    }
 }

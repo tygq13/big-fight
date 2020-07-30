@@ -13,7 +13,6 @@ public class SmallTypeAttack implements Attackable{
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
 
     public SmallTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -28,13 +27,15 @@ public class SmallTypeAttack implements Attackable{
         ui.printWeaponSmallAttack(attacker.getName(), weapon.getName());
         if (escaped()) {
             ui.printDodge(defender.getName());
-            isEscaped = true;
         } else {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
     }
 
     @Override

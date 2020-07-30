@@ -10,7 +10,6 @@ public class UnarmedAttack implements Attackable {
     private FighterStatus defender;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
 
     public UnarmedAttack(FighterStatus attacker, FighterStatus defender, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -24,24 +23,20 @@ public class UnarmedAttack implements Attackable {
         ui.printUnarmedAttack(attacker.getName());
         if (escaped()) {
             ui.printDodge(defender.getName());
-            isEscaped = true;
         } else {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
-            isEscaped = false;
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        counterAttack();
     }
 
     @Override
     public int getRoundChange() {
         return 0;
-    }
-
-    private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
-        attacker.updateHealth(attacker.getHealth() - damage);
     }
 
     private boolean escaped() {

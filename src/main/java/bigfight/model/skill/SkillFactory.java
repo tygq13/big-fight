@@ -39,6 +39,8 @@ public class SkillFactory {
                 return new FastHands(skillData.getWithStar(identity, 1));
             case HAKI_PROTECT:
                 return new HakiProtect(skillData.getWithStar(identity, 1));
+            case SEA_IS_UNFATHOMABLE:
+                return new SeaIsUnfathomable(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }

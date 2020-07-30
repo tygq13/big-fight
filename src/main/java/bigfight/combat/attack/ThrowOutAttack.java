@@ -16,7 +16,6 @@ public class ThrowOutAttack implements Attackable {
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
 
     public ThrowOutAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -33,19 +32,16 @@ public class ThrowOutAttack implements Attackable {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
-            isEscaped = false;
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        isEscaped = true;
         ui.printDodge(defender.getName());
 
         // loss the weapon after throwing out
         Weapon unarmed = null;
         attacker.changeWeapon(new Empowerment(unarmed));
-        counterAttack();
-    }
-
-    private void counterAttack() {
-        new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
     @Override

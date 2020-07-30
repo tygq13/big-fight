@@ -12,7 +12,6 @@ public class MediumTypeAttack implements Attackable{
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
 
     public MediumTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -26,14 +25,16 @@ public class MediumTypeAttack implements Attackable{
     public void attack() {
         ui.printWeaponMediumAttack(attacker.getName(), weapon.getName());
         if (escaped()) {
-            isEscaped = true;
             ui.printDodge(defender.getName());
         } else {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
     }
 
     @Override

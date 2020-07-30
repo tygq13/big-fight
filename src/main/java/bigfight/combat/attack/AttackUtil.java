@@ -4,6 +4,7 @@ import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.HakiProtect;
 import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.ui.Uiable;
 
 public class AttackUtil {
 

@@ -11,7 +11,9 @@ public enum SkillIdentity {
     SIXTH_SENSE,
     BOLT_FROM_THE_BLUE,
     FAST_HANDS,
-    HAKI_PROTECT;
+    HAKI_PROTECT,
+    SEA_IS_UNFATHOMABLE;
+
 
     // use static constant to avoid copying of enum array
     private static SkillIdentity[] array = SkillIdentity.values();

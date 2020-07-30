@@ -32,14 +32,15 @@ public class SkillAttack implements Attackable {
         if (random.getEscapeRandom() < escape) {
             // escaped
             ui.printSkillRoarDodge(defender.getName());
-            isEscaped = true;
             return;
         }
-        isEscaped = false;
         int damage = getSkillDamage();
         defender.updateHealth(defender.getHealth() - damage);
         ui.printInjury(defender.getName(), damage, defender.getHealth());
-        counterAttack();
+        CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+        if (!(counterAttack.specialCounter(damage))) {
+            counterAttack.counterAttack();
+        }
     }
 
     @Override
@@ -51,10 +52,6 @@ public class SkillAttack implements Attackable {
             default:
                 return 0;
         }
-    }
-
-    private void counterAttack() {
-        new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
     private int getSkillDamage() {

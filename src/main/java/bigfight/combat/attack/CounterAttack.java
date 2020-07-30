@@ -3,6 +3,7 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.ApparentDeath;
+import bigfight.model.skill.skills.SeaIsUnfathomable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
@@ -11,19 +12,17 @@ import bigfight.ui.Uiable;
 class CounterAttack {
     private FighterStatus defender;
     private FighterStatus attacker;
-    private boolean isEscaped;
     private CombatRandom random;
     private Uiable ui;
 
-    CounterAttack(FighterStatus defender, FighterStatus attacker, boolean isEscaped, CombatRandom random, Uiable ui) {
+    CounterAttack(FighterStatus defender, FighterStatus attacker, CombatRandom random, Uiable ui) {
         this.defender = defender;
         this.attacker = attacker;
-        this.isEscaped = isEscaped;
         this.random = random;
         this.ui = ui;
     }
 
-    boolean specialCounter() {
+    boolean specialCounter(int damage) {
         if (defender.getHealth() <= 0 && defender.hasSkill(SkillIdentity.APPARENT_DEATH)) {
             ApparentDeath apparentDeath = (ApparentDeath) defender.getSkill(SkillIdentity.APPARENT_DEATH);
             int lastHealth = apparentDeath.getLastHealth();
@@ -31,14 +30,18 @@ class CounterAttack {
             defender.removeSkill(SkillIdentity.APPARENT_DEATH);
             ui.printSkillApparentDeath(defender.getName());
             return true;
+        } else if (defender.hasSkill(SkillIdentity.SEA_IS_UNFATHOMABLE)) {
+            SeaIsUnfathomable seaIsUnfathomable = (SeaIsUnfathomable) defender.getSkill(SkillIdentity.SEA_IS_UNFATHOMABLE);
+            if (seaIsUnfathomable.getRemainingUsage() > 0 && random.getSeaReflectRandom() < seaIsUnfathomable.getInvocationChance()) {
+                seaIsUnfathomable.invoke();
+                attacker.updateHealth(attacker.getHealth() - damage);
+                return true;
+            }
         }
         return false;
     }
 
     int counterAttack() {
-        if (specialCounter()) {
-            return 0;
-        }
         // recursive counter
         if (isCounter()) {
             Weapon weapon = defender.getHoldingWeapon();
@@ -62,9 +65,6 @@ class CounterAttack {
     }
 
     private boolean isCounter() {
-        if (!isEscaped) {
-            return random.getCounterAttackRandom() < defender.getAdvancedAttribute().counterAttackChance;
-        }
-        return false;
+        return random.getCounterAttackRandom() < defender.getAdvancedAttribute().counterAttackChance;
     }
 }

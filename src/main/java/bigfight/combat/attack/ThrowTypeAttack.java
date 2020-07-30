@@ -3,6 +3,7 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
@@ -32,21 +33,19 @@ public class ThrowTypeAttack implements Attackable{
                 int damage = calculateDamage();
                 defender.updateHealth(defender.getHealth() - damage);
                 ui.printInjury(defender.getName(), damage, defender.getHealth());
+                new CounterAttack(defender, attacker, random, ui).specialCounter(damage);
             } else {
                 isEscaped = true;
                 ui.printDodge(defender.getName());
             }
-            counterAttack();
         }
+        Weapon unarmed = null;
+        attacker.changeWeapon(new Empowerment(unarmed));
     }
 
     @Override
     public int getRoundChange() {
         return 0;
-    }
-
-    private void counterAttack() {
-        new CounterAttack(defender, attacker, isEscaped, random, ui).specialCounter();
     }
 
     private boolean escaped() {
