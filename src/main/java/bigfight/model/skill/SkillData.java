@@ -149,7 +149,8 @@ public class SkillData {
     private final SkillStruct FAST_HANDS_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "Your fast hands make the attack non-stop.\n" +
-                    "Extra 20% chance of using this skill. Attack the opponent twice.\n",
+                    "Only 20% chance of normal chance in using this skill. Attack the opponent twice.\n" +
+                    "Immediately make the next attack.",
             SkillIdentity.FAST_HANDS,
             "fast hands"
     );
@@ -263,14 +264,42 @@ public class SkillData {
     private final SkillStruct SHADOW_MOVE_ZERO = new SkillStruct(
             SkillType.SPECIAL,
             "Fast as lighting. Swift as thunderbolt.\n" +
-                    "20% of showing shadow move.\n" +
-                    "Under shadow move, your speed increases by 50%, all damages increase by 30%. Last for 3 rounds.\n",
+                    "only 20% of normal chance in showing shadow move.\n" +
+                    "Under shadow move, your speed increases by 50%, all damages increase by 30%. Last for 3 rounds.\n" +
+                    "Immediately make the next attack.",
             SkillIdentity.SHADOW_MOVE,
             "shadow move"
     );
 
     private final SkillStructArray SHADOW_MOVE_ARRAY = new SkillStructArray(
             SHADOW_MOVE_ZERO
+    );
+
+    private final SkillStruct MINE_WATER_ZERO = new SkillStruct(
+            SkillType.SPECIAL,
+            "Big-fight’s special mine water. Everyone recommends it!\n" +
+                    "Regenerate 25% health (at least 25 health).\n" +
+                    "only 10% of normal chance in using this skill" +
+                    "Immediately make the next attack.\n",
+            SkillIdentity.MINE_WATER,
+            "mine water"
+    );
+
+    private final SkillStructArray MINE_WATER_ARRAY = new SkillStructArray(
+            MINE_WATER_ZERO
+    );
+
+    private final SkillStruct GLUE_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Very sticky glue.\n" +
+                    "10% chance of gluing the opponent.\n" +
+                    "The opponent can only use remote attack. \n",
+            SkillIdentity.GLUE,
+            "glue"
+    );
+
+    private final SkillStructArray GLUE_ARRAY = new SkillStructArray(
+            GLUE_ZERO
     );
 
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
@@ -295,7 +324,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY),
                     Map.entry(SkillIdentity.HIT_FROM_GOD, HIT_FROM_GOD_ARRAY),
                     Map.entry(SkillIdentity.DISARM, DISARM_ARRAY),
-                    Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY)
+                    Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY),
+                    Map.entry(SkillIdentity.MINE_WATER, MINE_WATER_ARRAY),
+                    Map.entry(SkillIdentity.GLUE, GLUE_ARRAY)
             )
     );
 

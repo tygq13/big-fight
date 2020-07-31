@@ -135,4 +135,18 @@ public class CombatTestUtil {
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }
+
+    public static FighterStatus createFighterWithMineWater(int health) {
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
+        SkillManager skillManager = new SkillManager();
+        skillManager.add(skill);
+        Warrior warrior = mock(Warrior.class);
+        when(warrior.getSkillManager()).thenReturn(skillManager);
+        when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
+        when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
+        when(warrior.getHealth()).thenReturn(health);
+        when(warrior.getSpeed()).thenReturn(5);
+        Fighter fighter = new Fighter(warrior);
+        return new FighterStatus(fighter);
+    }
 }

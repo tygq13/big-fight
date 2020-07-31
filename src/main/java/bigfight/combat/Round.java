@@ -15,7 +15,7 @@ public class Round {
     private Empowerment empowerment;
     private CombatRandom random;
     private Uiable ui;
-    // todo: have a static varialbe to count the number of rounds
+    // todo: have a static variable to count the number of rounds
 
     public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random, Uiable ui) {
         this.attacker = attacker;

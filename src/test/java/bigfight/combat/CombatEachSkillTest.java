@@ -230,4 +230,31 @@ class CombatEachSkillTest {
         assertEquals(EXPECTED_UNARMED_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().unarmedExtraPercentageDamage);
         assertEquals(EXPECTED_SKILL_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().skillExtraPercentageDamage);
     }
+
+    @Test
+    void mine_water_activated() {
+        final int HEALTH = 200;
+        final double DAMAGE_PERCENTAGE = 0.5;
+        FighterStatus fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
+        fighter.getFighterFlag().mineWaterFlag = true;
+        fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
+        MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
+        final int EXPECTED_HEALTH = fighter.getHealth() + (int) (HEALTH * mineWater.getRegeneratePercentage());
+        fighter.updateStatusByFlag();
+        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
+    }
+
+    @Test
+    void mine_water_minimum_heal() {
+        final int HEALTH = 50;
+        final double DAMAGE_PERCENTAGE = 0.5;
+        FighterStatus fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
+        fighter.getFighterFlag().mineWaterFlag = true;
+        fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
+        MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
+        final int EXPECTED_HEALTH = fighter.getHealth() + (int) (mineWater.getRegeneratePercentage() * 100);
+        fighter.updateStatusByFlag();
+        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
+    }
+
 }

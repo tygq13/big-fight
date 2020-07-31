@@ -3,6 +3,7 @@ package bigfight.combat.fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.FastHands;
+import bigfight.model.skill.skills.MineWater;
 import bigfight.model.skill.skills.ShadowMove;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
@@ -106,6 +107,8 @@ public class Fighter {
         return specialSkillList;
     }
 
+    // In this implementation, the chance is not exactly equal to the intended invocation chance
+    // nice fun to have, isn't it?
     public void selectAuxiliarySkill(FighterFlag fighterFlag, CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
         if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
@@ -121,6 +124,13 @@ public class Fighter {
             if (random.selectAuxiliarySkillRandom() < chance) {
                 fighterFlag.shadowMoveFlag = true;
                 fighterFlag.shadowMoveRound = shadowMove.getMaxRound();
+            }
+        }
+        if (specialSkillList.contains(SkillIdentity.MINE_WATER)) {
+            MineWater mineWater = (MineWater) specialSkillList.get(SkillIdentity.MINE_WATER);
+            double chance = (1.0 / totalSize) * mineWater.getInvocationChance();
+            if (random.selectAuxiliarySkillRandom() < chance) {
+                fighterFlag.mineWaterFlag = true;
             }
         }
     }

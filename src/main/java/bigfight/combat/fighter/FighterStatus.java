@@ -1,5 +1,6 @@
 package bigfight.combat.fighter;
 
+import bigfight.model.skill.skills.MineWater;
 import bigfight.model.skill.skills.ShadowMove;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -17,6 +18,7 @@ public class FighterStatus {
     private int strength;
     private int agility;
     private int health;
+    private int maxHealth;
     private int level;
     private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
@@ -30,6 +32,7 @@ public class FighterStatus {
         strength = fighter.getStrength();
         agility = fighter.getAgility();
         health = fighter.getHealth();
+        maxHealth = fighter.getHealth();
         level = fighter.getLevel();
         advancedAttribute = fighter.getAdvancedAttribute();
         unarmedDamage = fighter.getUnarmedDamage();
@@ -66,7 +69,7 @@ public class FighterStatus {
     }
 
     public void updateHealth(int newHealth) {
-        health = newHealth;
+        health = newHealth <= maxHealth ? newHealth : maxHealth;
     }
 
     public Damage getUnarmedDamage() {
@@ -121,6 +124,12 @@ public class FighterStatus {
                 advancedAttribute.unarmedExtraPercentageDamage += shadowMove.getDamageMultiply();
                 advancedAttribute.skillExtraPercentageDamage += shadowMove.getDamageMultiply();
             }
+        }
+        if (fighterFlag.mineWaterFlag) {
+            MineWater mineWater = (MineWater) specialSkills.get(SkillIdentity.MINE_WATER);
+            int minimum = (int) (mineWater.getRegeneratePercentage() * 100);
+            int regen = minimum > maxHealth * mineWater.getRegeneratePercentage() ? minimum : (int) (maxHealth * mineWater.getRegeneratePercentage());
+            updateHealth(health + regen);
         }
     }
 }
