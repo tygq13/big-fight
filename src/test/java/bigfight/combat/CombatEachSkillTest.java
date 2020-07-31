@@ -3,16 +3,17 @@ package bigfight.combat;
 
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.weapon.Weapon;
+import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 
 import org.junit.jupiter.api.Test;
 import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -22,6 +23,7 @@ class CombatEachSkillTest {
     private static Uiable mockUi = mock(EnUi.class);
 
     private final double NO_ESCAPE = 1.0;
+    private final int DAMAGE = 10;
 
     @Test
     void roar_ignore_one_round() {
@@ -71,7 +73,6 @@ class CombatEachSkillTest {
 
     @Test
     void fast_hand_hit_twice() {
-        final int DAMAGE = 10;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         fighter1.getFighterFlag().fastHandsFlag = true;
@@ -88,7 +89,6 @@ class CombatEachSkillTest {
     @Test
     // big, medium, small, throw, throwout are just copy paste. Not used in skill.
     void haki_protect_effective_example_unarmed() {
-        final int DAMAGE = 10;
         final double INVOKE_HAKI = 0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
@@ -105,7 +105,6 @@ class CombatEachSkillTest {
 
     @Test
     void haki_protect_invoke_limitation() {
-        final int DAMAGE = 10;
         final double INVOKE_HAKI = 0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
@@ -127,7 +126,6 @@ class CombatEachSkillTest {
 
     @Test
     void sea_is_unfathomable_reflect() {
-        final int DAMAGE = 10;
         final double INVOKE_SKILL = 0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
@@ -143,7 +141,6 @@ class CombatEachSkillTest {
 
     @Test
     void sea_is_unfathomable_invoke_limitation() {
-        final int DAMAGE = 10;
         final double INVOKE_SKILL = 0;
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
@@ -192,7 +189,21 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void disarm_() {
+    void disarm_snatch_weapon_correct() {
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
+        final int DAMAGE = weapon.getDamage().lower();
+        fighter2.changeWeapon(new Empowerment(weapon));
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.DISARM);
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
 
+        // test
+        final int EXPECTED = fighter2.getHealth() - DAMAGE;
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
     }
 }

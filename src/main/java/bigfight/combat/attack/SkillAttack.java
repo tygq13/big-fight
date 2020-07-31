@@ -9,6 +9,7 @@ import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
 public class SkillAttack implements Attackable {
@@ -30,7 +31,10 @@ public class SkillAttack implements Attackable {
     public void attack() {
         // special case
         if (skill.getIdentity() == SkillIdentity.DISARM) {
-            new Round(attacker, defender, new Empowerment(defender.getHoldingWeapon()), random, ui);
+            Empowerment empowerment = new Empowerment(defender.getHoldingWeapon());
+            defender.changeWeapon(new Empowerment((Weapon) null));
+            // not activating weapon round change effect
+            new Round(attacker, defender, empowerment, random, ui).fight();
             return;
         }
         // should add exception if not initialized;
