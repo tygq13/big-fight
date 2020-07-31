@@ -3,6 +3,7 @@ package bigfight.combat.fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.FastHands;
+import bigfight.model.skill.skills.ShadowMove;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.builder.Warrior;
@@ -112,6 +113,14 @@ public class Fighter {
             double chance = (1.0 / totalSize) * fastHands.getExtraChance();
             if (random.selectAuxiliarySkillRandom() < chance) {
                 fighterFlag.fastHandsFlag = true;
+            }
+        }
+        if (specialSkillList.contains(SkillIdentity.SHADOW_MOVE)) {
+            ShadowMove shadowMove = (ShadowMove) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
+            double chance = (1.0 / totalSize) * shadowMove.getInvocationChance();
+            if (random.selectAuxiliarySkillRandom() < chance) {
+                fighterFlag.shadowMoveFlag = true;
+                fighterFlag.shadowMoveRound = shadowMove.getMaxRound();
             }
         }
     }

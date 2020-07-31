@@ -1,5 +1,6 @@
 package bigfight.combat.fighter;
 
+import bigfight.model.skill.skills.ShadowMove;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
@@ -7,6 +8,8 @@ import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
+
+import java.net.PortUnreachableException;
 
 public class FighterStatus {
     private String name;
@@ -92,5 +95,32 @@ public class FighterStatus {
 
     public void removeSkill(SkillIdentity identity) {
         specialSkills.remove(identity);
+    }
+
+    public void updateStatusByFlag() {
+        if (fighterFlag.shadowMoveFlag) {
+            // todo: throw exception if doesn't have
+            // todo: multiply by base speed instead of speed
+            ShadowMove shadowMove = (ShadowMove) specialSkills.get(SkillIdentity.SHADOW_MOVE);
+            if (fighterFlag.shadowMoveRound == 0) {
+                fighterFlag.shadowMoveFlag = false;
+                speed /= (1 + shadowMove.getSpeedMultiply());
+                advancedAttribute.bigExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                advancedAttribute.mediumExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                advancedAttribute.smallExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                advancedAttribute.throwExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                advancedAttribute.unarmedExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                advancedAttribute.skillExtraPercentageDamage -= shadowMove.getDamageMultiply();
+            } else {
+                fighterFlag.shadowMoveRound -= 1;
+                speed *= (1 + shadowMove.getSpeedMultiply());
+                advancedAttribute.bigExtraPercentageDamage += shadowMove.getDamageMultiply();
+                advancedAttribute.mediumExtraPercentageDamage += shadowMove.getDamageMultiply();
+                advancedAttribute.smallExtraPercentageDamage += shadowMove.getDamageMultiply();
+                advancedAttribute.throwExtraPercentageDamage += shadowMove.getDamageMultiply();
+                advancedAttribute.unarmedExtraPercentageDamage += shadowMove.getDamageMultiply();
+                advancedAttribute.skillExtraPercentageDamage += shadowMove.getDamageMultiply();
+            }
+        }
     }
 }

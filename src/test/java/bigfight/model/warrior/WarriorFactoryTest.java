@@ -15,11 +15,10 @@ import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.warrior.npc.NpcIdentity;
 import bigfight.model.weapon.Weapon;
-import bigfight.model.weapon.WeaponData;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.WeaponIdentity;
-import bigfight.model.skill.SkillFactoryUtil;
+import bigfight.model.skill.SkillFactoryTestUtil;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
-import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.weapon.WeaponFactoryTestUtil.DEFAULT_WEAPON_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -195,7 +194,7 @@ class WarriorFactoryTest {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
         EmpowermentFactory empowermentFactory = mock(EmpowermentFactory.class);
-        BornAsStrong bornAsStrong = (BornAsStrong) SkillFactoryUtil.DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
+        BornAsStrong bornAsStrong = (BornAsStrong) SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
         BornAsStrong bornAsStrongSpy = spy(bornAsStrong);
         Empowerment empowerment = new Empowerment(bornAsStrongSpy);
         when(empowermentFactory.randomGetNew(any(), any())).thenReturn(empowerment);

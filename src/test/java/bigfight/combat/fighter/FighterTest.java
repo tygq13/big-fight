@@ -2,6 +2,7 @@ package bigfight.combat.fighter;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.FastHands;
+import bigfight.model.skill.skills.ShadowMove;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.*;
@@ -13,7 +14,7 @@ import bigfight.combat.util.CombatRandom;
 
 import org.junit.jupiter.api.Test;
 
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -82,7 +83,7 @@ class FighterTest {
     }
 
     @Test
-    void selectEmpowerment_fast_hand_extra_chance() {
+    void selectAuxiliarySkill_fast_hand_invocation_chance() {
         // create warrior with two skills, one of them is fast hands
         Warrior mockWarrior = mock(Warrior.class);
         WeaponManager weaponManager = mock(WeaponManager.class);
@@ -100,11 +101,39 @@ class FighterTest {
         when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
         FighterFlag test = new FighterFlag();
-        // test not selected by extra chance
+        // test not selected by invocation chance
         testFighter.selectAuxiliarySkill(test, random);
         assertFalse(test.fastHandsFlag);
-        // test selected by extra chance
+        // test selected by invocation chance
         testFighter.selectAuxiliarySkill(test, random);
         assertTrue(test.fastHandsFlag);
+    }
+
+    @Test
+    void selectAuxiliarySkill_shadow_move_invocation_chance() {
+        // create warrior with two skills, one of them is fast hands
+        Warrior mockWarrior = mock(Warrior.class);
+        WeaponManager weaponManager = mock(WeaponManager.class);
+        SkillManager skillManager = new SkillManager();
+        ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
+        skillManager.add(shadowMove);
+        skillManager.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
+        when(mockWarrior.getSkillManager()).thenReturn(skillManager);
+        when(mockWarrior.getWeaponManager()).thenReturn(weaponManager);
+
+        // test
+        final double SELECT = 0;
+        final double NOT_SELECT = (1.0 / 2.0) * shadowMove.getInvocationChance() + EPSILON;
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        Fighter testFighter = new Fighter(mockWarrior);
+        FighterFlag test = new FighterFlag();
+        // test not selected by invocation chance
+        testFighter.selectAuxiliarySkill(test, random);
+        assertFalse(test.shadowMoveFlag);
+        // test selected by invocation chance
+        testFighter.selectAuxiliarySkill(test, random);
+        assertTrue(test.shadowMoveFlag);
+        assertEquals(shadowMove.getMaxRound(), test.shadowMoveRound);
     }
 }

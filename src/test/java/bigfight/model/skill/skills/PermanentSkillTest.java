@@ -5,7 +5,7 @@ import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorTestUtil;
 import org.junit.jupiter.api.Test;
 
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PermanentSkillTest {

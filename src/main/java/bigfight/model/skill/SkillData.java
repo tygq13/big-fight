@@ -260,6 +260,19 @@ public class SkillData {
             DISARM_ZERO
     );
 
+    private final SkillStruct SHADOW_MOVE_ZERO = new SkillStruct(
+            SkillType.SPECIAL,
+            "Fast as lighting. Swift as thunderbolt.\n" +
+                    "20% of showing shadow move.\n" +
+                    "Under shadow move, your speed increases by 50%, all damages increase by 30%. Last for 3 rounds.\n",
+            SkillIdentity.SHADOW_MOVE,
+            "shadow move"
+    );
+
+    private final SkillStructArray SHADOW_MOVE_ARRAY = new SkillStructArray(
+            SHADOW_MOVE_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -281,7 +294,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.TORNADO, TORNADO_ARRAY),
                     Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY),
                     Map.entry(SkillIdentity.HIT_FROM_GOD, HIT_FROM_GOD_ARRAY),
-                    Map.entry(SkillIdentity.DISARM, DISARM_ARRAY)
+                    Map.entry(SkillIdentity.DISARM, DISARM_ARRAY),
+                    Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY)
             )
     );
 

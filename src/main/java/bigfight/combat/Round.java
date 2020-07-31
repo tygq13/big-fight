@@ -15,6 +15,7 @@ public class Round {
     private Empowerment empowerment;
     private CombatRandom random;
     private Uiable ui;
+    // todo: have a static varialbe to count the number of rounds
 
     public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -25,6 +26,8 @@ public class Round {
     }
 
     public int fight() {
+        attacker.updateStatusByFlag();
+        defender.updateStatusByFlag();
         int roundChange = roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         // todo: print weapon ui here instead of insides the attack
@@ -50,6 +53,7 @@ public class Round {
             roundChange += attack.getRoundChange();
             // double hit
             if (attacker.getFighterFlag().fastHandsFlag) {
+                attacker.getFighterFlag().fastHandsFlag = false;
                 attack.attack();
                 roundChange += attack.getRoundChange();
             }

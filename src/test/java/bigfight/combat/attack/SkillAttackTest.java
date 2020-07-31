@@ -3,14 +3,12 @@ package bigfight.combat.attack;
 import bigfight.combat.CombatTestUtil;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.SkillFactory;
-import bigfight.model.skill.SkillFactoryUtil;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.ui.EnUi;
 import org.junit.jupiter.api.Test;
 
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

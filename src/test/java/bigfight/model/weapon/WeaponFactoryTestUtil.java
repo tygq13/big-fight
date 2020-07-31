@@ -1,5 +1,5 @@
 package bigfight.model.weapon;
 
-public class WeaponFactoryUtil {
+public class WeaponFactoryTestUtil {
     public static WeaponFactory DEFAULT_WEAPON_FACTORY = new WeaponFactory(new WeaponData());
 }

@@ -14,8 +14,8 @@ import bigfight.ui.EnUi;
 import bigfight.ui.Uiable;
 
 import org.junit.jupiter.api.Test;
-import static bigfight.model.weapon.WeaponFactoryUtil.DEFAULT_WEAPON_FACTORY;
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.weapon.WeaponFactoryTestUtil.DEFAULT_WEAPON_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -172,5 +172,17 @@ class RoundTest {
 
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertNull(fighter1.getHoldingWeapon());
+    }
+
+    @Test
+    void fight_method_call_update_fighter_flag() {
+        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        FighterStatus spy1 = spy(fighter1);
+        FighterStatus spy2 = spy(fighter2);
+        CombatRandom random = mock(CombatRandom.class);
+        new Round(spy1, spy2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        verify(spy1, atLeastOnce()).updateStatusByFlag();
+        verify(spy2, atLeastOnce()).updateStatusByFlag();
     }
 }

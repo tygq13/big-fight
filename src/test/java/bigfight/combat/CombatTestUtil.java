@@ -13,7 +13,7 @@ import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.Damage;
 import bigfight.model.weapon.struct.WeaponType;
 
-import static bigfight.model.skill.SkillFactoryUtil.DEFAULT_SKILL_FACTORY;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -118,6 +118,20 @@ public class CombatTestUtil {
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(100000000);
+        Fighter fighter = new Fighter(warrior);
+        return new FighterStatus(fighter);
+    }
+
+    public static FighterStatus createFighterWithShadowMove() {
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
+        SkillManager skillManager = new SkillManager();
+        skillManager.add(skill);
+        Warrior warrior = mock(Warrior.class);
+        when(warrior.getSkillManager()).thenReturn(skillManager);
+        when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
+        when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
+        when(warrior.getHealth()).thenReturn(100000000);
+        when(warrior.getSpeed()).thenReturn(5);
         Fighter fighter = new Fighter(warrior);
         return new FighterStatus(fighter);
     }

@@ -18,7 +18,8 @@ public enum SkillIdentity {
     TORNADO,
     HEAVY_USUAL,
     HIT_FROM_GOD,
-    DISARM;
+    DISARM,
+    SHADOW_MOVE;
 
 
     // use static constant to avoid copying of enum array

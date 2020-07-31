@@ -53,6 +53,8 @@ public class SkillFactory {
                 return new HitFromGod(skillData.getWithStar(identity, 1));
             case DISARM:
                 return new Disarm(skillData.getWithStar(identity, 1));
+            case SHADOW_MOVE:
+                return new ShadowMove(skillData.getWithStar(identity, 1));
             default:
                 return null;
         }
