@@ -24,15 +24,13 @@ class WarriorBuilderTest {
         final BasicAttribute health = new BasicAttribute(10);
         final WeaponManager weaponManager = new WeaponManager();
         final SkillManager skillManager = new SkillManager();
+        final Attribute attribute = new Attribute(strength, agility, speed, health);
         final Friends friends = new Friends();
 
         Warrior test = WarriorBuilder.stepBuilder(mock(WarriorDatabase.class))
                 .account(account)
                 .level(LEVEL)
-                .strength(strength)
-                .agility(agility)
-                .speed(speed)
-                .health(health)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
@@ -41,7 +39,7 @@ class WarriorBuilderTest {
         assertEquals(account.getName(), test.getName());
         assertEquals(LEVEL, test.getLevel());
         assertEquals(strength.getBase(), test.getStrength());
-        assertEquals(agility.getBase(), test.getBasicAttribute());
+        assertEquals(agility.getBase(), test.getAgility());
         assertEquals(speed.getBase(), test.getSpeed());
         assertEquals(health.getBase(), test.getHealth());
         assertNotNull(test.getWeaponManager());
@@ -57,10 +55,7 @@ class WarriorBuilderTest {
         WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
                 .level(1)
-                .strength(mock(BasicAttribute.class))
-                .agility(mock(BasicAttribute.class))
-                .speed(mock(BasicAttribute.class))
-                .health(mock(BasicAttribute.class))
+                .attribute(mock(Attribute.class))
                 .weaponManager(mock(WeaponManager.class))
                 .skillManager(mock(SkillManager.class))
                 .friends(mock(Friends.class))

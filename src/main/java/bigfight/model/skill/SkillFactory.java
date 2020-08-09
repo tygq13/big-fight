@@ -2,6 +2,7 @@ package bigfight.model.skill;
 
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.permanent.*;
 import bigfight.model.skill.struct.SkillIdentity;
 
 public class SkillFactory {

@@ -5,6 +5,7 @@ import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.*;
+import bigfight.model.skill.skills.permanent.*;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
@@ -27,13 +28,11 @@ public class WarriorFactory {
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
         Friends friends = getInitialFriends(warriorDatabase);
+        Attribute attribute = new Attribute(strength, agility, speed, health);
         Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
                 .level(1)
-                .strength(strength)
-                .agility(agility)
-                .speed(speed)
-                .health(health)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
@@ -73,53 +72,8 @@ public class WarriorFactory {
         if (newEmpowerment != null) {
             newEmpowerment.addTo(warrior.getWeaponManager(), warrior.getSkillManager());
             if (newEmpowerment.getSkill() != null && newEmpowerment.getSkill().getType() == SkillType.PERMANENT) {
-                SkillModel skillModel = newEmpowerment.getSkill();
-                // todo: refactor to combine basic attributes and advanced attributes?
-                switch (skillModel.getIdentity()) {
-                    case BORN_AS_STRONG:
-                        BornAsStrong bornAsStrong = (BornAsStrong) skillModel;
-                        bornAsStrong.upgrade(warrior.getStrengthObj());
-                        break;
-                    case AGILE_BODY:
-                        AgileBody agileBody = (AgileBody) skillModel;
-                        agileBody.upgrade(warrior.getAgilityObj());
-                        break;
-                    case A_STEP_AHEAD:
-                        AStepAhead aStepAhead = (AStepAhead) skillModel;
-                        aStepAhead.upgrade(warrior.getSpeedObj());
-                        break;
-                    case STRONG_PHYSIQUE:
-                        StrongPhysique strongPhysique = (StrongPhysique) skillModel;
-                        strongPhysique.upgrade(warrior.getHealthObj());
-                        break;
-                    case BALANCED_GROWTH:
-                        BalancedGrowth balancedGrowth = (BalancedGrowth) skillModel;
-                        balancedGrowth.upgrade(warrior.getStrengthObj(), warrior.getAgilityObj(), warrior.getSpeedObj());
-                        break;
-                    case WEAPONS_HANDY:
-                        WeaponsHandy weaponsHandy = (WeaponsHandy) skillModel;
-                        weaponsHandy.upgrade(warrior.getAdvancedAttribute());
-                        break;
-                    case BODY_COMBAT_SKILLED:
-                        BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) skillModel;
-                        bodyCombatSkilled.upgrade(warrior.getAdvancedAttribute());
-                        break;
-                    case SIXTH_SENSE:
-                        SixSense sixSense = (SixSense) skillModel;
-                        sixSense.upgrade(warrior.getAdvancedAttribute());
-                        break;
-                    case STONE_SKIN:
-                        StoneSkin stoneSkin = (StoneSkin) skillModel;
-                        stoneSkin.upgrade(warrior.getAdvancedAttribute());
-                        break;
-                    case RIPPLESLESS_STEPS:
-                        RipplelessSteps ripplelessSteps = (RipplelessSteps) skillModel;
-                        ripplelessSteps.upgrade(warrior.getAdvancedAttribute());
-                        break;
-                    case HEAVY_USUAL:
-                        HeavyUsual heavyUsual = (HeavyUsual) skillModel;
-                        heavyUsual.upgrade(warrior.getAdvancedAttribute());
-                }
+                PermanentSkill permanentSkill = (PermanentSkill) newEmpowerment.getSkill();
+                permanentSkill.upgrade(warrior.getAttribute());
             }
         }
     }

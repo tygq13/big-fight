@@ -10,26 +10,21 @@ import bigfight.model.weapon.WeaponManager;
 import bigfight.model.skill.SkillManager;
 import bigfight.ui.Uiable;
 
+// represent the user role-playing a warrior
 public class Warrior {
     private Account account;
-    private BasicAttribute speed;
-    private BasicAttribute agility;
-    private BasicAttribute strength;
-    private BasicAttribute health;
     private int level;
     private WeaponManager weaponManager;
     private SkillManager skillManager;
     private Friends friends;
     private AdvancedAttribute advancedAttribute;
+    private Attribute attribute;
 
     // although the interface is package private, lock ensures that only builder can access it
-    Warrior(WarriorBuilder.Lock lock, Account account, BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, BasicAttribute health,
+    Warrior(WarriorBuilder.Lock lock, Account account, Attribute attribute,
             WeaponManager weaponManager, SkillManager skillManager, Friends friends) {
         this.account = account;
-        this.strength = strength;
-        this.agility = agility;
-        this.speed = speed;
-        this.health = health;
+        this.attribute = attribute;
         level = 1;
         this.weaponManager = weaponManager;
         this.skillManager = skillManager;
@@ -50,35 +45,35 @@ public class Warrior {
     }
 
     public int getSpeed() {
-        return speed.value();
+        return attribute.getSpeed();
     }
 
     public BasicAttribute getSpeedObj() {
-        return speed;
+        return attribute.getSpeedObj();
     }
 
     public int getStrength() {
-        return strength.value();
+        return attribute.getStrength();
     }
 
     public BasicAttribute getStrengthObj() {
-        return strength;
+        return attribute.getStrengthObj();
     }
 
-    public int getBasicAttribute() {
-        return agility.value();
+    public int getAgility() {
+        return attribute.getAgility();
     }
 
     public BasicAttribute getAgilityObj() {
-        return agility;
+        return attribute.getAgilityObj();
     }
 
     public int getHealth() {
-        return health.value();
+        return attribute.getHealth();
     }
 
     public BasicAttribute getHealthObj() {
-        return health;
+        return attribute.getHealthObj();
     }
 
     public int getLevel() {
@@ -110,21 +105,25 @@ public class Warrior {
     }
 
     public AdvancedAttribute getAdvancedAttribute() {
-        return advancedAttribute;
+        return attribute.getAdvancedAttribute();
     }
 
     public AdvancedAttribute getWeaponAttributeCopy() {
         return (AdvancedAttribute) advancedAttribute.clone();
     }
 
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
     @Override
     public String toString() {
         String result = String.format("Fighter name: %s\n", account.getName())
                 + String.format("Level: %d\n", level)
-                + String.format("Strength: %d\n", strength.value())
-                + String.format("Agility %d\n", agility.value())
-                + String.format("Speed %d\n", speed.value())
-                + String.format("Health %d\n", health.value());
+                + String.format("Strength: %d\n", getStrength())
+                + String.format("Agility %d\n", getAgility())
+                + String.format("Speed %d\n", getSpeed())
+                + String.format("Health %d\n", getHealth());
         result += "Weapons: " + weaponManager.toString() + System.lineSeparator();
         result += "Skills: " + skillManager.toString() + System.lineSeparator();
         return result;

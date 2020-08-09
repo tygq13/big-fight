@@ -26,23 +26,11 @@ public class WarriorBuilder {
     }
 
     public interface LevelStep {
-        StrengthStep level(int level);
+        AttributeStep level(int level);
     }
 
-    public interface StrengthStep {
-        AgilityStep strength(BasicAttribute strength);
-    }
-
-    public interface  AgilityStep {
-        SpeedStep agility(BasicAttribute agility);
-    }
-
-    public interface SpeedStep {
-        HealthStep speed(BasicAttribute speed);
-    }
-
-    public interface HealthStep {
-        WeaponManagerStep health(BasicAttribute health);
+    public interface AttributeStep {
+        WeaponManagerStep attribute(Attribute attribute);
     }
 
     public interface WeaponManagerStep {
@@ -61,15 +49,12 @@ public class WarriorBuilder {
         Warrior build();
     }
 
-    private static class WarriorSteps implements AccountStep, LevelStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
+    private static class WarriorSteps implements AccountStep, LevelStep, AttributeStep,
             WeaponManagerStep, SkillManagerStep, FriendsStep, BuildStep {
         private WarriorDatabase warriorDatabase;
         private Account account;
         private int level;
-        private BasicAttribute strength;
-        private BasicAttribute agility;
-        private BasicAttribute speed;
-        private BasicAttribute health;
+        private Attribute attribute;
         private WeaponManager weaponManager;
         private SkillManager skillManager;
         private Friends friends;
@@ -85,32 +70,14 @@ public class WarriorBuilder {
         }
 
         @Override
-        public StrengthStep level(int level) {
+        public AttributeStep level(int level) {
             this.level = level;
             return this;
         }
 
         @Override
-        public AgilityStep strength(BasicAttribute strength) {
-            this.strength = strength;
-            return this;
-        }
-
-        @Override
-        public SpeedStep agility(BasicAttribute agility) {
-            this.agility = agility;
-            return this;
-        }
-
-        @Override
-        public HealthStep speed(BasicAttribute speed) {
-            this.speed = speed;
-            return this;
-        }
-
-        @Override
-        public WeaponManagerStep health(BasicAttribute health) {
-            this.health = health;
+        public WeaponManagerStep attribute(Attribute health) {
+            this.attribute = health;
             return this;
         }
 
@@ -134,7 +101,7 @@ public class WarriorBuilder {
 
         @Override
         public Warrior build() {
-            Warrior result = new Warrior(lock, account, strength, agility, speed, health, weaponManager, skillManager, friends);
+            Warrior result = new Warrior(lock, account, attribute, weaponManager, skillManager, friends);
             warriorDatabase.insertWarrior(account.getId(), result);
             return result;
         }

@@ -2,7 +2,7 @@ package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.*;
 
-public class SkillModel {
+public class SkillModel{
     private SkillStruct skill;
 
     public SkillModel(SkillStruct skill) {

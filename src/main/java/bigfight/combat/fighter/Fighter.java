@@ -32,7 +32,7 @@ public class Fighter {
         name = warrior.getName();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
-        agility = warrior.getBasicAttribute();
+        agility = warrior.getAgility();
         health = warrior.getHealth();
         level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttributeCopy();

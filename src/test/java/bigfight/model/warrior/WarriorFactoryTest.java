@@ -4,9 +4,11 @@ import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 import bigfight.model.skill.SkillFactory;
 import bigfight.model.skill.SkillManager;
-import bigfight.model.skill.skills.BornAsStrong;
+import bigfight.model.skill.skills.permanent.BornAsStrong;
 import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.permanent.PermanentSkill;
 import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorTestUtil;
 import bigfight.model.warrior.component.Empowerment;
@@ -18,7 +20,6 @@ import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponFactory;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.WeaponIdentity;
-import bigfight.model.skill.SkillFactoryTestUtil;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ class WarriorFactoryTest {
         when(dataGetter.getInitialAttributeTotal()).thenReturn(INITIAL_ATTRIBUTE_TOTAL);
         WarriorFactory test = new WarriorFactory();
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
-        int total = warrior.getSpeed() + warrior.getStrength() + warrior.getBasicAttribute();
+        int total = warrior.getSpeed() + warrior.getStrength() + warrior.getAgility();
         assertEquals(dataGetter.getInitialAttributeTotal(), total);
     }
 
@@ -70,7 +71,7 @@ class WarriorFactoryTest {
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
         assertEquals(1, warrior.getSpeed());
         assertEquals(1, warrior.getStrength());
-        assertEquals(1, warrior.getBasicAttribute());
+        assertEquals(1, warrior.getAgility());
     }
 
     @Test
@@ -83,7 +84,7 @@ class WarriorFactoryTest {
         Warrior warrior = test.create(dataGetter, dummyEmpowermentFactory, mockDatabase, defaultName);
         assertEquals(1, Integer.compare(warrior.getSpeed(), 0));
         assertEquals(1, Integer.compare(warrior.getStrength(), 0));
-        assertEquals(1, Integer.compare(warrior.getBasicAttribute(), 0));
+        assertEquals(1, Integer.compare(warrior.getAgility(), 0));
     }
 
     @Test
@@ -135,20 +136,6 @@ class WarriorFactoryTest {
     }
 
     @Test
-    void test_permanent_skill_correctly_add_to_attribute_example_BornAsStrong() {
-        // ensure that it get the skill BornAsStrong
-        BornAsStrong bornAsStrong = (BornAsStrong) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
-        Empowerment empowerment = new Empowerment(bornAsStrong);
-        EmpowermentFactory mockFactory = mock(EmpowermentFactory.class);
-        when(mockFactory.randomGetNew(any(ArrayList.class), any(Map.class))).thenReturn(empowerment);
-        WarriorFactory test = new WarriorFactory();
-        Warrior warrior = test.create(defaultDataGetter, mockFactory, mockDatabase, defaultName);
-
-        // after getting the skill, the attribute is at least 4, bad test though
-        assertTrue(warrior.getStrength() >= 4);
-    }
-
-    @Test
     void test_npc_friends_initialized_with_NOOB() {
         final int NPC_NOOB_INDEX = 0;
         WarriorFactory test = new WarriorFactory();
@@ -169,7 +156,7 @@ class WarriorFactoryTest {
         testFactory.warriorLevelUp(testWarrior, mock(EmpowermentFactory.class));
         // test
         int expectedAttributeTotal = STRENGTH + AGILITY + SPEED + DataConfig.LEVEL_UP_ATTRIBUTE_ADDITION_NORMAL;
-        int actualAttributeTotal = testWarrior.getStrength() + testWarrior.getBasicAttribute() + testWarrior.getSpeed();
+        int actualAttributeTotal = testWarrior.getStrength() + testWarrior.getAgility() + testWarrior.getSpeed();
         assertEquals(expectedAttributeTotal, actualAttributeTotal);
         int expectedHealth = HEALTH + DataConfig.LEVEL_UP_HEALTH_ADDITION;
         assertEquals(expectedHealth, testWarrior.getHealth());
@@ -190,16 +177,16 @@ class WarriorFactoryTest {
 
 
     @Test
-    void test_permanent_skill_upgraded_when_gained_in_level_up_with_example_born_as_strong() {
-        final int STRENGTH = 100;
-        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
+    void test_permanent_skill_upgraded_when_gained_in_level_up() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1,1,1,1);
         EmpowermentFactory empowermentFactory = mock(EmpowermentFactory.class);
-        BornAsStrong bornAsStrong = (BornAsStrong) SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
-        BornAsStrong bornAsStrongSpy = spy(bornAsStrong);
-        Empowerment empowerment = new Empowerment(bornAsStrongSpy);
+        PermanentSkill spy = spy(mock(PermanentSkill.class));
+        when(spy.getType()).thenReturn(SkillType.PERMANENT);
+        Empowerment empowerment = new Empowerment(spy);
         when(empowermentFactory.randomGetNew(any(), any())).thenReturn(empowerment);
         WarriorFactory testFactory = new WarriorFactory();
+        // test
         testFactory.warriorLevelUp(testWarrior, empowermentFactory);
-        verify(bornAsStrongSpy).upgrade(any());
+        verify(spy).upgrade(any());
     }
 }

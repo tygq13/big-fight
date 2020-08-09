@@ -1,5 +1,6 @@
 package bigfight.model.skill.skills;
 
+import bigfight.model.skill.skills.permanent.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorTestUtil;
@@ -31,7 +32,7 @@ public class PermanentSkillTest {
         int expectedBase = AGILITY;
         int expectedTotal = expectedBase + (int) (expectedBase * agileBody.getMultiply()) + agileBody.getAddition();
         assertEquals(expectedBase, testWarrior.getAgilityObj().getBase());
-        assertEquals(expectedTotal, testWarrior.getBasicAttribute());
+        assertEquals(expectedTotal, testWarrior.getAgility());
     }
 
     @Test
@@ -69,7 +70,7 @@ public class PermanentSkillTest {
         assertEquals(expectedBase, testWarrior.getStrengthObj().getBase());
         assertEquals(expectedTotal, testWarrior.getStrength());
         assertEquals(expectedBase, testWarrior.getAgilityObj().getBase());
-        assertEquals(expectedTotal, testWarrior.getBasicAttribute());
+        assertEquals(expectedTotal, testWarrior.getAgility());
         assertEquals(expectedBase, testWarrior.getSpeedObj().getBase());
         assertEquals(expectedTotal, testWarrior.getSpeed());
     }

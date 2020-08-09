@@ -23,15 +23,13 @@ public class WarriorTestUtil {
         final BasicAttribute healthInit = new BasicAttribute(health);
         final WeaponManager weaponManager = new WeaponManager();
         final SkillManager skillManager = new SkillManager();
+        final Attribute attribute = new Attribute(strengthInit, agilityInit, speedInit, healthInit);
         final Friends friends = new Friends();
 
         Warrior warrior = WarriorBuilder.stepBuilder(mock(WarriorDatabase.class))
                 .account(account)
                 .level(LEVEL)
-                .strength(strengthInit)
-                .agility(agilityInit)
-                .speed(speedInit)
-                .health(healthInit)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
@@ -47,15 +45,13 @@ public class WarriorTestUtil {
         final BasicAttribute agilityInit = new BasicAttribute(1);
         final BasicAttribute speedInit = new BasicAttribute(1);
         final BasicAttribute healthInit = new BasicAttribute(1);
+        final Attribute attribute = new Attribute(strengthInit, agilityInit, speedInit, healthInit);
         final Friends friends = new Friends();
 
         Warrior warrior = WarriorBuilder.stepBuilder(mock(WarriorDatabase.class))
                 .account(account)
                 .level(LEVEL)
-                .strength(strengthInit)
-                .agility(agilityInit)
-                .speed(speedInit)
-                .health(healthInit)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
