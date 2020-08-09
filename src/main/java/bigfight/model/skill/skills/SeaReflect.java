@@ -2,7 +2,7 @@ package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.SkillStruct;
 
-public class SeaIsUnfathomable extends SkillModel {
+public class SeaReflect extends SkillModel {
 
     private double INVOCATION_CHANCE = 0.2; // not sure about the real data in original game
     private double REFLECT_PERCENTAGE_ZERO = 1.0;
@@ -10,7 +10,7 @@ public class SeaIsUnfathomable extends SkillModel {
 
     int remaining;
 
-    public SeaIsUnfathomable(SkillStruct skill) {
+    public SeaReflect(SkillStruct skill) {
         super(skill);
         remaining = MAX_INVOCATION;
     }

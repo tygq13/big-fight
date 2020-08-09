@@ -110,7 +110,7 @@ public class CombatTestUtil {
     }
 
     public static FighterStatus createHealthyFighterWithSeaIsUnfathomable() {
-        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SEA_IS_UNFATHOMABLE);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SEA_REFLECT);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
         Warrior warrior = mock(Warrior.class);

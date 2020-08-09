@@ -12,7 +12,7 @@ public enum SkillIdentity {
     BOLT_FROM_THE_BLUE,
     FAST_HANDS,
     HAKI_PROTECT,
-    SEA_IS_UNFATHOMABLE,
+    SEA_REFLECT,
     STONE_SKIN,
     RIPPLESLESS_STEPS,
     TORNADO,

@@ -6,6 +6,7 @@ import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.ui.Uiable;
 
+// responsible for controlling the rounds of a fight
 public class Combat {
     private Fighter hero;
     private Fighter opponent;
@@ -39,7 +40,7 @@ public class Combat {
             } else {
                 roundDecision += HERO_TURN;
                 Empowerment empowerment = selectEmpowerment(opponent, heroStatus, rand);
-                opponent.selectAuxiliarySkill(heroStatus.getFighterFlag(), rand);
+                opponent.selectAuxiliarySkill(opponentStatus.getFighterFlag(), rand);
                 roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
                 if (roundDecision == 0) {
                     // no ignore from the hero's side

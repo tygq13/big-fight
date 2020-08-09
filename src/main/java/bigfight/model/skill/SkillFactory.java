@@ -40,8 +40,8 @@ public class SkillFactory {
                 return new FastHands(skillData.getWithStar(identity, 0));
             case HAKI_PROTECT:
                 return new HakiProtect(skillData.getWithStar(identity, 0));
-            case SEA_IS_UNFATHOMABLE:
-                return new SeaIsUnfathomable(skillData.getWithStar(identity, 0));
+            case SEA_REFLECT:
+                return new SeaReflect(skillData.getWithStar(identity, 0));
             case STONE_SKIN:
                 return new StoneSkin(skillData.getWithStar(identity, 0));
             case RIPPLESLESS_STEPS:
