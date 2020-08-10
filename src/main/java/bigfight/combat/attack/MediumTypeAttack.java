@@ -37,11 +37,6 @@ public class MediumTypeAttack implements Attackable{
         }
     }
 
-    @Override
-    public int getRoundChange() {
-        return 0;
-    }
-
     private boolean escaped() {
         double escape = defender.getAdvancedAttribute().mediumEvasionRate - attacker.getAdvancedAttribute().mediumHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());

@@ -34,11 +34,6 @@ public class UnarmedAttack implements Attackable {
         }
     }
 
-    @Override
-    public int getRoundChange() {
-        return 0;
-    }
-
     private boolean escaped() {
         double escape = defender.getAdvancedAttribute().unarmedEvasionRate - attacker.getAdvancedAttribute().bigHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());

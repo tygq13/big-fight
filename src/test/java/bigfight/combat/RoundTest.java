@@ -84,7 +84,8 @@ class RoundTest {
         when(random.getSpeedIgnoreRandom()).thenReturn(ignore - Math.ulp(1));
 
         int EXPECTED = 1;
-        int result = new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
+        int result = fighter2.getFighterFlag().ignored;
         assertEquals(EXPECTED, result);
     }
 

@@ -38,11 +38,6 @@ public class SmallTypeAttack implements Attackable{
         }
     }
 
-    @Override
-    public int getRoundChange() {
-        return 0;
-    }
-
     private boolean escaped() {
         if (weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
             return false;

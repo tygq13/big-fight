@@ -18,7 +18,6 @@ public class BigTypeAttack implements Attackable{
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
 
     public BigTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -31,9 +30,16 @@ public class BigTypeAttack implements Attackable{
     @Override
     public void attack() {
         ui.printWeaponBigAttack(attacker.getName(), weapon.getName());
+        // special case
+        // todo: refactor this
+        if (weapon.getIdentity() == WeaponIdentity.TRIDENT) {
+            attacker.getFighterFlag().ignored += 1;
+        }
+
         if (escaped()) {
             ui.printDodge(defender.getName());
         } else {
+            defender.getFighterFlag().ignored += ignoreOpponent();
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -44,12 +50,11 @@ public class BigTypeAttack implements Attackable{
         }
     }
 
-    @Override
-    public int getRoundChange() {
+    private int ignoreOpponent() {
+        if (weapon.getIdentity() == null) {
+            return 0;
+        }
         switch (weapon.getIdentity()) {
-            case TRIDENT:
-                Trident trident = (Trident) weapon.getModel();
-                return 0 - trident.getRestRound();
             case GAS_HAMMER:
                 GasHammer gasHammer = (GasHammer) weapon.getModel();
                 return random.getIgnoreRandom() < gasHammer.getIgnoreChance() ? 1 : 0;

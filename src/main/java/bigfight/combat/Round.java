@@ -25,10 +25,10 @@ public class Round {
         this.ui = ui;
     }
 
-    public int fight() {
+    public void fight() {
         attacker.updateStatusByFlag();
         defender.updateStatusByFlag();
-        int roundChange = roundChangeBySpeed();
+        defender.getFighterFlag().ignored += roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         // todo: print weapon ui here instead of insides the attack
         Attackable attack = null;
@@ -47,18 +47,14 @@ public class Round {
         } else if (empowerment.getWeapon().getType() == WeaponType.BIG) {
             attack = new BigTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
         }
-        // else throw exception
         if (attack != null) {
             attack.attack();
-            roundChange += attack.getRoundChange();
             // double hit
             if (attacker.getFighterFlag().fastHandsFlag) {
                 attacker.getFighterFlag().fastHandsFlag = false;
                 attack.attack();
-                roundChange += attack.getRoundChange();
             }
         }
-        return roundChange;
     }
 
     private int roundChangeBySpeed() {

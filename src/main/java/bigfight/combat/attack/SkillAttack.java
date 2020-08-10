@@ -44,6 +44,7 @@ public class SkillAttack implements Attackable {
         if (random.getEscapeRandom() < escape && skill.getIdentity() != SkillIdentity.HIT_FROM_GOD) {
             ui.printSkillRoarDodge(defender.getName());
         } else {
+            defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
@@ -53,15 +54,14 @@ public class SkillAttack implements Attackable {
         }
     }
 
-    @Override
-    public int getRoundChange() {
+
+    private int ignoreOpponent() {
         switch (skill.getIdentity()) {
             case ROAR:
                 Roar actualSkill = (Roar) skill;
                 return actualSkill.getIgnore();
-            default:
-                return 0;
         }
+        return 0;
     }
 
     private int getSkillDamage() {

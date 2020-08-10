@@ -1,6 +1,7 @@
 // do functional test rather than unit test
 package bigfight.combat;
 
+import bigfight.combat.attack.SkillAttack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
@@ -37,7 +38,8 @@ class CombatEachSkillTest {
 
         // test
         final int EXPECTED = 1;
-        int result = new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new SkillAttack(fighter1, fighter2, skill, random, mockUi).attack();
+        int result = fighter2.getFighterFlag().ignored;
         assertEquals(EXPECTED, result);
     }
 

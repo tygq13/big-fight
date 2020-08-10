@@ -43,11 +43,6 @@ public class ThrowTypeAttack implements Attackable{
         attacker.changeWeapon(new Empowerment(unarmed));
     }
 
-    @Override
-    public int getRoundChange() {
-        return 0;
-    }
-
     private boolean escaped() {
         double escape = defender.getAdvancedAttribute().throwEvasionRate - attacker.getAdvancedAttribute().throwHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());

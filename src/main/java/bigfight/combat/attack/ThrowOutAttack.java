@@ -28,7 +28,14 @@ public class ThrowOutAttack implements Attackable {
     @Override
     public void attack() {
         ui.printThrowOutAttack(attacker.getName(), weapon.getName());
+        // special case
+        // todo: refactor this
+        if (weapon.getIdentity() == WeaponIdentity.TRIDENT) {
+            attacker.getFighterFlag().ignored += 1;
+        }
+
         if (!escaped()) {
+            defender.getFighterFlag().ignored += ignoreOpponent();
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -44,12 +51,11 @@ public class ThrowOutAttack implements Attackable {
         attacker.changeWeapon(new Empowerment(unarmed));
     }
 
-    @Override
-    public int getRoundChange() {
+    private int ignoreOpponent() {
+        if (weapon.getIdentity() == null) {
+            return 0;
+        }
         switch (weapon.getIdentity()) {
-            case TRIDENT:
-                Trident trident = (Trident) weapon.getModel();
-                return 0 - trident.getRestRound();
             case GAS_HAMMER:
                 GasHammer gasHammer = (GasHammer) weapon.getModel();
                 return random.getIgnoreRandom() < gasHammer.getIgnoreChance() ? 1 : 0;

@@ -1,5 +1,6 @@
 package bigfight.combat;
 
+import bigfight.combat.attack.BigTypeAttack;
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
@@ -28,20 +29,22 @@ class CombatEachWeaponTest {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Weapon trident = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
-        Empowerment empowerment = new Empowerment(trident);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
 
         // test
-        final int EXPECTED = -1;
+        final int EXPECTED = 1;
         // case of normal attack
-        int noThrowResult = new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new BigTypeAttack(fighter1, fighter2, trident, random, mockUi).attack();
+        int noThrowResult = fighter1.getFighterFlag().ignored;
         assertEquals(EXPECTED, noThrowResult);
         // case of throwing out the weapon
+        final int EXPECTED_THROW = EXPECTED + 1;
         when(random.getThrowWeaponRandom()).thenReturn(THROW);
-        int throwResult = new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
-        assertEquals(EXPECTED, throwResult);
+        new BigTypeAttack(fighter1, fighter2, trident, random, mockUi).attack();
+        int throwResult = fighter1.getFighterFlag().ignored;
+        assertEquals(EXPECTED_THROW, throwResult);
     }
 
     @Test
@@ -50,7 +53,6 @@ class CombatEachWeaponTest {
         FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
         FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Weapon gasHammer = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.GAS_HAMMER);
-        Empowerment empowerment = new Empowerment(gasHammer);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
@@ -58,12 +60,15 @@ class CombatEachWeaponTest {
 
         final int EXPECTED = 1;
         // case of normal attack
-        int noThrowResult = new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new BigTypeAttack(fighter1, fighter2, gasHammer, random, mockUi).attack();
+        int noThrowResult = fighter2.getFighterFlag().ignored;
         assertEquals(EXPECTED, noThrowResult);
         // case of throwing out the weapon
+        final int EXPECTED_THROW = EXPECTED + 1;
         when(random.getThrowWeaponRandom()).thenReturn(THROW);
-        int throwResult = new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
-        assertEquals(EXPECTED, throwResult);
+        new BigTypeAttack(fighter1, fighter2, gasHammer, random, mockUi).attack();
+        int throwResult = fighter2.getFighterFlag().ignored;
+        assertEquals(EXPECTED_THROW, throwResult);
     }
 
     @Test

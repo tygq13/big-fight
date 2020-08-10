@@ -32,7 +32,11 @@ public class Combat {
                 roundDecision += OPPONENT_TURN;
                 Empowerment empowerment = selectEmpowerment(hero, opponentStatus, rand);
                 hero.selectAuxiliarySkill(heroStatus.getFighterFlag(), rand);
-                roundDecision += new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
+                new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
+                if (opponentStatus.getFighterFlag().ignored != 0) {
+                    roundDecision += opponentStatus.getFighterFlag().ignored;
+                    opponentStatus.getFighterFlag().ignored -= 1;
+                }
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
                     roundDecision += OPPONENT_TURN;
@@ -41,7 +45,11 @@ public class Combat {
                 roundDecision += HERO_TURN;
                 Empowerment empowerment = selectEmpowerment(opponent, heroStatus, rand);
                 opponent.selectAuxiliarySkill(opponentStatus.getFighterFlag(), rand);
-                roundDecision -= new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
+                new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
+                if (heroStatus.getFighterFlag().ignored != 0) {
+                    roundDecision += heroStatus.getFighterFlag().ignored;
+                    heroStatus.getFighterFlag().ignored -= 1;
+                }
                 if (roundDecision == 0) {
                     // no ignore from the hero's side
                     roundDecision += HERO_TURN;
