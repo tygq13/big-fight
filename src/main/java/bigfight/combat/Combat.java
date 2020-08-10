@@ -29,7 +29,7 @@ public class Combat {
 
         CombatRandom rand = new CombatRandom();
         while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
-            if (heroRound(heroStatus.getFighterFlag(), opponentStatus.getFighterFlag(), rand)) {
+            if (heroRound(heroStatus.getFighterFlag(), opponentStatus.getFighterFlag())) {
                 startRound(heroStatus, opponentStatus, rand, hero);
             } else {
                 startRound(opponentStatus, heroStatus, rand, opponent);
@@ -49,7 +49,7 @@ public class Combat {
         return hero.getSpeed() >= opponent.getSpeed() ? 1 : 0;
     }
 
-    private boolean heroRound(FighterFlag heroFlag, FighterFlag opponentFlag, CombatRandom rand) {
+    private boolean heroRound(FighterFlag heroFlag, FighterFlag opponentFlag) {
         // decide by ignore
         if (heroFlag.ignored - opponentFlag.ignored > 0) {
             heroFlag.ignored -= 1;

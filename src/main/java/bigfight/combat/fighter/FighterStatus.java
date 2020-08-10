@@ -1,11 +1,9 @@
 package bigfight.combat.fighter;
 
 import bigfight.model.skill.skills.special.MineWater;
-import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
@@ -93,10 +91,6 @@ public class FighterStatus {
 
     public SkillModel getSkill(SkillIdentity identity) {
         return specialSkills.get(identity);
-    }
-
-    public void removeSkill(SkillIdentity identity) {
-        specialSkills.remove(identity);
     }
 
     public void updateStatusByFlag() {

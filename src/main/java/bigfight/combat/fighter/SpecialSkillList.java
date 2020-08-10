@@ -7,24 +7,53 @@ import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.skill.struct.SkillList;
 import bigfight.model.skill.struct.SkillType;
 
+import java.util.ArrayList;
 import java.util.Map;
 
-public class SpecialSkillList extends SkillList {
+public class SpecialSkillList {
+    private ArrayList<SkillModel> skillList;
 
-    public SpecialSkillList() {
-        super();
+    public SpecialSkillList(Map<SkillIdentity, SkillModel> skillMap) {
+        skillList = new ArrayList<>();
+        addSpecialFromMap(skillMap);
     }
 
-    public void addSpecialFromMap(Map<SkillIdentity, SkillModel> skillMap) {
+    private void addSpecialFromMap(Map<SkillIdentity, SkillModel> skillMap) {
         for (Map.Entry<SkillIdentity, SkillModel> model: skillMap.entrySet()) {
             if (model.getValue().getType() == SkillType.SPECIAL) {
                 SpecialSkill specialSkill = (SpecialSkill) model.getValue();
-                add(specialSkill.getUsableInstance());
+                skillList.add(specialSkill.getUsableInstance());
             }
         }
+    }
+
+    public void add(SkillModel model) {
+        skillList.add(model);
+    }
+
+    public int size() {
+        return skillList.size();
+    }
+
+    public SkillModel get(SkillIdentity identity) {
+        for(SkillModel model: skillList) {
+            if (model.getIdentity() == identity) {
+                return model;
+            }
+        }
+        // better to throw exception
+        return null;
+    }
+
+    public boolean contains(SkillIdentity identity) {
+        for(SkillModel model: skillList) {
+            if (model.getIdentity() == identity) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {

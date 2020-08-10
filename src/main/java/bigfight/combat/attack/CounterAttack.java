@@ -23,11 +23,11 @@ class CounterAttack {
     }
 
     boolean specialCounter(int damage) {
-        if (defender.getHealth() <= 0 && defender.hasSkill(SkillIdentity.APPARENT_DEATH)) {
+        if (defender.getHealth() <= 0 && defender.hasSkill(SkillIdentity.APPARENT_DEATH) && !defender.getFighterFlag().apparentDeathUsed) {
+            defender.getFighterFlag().apparentDeathUsed = true;
             ApparentDeath apparentDeath = (ApparentDeath) defender.getSkill(SkillIdentity.APPARENT_DEATH);
             int lastHealth = apparentDeath.getLastHealth();
             defender.updateHealth(lastHealth);
-            defender.removeSkill(SkillIdentity.APPARENT_DEATH);
             ui.printSkillApparentDeath(defender.getName());
             return true;
         } else if (damage != 0 && defender.hasSkill(SkillIdentity.SEA_REFLECT)) {
