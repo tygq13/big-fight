@@ -2,7 +2,7 @@
 package bigfight.combat;
 
 import bigfight.combat.attack.SkillAttack;
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.special.HakiProtect;
@@ -32,8 +32,8 @@ class CombatEachSkillTest {
     @Test
     void roar_ignore_one_round() {
         // fighter with equal attributes
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
@@ -48,8 +48,8 @@ class CombatEachSkillTest {
 
     @Test
     void apparent_death_survive_deadly_attack() {
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus test = CombatTestUtil.createDyingFighterWithApparentDeath();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter test = CombatTestUtil.createDyingFighterWithApparentDeath();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
@@ -62,8 +62,8 @@ class CombatEachSkillTest {
     @Test
     void bolt_from_the_blue_level_multiply() {
         // fighter with equal attributes
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.BOLT_FROM_THE_BLUE);
         BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
         Empowerment empowerment = new Empowerment(skill);
@@ -78,8 +78,8 @@ class CombatEachSkillTest {
 
     @Test
     void fast_hand_hit_twice() {
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         fighter1.getFighterFlag().fastHandsFlag = true;
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
@@ -95,8 +95,8 @@ class CombatEachSkillTest {
     // big, medium, small, throw, throwout are just copy paste. Not used in skill.
     void haki_protect_effective_example_unarmed() {
         final double INVOKE_HAKI = 0;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
@@ -111,8 +111,8 @@ class CombatEachSkillTest {
     @Test
     void haki_protect_invoke_limitation() {
         final double INVOKE_HAKI = 0;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
@@ -132,8 +132,8 @@ class CombatEachSkillTest {
     @Test
     void sea_is_unfathomable_reflect() {
         final double INVOKE_SKILL = 0;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
@@ -147,8 +147,8 @@ class CombatEachSkillTest {
     @Test
     void sea_is_unfathomable_invoke_limitation() {
         final double INVOKE_SKILL = 0;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
@@ -163,8 +163,8 @@ class CombatEachSkillTest {
 
     @Test
     void tornado_strength_multiply() {
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TORNADO);
         Tornado tornado = (Tornado) skill;
         Empowerment empowerment = new Empowerment(skill);
@@ -180,8 +180,8 @@ class CombatEachSkillTest {
     @Test
     void hit_from_god_seckill() {
         final double HIT = -1.0;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HIT_FROM_GOD);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
@@ -195,8 +195,8 @@ class CombatEachSkillTest {
 
     @Test
     void disarm_snatch_weapon_correct() {
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         final int DAMAGE = weapon.getDamage().lower();
         fighter2.changeWeapon(new Empowerment(weapon));
@@ -215,7 +215,7 @@ class CombatEachSkillTest {
     @Test
     void shadow_move_activated() {
         final int DEFAULT_ROUND = 3;
-        FighterStatus fighter = CombatTestUtil.createFighterWithShadowMove();
+        Fighter fighter = CombatTestUtil.createFighterWithShadowMove();
         fighter.getFighterFlag().shadowMoveFlag = true;
         fighter.getFighterFlag().shadowMoveRound = DEFAULT_ROUND;
         ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
@@ -240,7 +240,7 @@ class CombatEachSkillTest {
     void mine_water_activated() {
         final int HEALTH = 200;
         final double DAMAGE_PERCENTAGE = 0.5;
-        FighterStatus fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
+        Fighter fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
         fighter.getFighterFlag().mineWaterFlag = true;
         fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
         MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
@@ -253,7 +253,7 @@ class CombatEachSkillTest {
     void mine_water_minimum_heal() {
         final int HEALTH = 50;
         final double DAMAGE_PERCENTAGE = 0.5;
-        FighterStatus fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
+        Fighter fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
         fighter.getFighterFlag().mineWaterFlag = true;
         fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
         MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);

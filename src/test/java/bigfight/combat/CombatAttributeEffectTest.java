@@ -2,7 +2,7 @@ package bigfight.combat;
 
 import bigfight.combat.attack.BigTypeAttack;
 import bigfight.combat.attack.UnarmedAttack;
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
@@ -28,8 +28,8 @@ public class CombatAttributeEffectTest {
         int WEAPON_DAMAGE = 10;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
         advancedAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -47,8 +47,8 @@ public class CombatAttributeEffectTest {
         int WEAPON_DAMAGE = 10;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
         advancedAttribute.bigExtraPercentageDamage = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
         Weapon weapon = CombatTestUtil.createBigWeapon();
         fighter2.changeWeapon(new Empowerment(weapon));
         CombatRandom random = mock(CombatRandom.class);
@@ -68,8 +68,8 @@ public class CombatAttributeEffectTest {
         int UNARMED_DAMAGE = 10;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
         advancedAttribute.unarmedExtraPercentageDamage = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(UNARMED_DAMAGE);
@@ -86,8 +86,8 @@ public class CombatAttributeEffectTest {
         int WEAPON_DAMAGE = 10;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
         advancedAttribute.antiBigExtraPercentageDamage = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -106,8 +106,8 @@ public class CombatAttributeEffectTest {
         int WEAPON_DAMAGE = 10;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
         advancedAttribute.bigEvasionRate = EXTRA_PERCENTAGE;
-        FighterStatus fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        FighterStatus fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
+        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter(advancedAttribute);
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(EXTRA_PERCENTAGE - EPSILON);

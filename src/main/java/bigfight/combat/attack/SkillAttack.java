@@ -1,10 +1,9 @@
 package bigfight.combat.attack;
 
 import bigfight.combat.Round;
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
-import bigfight.logic.parser.Parser;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -13,13 +12,13 @@ import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
 public class SkillAttack implements Attackable {
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private SkillModel skill;
     private CombatRandom random;
     private Uiable ui;
 
-    public SkillAttack(FighterStatus attacker, FighterStatus defender, SkillModel skill, CombatRandom random, Uiable ui) {
+    public SkillAttack(Fighter attacker, Fighter defender, SkillModel skill, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.skill = skill;

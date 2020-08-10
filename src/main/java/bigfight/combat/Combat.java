@@ -23,25 +23,23 @@ public class Combat {
     }
 
     public boolean start() {
-        FighterStatus heroStatus = new FighterStatus(hero);
-        FighterStatus opponentStatus = new FighterStatus(opponent);
         roundDecision = decideFirstRound();
 
         CombatRandom rand = new CombatRandom();
-        while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
-            if (heroRound(heroStatus.getFighterFlag(), opponentStatus.getFighterFlag())) {
-                startRound(heroStatus, opponentStatus, rand, hero);
+        while(hero.getHealth() > 0 && opponent.getHealth() > 0) {
+            if (heroRound(hero.getFighterFlag(), opponent.getFighterFlag())) {
+                startRound(hero, opponent, rand);
             } else {
-                startRound(opponentStatus, heroStatus, rand, opponent);
+                startRound(opponent, hero, rand);
             }
             System.out.print(System.lineSeparator());
         }
-        return opponentStatus.getHealth() <= 0;
+        return opponent.getHealth() <= 0;
     }
 
-    private void startRound(FighterStatus attackerStatus, FighterStatus defenderStatus, CombatRandom rand, Fighter attacker) {
-        Empowerment empowerment = selectEmpowerment(attacker, defenderStatus, rand);
-        attacker.selectAuxiliarySkill(attackerStatus.getFighterFlag(), rand);
+    private void startRound(Fighter attackerStatus, Fighter defenderStatus, CombatRandom rand) {
+        Empowerment empowerment = selectEmpowerment(attackerStatus, defenderStatus, rand);
+        attackerStatus.selectAuxiliarySkill(rand);
         new Round(attackerStatus, defenderStatus, empowerment, rand, ui).fight();
     }
 
@@ -69,12 +67,12 @@ public class Combat {
         }
     }
 
-    private Empowerment selectEmpowerment(Fighter hero, FighterStatus opponent, CombatRandom random) {
-        Empowerment empowerment = hero.selectEmpowerment(random);
+    private Empowerment selectEmpowerment(Fighter attacker, Fighter defender, CombatRandom random) {
+        Empowerment empowerment = attacker.selectEmpowerment(random);
         // this feature untested
         while (empowerment.getSkill() != null && empowerment.getSkill().getIdentity() == SkillIdentity.DISARM &&
-            opponent.getHoldingWeapon() == null) {
-            empowerment = hero.selectEmpowerment(random);
+            defender.getHoldingWeapon() == null) {
+            empowerment = attacker.selectEmpowerment(random);
         }
         return empowerment;
     }

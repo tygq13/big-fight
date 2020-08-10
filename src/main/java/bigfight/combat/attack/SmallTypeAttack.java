@@ -1,6 +1,6 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.weapon.Weapon;
@@ -8,13 +8,13 @@ import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.ui.Uiable;
 
 public class SmallTypeAttack implements Attackable{
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
 
-    public SmallTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
+    public SmallTypeAttack(Fighter attacker, Fighter defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;

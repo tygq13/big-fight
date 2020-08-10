@@ -1,7 +1,7 @@
 package bigfight.combat;
 
 import bigfight.combat.util.CombatAlgo;
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.combat.attack.*;
 import bigfight.data.DataConfig;
@@ -10,13 +10,13 @@ import bigfight.model.weapon.struct.WeaponType;
 import bigfight.ui.Uiable;
 
 public class Round {
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private Empowerment empowerment;
     private CombatRandom random;
     private Uiable ui;
 
-    public Round(FighterStatus attacker, FighterStatus defender, Empowerment empowerment, CombatRandom random, Uiable ui) {
+    public Round(Fighter attacker, Fighter defender, Empowerment empowerment, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.empowerment = empowerment;

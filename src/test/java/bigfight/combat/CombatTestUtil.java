@@ -1,7 +1,6 @@
 package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
-import bigfight.combat.fighter.FighterStatus;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -13,6 +12,8 @@ import bigfight.model.weapon.WeaponManager;
 import bigfight.model.weapon.struct.Damage;
 import bigfight.model.weapon.struct.WeaponType;
 
+import java.util.ArrayList;
+
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -20,38 +21,50 @@ import static org.mockito.Mockito.when;
 public class CombatTestUtil {
     public static AdvancedAttribute DEFAULT_ADVANCED_ATTRIBUTE = new AdvancedAttribute();
 
-    public static FighterStatus createSimpleFixedFighter() {
-        Fighter modelFighter = mock(Fighter.class);
-        when(modelFighter.getSpeed()).thenReturn(5);
-        when(modelFighter.getAgility()).thenReturn(5);
-        when(modelFighter.getStrength()).thenReturn(5);
-        when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getLevel()).thenReturn(1);
-        when(modelFighter.getAdvancedAttribute()).thenReturn(mock(AdvancedAttribute.class));
-        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
-        return new FighterStatus(modelFighter);
+    public static Fighter createSimpleFixedFighter() {
+        Warrior mockWarrior = mock(Warrior.class);
+        when(mockWarrior.getSpeed()).thenReturn(5);
+        when(mockWarrior.getAgility()).thenReturn(5);
+        when(mockWarrior.getStrength()).thenReturn(5);
+        when(mockWarrior.getHealth()).thenReturn(100);
+        when(mockWarrior.getLevel()).thenReturn(1);
+        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
+        WeaponManager mockManager = mock(WeaponManager.class);
+        when(mockManager.getWeaponList()).thenReturn(weaponList);
+        when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
+        when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));
+        when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
+        return new Fighter(mockWarrior);
     }
 
-    public static FighterStatus createSimpleFixedFighter(AdvancedAttribute advancedAttribute) {
-        Fighter modelFighter = mock(Fighter.class);
-        when(modelFighter.getSpeed()).thenReturn(5);
-        when(modelFighter.getAgility()).thenReturn(5);
-        when(modelFighter.getStrength()).thenReturn(5);
-        when(modelFighter.getHealth()).thenReturn(100);
-        when(modelFighter.getAdvancedAttribute()).thenReturn(advancedAttribute);
-        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(10, 10));
-        return new FighterStatus(modelFighter);
+    public static Fighter createSimpleFixedFighter(AdvancedAttribute advancedAttribute) {
+        Warrior mockWarrior = mock(Warrior.class);
+        when(mockWarrior.getSpeed()).thenReturn(5);
+        when(mockWarrior.getAgility()).thenReturn(5);
+        when(mockWarrior.getStrength()).thenReturn(5);
+        when(mockWarrior.getHealth()).thenReturn(100);
+        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
+        WeaponManager mockManager = mock(WeaponManager.class);
+        when(mockManager.getWeaponList()).thenReturn(weaponList);
+        when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
+        when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));
+        when(mockWarrior.getWeaponAttributeCopy()).thenReturn(advancedAttribute);
+        return new Fighter(mockWarrior);
     }
 
-    public static FighterStatus createCustomFighter(int speed, int agility, int strength, int health, int unarmed) {
-        Fighter modelFighter = mock(Fighter.class);
-        when(modelFighter.getSpeed()).thenReturn(speed);
-        when(modelFighter.getAgility()).thenReturn(agility);
-        when(modelFighter.getStrength()).thenReturn(strength);
-        when(modelFighter.getHealth()).thenReturn(health);
-        when(modelFighter.getAdvancedAttribute()).thenReturn(mock(AdvancedAttribute.class));
-        when(modelFighter.getUnarmedDamage()).thenReturn(new Damage(unarmed, unarmed));
-        return new FighterStatus(modelFighter);
+    public static Fighter createCustomFighter(int speed, int agility, int strength, int health) {
+        Warrior mockWarrior = mock(Warrior.class);
+        when(mockWarrior.getSpeed()).thenReturn(speed);
+        when(mockWarrior.getAgility()).thenReturn(agility);
+        when(mockWarrior.getStrength()).thenReturn(strength);
+        when(mockWarrior.getHealth()).thenReturn(health);
+        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
+        WeaponManager mockManager = mock(WeaponManager.class);
+        when(mockManager.getWeaponList()).thenReturn(weaponList);
+        when(mockWarrior.getWeaponManager()).thenReturn(mockManager);
+        when(mockWarrior.getSkillManager()).thenReturn(mock(SkillManager.class));
+        when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
+        return new Fighter(mockWarrior);
     }
 
     public static Empowerment createUnarmedEmpowerment() {
@@ -83,7 +96,7 @@ public class CombatTestUtil {
     }
 
 
-    public static FighterStatus createDyingFighterWithApparentDeath() {
+    public static Fighter createDyingFighterWithApparentDeath() {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.APPARENT_DEATH);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
@@ -92,11 +105,10 @@ public class CombatTestUtil {
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(3);
-        Fighter fighter = new Fighter(warrior);
-        return new FighterStatus(fighter);
+        return new Fighter(warrior);
     }
 
-    public static FighterStatus createLargeHealthFighterWithHakiProtect() {
+    public static Fighter createLargeHealthFighterWithHakiProtect() {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
@@ -105,11 +117,10 @@ public class CombatTestUtil {
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(100000000);
-        Fighter fighter = new Fighter(warrior);
-        return new FighterStatus(fighter);
+        return new Fighter(warrior);
     }
 
-    public static FighterStatus createHealthyFighterWithSeaIsUnfathomable() {
+    public static Fighter createHealthyFighterWithSeaIsUnfathomable() {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SEA_REFLECT);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
@@ -118,11 +129,10 @@ public class CombatTestUtil {
         when(warrior.getWeaponManager()).thenReturn(new WeaponManager());
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(100000000);
-        Fighter fighter = new Fighter(warrior);
-        return new FighterStatus(fighter);
+        return new Fighter(warrior);
     }
 
-    public static FighterStatus createFighterWithShadowMove() {
+    public static Fighter createFighterWithShadowMove() {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
@@ -132,11 +142,10 @@ public class CombatTestUtil {
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(100000000);
         when(warrior.getSpeed()).thenReturn(5);
-        Fighter fighter = new Fighter(warrior);
-        return new FighterStatus(fighter);
+        return new Fighter(warrior);
     }
 
-    public static FighterStatus createFighterWithMineWater(int health) {
+    public static Fighter createFighterWithMineWater(int health) {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
         SkillManager skillManager = new SkillManager();
         skillManager.add(skill);
@@ -146,7 +155,6 @@ public class CombatTestUtil {
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
         when(warrior.getHealth()).thenReturn(health);
         when(warrior.getSpeed()).thenReturn(5);
-        Fighter fighter = new Fighter(warrior);
-        return new FighterStatus(fighter);
+        return new Fighter(warrior);
     }
 }

@@ -102,13 +102,12 @@ class FighterTest {
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
-        FighterFlag test = new FighterFlag();
         // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertFalse(test.fastHandsFlag);
+        testFighter.selectAuxiliarySkill(random);
+        assertFalse(testFighter.getFighterFlag().fastHandsFlag);
         // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertTrue(test.fastHandsFlag);
+        testFighter.selectAuxiliarySkill(random);
+        assertTrue(testFighter.getFighterFlag().fastHandsFlag);
     }
 
     @Test
@@ -129,14 +128,13 @@ class FighterTest {
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
-        FighterFlag test = new FighterFlag();
         // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertFalse(test.shadowMoveFlag);
+        testFighter.selectAuxiliarySkill(random);
+        assertFalse(testFighter.getFighterFlag().shadowMoveFlag);
         // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertTrue(test.shadowMoveFlag);
-        assertEquals(shadowMove.getMaxRound(), test.shadowMoveRound);
+        testFighter.selectAuxiliarySkill(random);
+        assertTrue(testFighter.getFighterFlag().shadowMoveFlag);
+        assertEquals(shadowMove.getMaxRound(), testFighter.getFighterFlag().shadowMoveRound);
     }
 
     @Test
@@ -157,18 +155,17 @@ class FighterTest {
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
-        FighterFlag test = new FighterFlag();
         // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertFalse(test.mineWaterFlag);
+        testFighter.selectAuxiliarySkill(random);
+        assertFalse(testFighter.getFighterFlag().mineWaterFlag);
         // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(test, random);
-        assertTrue(test.mineWaterFlag);
+        testFighter.selectAuxiliarySkill(random);
+        assertTrue(testFighter.getFighterFlag().mineWaterFlag);
     }
 
     @Test
     void update_health_not_exceed_maximum() {
-        FighterStatus fighter = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter = CombatTestUtil.createSimpleFixedFighter();
         final int EXPECTED = fighter.getHealth();
         fighter.updateHealth(fighter.getHealth() + 1);
         assertEquals(EXPECTED, fighter.getHealth());

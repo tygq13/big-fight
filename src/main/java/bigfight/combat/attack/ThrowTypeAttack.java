@@ -1,6 +1,6 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
@@ -8,14 +8,14 @@ import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
 
 public class ThrowTypeAttack implements Attackable{
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
     private boolean isEscaped;
 
-    public ThrowTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
+    public ThrowTypeAttack(Fighter attacker, Fighter defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;

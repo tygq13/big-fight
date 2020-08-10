@@ -1,6 +1,6 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.special.ApparentDeath;
 import bigfight.model.skill.skills.special.SeaReflectUsable;
@@ -10,12 +10,12 @@ import bigfight.ui.Uiable;
 
 
 class CounterAttack {
-    private FighterStatus defender;
-    private FighterStatus attacker;
+    private Fighter defender;
+    private Fighter attacker;
     private CombatRandom random;
     private Uiable ui;
 
-    CounterAttack(FighterStatus defender, FighterStatus attacker, CombatRandom random, Uiable ui) {
+    CounterAttack(Fighter defender, Fighter attacker, CombatRandom random, Uiable ui) {
         this.defender = defender;
         this.attacker = attacker;
         this.random = random;

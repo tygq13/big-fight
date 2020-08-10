@@ -1,17 +1,17 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.ui.Uiable;
 
 public class UnarmedAttack implements Attackable {
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private CombatRandom random;
     private Uiable ui;
 
-    public UnarmedAttack(FighterStatus attacker, FighterStatus defender, CombatRandom random, Uiable ui) {
+    public UnarmedAttack(Fighter attacker, Fighter defender, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.random = random;
