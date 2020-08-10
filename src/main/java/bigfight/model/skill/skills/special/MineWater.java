@@ -1,8 +1,9 @@
-package bigfight.model.skill.skills;
+package bigfight.model.skill.skills.special;
 
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 
-public class MineWater extends SkillModel {
+public class MineWater extends SpecialSkill {
     final double REGENERATE_PERCENTAGE_ZERO = 0.25;
     final double INVOCATION_CHANCE = 0.1;
 

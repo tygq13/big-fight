@@ -1,7 +1,7 @@
 package bigfight.combat.fighter;
 
-import bigfight.model.skill.skills.MineWater;
-import bigfight.model.skill.skills.ShadowMove;
+import bigfight.model.skill.skills.special.MineWater;
+import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
@@ -9,8 +9,6 @@ import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
-
-import java.net.PortUnreachableException;
 
 public class FighterStatus {
     private String name;

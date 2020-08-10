@@ -2,8 +2,8 @@ package bigfight.combat.attack;
 
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.skills.ApparentDeath;
-import bigfight.model.skill.skills.SeaReflect;
+import bigfight.model.skill.skills.special.ApparentDeath;
+import bigfight.model.skill.skills.special.SeaReflectUsable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
@@ -31,7 +31,7 @@ class CounterAttack {
             ui.printSkillApparentDeath(defender.getName());
             return true;
         } else if (damage != 0 && defender.hasSkill(SkillIdentity.SEA_REFLECT)) {
-            SeaReflect seaReflect = (SeaReflect) defender.getSkill(SkillIdentity.SEA_REFLECT);
+            SeaReflectUsable seaReflect = (SeaReflectUsable) defender.getSkill(SkillIdentity.SEA_REFLECT);
             if (seaReflect.getRemainingUsage() > 0 && random.getSeaReflectRandom() < seaReflect.getInvocationChance()) {
                 seaReflect.invoke();
                 attacker.updateHealth(attacker.getHealth() - damage);

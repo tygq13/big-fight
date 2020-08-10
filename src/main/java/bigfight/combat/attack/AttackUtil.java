@@ -2,16 +2,16 @@ package bigfight.combat.attack;
 
 import bigfight.combat.fighter.FighterStatus;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.skills.HakiProtect;
+import bigfight.model.skill.skills.special.HakiProtect;
+import bigfight.model.skill.skills.special.HakiProtectUsable;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.ui.Uiable;
 
 public class AttackUtil {
 
     public static int invokeHakiProtect(FighterStatus fighter, int damage, CombatRandom random) {
         if (fighter.hasSkill(SkillIdentity.HAKI_PROTECT)) {
-            HakiProtect hakiProtect = (HakiProtect) fighter.getSkill(SkillIdentity.HAKI_PROTECT);
-            if (hakiProtect.getRemainingUsage() > 0 && random.getHakiProtectRandom() < hakiProtect.getInvokeChance()) {
+            HakiProtectUsable hakiProtect = (HakiProtectUsable) fighter.getSkill(SkillIdentity.HAKI_PROTECT);
+            if (hakiProtect.getRemainingUsage() > 0 && random.getHakiProtectRandom() < hakiProtect.getInvocationChance()) {
                 hakiProtect.invoke();
                 return (int) (damage * (1 - hakiProtect.getProtectionPercentage()));
             }

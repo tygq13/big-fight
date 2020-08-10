@@ -2,9 +2,9 @@ package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.skills.FastHands;
-import bigfight.model.skill.skills.MineWater;
-import bigfight.model.skill.skills.ShadowMove;
+import bigfight.model.skill.skills.special.FastHands;
+import bigfight.model.skill.skills.special.MineWater;
+import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.builder.Warrior;

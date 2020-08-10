@@ -1,6 +1,7 @@
 package bigfight.model.skill.struct;
 
 import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.special.SpecialSkill;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,7 +28,8 @@ public class SkillList {
     public void addSpecialFromMap(Map<SkillIdentity, SkillModel> skillMap) {
         for (Map.Entry<SkillIdentity, SkillModel> model: skillMap.entrySet()) {
             if (model.getValue().getType() == SkillType.SPECIAL) {
-                skillList.add(model.getValue());
+                SpecialSkill specialSkill = (SpecialSkill) model.getValue();
+                skillList.add(specialSkill.getUsableInstance());
             }
         }
     }
