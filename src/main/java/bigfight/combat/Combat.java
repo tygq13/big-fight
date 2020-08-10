@@ -11,9 +11,10 @@ public class Combat {
     private Fighter hero;
     private Fighter opponent;
     private Uiable ui;
+    private int roundDecision;
 
     final private int HERO_TURN = 1;
-    final private int OPPONENT_TURN = -1;
+    final private int OPPONENT_TURN = 0;
 
     public Combat(Fighter first, Fighter second, Uiable ui) {
         hero = first;
@@ -24,54 +25,47 @@ public class Combat {
     public boolean start() {
         FighterStatus heroStatus = new FighterStatus(hero);
         FighterStatus opponentStatus = new FighterStatus(opponent);
-        int roundDecision = decideFirstRound();
+        roundDecision = decideFirstRound();
 
         CombatRandom rand = new CombatRandom();
         while(heroStatus.getHealth() > 0 && opponentStatus.getHealth() > 0) {
-            if (heroRound(roundDecision, rand)) {
-                roundDecision += OPPONENT_TURN;
-                Empowerment empowerment = selectEmpowerment(hero, opponentStatus, rand);
-                hero.selectAuxiliarySkill(heroStatus.getFighterFlag(), rand);
-                new Round(heroStatus, opponentStatus, empowerment, rand, ui).fight();
-                if (opponentStatus.getFighterFlag().ignored != 0) {
-                    roundDecision += opponentStatus.getFighterFlag().ignored;
-                    opponentStatus.getFighterFlag().ignored -= 1;
-                }
-                if (roundDecision == 0) {
-                    // no ignore from the hero's side
-                    roundDecision += OPPONENT_TURN;
-                }
+            if (heroRound(heroStatus.getFighterFlag(), opponentStatus.getFighterFlag(), rand)) {
+                startRound(heroStatus, opponentStatus, rand, hero);
             } else {
-                roundDecision += HERO_TURN;
-                Empowerment empowerment = selectEmpowerment(opponent, heroStatus, rand);
-                opponent.selectAuxiliarySkill(opponentStatus.getFighterFlag(), rand);
-                new Round(opponentStatus, heroStatus, empowerment, rand, ui).fight();
-                if (heroStatus.getFighterFlag().ignored != 0) {
-                    roundDecision += heroStatus.getFighterFlag().ignored;
-                    heroStatus.getFighterFlag().ignored -= 1;
-                }
-                if (roundDecision == 0) {
-                    // no ignore from the hero's side
-                    roundDecision += HERO_TURN;
-                }
+                startRound(opponentStatus, heroStatus, rand, opponent);
             }
             System.out.print(System.lineSeparator());
         }
         return opponentStatus.getHealth() <= 0;
     }
 
+    private void startRound(FighterStatus attackerStatus, FighterStatus defenderStatus, CombatRandom rand, Fighter attacker) {
+        Empowerment empowerment = selectEmpowerment(attacker, defenderStatus, rand);
+        attacker.selectAuxiliarySkill(attackerStatus.getFighterFlag(), rand);
+        new Round(attackerStatus, defenderStatus, empowerment, rand, ui).fight();
+    }
+
     private int decideFirstRound() {
         return hero.getSpeed() >= opponent.getSpeed() ? 1 : 0;
     }
 
-    private boolean heroRound(int roundDecision, CombatRandom rand) {
-        if (roundDecision > 0) {
+    private boolean heroRound(FighterFlag heroFlag, FighterFlag opponentFlag, CombatRandom rand) {
+        // decide by ignore
+        if (heroFlag.ignored - opponentFlag.ignored > 0) {
+            heroFlag.ignored -= 1;
             return true;
-        } else if (roundDecision < 0) {
+        } else if (heroFlag.ignored - opponentFlag.ignored < 0) {
+            opponentFlag.ignored -= 1;
             return false;
         } else {
-            // 50-50 chance for both sides
-            return rand.getRoundRandom() < 0.5;
+            // decide by normal round turns
+            if (roundDecision == HERO_TURN) {
+                roundDecision = OPPONENT_TURN;
+                return true;
+            } else {
+                roundDecision = HERO_TURN;
+                return false;
+            }
         }
     }
 
