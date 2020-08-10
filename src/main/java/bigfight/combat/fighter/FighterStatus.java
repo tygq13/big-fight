@@ -3,6 +3,7 @@ package bigfight.combat.fighter;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.component.Empowerment;
@@ -21,7 +22,7 @@ public class FighterStatus {
     private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
     private Weapon holdingWeapon;
-    private SkillList specialSkills;
+    private SpecialSkillList specialSkills;
     private FighterFlag fighterFlag;
 
     public FighterStatus(Fighter fighter) {
@@ -102,25 +103,15 @@ public class FighterStatus {
         if (fighterFlag.shadowMoveFlag) {
             // todo: throw exception if doesn't have
             // todo: multiply by base speed instead of speed
-            ShadowMove shadowMove = (ShadowMove) specialSkills.get(SkillIdentity.SHADOW_MOVE);
+            ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkills.get(SkillIdentity.SHADOW_MOVE);
             if (fighterFlag.shadowMoveRound == 0) {
                 fighterFlag.shadowMoveFlag = false;
                 speed /= (1 + shadowMove.getSpeedMultiply());
-                advancedAttribute.bigExtraPercentageDamage -= shadowMove.getDamageMultiply();
-                advancedAttribute.mediumExtraPercentageDamage -= shadowMove.getDamageMultiply();
-                advancedAttribute.smallExtraPercentageDamage -= shadowMove.getDamageMultiply();
-                advancedAttribute.throwExtraPercentageDamage -= shadowMove.getDamageMultiply();
-                advancedAttribute.unarmedExtraPercentageDamage -= shadowMove.getDamageMultiply();
-                advancedAttribute.skillExtraPercentageDamage -= shadowMove.getDamageMultiply();
+                shadowMove.unInvoke(advancedAttribute);
             } else {
                 fighterFlag.shadowMoveRound -= 1;
                 speed *= (1 + shadowMove.getSpeedMultiply());
-                advancedAttribute.bigExtraPercentageDamage += shadowMove.getDamageMultiply();
-                advancedAttribute.mediumExtraPercentageDamage += shadowMove.getDamageMultiply();
-                advancedAttribute.smallExtraPercentageDamage += shadowMove.getDamageMultiply();
-                advancedAttribute.throwExtraPercentageDamage += shadowMove.getDamageMultiply();
-                advancedAttribute.unarmedExtraPercentageDamage += shadowMove.getDamageMultiply();
-                advancedAttribute.skillExtraPercentageDamage += shadowMove.getDamageMultiply();
+                shadowMove.invoke(advancedAttribute);
             }
         }
         if (fighterFlag.mineWaterFlag) {

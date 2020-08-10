@@ -8,9 +8,11 @@ public class ShadowMove extends SpecialSkill {
     final double DAMAGE_MULTIPLY = 0.3;
     final int MAX_ROUND = 3;
     final double INVOCATION_CHANCE_ZERO = 0.2;
+    SkillStruct skill;
 
     public ShadowMove(SkillStruct skill) {
         super(skill);
+        this.skill = skill;
     }
 
     public double getInvocationChance() {
@@ -27,5 +29,10 @@ public class ShadowMove extends SpecialSkill {
 
     public int getMaxRound() {
         return MAX_ROUND;
+    }
+
+    @Override
+    public SkillModel getUsableInstance() {
+        return new ShadowMoveUsable(skill, getSpeedMultiply(), getDamageMultiply(), getMaxRound(), getInvocationChance());
     }
 }

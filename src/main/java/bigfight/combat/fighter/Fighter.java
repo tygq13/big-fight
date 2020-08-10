@@ -5,6 +5,7 @@ import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
+import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillList;
 import bigfight.model.warrior.builder.Warrior;
@@ -25,7 +26,7 @@ public class Fighter {
     private Damage unarmedDamage;
     private ArrayList<Weapon> weaponList;
     private SkillList activeSkillList;
-    private SkillList specialSkillList;
+    private SpecialSkillList specialSkillList;
     private String name;
 
     public Fighter(Warrior warrior) {
@@ -41,7 +42,7 @@ public class Fighter {
         // only get the active skills
         activeSkillList = new SkillList();
         activeSkillList.addActiveFromMap(warrior.getSkillManager().getSkillMap());
-        specialSkillList = new SkillList();
+        specialSkillList = new SpecialSkillList();
         specialSkillList.addSpecialFromMap(warrior.getSkillManager().getSkillMap());
     }
 
@@ -103,7 +104,7 @@ public class Fighter {
         return unarmedDamage;
     }
 
-    SkillList getSpecialSkills() {
+    SpecialSkillList getSpecialSkills() {
         return specialSkillList;
     }
 
@@ -111,27 +112,6 @@ public class Fighter {
     // nice fun to have, isn't it?
     public void selectAuxiliarySkill(FighterFlag fighterFlag, CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        if (specialSkillList.contains(SkillIdentity.FAST_HANDS)) {
-            FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
-            double chance = (1.0 / totalSize) * fastHands.getExtraChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
-                fighterFlag.fastHandsFlag = true;
-            }
-        }
-        if (specialSkillList.contains(SkillIdentity.SHADOW_MOVE)) {
-            ShadowMove shadowMove = (ShadowMove) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
-            double chance = (1.0 / totalSize) * shadowMove.getInvocationChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
-                fighterFlag.shadowMoveFlag = true;
-                fighterFlag.shadowMoveRound = shadowMove.getMaxRound();
-            }
-        }
-        if (specialSkillList.contains(SkillIdentity.MINE_WATER)) {
-            MineWater mineWater = (MineWater) specialSkillList.get(SkillIdentity.MINE_WATER);
-            double chance = (1.0 / totalSize) * mineWater.getInvocationChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
-                fighterFlag.mineWaterFlag = true;
-            }
-        }
+        specialSkillList.select(fighterFlag, random, totalSize);
     }
 }

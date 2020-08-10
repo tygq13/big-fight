@@ -25,15 +25,6 @@ public class SkillList {
         }
     }
 
-    public void addSpecialFromMap(Map<SkillIdentity, SkillModel> skillMap) {
-        for (Map.Entry<SkillIdentity, SkillModel> model: skillMap.entrySet()) {
-            if (model.getValue().getType() == SkillType.SPECIAL) {
-                SpecialSkill specialSkill = (SpecialSkill) model.getValue();
-                skillList.add(specialSkill.getUsableInstance());
-            }
-        }
-    }
-
     public int size() {
         return skillList.size();
     }
