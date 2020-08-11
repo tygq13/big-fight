@@ -31,6 +31,7 @@ public class CombatTestUtil {
         when(mockWarrior.getHealth()).thenReturn(100);
         when(mockWarrior.getLevel()).thenReturn(1);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
+        when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new Fighter(mockWarrior);
     }
 
@@ -41,6 +42,7 @@ public class CombatTestUtil {
         when(mockWarrior.getStrength()).thenReturn(5);
         when(mockWarrior.getHealth()).thenReturn(100);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(advancedAttribute);
+        when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new Fighter(mockWarrior);
     }
 
@@ -51,6 +53,7 @@ public class CombatTestUtil {
         when(mockWarrior.getStrength()).thenReturn(strength);
         when(mockWarrior.getHealth()).thenReturn(health);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
+        when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new Fighter(mockWarrior);
     }
 

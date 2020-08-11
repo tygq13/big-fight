@@ -108,10 +108,6 @@ public class Warrior {
         return attribute.getAdvancedAttribute();
     }
 
-    public AdvancedAttribute getWeaponAttributeCopy() {
-        return (AdvancedAttribute) advancedAttribute.clone();
-    }
-
     public Attribute getAttribute() {
         return attribute;
     }

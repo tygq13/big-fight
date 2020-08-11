@@ -37,7 +37,7 @@ public class Fighter {
         maxHealth = warrior.getHealth();
         level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttributeCopy();
-        unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
+        unarmedDamage = warrior.getUnarmedDamage();
         weaponList = warrior.getDisposableWeapons();
         activeSkillList = warrior.getActiveSkills();
         specialSkillList = warrior.getSpecialSkills();

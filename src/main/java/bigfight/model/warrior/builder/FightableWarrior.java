@@ -5,6 +5,7 @@ import bigfight.combat.fighter.DisposableWeaponList;
 import bigfight.combat.fighter.SpecialSkillList;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.weapon.struct.Damage;
 
 public interface FightableWarrior {
     String getName();
@@ -15,8 +16,8 @@ public interface FightableWarrior {
     int getLevel();
     AdvancedAttribute getWeaponAttributeCopy();
     DisposableWeaponList getDisposableWeapons();
-    SkillManager getSkillManager();
     SpecialSkillList getSpecialSkills();
     ActiveSkillList getActiveSkills();
+    Damage getUnarmedDamage();
 
 }

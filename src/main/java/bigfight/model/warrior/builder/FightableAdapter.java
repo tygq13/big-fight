@@ -3,8 +3,9 @@ package bigfight.model.warrior.builder;
 import bigfight.combat.fighter.ActiveSkillList;
 import bigfight.combat.fighter.DisposableWeaponList;
 import bigfight.combat.fighter.SpecialSkillList;
-import bigfight.model.skill.SkillManager;
+import bigfight.data.DataConfig;
 import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.weapon.struct.Damage;
 
 
 public class FightableAdapter implements FightableWarrior{
@@ -46,17 +47,12 @@ public class FightableAdapter implements FightableWarrior{
 
     @Override
     public AdvancedAttribute getWeaponAttributeCopy() {
-        return warrior.getWeaponAttributeCopy();
+        return (AdvancedAttribute) warrior.getAdvancedAttribute().clone();
     }
 
     @Override
     public DisposableWeaponList getDisposableWeapons() {
         return warrior.getWeaponManager().createDisposableList();
-    }
-
-    @Override
-    public SkillManager getSkillManager() {
-        return warrior.getSkillManager();
     }
 
     @Override
@@ -67,6 +63,11 @@ public class FightableAdapter implements FightableWarrior{
     @Override
     public ActiveSkillList getActiveSkills() {
         return warrior.getSkillManager().createActiveList();
+    }
+
+    @Override
+    public Damage getUnarmedDamage() {
+        return DataConfig.DEFAULT_UNARMED_DAMAGE;
     }
 
 }
