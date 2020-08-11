@@ -7,6 +7,7 @@ import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.FightableWarrior;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
@@ -14,9 +15,9 @@ import bigfight.model.weapon.struct.Damage;
 
 public class Fighter {
     private String name;
-    private int speed;
-    private int strength;
-    private int agility;
+    private BasicAttribute speed;
+    private BasicAttribute strength;
+    private BasicAttribute agility;
     private int health;
     private int maxHealth;
     private int level;
@@ -33,8 +34,8 @@ public class Fighter {
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
         agility = warrior.getAgility();
-        health = warrior.getHealth();
-        maxHealth = warrior.getHealth();
+        health = warrior.getHealthValue();
+        maxHealth = warrior.getHealthValue();
         level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttributeCopy();
         unarmedDamage = warrior.getUnarmedDamage();
@@ -53,15 +54,15 @@ public class Fighter {
     }
 
     public int getSpeed() {
-        return speed;
+        return speed.value();
     }
 
     public int getStrength() {
-        return strength;
+        return strength.value();
     }
 
     public int getAgility() {
-        return agility;
+        return agility.value();
     }
 
     public int getHealth() {
@@ -133,11 +134,11 @@ public class Fighter {
             ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
             if (fighterFlag.shadowMoveRound == 0) {
                 fighterFlag.shadowMoveFlag = false;
-                speed /= (1 + shadowMove.getSpeedMultiply());
+                speed.assignBase((int) (speed.getBase() / (1 + shadowMove.getSpeedMultiply())));
                 shadowMove.unInvoke(advancedAttribute);
             } else {
                 fighterFlag.shadowMoveRound -= 1;
-                speed *= (1 + shadowMove.getSpeedMultiply());
+                speed.assignBase((int) (speed.getBase() * (1 + shadowMove.getSpeedMultiply())));
                 shadowMove.invoke(advancedAttribute);
             }
         }

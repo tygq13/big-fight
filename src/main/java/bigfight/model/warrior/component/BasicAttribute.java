@@ -22,6 +22,11 @@ public class BasicAttribute {
         total += increment;
     }
 
+    public void assignBase(int newBase) {
+        total = total - base + newBase;
+        base = newBase;
+    }
+
     public int value() {
         return total;
     }

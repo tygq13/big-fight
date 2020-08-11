@@ -1,14 +1,13 @@
 package bigfight.combat;
 
-import bigfight.combat.fighter.ActiveSkillList;
 import bigfight.combat.fighter.DisposableWeaponList;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.SpecialSkillList;
-import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.builder.FightableWarrior;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
@@ -25,10 +24,10 @@ public class CombatTestUtil {
 
     public static Fighter createSimpleFixedFighter() {
         FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        when(mockWarrior.getSpeed()).thenReturn(5);
-        when(mockWarrior.getAgility()).thenReturn(5);
-        when(mockWarrior.getStrength()).thenReturn(5);
-        when(mockWarrior.getHealth()).thenReturn(100);
+        when(mockWarrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getStrength()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getHealthValue()).thenReturn(100);
         when(mockWarrior.getLevel()).thenReturn(1);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
         when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
@@ -37,10 +36,10 @@ public class CombatTestUtil {
 
     public static Fighter createSimpleFixedFighter(AdvancedAttribute advancedAttribute) {
         FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        when(mockWarrior.getSpeed()).thenReturn(5);
-        when(mockWarrior.getAgility()).thenReturn(5);
-        when(mockWarrior.getStrength()).thenReturn(5);
-        when(mockWarrior.getHealth()).thenReturn(100);
+        when(mockWarrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getStrength()).thenReturn(new BasicAttribute(5));
+        when(mockWarrior.getHealthValue()).thenReturn(100);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(advancedAttribute);
         when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new Fighter(mockWarrior);
@@ -48,10 +47,10 @@ public class CombatTestUtil {
 
     public static Fighter createCustomFighter(int speed, int agility, int strength, int health) {
         FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        when(mockWarrior.getSpeed()).thenReturn(speed);
-        when(mockWarrior.getAgility()).thenReturn(agility);
-        when(mockWarrior.getStrength()).thenReturn(strength);
-        when(mockWarrior.getHealth()).thenReturn(health);
+        when(mockWarrior.getSpeed()).thenReturn(new BasicAttribute(speed));
+        when(mockWarrior.getAgility()).thenReturn(new BasicAttribute(agility));
+        when(mockWarrior.getStrength()).thenReturn(new BasicAttribute(strength));
+        when(mockWarrior.getHealthValue()).thenReturn(health);
         when(mockWarrior.getWeaponAttributeCopy()).thenReturn(new AdvancedAttribute());
         when(mockWarrior.getUnarmedDamage()).thenReturn(new Damage(10, 10));
         return new Fighter(mockWarrior);
@@ -94,7 +93,10 @@ public class CombatTestUtil {
         when(warrior.getSpecialSkills()).thenReturn(specialSkillList);
         when(warrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
-        when(warrior.getHealth()).thenReturn(3);
+        when(warrior.getHealthValue()).thenReturn(3);
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(warrior.getStrength()).thenReturn(new BasicAttribute(5));
         return new Fighter(warrior);
     }
 
@@ -106,7 +108,10 @@ public class CombatTestUtil {
         when(warrior.getSpecialSkills()).thenReturn(specialSkillList);
         when(warrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
-        when(warrior.getHealth()).thenReturn(100000000);
+        when(warrior.getHealthValue()).thenReturn(100000000);
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(warrior.getStrength()).thenReturn(new BasicAttribute(5));
         return new Fighter(warrior);
     }
 
@@ -118,7 +123,10 @@ public class CombatTestUtil {
         when(warrior.getSpecialSkills()).thenReturn(specialSkillList);
         when(warrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
-        when(warrior.getHealth()).thenReturn(100000000);
+        when(warrior.getHealthValue()).thenReturn(100000000);
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(warrior.getStrength()).thenReturn(new BasicAttribute(5));
         return new Fighter(warrior);
     }
 
@@ -130,8 +138,11 @@ public class CombatTestUtil {
         when(warrior.getSpecialSkills()).thenReturn(specialSkillList);
         when(warrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
-        when(warrior.getHealth()).thenReturn(100000000);
-        when(warrior.getSpeed()).thenReturn(5);
+        when(warrior.getHealthValue()).thenReturn(100000000);
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(warrior.getStrength()).thenReturn(new BasicAttribute(5));
         return new Fighter(warrior);
     }
 
@@ -143,8 +154,10 @@ public class CombatTestUtil {
         when(warrior.getSpecialSkills()).thenReturn(specialSkillList);
         when(warrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
         when(warrior.getWeaponAttributeCopy()).thenReturn(DEFAULT_ADVANCED_ATTRIBUTE);
-        when(warrior.getHealth()).thenReturn(health);
-        when(warrior.getSpeed()).thenReturn(5);
+        when(warrior.getHealthValue()).thenReturn(health);
+        when(warrior.getSpeed()).thenReturn(new BasicAttribute(5));
+        when(warrior.getAgility()).thenReturn(new BasicAttribute(5));
+        when(warrior.getStrength()).thenReturn(new BasicAttribute(5));
         return new Fighter(warrior);
     }
 }

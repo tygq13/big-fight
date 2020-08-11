@@ -5,6 +5,7 @@ import bigfight.combat.fighter.DisposableWeaponList;
 import bigfight.combat.fighter.SpecialSkillList;
 import bigfight.data.DataConfig;
 import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.weapon.struct.Damage;
 
 
@@ -21,23 +22,23 @@ public class FightableAdapter implements FightableWarrior{
     }
 
     @Override
-    public int getStrength() {
-        return warrior.getStrength();
+    public BasicAttribute getStrength() {
+        return warrior.getStrengthObj();
     }
 
     @Override
-    public int getAgility() {
-        return warrior.getAgility();
+    public BasicAttribute getAgility() {
+        return warrior.getAgilityObj();
     }
 
     @Override
-    public int getSpeed() {
-        return warrior.getSpeed();
+    public BasicAttribute getSpeed() {
+        return warrior.getSpeedObj();
     }
 
     @Override
-    public int getHealth() {
-        return warrior.getHealth();
+    public int getHealthValue() {
+        return warrior.getHealthObj().value();
     }
 
     @Override
