@@ -40,7 +40,7 @@ public class SkillAttack implements Attackable {
         double escape = defender.getAdvancedAttribute().skillEvasionRate - attacker.getAdvancedAttribute().skillHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         int damage = getSkillDamage();
-        if (random.getEscapeRandom() < escape && skill.getIdentity() != SkillIdentity.HIT_FROM_GOD) {
+        if (random.getEscapeRandom() < escape) {
             ui.printSkillRoarDodge(defender.getName());
         } else {
             defender.getFighterFlag().ignored += ignoreOpponent();
@@ -78,12 +78,7 @@ public class SkillAttack implements Attackable {
                  Tornado actualSkill = (Tornado) skill;
                  return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
              } case HIT_FROM_GOD: {
-                 HitFromGod actualSkill = (HitFromGod) skill;
-                 if (random.getHitFromGodRandom() < actualSkill.getSeckillChance()) {
-                     return defender.getHealth() - 1;
-                 } else {
-                     return 0;
-                 }
+                 return defender.getHealth() - 1;
              }
             default:
                 return 0;

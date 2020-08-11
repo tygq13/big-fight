@@ -240,7 +240,7 @@ public class SkillData {
     private final SkillStruct HIT_FROM_GOD_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "The legendary skill that can seckill your opponent.\n" +
-                    "Have 8% chance of reducing opponent’s health to 1.\n",
+                    "Have 8% chance of using this skill. This skill can reduce opponent’s health to 1.\n",
             SkillIdentity.HIT_FROM_GOD,
             "hit from god"
     );

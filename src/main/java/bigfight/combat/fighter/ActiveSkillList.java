@@ -1,6 +1,7 @@
 package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.HitFromGod;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
@@ -47,8 +48,27 @@ public class ActiveSkillList {
         return null;
     }
 
+    public boolean contains(SkillIdentity identity) {
+        for(SkillModel model: skillList) {
+            if (model.getIdentity() == identity) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Empowerment select(CombatRandom random) {
         int luckyDraw = random.selectWhichEmpowerment(skillList.size());
+        SkillModel skill = skillList.get(luckyDraw);
+
+        // redraw in case of rare skill
+        if (skill.getIdentity() == SkillIdentity.HIT_FROM_GOD) {
+            // only hitFromGod.getSeckillChance() of selecting this skill, else redraw
+            HitFromGod hitFromGod = (HitFromGod) skill;
+            if (random.getHitFromGodRandom() < (1 - hitFromGod.getSeckillChance())) {
+                luckyDraw = random.selectWhichEmpowerment(skillList.size());
+            }
+        }
         return new Empowerment(skillList.get(luckyDraw));
     }
 }
