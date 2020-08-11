@@ -12,6 +12,10 @@ import java.util.Map;
 public class ActiveSkillList {
     private ArrayList<SkillModel> skillList;
 
+    public ActiveSkillList() {
+        skillList = new ArrayList<>();
+    }
+
     public ActiveSkillList(Map<SkillIdentity, SkillModel> skillMap) {
         skillList = new ArrayList<>();
         addActiveFromMap(skillMap);

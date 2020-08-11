@@ -15,6 +15,10 @@ import java.util.Map;
 public class SpecialSkillList {
     private ArrayList<SkillModel> skillList;
 
+    public SpecialSkillList() {
+        skillList = new ArrayList<>();
+    }
+
     public SpecialSkillList(Map<SkillIdentity, SkillModel> skillMap) {
         skillList = new ArrayList<>();
         addSpecialFromMap(skillMap);

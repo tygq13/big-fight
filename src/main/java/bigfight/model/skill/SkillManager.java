@@ -1,5 +1,7 @@
 package bigfight.model.skill;
 
+import bigfight.combat.fighter.ActiveSkillList;
+import bigfight.combat.fighter.SpecialSkillList;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 
@@ -23,6 +25,14 @@ public class SkillManager {
 
     public int getSize() {
         return skillMap.size();
+    }
+
+    public SpecialSkillList createSpecialList() {
+        return new SpecialSkillList(skillMap);
+    }
+
+    public ActiveSkillList createActiveList() {
+        return new ActiveSkillList(skillMap);
     }
 
     @Override

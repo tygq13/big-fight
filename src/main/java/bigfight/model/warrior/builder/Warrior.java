@@ -6,7 +6,6 @@ import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
-import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.WeaponManager;
 import bigfight.model.skill.SkillManager;
 import bigfight.ui.Uiable;

@@ -9,12 +9,20 @@ import java.util.ArrayList;
 public class DisposableWeaponList {
     private ArrayList<Weapon> weaponArrayList;
 
+    public DisposableWeaponList() {
+        weaponArrayList = new ArrayList<>();
+    }
+
     public DisposableWeaponList(ArrayList<Weapon> weaponArrayList) {
-        this.weaponArrayList = (ArrayList<Weapon>) weaponArrayList.clone();
+        this.weaponArrayList = (ArrayList<Weapon>) weaponArrayList;
     }
 
     public int size() {
         return weaponArrayList.size();
+    }
+
+    public void add(Weapon weapon) {
+        weaponArrayList.add(weapon);
     }
 
     public Empowerment select(CombatRandom random) {

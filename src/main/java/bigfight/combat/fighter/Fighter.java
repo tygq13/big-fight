@@ -6,7 +6,7 @@ import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.builder.Warrior;
+import bigfight.model.warrior.builder.FightableWarrior;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
@@ -28,7 +28,7 @@ public class Fighter {
     private SpecialSkillList specialSkillList;
     private FighterFlag fighterFlag;
 
-    public Fighter(Warrior warrior) {
+    public Fighter(FightableWarrior warrior) {
         name = warrior.getName();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
@@ -38,9 +38,9 @@ public class Fighter {
         level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttributeCopy();
         unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
-        weaponList = new DisposableWeaponList(warrior.getWeaponManager().getWeaponList());
-        activeSkillList = new ActiveSkillList(warrior.getSkillManager().getSkillMap());
-        specialSkillList = new SpecialSkillList(warrior.getSkillManager().getSkillMap());
+        weaponList = warrior.getDisposableWeapons();
+        activeSkillList = warrior.getActiveSkills();
+        specialSkillList = warrior.getSpecialSkills();
         fighterFlag = new FighterFlag();
     }
 
