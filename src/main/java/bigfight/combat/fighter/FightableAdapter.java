@@ -1,15 +1,14 @@
-package bigfight.model.warrior.builder;
+package bigfight.combat.fighter;
 
-import bigfight.combat.fighter.ActiveSkillList;
-import bigfight.combat.fighter.DisposableWeaponList;
-import bigfight.combat.fighter.SpecialSkillList;
 import bigfight.data.DataConfig;
+import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.Attribute;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.weapon.struct.Damage;
 
 
-public class FightableAdapter implements FightableWarrior{
+public class FightableAdapter implements FightableWarrior {
     private Warrior warrior;
     public FightableAdapter(Warrior warrior) {
         this.warrior = warrior;
@@ -19,21 +18,6 @@ public class FightableAdapter implements FightableWarrior{
     @Override
     public String getName() {
         return warrior.getName();
-    }
-
-    @Override
-    public BasicAttribute getStrength() {
-        return warrior.getStrengthObj();
-    }
-
-    @Override
-    public BasicAttribute getAgility() {
-        return warrior.getAgilityObj();
-    }
-
-    @Override
-    public BasicAttribute getSpeed() {
-        return warrior.getSpeedObj();
     }
 
     @Override
@@ -47,7 +31,22 @@ public class FightableAdapter implements FightableWarrior{
     }
 
     @Override
-    public AdvancedAttribute getWeaponAttributeCopy() {
+    public BasicAttribute getAgility() {
+        return (BasicAttribute) warrior.getAgilityObj().clone();
+    }
+
+    @Override
+    public BasicAttribute getStrength() {
+        return (BasicAttribute) warrior.getStrengthObj().clone();
+    }
+
+    @Override
+    public BasicAttribute getSpeed() {
+        return (BasicAttribute) warrior.getSpeedObj().clone();
+    }
+
+    @Override
+    public AdvancedAttribute getWeaponAttribute() {
         return (AdvancedAttribute) warrior.getAdvancedAttribute().clone();
     }
 

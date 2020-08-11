@@ -6,7 +6,6 @@ import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.builder.FightableWarrior;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
@@ -37,7 +36,7 @@ public class Fighter {
         health = warrior.getHealthValue();
         maxHealth = warrior.getHealthValue();
         level = warrior.getLevel();
-        advancedAttribute = warrior.getWeaponAttributeCopy();
+        advancedAttribute = warrior.getWeaponAttribute();
         unarmedDamage = warrior.getUnarmedDamage();
         weaponList = warrior.getDisposableWeapons();
         activeSkillList = warrior.getActiveSkills();

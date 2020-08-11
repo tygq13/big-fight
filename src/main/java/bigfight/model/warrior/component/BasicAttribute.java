@@ -1,6 +1,6 @@
 package bigfight.model.warrior.component;
 
-public class BasicAttribute {
+public class BasicAttribute implements Cloneable{
     private int base;
     private int total;
     public BasicAttribute() {
@@ -33,5 +33,14 @@ public class BasicAttribute {
 
     public int getBase() {
         return base;
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getCause());
+        }
+        return null;
     }
 }

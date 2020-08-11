@@ -1,6 +1,6 @@
 package bigfight.model.warrior.component;
 
-public class Attribute {
+public class Attribute implements Cloneable{
     private BasicAttribute speed;
     private BasicAttribute agility;
     private BasicAttribute strength;
@@ -57,5 +57,14 @@ public class Attribute {
 
     public AdvancedAttribute getAdvancedAttribute() {
         return advancedAttribute;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        Attribute attribute = (Attribute)super.clone();
+        attribute.strength = (BasicAttribute) strength.clone();
+        attribute.agility = (BasicAttribute) agility.clone();
+        attribute.speed = (BasicAttribute) speed.clone();
+        attribute.health = (BasicAttribute) health.clone();
+        return attribute;
     }
 }

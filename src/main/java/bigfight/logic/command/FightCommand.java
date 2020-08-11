@@ -2,7 +2,7 @@ package bigfight.logic.command;
 
 import bigfight.combat.Combat;
 import bigfight.combat.fighter.Fighter;
-import bigfight.model.warrior.builder.FightableAdapter;
+import bigfight.combat.fighter.FightableAdapter;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.ui.Uiable;

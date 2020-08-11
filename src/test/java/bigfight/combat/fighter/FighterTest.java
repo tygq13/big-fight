@@ -1,19 +1,13 @@
 package bigfight.combat.fighter;
 
 import bigfight.combat.CombatTestUtil;
-import bigfight.model.skill.SkillManager;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
-import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.builder.FightableWarrior;
-import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.component.*;
 import bigfight.model.weapon.Weapon;
-import bigfight.model.weapon.WeaponManager;
 
-import java.util.ArrayList;
 import bigfight.combat.util.CombatRandom;
 
 import org.junit.jupiter.api.Test;
