@@ -3,6 +3,7 @@ package bigfight.model.skill.skills.special;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.BasicAttribute;
 
 public class ShadowMoveUsable extends SkillModel {
     double speedMultiply;
@@ -30,7 +31,8 @@ public class ShadowMoveUsable extends SkillModel {
         return speedMultiply;
     }
 
-    public void invoke(AdvancedAttribute advancedAttribute) {
+    public void invoke(AdvancedAttribute advancedAttribute, BasicAttribute speed) {
+        speed.assignBase((int) (speed.getBase() * (1 + speedMultiply)));
         advancedAttribute.bigExtraPercentageDamage += damageMultiply;
         advancedAttribute.mediumExtraPercentageDamage += damageMultiply;
         advancedAttribute.smallExtraPercentageDamage += damageMultiply;
@@ -39,7 +41,8 @@ public class ShadowMoveUsable extends SkillModel {
         advancedAttribute.skillExtraPercentageDamage += damageMultiply;
     }
 
-    public void unInvoke(AdvancedAttribute advancedAttribute) {
+    public void unInvoke(AdvancedAttribute advancedAttribute, BasicAttribute speed) {
+        speed.assignBase((int) (speed.getBase() / (1 + speedMultiply)));
         advancedAttribute.bigExtraPercentageDamage -= damageMultiply;
         advancedAttribute.mediumExtraPercentageDamage -= damageMultiply;
         advancedAttribute.smallExtraPercentageDamage -= damageMultiply;

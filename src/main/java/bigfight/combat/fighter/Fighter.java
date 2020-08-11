@@ -134,12 +134,10 @@ public class Fighter {
             ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
             if (fighterFlag.shadowMoveRound == 0) {
                 fighterFlag.shadowMoveFlag = false;
-                speed.assignBase((int) (speed.getBase() / (1 + shadowMove.getSpeedMultiply())));
-                shadowMove.unInvoke(advancedAttribute);
+                shadowMove.unInvoke(advancedAttribute, speed);
             } else {
                 fighterFlag.shadowMoveRound -= 1;
-                speed.assignBase((int) (speed.getBase() * (1 + shadowMove.getSpeedMultiply())));
-                shadowMove.invoke(advancedAttribute);
+                shadowMove.invoke(advancedAttribute, speed);
             }
         }
         if (fighterFlag.mineWaterFlag) {
