@@ -160,7 +160,7 @@ class FighterTest {
 
     @Test
     void update_health_not_exceed_maximum() {
-        Fighter fighter = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter = new FighterBuilderTestUtil().build();
         final int EXPECTED = fighter.getHealth();
         fighter.updateHealth(fighter.getHealth() + 1);
         assertEquals(EXPECTED, fighter.getHealth());

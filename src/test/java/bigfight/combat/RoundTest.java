@@ -3,6 +3,7 @@ package bigfight.combat;
 
 import bigfight.combat.fighter.Fighter;
 
+import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
@@ -27,8 +28,8 @@ class RoundTest {
 
     @Test
     void round_give_damage_in_simple_weapon_attack_with_example_trident() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
@@ -45,8 +46,8 @@ class RoundTest {
 
     @Test
     void round_give_damage_in_simple_skill_attack_with_example_roar() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
@@ -61,8 +62,8 @@ class RoundTest {
 
     @Test
     void round_give_damage_in_simple_attack_with_unarmed() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -77,8 +78,8 @@ class RoundTest {
     void round_ignore_round_by_speed() {
         final int SPEED1 = 10;
         final int SPEED2 = 5;
-        Fighter fighter1 = CombatTestUtil.createCustomFighter(SPEED1, 5, 5, 100);
-        Fighter fighter2 = CombatTestUtil.createCustomFighter(SPEED2, 5, 5, 100);
+        Fighter fighter1 = new FighterBuilderTestUtil().withSpeed(SPEED1).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withSpeed(SPEED2).build();
         double ignore = CombatAlgo.ignoreBySpeed(SPEED1, SPEED2);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getSpeedIgnoreRandom()).thenReturn(ignore - Math.ulp(1));
@@ -93,8 +94,8 @@ class RoundTest {
     void round_attack_miss_by_agility() {
         final int AGILITY1 = 10;
         final int AGILITY2 = 5;
-        Fighter fighter1 = CombatTestUtil.createCustomFighter(5, AGILITY1, 5, 100);
-        Fighter fighter2 = CombatTestUtil.createCustomFighter(5, AGILITY2, 5, 100);
+        Fighter fighter1 = new FighterBuilderTestUtil().withAgility(AGILITY1).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withAgility(AGILITY2).build();
         double escape = CombatAlgo.escapeByAgility(AGILITY2, AGILITY1);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(escape - Math.ulp(1));
@@ -110,8 +111,8 @@ class RoundTest {
         final int STRENGTH1 = 100;
         final int STRENGTH2 = 50;
         final int DAMAGE = 10;
-        Fighter fighter1 = CombatTestUtil.createCustomFighter(5, 5, STRENGTH1, 100);
-        Fighter fighter2 = CombatTestUtil.createCustomFighter(5, 5, STRENGTH2, 100);
+        Fighter fighter1 = new FighterBuilderTestUtil().withStrength(STRENGTH1).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withStrength(STRENGTH2).build();
         double multiply = CombatAlgo.multiplyByStrength(STRENGTH1, STRENGTH2);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -127,8 +128,8 @@ class RoundTest {
     void round_counter_attack_both_unarmed_do_damage() {
         final double COUNTER_ATTACK = -1.0;
         final double NO_COUNTER_ATTACK = 1;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
@@ -147,8 +148,8 @@ class RoundTest {
     @Test
     void round_throw_weapon_cause_damage() {
         final double THROW_WEAPON = 0.05;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
@@ -165,8 +166,8 @@ class RoundTest {
     @Test
     void round_throw_weapon_loss_weapon() {
         final double THROW_WEAPON = 0.05;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
@@ -178,8 +179,8 @@ class RoundTest {
 
     @Test
     void fight_method_call_update_fighter_flag() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Fighter spy1 = spy(fighter1);
         Fighter spy2 = spy(fighter2);
         CombatRandom random = mock(CombatRandom.class);

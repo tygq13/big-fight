@@ -31,7 +31,9 @@ public class ActiveSkillList {
     }
 
     public void add(SkillModel model) {
-        skillList.add(model);
+        if (model.getType() == SkillType.ACTIVE) {
+            skillList.add(model);
+        }
     }
 
     public int size() {
@@ -46,15 +48,6 @@ public class ActiveSkillList {
         }
         // better to throw exception
         return null;
-    }
-
-    public boolean contains(SkillIdentity identity) {
-        for(SkillModel model: skillList) {
-            if (model.getIdentity() == identity) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public Empowerment select(CombatRandom random) {

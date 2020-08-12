@@ -34,7 +34,9 @@ public class SpecialSkillList {
     }
 
     public void add(SkillModel model) {
-        skillList.add(model);
+        if (model.getType() == SkillType.SPECIAL) {
+            skillList.add(model);
+        }
     }
 
     public int size() {

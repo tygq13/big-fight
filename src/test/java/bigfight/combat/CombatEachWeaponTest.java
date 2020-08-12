@@ -2,6 +2,7 @@ package bigfight.combat;
 
 import bigfight.combat.attack.BigTypeAttack;
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
@@ -26,8 +27,8 @@ class CombatEachWeaponTest {
 
     @Test
     void test_trident_rest_one_round() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon trident = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -50,8 +51,8 @@ class CombatEachWeaponTest {
     @Test
     void test_gas_hammer_ignore_one_round() {
         final double IGNORE = 0.0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon gasHammer = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.GAS_HAMMER);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -73,9 +74,9 @@ class CombatEachWeaponTest {
 
     @Test
     void test_death_scythe_unescapable() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         // defender has high escape
-        Fighter fighter2 = CombatTestUtil.createCustomFighter(5,100,5, 100);
+        Fighter fighter2 = new FighterBuilderTestUtil().withAgility(100).build();
         Weapon demonScythe = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.DEMON_SCYTHE);
         Empowerment empowerment = new Empowerment(demonScythe);
         CombatRandom random = mock(CombatRandom.class);
@@ -89,15 +90,15 @@ class CombatEachWeaponTest {
         when(random.getThrowWeaponRandom()).thenReturn(THROW);
         // case of throwing out the weapon
         // recover fighter2 status
-        fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        fighter2 = new FighterBuilderTestUtil().build();
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
     @Test
     void test_judge_pencil_unescapable() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createCustomFighter(5,100,5, 100);
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withAgility(100).build();
         Weapon judgePencil = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.JUDGE_PENCIL);
         Empowerment empowerment = new Empowerment(judgePencil);
         CombatRandom random = mock(CombatRandom.class);
@@ -112,7 +113,7 @@ class CombatEachWeaponTest {
         when(random.getThrowWeaponRandom()).thenReturn(THROW);
         // case of throwing out the weapon
         // recover fighter2 status
-        fighter2 = CombatTestUtil.createCustomFighter(5,100,5, 100);
+        fighter2 = new FighterBuilderTestUtil().withAgility(100).build();
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }

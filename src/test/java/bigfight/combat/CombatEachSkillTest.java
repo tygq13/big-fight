@@ -3,6 +3,7 @@ package bigfight.combat;
 
 import bigfight.combat.attack.SkillAttack;
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.special.HakiProtect;
@@ -32,8 +33,8 @@ class CombatEachSkillTest {
     @Test
     void roar_ignore_one_round() {
         // fighter with equal attributes
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
@@ -48,7 +49,7 @@ class CombatEachSkillTest {
 
     @Test
     void apparent_death_survive_deadly_attack() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter test = CombatTestUtil.createDyingFighterWithApparentDeath();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -62,8 +63,8 @@ class CombatEachSkillTest {
     @Test
     void bolt_from_the_blue_level_multiply() {
         // fighter with equal attributes
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.BOLT_FROM_THE_BLUE);
         BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
         Empowerment empowerment = new Empowerment(skill);
@@ -78,8 +79,8 @@ class CombatEachSkillTest {
 
     @Test
     void fast_hand_hit_twice() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         fighter1.getFighterFlag().fastHandsFlag = true;
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
@@ -95,7 +96,7 @@ class CombatEachSkillTest {
     // big, medium, small, throw, throwout are just copy paste. Not used in skill.
     void haki_protect_effective_example_unarmed() {
         final double INVOKE_HAKI = 0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
@@ -111,7 +112,7 @@ class CombatEachSkillTest {
     @Test
     void haki_protect_invoke_limitation() {
         final double INVOKE_HAKI = 0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createLargeHealthFighterWithHakiProtect();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
@@ -132,7 +133,7 @@ class CombatEachSkillTest {
     @Test
     void sea_is_unfathomable_reflect() {
         final double INVOKE_SKILL = 0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -147,7 +148,7 @@ class CombatEachSkillTest {
     @Test
     void sea_is_unfathomable_invoke_limitation() {
         final double INVOKE_SKILL = 0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
@@ -163,8 +164,8 @@ class CombatEachSkillTest {
 
     @Test
     void tornado_strength_multiply() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TORNADO);
         Tornado tornado = (Tornado) skill;
         Empowerment empowerment = new Empowerment(skill);
@@ -180,8 +181,8 @@ class CombatEachSkillTest {
     @Test
     void hit_from_god_seckill() {
         final double HIT = -1.0;
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HIT_FROM_GOD);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
@@ -195,8 +196,8 @@ class CombatEachSkillTest {
 
     @Test
     void disarm_snatch_weapon_correct() {
-        Fighter fighter1 = CombatTestUtil.createSimpleFixedFighter();
-        Fighter fighter2 = CombatTestUtil.createSimpleFixedFighter();
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         final int DAMAGE = weapon.getDamage().lower();
         fighter2.changeWeapon(new Empowerment(weapon));
