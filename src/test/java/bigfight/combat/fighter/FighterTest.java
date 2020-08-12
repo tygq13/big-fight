@@ -11,12 +11,10 @@ import bigfight.combat.util.CombatRandom;
 
 import org.junit.jupiter.api.Test;
 
-import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FighterTest {
-    private double EPSILON = 0.01;
     private static final double NOT_UNARMED = 1;
     private static final int SELECT_WEAPON = 0;
 
@@ -73,91 +71,6 @@ class FighterTest {
         Empowerment empowerment = test.selectEmpowerment(random);
         assertNull(empowerment.getWeapon());
         assertNull(empowerment.getSkill());
-    }
-
-    @Test
-    void selectAuxiliarySkill_fast_hand_invocation_chance() {
-        // create warrior with two skills, one of them is fast hands
-        FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        SpecialSkillList specialSkillList = new SpecialSkillList();
-        FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
-        specialSkillList.add(fastHands);
-        ActiveSkillList activeSkillList = new ActiveSkillList();
-        activeSkillList.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
-        when(mockWarrior.getSpecialSkills()).thenReturn(specialSkillList);
-        when(mockWarrior.getActiveSkills()).thenReturn(activeSkillList);
-        when(mockWarrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
-
-        // test
-        final double SELECT = 0;
-        final double NOT_SELECT = fastHands.getInvocationChance() + EPSILON;
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
-        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
-        Fighter testFighter = new Fighter(mockWarrior);
-        // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertFalse(testFighter.getFighterFlag().fastHandsFlag);
-        // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertTrue(testFighter.getFighterFlag().fastHandsFlag);
-    }
-
-    @Test
-    void selectAuxiliarySkill_shadow_move_invocation_chance() {
-        // create warrior with two skills, one of them is fast hands
-        FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
-        SpecialSkillList specialSkillList = new SpecialSkillList();
-        specialSkillList.add(shadowMove);
-        ActiveSkillList activeSkillList = new ActiveSkillList();
-        activeSkillList.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
-        when(mockWarrior.getSpecialSkills()).thenReturn(specialSkillList);
-        when(mockWarrior.getActiveSkills()).thenReturn(activeSkillList);
-        when(mockWarrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
-
-        // test
-        final double SELECT = 0;
-        final double NOT_SELECT = shadowMove.getInvocationChance() + EPSILON;
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
-        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
-        Fighter testFighter = new Fighter(mockWarrior);
-        // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertFalse(testFighter.getFighterFlag().shadowMoveFlag);
-        // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertTrue(testFighter.getFighterFlag().shadowMoveFlag);
-        assertEquals(shadowMove.getMaxRound(), testFighter.getFighterFlag().shadowMoveRound);
-    }
-
-    @Test
-    void selectAuxiliarySkill_mine_water_invocation_chance() {
-        // create warrior with two skills, one of them is fast hands
-        FightableWarrior mockWarrior = mock(FightableWarrior.class);
-        SpecialSkillList specialSkillList = new SpecialSkillList();
-        MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
-        specialSkillList.add(mineWater);
-        ActiveSkillList activeSkillList = new ActiveSkillList();
-        activeSkillList.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
-        when(mockWarrior.getSpecialSkills()).thenReturn(specialSkillList);
-        when(mockWarrior.getActiveSkills()).thenReturn(activeSkillList);
-        when(mockWarrior.getDisposableWeapons()).thenReturn(mock(DisposableWeaponList.class));
-
-        // test
-        final double SELECT = 0;
-        final double NOT_SELECT = mineWater.getInvocationChance() + EPSILON;
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
-        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
-        Fighter testFighter = new Fighter(mockWarrior);
-        // test not selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertFalse(testFighter.getFighterFlag().mineWaterFlag);
-        // test selected by invocation chance
-        testFighter.selectAuxiliarySkill(random);
-        assertTrue(testFighter.getFighterFlag().mineWaterFlag);
     }
 
     @Test
