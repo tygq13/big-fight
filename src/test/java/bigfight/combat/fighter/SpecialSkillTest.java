@@ -33,10 +33,8 @@ public class SpecialSkillTest {
 
     @Test
     void selectAuxiliarySkill_fast_hand_activated() {
-        // create warrior with two skills, one of them is fast hands
         FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
         Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR))
                 .withSkill(fastHands)
                 .build();
 
@@ -48,10 +46,8 @@ public class SpecialSkillTest {
 
     @Test
     void selectAuxiliarySkill_shadow_move_activated() {
-        // create warrior with two skills, one of them is fast hands
         ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
         Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR))
                 .withSkill(shadowMove)
                 .build();
 
@@ -63,10 +59,8 @@ public class SpecialSkillTest {
 
     @Test
     void selectAuxiliarySkill_mine_water_activated() {
-        // create warrior with two skills, one of them is fast hands
         MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
         Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR))
                 .withSkill(mineWater)
                 .build();
 
