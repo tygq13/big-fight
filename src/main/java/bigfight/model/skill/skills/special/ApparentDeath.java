@@ -1,6 +1,5 @@
 package bigfight.model.skill.skills.special;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class ApparentDeath extends SpecialSkill {

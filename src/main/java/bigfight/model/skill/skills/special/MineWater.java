@@ -1,6 +1,5 @@
 package bigfight.model.skill.skills.special;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class MineWater extends SpecialSkill {
@@ -15,7 +14,13 @@ public class MineWater extends SpecialSkill {
         return REGENERATE_PERCENTAGE_ZERO;
     }
 
+    @Override
     public double getInvocationChance() {
         return INVOCATION_CHANCE;
+    }
+
+    @Override
+    public boolean isAuxiliary() {
+        return true;
     }
 }

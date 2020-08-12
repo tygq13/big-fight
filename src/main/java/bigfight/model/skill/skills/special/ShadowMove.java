@@ -15,6 +15,7 @@ public class ShadowMove extends SpecialSkill {
         this.skill = skill;
     }
 
+    @Override
     public double getInvocationChance() {
         return INVOCATION_CHANCE_ZERO;
     }
@@ -34,5 +35,10 @@ public class ShadowMove extends SpecialSkill {
     @Override
     public SkillModel getUsableInstance() {
         return new ShadowMoveUsable(skill, getSpeedMultiply(), getDamageMultiply(), getMaxRound(), getInvocationChance());
+    }
+
+    @Override
+    public boolean isAuxiliary() {
+        return true;
     }
 }

@@ -17,8 +17,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CombatTestUtil {
-    public static AdvancedAttribute DEFAULT_ADVANCED_ATTRIBUTE = new AdvancedAttribute();
-
 
     public static Empowerment createUnarmedEmpowerment() {
         Empowerment empowerment = mock(Empowerment.class);

@@ -1,6 +1,5 @@
 package bigfight.combat.fighter;
 
-import bigfight.combat.CombatTestUtil;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
@@ -91,9 +90,10 @@ class FighterTest {
 
         // test
         final double SELECT = 0;
-        final double NOT_SELECT = (1.0 / 2.0) * fastHands.getExtraChance() + EPSILON;
+        final double NOT_SELECT = fastHands.getInvocationChance() + EPSILON;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
+        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
         // test not selected by invocation chance
         testFighter.selectAuxiliarySkill(random);
@@ -109,7 +109,7 @@ class FighterTest {
         FightableWarrior mockWarrior = mock(FightableWarrior.class);
         ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
         SpecialSkillList specialSkillList = new SpecialSkillList();
-        specialSkillList.add(shadowMove.getUsableInstance());
+        specialSkillList.add(shadowMove);
         ActiveSkillList activeSkillList = new ActiveSkillList();
         activeSkillList.add(DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR));
         when(mockWarrior.getSpecialSkills()).thenReturn(specialSkillList);
@@ -118,9 +118,10 @@ class FighterTest {
 
         // test
         final double SELECT = 0;
-        final double NOT_SELECT = (1.0 / 2.0) * shadowMove.getInvocationChance() + EPSILON;
+        final double NOT_SELECT = shadowMove.getInvocationChance() + EPSILON;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
+        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
         // test not selected by invocation chance
         testFighter.selectAuxiliarySkill(random);
@@ -146,9 +147,10 @@ class FighterTest {
 
         // test
         final double SELECT = 0;
-        final double NOT_SELECT = (1.0 / 2.0) * mineWater.getInvocationChance() + EPSILON;
+        final double NOT_SELECT = mineWater.getInvocationChance() + EPSILON;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkillRandom()).thenReturn(NOT_SELECT).thenReturn(SELECT);
+        when(random.selectSpecialSkill(anyInt())).thenReturn(0);
+        when(random.selectAuxiliarySkill()).thenReturn(NOT_SELECT).thenReturn(SELECT);
         Fighter testFighter = new Fighter(mockWarrior);
         // test not selected by invocation chance
         testFighter.selectAuxiliarySkill(random);

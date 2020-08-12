@@ -16,7 +16,7 @@ public class FighterBuilderTestUtil {
     private BasicAttribute speed = new BasicAttribute(5);
     private int health = 100;
     private int level = 1;
-    private AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+    private AdvancedAttribute advancedAttribute = new AdvancedAttribute();;
     private Damage unarmedDamage = new Damage(10, 10);
     private DisposableWeaponList disposableWeaponList = new DisposableWeaponList();
     private ActiveSkillList activeSkillList = new ActiveSkillList();

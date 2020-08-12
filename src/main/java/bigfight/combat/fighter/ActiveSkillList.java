@@ -51,7 +51,7 @@ public class ActiveSkillList {
     }
 
     public Empowerment select(CombatRandom random) {
-        int luckyDraw = random.selectWhichEmpowerment(skillList.size());
+        int luckyDraw = random.selectActiveSkill(skillList.size());
         SkillModel skill = skillList.get(luckyDraw);
 
         // redraw in case of rare skill
@@ -59,7 +59,7 @@ public class ActiveSkillList {
             // only hitFromGod.getSeckillChance() of selecting this skill, else redraw
             HitFromGod hitFromGod = (HitFromGod) skill;
             if (random.getHitFromGodRandom() < (1 - hitFromGod.getSeckillChance())) {
-                luckyDraw = random.selectWhichEmpowerment(skillList.size());
+                luckyDraw = random.selectActiveSkill(skillList.size());
             }
         }
         return new Empowerment(skillList.get(luckyDraw));

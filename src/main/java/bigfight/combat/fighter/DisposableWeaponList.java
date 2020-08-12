@@ -26,7 +26,7 @@ public class DisposableWeaponList {
     }
 
     public Empowerment select(CombatRandom random) {
-        int luckyDraw = random.selectWhichEmpowerment(weaponArrayList.size());
+        int luckyDraw = random.selectWeapon(weaponArrayList.size());
         Empowerment empowerment = new Empowerment(weaponArrayList.get(luckyDraw));
         weaponArrayList.remove(luckyDraw);
         return empowerment;

@@ -10,10 +10,6 @@ public class CombatRandom extends Random{
         random = new Random();
     }
 
-    public double getRoundRandom() {
-        return random.nextDouble();
-    }
-
     public double getIgnoreRandom() {
         return random.nextDouble();
     }
@@ -46,11 +42,19 @@ public class CombatRandom extends Random{
         return random.nextInt(size);
     }
 
-    public int selectWhichEmpowerment(int size) {
+    public int selectWeapon(int size) {
         return random.nextInt(size);
     }
 
-    public double selectAuxiliarySkillRandom() {
+    public int selectActiveSkill(int size) {
+        return random.nextInt(size);
+    }
+
+    public int selectSpecialSkill(int size) {
+        return random.nextInt(size);
+    }
+
+    public double selectAuxiliarySkill() {
         return random.nextDouble();
     }
 

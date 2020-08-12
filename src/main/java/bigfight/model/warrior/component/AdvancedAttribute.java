@@ -8,7 +8,6 @@ public class AdvancedAttribute implements Cloneable{
     public double skillHitRate = 0;
     public double unarmedHitRate = 0;
 
-
     public double bigEvasionRate = 0;
     public double mediumEvasionRate = 0;
     public double smallEvasionRate = 0;

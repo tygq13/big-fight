@@ -11,4 +11,12 @@ public class SpecialSkill extends SkillModel {
     public SkillModel getUsableInstance() {
         return this;
     }
+
+    public boolean isAuxiliary() {
+        return false;
+    }
+
+    public double getInvocationChance() {
+        return 1;
+    }
 }

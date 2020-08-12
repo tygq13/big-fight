@@ -2,8 +2,6 @@ package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
-import bigfight.model.skill.skills.special.FastHands;
-import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -63,25 +61,21 @@ public class SpecialSkillList {
     }
 
     public void select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
-        if (contains(SkillIdentity.FAST_HANDS)) {
-            FastHands fastHands = (FastHands) get(SkillIdentity.FAST_HANDS);
-            double chance = (1.0 / baseSize) * fastHands.getExtraChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
+        int luckyDraw = random.selectSpecialSkill(baseSize);
+        SpecialSkill specialSkill = null;
+        if (luckyDraw < skillList.size()) {
+            specialSkill = (SpecialSkill) skillList.get(luckyDraw);
+        }
+        if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
+            if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
                 fighterFlag.fastHandsFlag = true;
             }
-        }
-        if (contains(SkillIdentity.SHADOW_MOVE)) {
-            ShadowMoveUsable shadowMove = (ShadowMoveUsable) get(SkillIdentity.SHADOW_MOVE);
-            double chance = (1.0 / baseSize) * shadowMove.getInvocationChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
+            if (specialSkill.getIdentity() == SkillIdentity.SHADOW_MOVE) {
                 fighterFlag.shadowMoveFlag = true;
+                ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkill.getUsableInstance();
                 fighterFlag.shadowMoveRound = shadowMove.getMaxRound();
             }
-        }
-        if (contains(SkillIdentity.MINE_WATER)) {
-            MineWater mineWater = (MineWater) get(SkillIdentity.MINE_WATER);
-            double chance = (1.0 / baseSize) * mineWater.getInvocationChance();
-            if (random.selectAuxiliarySkillRandom() < chance) {
+            if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
                 fighterFlag.mineWaterFlag = true;
             }
         }
