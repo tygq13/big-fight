@@ -23,7 +23,8 @@ public enum SkillIdentity {
     SHADOW_MOVE,
     MINE_WATER,
     GLUE,
-    ANGELS_WINGS;
+    ANGELS_WINGS,
+    FOSHAN_KICK;
 
 
     // use static constant to avoid copying of enum array

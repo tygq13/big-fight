@@ -296,4 +296,20 @@ class CombatEachSkillTest {
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
+
+    @Test
+    void foshan_kick_strength_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.FOSHAN_KICK);
+        FoshanKick foshanKick = (FoshanKick) skill;
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (foshanKick.getDamage() + (fighter1.getStrength() * foshanKick.getStrengthMultiply()));
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
 }

@@ -77,12 +77,17 @@ public class SkillAttack implements Attackable {
              case TORNADO: {
                  Tornado actualSkill = (Tornado) skill;
                  return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
-             } case HIT_FROM_GOD: {
+             }
+             case HIT_FROM_GOD: {
                  return defender.getHealth() - 1;
              }
              case ANGELS_WINGS: {
                  AngelsWings actualSkill = (AngelsWings) skill;
                  return actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
+             }
+             case FOSHAN_KICK: {
+                 FoshanKick actualSkill = (FoshanKick) skill;
+                 return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
              }
             default:
                 return 0;

@@ -327,6 +327,18 @@ public class SkillData {
             ANGELS_WINGS_ZERO
     );
 
+    private final SkillStruct FOSHAN_KICK_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "This is a popular shadowless kick technique in Foshan. It was created by the martial arts master, Fei-hong.\n" +
+                    "Cause damage of 30 + strength*0.5.\n",
+            SkillIdentity.FOSHAN_KICK,
+            "Foshan kick"
+    );
+
+    private final SkillStructArray FOSHAN_KICK_ARRAY = new SkillStructArray(
+            FOSHAN_KICK_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -353,7 +365,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY),
                     Map.entry(SkillIdentity.MINE_WATER, MINE_WATER_ARRAY),
                     Map.entry(SkillIdentity.GLUE, GLUE_ARRAY),
-                    Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY)
+                    Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY),
+                    Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY)
             )
     );
 

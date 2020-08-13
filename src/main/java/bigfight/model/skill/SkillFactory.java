@@ -65,6 +65,8 @@ public class SkillFactory {
                 return new Glue(skillData.getWithStar(identity, 0));
             case ANGELS_WINGS:
                 return new AngelsWings(skillData.getWithStar(identity, 0));
+            case FOSHAN_KICK:
+                return new FoshanKick(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }
