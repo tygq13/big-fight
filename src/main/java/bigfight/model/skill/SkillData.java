@@ -237,6 +237,18 @@ public class SkillData {
             HEAVY_USUAL_ZERO
     );
 
+    private final SkillStruct OPT_FOR_LIGHTNESS_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "You of featherweight have your own secret skill.\n" +
+                    "Increase 15% damage of small and medium weapons. Increase 20% evasion to big weapons.\n",
+            SkillIdentity.OPT_FOR_LIGHTNESS,
+            "opt for lightness"
+    );
+
+    private final SkillStructArray OPT_FOR_LIGHTNESS_ARRAY = new SkillStructArray(
+            OPT_FOR_LIGHTNESS_ZERO
+    );
+
     private final SkillStruct HIT_FROM_GOD_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "The legendary skill that can seckill your opponent.\n" +
@@ -323,6 +335,7 @@ public class SkillData {
                     Map.entry(SkillIdentity.RIPPLESLESS_STEPS, RIPPLELESS_STEPS_ARRAY),
                     Map.entry(SkillIdentity.TORNADO, TORNADO_ARRAY),
                     Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY),
+                    Map.entry(SkillIdentity.OPT_FOR_LIGHTNESS, OPT_FOR_LIGHTNESS_ARRAY),
                     Map.entry(SkillIdentity.HIT_FROM_GOD, HIT_FROM_GOD_ARRAY),
                     Map.entry(SkillIdentity.DISARM, DISARM_ARRAY),
                     Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY),

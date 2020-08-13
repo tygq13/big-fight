@@ -84,7 +84,7 @@ public class PermanentSkillTest {
         double smallExpected = testWarrior.getAdvancedAttribute().smallExtraPercentageDamage + weaponsHandy.getExtra();
         double throwExpected = testWarrior.getAdvancedAttribute().throwExtraPercentageDamage + weaponsHandy.getExtra();
 
-        weaponsHandy.upgrade(testWarrior.getAdvancedAttribute());
+        weaponsHandy.upgrade(testWarrior.getAttribute());
         assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigExtraPercentageDamage);
         assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage);
         assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallExtraPercentageDamage);
@@ -97,7 +97,7 @@ public class PermanentSkillTest {
         BodyCombatSkilled bodyCombatSkilled = (BodyCombatSkilled) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BODY_COMBAT_SKILLED);
         double expected = testWarrior.getAdvancedAttribute().unarmedExtraPercentageDamage + bodyCombatSkilled.getExtra();
 
-        bodyCombatSkilled.upgrade(testWarrior.getAdvancedAttribute());
+        bodyCombatSkilled.upgrade(testWarrior.getAttribute());
         assertEquals(expected, testWarrior.getAdvancedAttribute().unarmedExtraPercentageDamage);
     }
 
@@ -107,7 +107,7 @@ public class PermanentSkillTest {
         SixSense sixthSense = (SixSense) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SIXTH_SENSE);
         double expected = testWarrior.getAdvancedAttribute().counterAttackChance + sixthSense.getChance();
 
-        sixthSense.upgrade(testWarrior.getAdvancedAttribute());
+        sixthSense.upgrade(testWarrior.getAttribute());
         assertEquals(expected, testWarrior.getAdvancedAttribute().counterAttackChance);
     }
 
@@ -121,7 +121,7 @@ public class PermanentSkillTest {
         double throwExpected = testWarrior.getAdvancedAttribute().antiThrowExtraPercentageDamage + stoneSkin.getExtra();
         double unarmedExpected = testWarrior.getAdvancedAttribute().antiUnarmedExtraPercentageDamage + stoneSkin.getExtra();
 
-        stoneSkin.upgrade(testWarrior.getAdvancedAttribute());
+        stoneSkin.upgrade(testWarrior.getAttribute());
         assertEquals(bigExpected, testWarrior.getAdvancedAttribute().antiBigExtraPercentageDamage);
         assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().antiMediumExtraPercentageDamage);
         assertEquals(smallExpected, testWarrior.getAdvancedAttribute().antiSmallExtraPercentageDamage);
@@ -140,7 +140,7 @@ public class PermanentSkillTest {
         double unarmedExpected = testWarrior.getAdvancedAttribute().unarmedEvasionRate + ripplelessSteps.getEvasion();
         double skillExpected = testWarrior.getAdvancedAttribute().skillEvasionRate + ripplelessSteps.getEvasion();
 
-        ripplelessSteps.upgrade(testWarrior.getAdvancedAttribute());
+        ripplelessSteps.upgrade(testWarrior.getAttribute());
         assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigEvasionRate);
         assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().mediumEvasionRate);
         assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallEvasionRate);
@@ -153,10 +153,24 @@ public class PermanentSkillTest {
     void heavy_usual_upgrade_correct() {
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
         HeavyUsual heavyUsual = (HeavyUsual) DEFAULT_SKILL_FACTORY.create(SkillIdentity.HEAVY_USUAL);
-        double bigExpected = testWarrior.getAdvancedAttribute().bigExtraDamage + heavyUsual.getExtraDamage();
+        double bigExpected = testWarrior.getAdvancedAttribute().bigExtraPercentageDamage + heavyUsual.getExtraDamage();
 
-        heavyUsual.upgrade(testWarrior.getAdvancedAttribute());
-        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigExtraDamage);
+        heavyUsual.upgrade(testWarrior.getAttribute());
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigExtraPercentageDamage);
+    }
+
+    @Test
+    void opt_for_lightness_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        OptForLightness optForLightness = (OptForLightness) DEFAULT_SKILL_FACTORY.create(SkillIdentity.OPT_FOR_LIGHTNESS);
+        double smallExpected = testWarrior.getAdvancedAttribute().smallExtraPercentageDamage + optForLightness.getSmallMeiumExtraDamage();
+        double mediumExpected = testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage + optForLightness.getSmallMeiumExtraDamage();
+        double bigExpected = testWarrior.getAdvancedAttribute().bigEvasionRate + optForLightness.getBigEvasion();
+
+        optForLightness.upgrade(testWarrior.getAttribute());
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallExtraPercentageDamage);
+        assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().mediumExtraPercentageDamage);
+        assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigEvasionRate);
     }
 
 }

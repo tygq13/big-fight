@@ -1,8 +1,6 @@
 package bigfight.model.skill.skills.permanent;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.component.Attribute;
 
 public class HeavyUsual extends PermanentSkill{
@@ -14,12 +12,8 @@ public class HeavyUsual extends PermanentSkill{
         return HEAVY_USUAL_ZERO;
     }
 
-    public void upgrade(AdvancedAttribute advancedAttribute) {
-        advancedAttribute.bigExtraDamage += getExtraDamage();
-    }
-
     @Override
     public void upgrade(Attribute attribute) {
-        attribute.getAdvancedAttribute().bigExtraDamage += getExtraDamage();
+        attribute.getAdvancedAttribute().bigExtraPercentageDamage += getExtraDamage();
     }
 }

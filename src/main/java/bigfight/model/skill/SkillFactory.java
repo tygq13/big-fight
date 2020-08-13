@@ -51,6 +51,8 @@ public class SkillFactory {
                 return new Tornado(skillData.getWithStar(identity, 0));
             case HEAVY_USUAL:
                 return new HeavyUsual(skillData.getWithStar(identity, 0));
+            case OPT_FOR_LIGHTNESS:
+                return new OptForLightness(skillData.getWithStar(identity, 0));
             case HIT_FROM_GOD:
                 return new HitFromGod(skillData.getWithStar(identity, 0));
             case DISARM:

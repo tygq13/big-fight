@@ -17,6 +17,7 @@ public enum SkillIdentity {
     RIPPLESLESS_STEPS,
     TORNADO,
     HEAVY_USUAL,
+    OPT_FOR_LIGHTNESS,
     HIT_FROM_GOD,
     DISARM,
     SHADOW_MOVE,
