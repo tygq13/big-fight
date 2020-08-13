@@ -3,6 +3,7 @@ package bigfight.combat.fighter;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
+import bigfight.model.weapon.struct.WeaponType;
 
 import java.util.ArrayList;
 
@@ -25,9 +26,14 @@ public class DisposableWeaponList {
         weaponArrayList.add(weapon);
     }
 
-    public Empowerment select(CombatRandom random) {
+    public Empowerment select(CombatRandom random, FighterFlag flag) {
         int luckyDraw = random.selectWeapon(weaponArrayList.size());
-        Empowerment empowerment = new Empowerment(weaponArrayList.get(luckyDraw));
+        Weapon weapon = weaponArrayList.get(luckyDraw);
+        if (flag.beingGlued && weapon.getType() != WeaponType.THROW) {
+            flag.ignoredByUnselection = true;
+            return new Empowerment((Weapon) null);
+        }
+        Empowerment empowerment = new Empowerment(weapon);
         weaponArrayList.remove(luckyDraw);
         return empowerment;
     }

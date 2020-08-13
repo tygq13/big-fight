@@ -19,7 +19,7 @@ import bigfight.ui.Uiable;
 import org.junit.jupiter.api.Test;
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static bigfight.model.weapon.WeaponFactoryTestUtil.DEFAULT_WEAPON_FACTORY;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -261,6 +261,24 @@ class CombatEachSkillTest {
         final int EXPECTED_HEALTH = fighter.getHealth() + (int) (mineWater.getRegeneratePercentage() * 100);
         fighter.updateStatusByFlag();
         assertEquals(EXPECTED_HEALTH, fighter.getHealth());
+    }
+
+    @Test
+    void glue_increases_ignore_when_select_non_throw() {
+        final double NOT_SELECT_UNARMED = 1.0;
+        final int SELECT_BIG_WEAPON = 0;
+        Fighter fighter = new FighterBuilderTestUtil()
+                .withWeapon(CombatTestUtil.createBigWeapon())
+                .build();
+        fighter.getFighterFlag().beingGlued = true;
+        assertFalse(fighter.getFighterFlag().ignoredByUnselection);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectUnarmed()).thenReturn(NOT_SELECT_UNARMED);
+        when(random.selectWeapon(anyInt())).thenReturn(SELECT_BIG_WEAPON);
+        // test
+        Empowerment empowerment = fighter.selectEmpowerment(random);
+        assertNull(empowerment.getWeapon());
+        assertTrue(fighter.getFighterFlag().ignoredByUnselection);
     }
 
 }

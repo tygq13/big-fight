@@ -1,6 +1,7 @@
 package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.Glue;
 import bigfight.model.skill.skills.HitFromGod;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -58,7 +59,14 @@ public class ActiveSkillList {
         if (skill.getIdentity() == SkillIdentity.HIT_FROM_GOD) {
             // only hitFromGod.getSeckillChance() of selecting this skill, else redraw
             HitFromGod hitFromGod = (HitFromGod) skill;
-            if (random.getHitFromGodRandom() < (1 - hitFromGod.getSeckillChance())) {
+            if (random.getHitFromGodRandom() < (1 - hitFromGod.getInvocationChance())) {
+                luckyDraw = random.selectActiveSkill(skillList.size());
+            }
+        }
+        if (skill.getIdentity() == SkillIdentity.GLUE) {
+            // only hitFromGod.getSeckillChance() of selecting this skill, else redraw
+            Glue glue = (Glue) skill;
+            if (random.getGlueRandom() < (1 - glue.getInvocationChance())) {
                 luckyDraw = random.selectActiveSkill(skillList.size());
             }
         }

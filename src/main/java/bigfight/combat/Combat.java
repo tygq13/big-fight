@@ -37,10 +37,14 @@ public class Combat {
         return opponent.getHealth() <= 0;
     }
 
-    private void startRound(Fighter attackerStatus, Fighter defenderStatus, CombatRandom rand) {
-        Empowerment empowerment = selectEmpowerment(attackerStatus, defenderStatus, rand);
-        attackerStatus.selectAuxiliarySkill(rand);
-        new Round(attackerStatus, defenderStatus, empowerment, rand, ui).fight();
+    private void startRound(Fighter attacker, Fighter defender, CombatRandom rand) {
+        Empowerment empowerment = selectEmpowerment(attacker, defender, rand);
+        // bad implementation, find a better way to change this
+        if (attacker.getFighterFlag().ignoredByUnselection) {
+            return;
+        }
+        attacker.selectAuxiliarySkill(rand);
+        new Round(attacker, defender, empowerment, rand, ui).fight();
     }
 
     private int decideFirstRound() {

@@ -9,7 +9,7 @@ public class HitFromGod extends SkillModel {
         super(skill);
     }
 
-    public double getSeckillChance() {
+    public double getInvocationChance() {
         return SECKILL_CHANCE_ONE;
     }
 }

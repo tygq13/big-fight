@@ -119,7 +119,7 @@ public class Fighter {
         }
         int weaponOrSkill = random.selectWeaponOrSkill(totalSize);
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
-            return weaponList.select(random);
+            return weaponList.select(random, fighterFlag);
         } else {
             // create skills
             return activeSkillList.select(random);

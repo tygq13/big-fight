@@ -1,8 +1,9 @@
-package bigfight.model.skill.skills.special;
+package bigfight.model.skill.skills;
 
+import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillStruct;
 
-public class Glue extends SpecialSkill {
+public class Glue extends SkillModel {
     final double GLUE_CHANCE_ZERO = 0.1;
 
     public Glue(SkillStruct skill) {
