@@ -1,8 +1,6 @@
 package bigfight.model.skill.skills.permanent;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.component.Attribute;
 
 public class RipplelessSteps extends PermanentSkill {
@@ -12,15 +10,6 @@ public class RipplelessSteps extends PermanentSkill {
 
     public double getEvasion() {
         return RIPPLELESS_STESPS_ZERO;
-    }
-
-    public void upgrade(AdvancedAttribute advancedAttribute) {
-        advancedAttribute.bigEvasionRate += getEvasion();
-        advancedAttribute.mediumEvasionRate += getEvasion();
-        advancedAttribute.smallEvasionRate += getEvasion();
-        advancedAttribute.throwEvasionRate += getEvasion();
-        advancedAttribute.unarmedEvasionRate += getEvasion();
-        advancedAttribute.skillEvasionRate += getEvasion();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package bigfight.model.skill.skills.permanent;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.component.Attribute;
 
 public class OptForLightness extends PermanentSkill{

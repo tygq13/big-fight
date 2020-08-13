@@ -1,9 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.Attribute;
-import bigfight.model.warrior.component.BasicAttribute;
 
 public class StrongPhysique extends PermanentSkill {
     private final double STRONG_PHYSIQUE_ZERO_MULTIPLY = 0.15;
@@ -19,12 +17,6 @@ public class StrongPhysique extends PermanentSkill {
 
     public int getAddition() {
         return STRONG_PHYSIQUE_ZERO_ADDITION;
-    }
-
-
-    public void upgrade(BasicAttribute health) {
-        int addition = (int) (health.getBase() * STRONG_PHYSIQUE_ZERO_MULTIPLY + STRONG_PHYSIQUE_ZERO_ADDITION);
-        health.addToAddition(addition);
     }
 
     @Override

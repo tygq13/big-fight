@@ -16,11 +16,11 @@ public class PermanentSkillTest {
         final int STRENGTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(STRENGTH, 1,1,1,1);
         BornAsStrong bornAsStrong = (BornAsStrong) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BORN_AS_STRONG);
-        bornAsStrong.upgrade(testWarrior.getStrengthObj());
+        bornAsStrong.upgrade(testWarrior.getAttribute());
         int expectedBase = STRENGTH;
         int expectedTotal = expectedBase + (int) (expectedBase * bornAsStrong.getMultiply()) + bornAsStrong.getAddition();
         assertEquals(expectedBase, testWarrior.getStrengthObj().getBase());
-        assertEquals(expectedTotal, testWarrior.getStrength());
+        assertEquals(expectedTotal, testWarrior.getStrengthObj().value());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class PermanentSkillTest {
         final int AGILITY = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, AGILITY,1,1,1);
         AgileBody agileBody = (AgileBody) DEFAULT_SKILL_FACTORY.create(SkillIdentity.AGILE_BODY);
-        agileBody.upgrade(testWarrior.getAgilityObj());
+        agileBody.upgrade(testWarrior.getAttribute());
         int expectedBase = AGILITY;
         int expectedTotal = expectedBase + (int) (expectedBase * agileBody.getMultiply()) + agileBody.getAddition();
         assertEquals(expectedBase, testWarrior.getAgilityObj().getBase());
@@ -40,7 +40,7 @@ public class PermanentSkillTest {
         final int SPEED = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1,SPEED,1,1);
         AStepAhead aStepAhead = (AStepAhead) DEFAULT_SKILL_FACTORY.create(SkillIdentity.A_STEP_AHEAD);
-        aStepAhead.upgrade(testWarrior.getSpeedObj());
+        aStepAhead.upgrade(testWarrior.getAttribute());
         int expectedBase = SPEED;
         int expectedTotal = expectedBase + (int) (expectedBase * aStepAhead.getMultiply()) + aStepAhead.getAddition();
         assertEquals(expectedBase, testWarrior.getSpeedObj().getBase());
@@ -52,7 +52,7 @@ public class PermanentSkillTest {
         final int HEALTH = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,HEALTH,1);
         StrongPhysique strongPhysique = (StrongPhysique) DEFAULT_SKILL_FACTORY.create(SkillIdentity.STRONG_PHYSIQUE);
-        strongPhysique.upgrade(testWarrior.getHealthObj());
+        strongPhysique.upgrade(testWarrior.getAttribute());
         int expectedBase = HEALTH;
         int expectedTotal = expectedBase + (int) (expectedBase * strongPhysique.getMultiply()) + strongPhysique.getAddition();
         assertEquals(expectedBase, testWarrior.getHealthObj().getBase());
@@ -64,7 +64,7 @@ public class PermanentSkillTest {
         final int BASE = 100;
         Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(BASE, BASE, BASE,1,1);
         BalancedGrowth balancedGrowth = (BalancedGrowth) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BALANCED_GROWTH);
-        balancedGrowth.upgrade(testWarrior.getStrengthObj(), testWarrior.getAgilityObj(), testWarrior.getSpeedObj());
+        balancedGrowth.upgrade(testWarrior.getAttribute());
         int expectedBase = BASE;
         int expectedTotal = expectedBase + (int) (expectedBase * balancedGrowth.getMultiply()) + balancedGrowth.getAddition();
         assertEquals(expectedBase, testWarrior.getStrengthObj().getBase());

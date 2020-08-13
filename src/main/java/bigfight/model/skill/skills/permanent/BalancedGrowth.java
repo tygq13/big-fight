@@ -1,9 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.Attribute;
-import bigfight.model.warrior.component.BasicAttribute;
 
 public class BalancedGrowth extends PermanentSkill {
     private final double BALANCED_GROWTH_ZERO_MULTIPLY = 0.2;
@@ -19,17 +17,6 @@ public class BalancedGrowth extends PermanentSkill {
 
     public int getAddition() {
         return BALANCED_GROWTH_ZERO_ADDITION;
-    }
-
-
-    public void upgrade(BasicAttribute strength, BasicAttribute agility, BasicAttribute speed) {
-        int addition;
-        addition = (int) (strength.getBase() * BALANCED_GROWTH_ZERO_MULTIPLY + BALANCED_GROWTH_ZERO_ADDITION);
-        strength.addToAddition(addition);
-        addition = (int) (agility.getBase() * BALANCED_GROWTH_ZERO_MULTIPLY + BALANCED_GROWTH_ZERO_ADDITION);
-        agility.addToAddition(addition);
-        addition = (int) (speed.getBase() * BALANCED_GROWTH_ZERO_MULTIPLY + BALANCED_GROWTH_ZERO_ADDITION);
-        speed.addToAddition(addition);
     }
 
     @Override
