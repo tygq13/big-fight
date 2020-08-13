@@ -63,6 +63,8 @@ public class SkillFactory {
                 return new MineWater(skillData.getWithStar(identity, 0));
             case GLUE:
                 return new Glue(skillData.getWithStar(identity, 0));
+            case ANGELS_WINGS:
+                return new AngelsWings(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

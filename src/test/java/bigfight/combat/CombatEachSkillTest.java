@@ -281,4 +281,19 @@ class CombatEachSkillTest {
         assertTrue(fighter.getFighterFlag().ignoredByUnselection);
     }
 
+    @Test
+    void angels_wings_agility_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ANGELS_WINGS);
+        AngelsWings angelsWings = (AngelsWings) skill;
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (angelsWings.getDamage() + (fighter1.getAgility() * angelsWings.getAgilityMultiply()));
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
 }

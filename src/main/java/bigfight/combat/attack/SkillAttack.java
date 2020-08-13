@@ -80,6 +80,10 @@ public class SkillAttack implements Attackable {
              } case HIT_FROM_GOD: {
                  return defender.getHealth() - 1;
              }
+             case ANGELS_WINGS: {
+                 AngelsWings actualSkill = (AngelsWings) skill;
+                 return actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
+             }
             default:
                 return 0;
         }

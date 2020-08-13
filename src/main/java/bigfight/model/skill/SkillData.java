@@ -315,6 +315,18 @@ public class SkillData {
             GLUE_ZERO
     );
 
+    private final SkillStruct ANGELS_WINGS_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "True warriors fight in the sky.\n" +
+                    "Cause damage of 15 + agility*100%. Unable to be counter-attacked.\n",
+            SkillIdentity.ANGELS_WINGS,
+            "angel's wings"
+    );
+
+    private final SkillStructArray ANGELS_WINGS_ARRAY = new SkillStructArray(
+            ANGELS_WINGS_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -340,7 +352,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.DISARM, DISARM_ARRAY),
                     Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY),
                     Map.entry(SkillIdentity.MINE_WATER, MINE_WATER_ARRAY),
-                    Map.entry(SkillIdentity.GLUE, GLUE_ARRAY)
+                    Map.entry(SkillIdentity.GLUE, GLUE_ARRAY),
+                    Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY)
             )
     );
 
