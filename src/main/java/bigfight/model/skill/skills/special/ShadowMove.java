@@ -35,11 +35,6 @@ public class ShadowMove extends SpecialSkill {
     }
 
     @Override
-    public SkillModel getUsableInstance() {
-        return new ShadowMoveUsable(skill, getSpeedMultiply(), getDamageMultiply(), getMaxRound(), getInvocationChance());
-    }
-
-    @Override
     public boolean isAuxiliary() {
         return true;
     }

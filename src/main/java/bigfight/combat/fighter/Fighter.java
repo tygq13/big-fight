@@ -7,7 +7,6 @@ import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
-import bigfight.model.skill.skills.special.ShadowMoveUsable;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
@@ -117,7 +116,10 @@ public class Fighter {
     // nice fun to have, isn't it?
     public void selectAuxiliarySkill(CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        specialSkillList.select(fighterFlag, random, totalSize);
+        Buff buff = specialSkillList.select(fighterFlag, random, totalSize);
+        if (buff != null) {
+            addBuff(buff);
+        }
     }
 
     public Empowerment selectEmpowerment(CombatRandom random) {
@@ -142,17 +144,6 @@ public class Fighter {
                 advancedAttribute.doubleHitChance += fastHands.getDoubleHit();
             } else {
                 advancedAttribute.doubleHitChance -= fastHands.getDoubleHit();
-            }
-        }
-        if (fighterFlag.shadowMoveFlag) {
-            // todo: throw exception if doesn't have
-            ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
-            if (fighterFlag.shadowMoveRound == 0) {
-                fighterFlag.shadowMoveFlag = false;
-                shadowMove.unInvoke(advancedAttribute, speed);
-            } else {
-                fighterFlag.shadowMoveRound -= 1;
-                shadowMove.invoke(advancedAttribute, speed);
             }
         }
         if (fighterFlag.mineWaterFlag) {

@@ -1,8 +1,10 @@
 package bigfight.combat.fighter;
 
+import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
-import bigfight.model.skill.skills.special.ShadowMoveUsable;
+import bigfight.model.skill.skills.special.FastHands;
+import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
@@ -60,7 +62,7 @@ public class SpecialSkillList {
         return false;
     }
 
-    public void select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
+    public Buff select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
         int luckyDraw = random.selectSpecialSkill(baseSize);
         SpecialSkill specialSkill = null;
         if (luckyDraw < skillList.size()) {
@@ -68,17 +70,17 @@ public class SpecialSkillList {
         }
         if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
-                fighterFlag.fastHandsFlag = true;
-                fighterFlag.fastHandsUsed = false;
+                FastHands fastHands = (FastHands) specialSkill;
+                return fastHands.createBuff();
             }
             if (specialSkill.getIdentity() == SkillIdentity.SHADOW_MOVE) {
-                fighterFlag.shadowMoveFlag = true;
-                ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkill.getUsableInstance();
-                fighterFlag.shadowMoveRound = shadowMove.getMaxRound();
+                ShadowMove shadowMove = (ShadowMove) specialSkill;
+                return shadowMove.createBuff();
             }
             if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
                 fighterFlag.mineWaterFlag = true;
             }
         }
+        return null;
     }
 }

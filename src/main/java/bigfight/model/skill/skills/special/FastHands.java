@@ -1,5 +1,7 @@
 package bigfight.model.skill.skills.special;
 
+import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.buff.FastHandsBuff;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class FastHands extends SpecialSkill {
@@ -21,4 +23,9 @@ public class FastHands extends SpecialSkill {
     public boolean isAuxiliary() {
         return true;
     }
+
+    public Buff createBuff() {
+        return new FastHandsBuff(this);
+    }
+
 }

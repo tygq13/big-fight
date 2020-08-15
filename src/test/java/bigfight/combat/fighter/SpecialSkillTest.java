@@ -1,6 +1,9 @@
 package bigfight.combat.fighter;
 
+import bigfight.combat.Combat;
+import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
@@ -8,6 +11,9 @@ import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+import java.util.Map;
 
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,28 +39,28 @@ public class SpecialSkillTest {
 
     @Test
     void selectAuxiliarySkill_fast_hand_activated() {
+        final double SELECT = -1.0;
+        SpecialSkillList specialSkillList = new SpecialSkillList();
         FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
-        Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(fastHands)
-                .build();
-
-        // test
-        assertFalse(testFighter.getFighterFlag().fastHandsFlag);
-        testFighter.selectAuxiliarySkill(mock(CombatRandom.class));
-        assertTrue(testFighter.getFighterFlag().fastHandsFlag);
+        FastHands spy = spy(fastHands);
+        specialSkillList.add(spy);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        specialSkillList.select(new FighterFlag(), random, 1);
+        verify(spy).createBuff();
     }
 
     @Test
     void selectAuxiliarySkill_shadow_move_activated() {
+        final double SELECT = -1.0;
+        SpecialSkillList specialSkillList = new SpecialSkillList();
         ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
-        Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(shadowMove)
-                .build();
-
-        // test
-        assertFalse(testFighter.getFighterFlag().shadowMoveFlag);
-        testFighter.selectAuxiliarySkill(mock(CombatRandom.class));
-        assertTrue(testFighter.getFighterFlag().shadowMoveFlag);
+        ShadowMove spy = spy(shadowMove);
+        specialSkillList.add(spy);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        specialSkillList.select(new FighterFlag(), random, 1);
+        verify(spy).createBuff();
     }
 
     @Test
