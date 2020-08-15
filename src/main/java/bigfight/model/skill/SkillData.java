@@ -53,7 +53,9 @@ public class SkillData {
             "Your fierce roar scares enemies away.\n" +
                     "Ignore opponent's next round if hit. Cause damage 15.",
             SkillIdentity.ROAR,
-            "roar"
+            "roar",
+            "sums up his courage and seems unaffected by the attack. ",
+            "roars in anger, as if the king of beasts to scare the enemy away. "
     );
 
     private final SkillStructArray ROAR_ARRAY = new SkillStructArray(

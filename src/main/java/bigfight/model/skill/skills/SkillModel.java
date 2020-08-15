@@ -21,6 +21,10 @@ public class SkillModel{
         return skill.description;
     }
 
+    public String getAttackDescription() {return skill.attackString;}
+
+    public String getDodgeDescription() {return skill.dodgeString;}
+
     public SkillType getType() {
         return skill.type;
     }

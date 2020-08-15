@@ -39,18 +39,11 @@ public class SkillAttack implements Attackable {
         // should add exception if not initialized;
         double escape = defender.getAdvancedAttribute().skillEvasionRate - attacker.getAdvancedAttribute().skillHitRate;
         escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        int damage = getSkillDamage();
+        ui.printSkillAttack(skill.getAttackDescription(), attacker.getName());
         if (random.getEscapeRandom() < escape) {
-            ui.printSkillRoarDodge(defender.getName());
+            ui.printSkillDodge(skill.getDodgeDescription(), defender.getName());
         } else {
-            // bad bad bad!!! change this
-            if (skill.getIdentity() == SkillIdentity.TICKLE) {
-                Tickle tickle = (Tickle) skill;
-                defender.addBuff(tickle.createBuff(damage));
-            }
-            if (skill.getIdentity() == SkillIdentity.GLUE) {
-                defender.getFighterFlag().beingGlued = true;
-            }
+            int damage = getSkillDamage();
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -73,38 +66,31 @@ public class SkillAttack implements Attackable {
 
     private int getSkillDamage() {
          switch (skill.getIdentity()) {
-            case ROAR: {
-                Roar actualSkill = (Roar) skill;
-                ui.printSkillRoarAttack(attacker.getName());
-                return actualSkill.getDamage();
-            }
-             case BOLT_FROM_THE_BLUE: {
-                 BoltFromTheBlue actualSkill = (BoltFromTheBlue) skill;
-                 return actualSkill.getDamage() + (int) (attacker.getLevel() * actualSkill.getLevelMultiply());
-             }
-             case TORNADO: {
-                 Tornado actualSkill = (Tornado) skill;
-                 return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
-             }
-             case ONE_PUNCH: {
+            case ROAR:
+                Roar roar = (Roar) skill;
+                return roar.getDamage();
+             case BOLT_FROM_THE_BLUE:
+                 BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
+                 return boltFromTheBlue.getDamage() + (int) (attacker.getLevel() * boltFromTheBlue.getLevelMultiply());
+             case TORNADO:
+                 Tornado tornado = (Tornado) skill;
+                 return tornado.getDamage() + (int) (attacker.getStrength() * tornado.getStrengthMultiply());
+             case ONE_PUNCH:
                  return defender.getHealth() - 1;
-             }
-             case ANGELS_WINGS: {
-                 AngelsWings actualSkill = (AngelsWings) skill;
-                 return actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
-             }
-             case FOSHAN_KICK: {
-                 FoshanKick actualSkill = (FoshanKick) skill;
-                 return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
-             }
-             case GLUE: {
-                 Glue actualSkill = (Glue) skill;
+             case ANGELS_WINGS:
+                 AngelsWings angelsWings = (AngelsWings) skill;
+                 return angelsWings.getDamage() + (int) (attacker.getAgility() * angelsWings.getAgilityMultiply());
+             case FOSHAN_KICK:
+                 FoshanKick foshanKick = (FoshanKick) skill;
+                 return foshanKick.getDamage() + (int) (attacker.getStrength() * foshanKick.getStrengthMultiply());
+             case GLUE:
+                 defender.getFighterFlag().beingGlued = true;
                  return 0;
-             }
-             case TICKLE: {
-                 Tickle actualSkill = (Tickle) skill;
-                 return actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
-             }
+             case TICKLE:
+                 Tickle tickle = (Tickle) skill;
+                 int damage = tickle.getDamage() + (int) (attacker.getAgility() * tickle.getAgilityMultiply());
+                 defender.addBuff(tickle.createBuff(damage));
+                 return damage;
             default:
                 return 0;
         }

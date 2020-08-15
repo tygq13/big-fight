@@ -23,7 +23,6 @@ public class SpecialSkillTest {
         final double INVOCATION_CHANCE = 0.2;
         SpecialSkill specialSkill = spy(mock(SpecialSkill.class));
         when(specialSkill.getType()).thenReturn(SkillType.SPECIAL);
-        when(specialSkill.isAuxiliary()).thenReturn(true);
         when(specialSkill.getInvocationChance()).thenReturn(INVOCATION_CHANCE);
         Fighter testFighter = new FighterBuilderTestUtil()
                 .withSkill(specialSkill)

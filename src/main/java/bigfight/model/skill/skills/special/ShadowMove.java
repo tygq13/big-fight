@@ -34,11 +34,6 @@ public class ShadowMove extends SpecialSkill {
         return MAX_ROUND;
     }
 
-    @Override
-    public boolean isAuxiliary() {
-        return true;
-    }
-
     public Buff createBuff() {
         return new ShadowMoveBuff(this);
     }

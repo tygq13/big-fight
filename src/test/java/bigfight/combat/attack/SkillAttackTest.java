@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 class SkillAttackTest {
 
     @Test
-    void ui_is_executed_in_roar_attack_and_escape() {
+    void ui_is_executed_i_attack_and_escape_example_roar() {
         double ESCAPE = -1.0;
         EnUi ui = mock(EnUi.class);
         EnUi uiSpy = spy(ui);
@@ -27,7 +27,7 @@ class SkillAttackTest {
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
         SkillAttack test = new SkillAttack(fighter1, fighter2, roar, random, uiSpy);
         test.attack();
-        verify(uiSpy, atLeastOnce()).printSkillRoarAttack(any());
-        verify(uiSpy, atLeastOnce()).printSkillRoarDodge(any());
+        verify(uiSpy, atLeastOnce()).printSkillAttack(any(), any());
+        verify(uiSpy, atLeastOnce()).printSkillDodge(any(), any());
     }
 }

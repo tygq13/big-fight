@@ -12,10 +12,6 @@ public class SpecialSkill extends SkillModel {
         return this;
     }
 
-    public boolean isAuxiliary() {
-        return false;
-    }
-
     public double getInvocationChance() {
         return 1;
     }

@@ -19,11 +19,6 @@ public class FastHands extends SpecialSkill {
             return FAST_HANDS_ZERO;
     }
 
-    @Override
-    public boolean isAuxiliary() {
-        return true;
-    }
-
     public Buff createBuff() {
         return new FastHandsBuff(this);
     }

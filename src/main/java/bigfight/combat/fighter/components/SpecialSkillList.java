@@ -70,7 +70,7 @@ public class SpecialSkillList {
         if (luckyDraw < skillList.size()) {
             specialSkill = (SpecialSkill) skillList.get(luckyDraw);
         }
-        if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
+        if (specialSkill != null && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
                 FastHands fastHands = (FastHands) specialSkill;
                 return fastHands.createBuff();
@@ -89,7 +89,7 @@ public class SpecialSkillList {
         if (luckyDraw < skillList.size()) {
             specialSkill = (SpecialSkill) skillList.get(luckyDraw);
         }
-        if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
+        if (specialSkill != null && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
                 MineWater mineWater = (MineWater) specialSkill;
                 mineWater.updateHealth(health);
