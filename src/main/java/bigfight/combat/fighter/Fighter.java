@@ -2,9 +2,9 @@ package bigfight.combat.fighter;
 
 import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.fighter.buff.Buffs;
+import bigfight.combat.fighter.components.*;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -19,8 +19,7 @@ public class Fighter {
     private BasicAttribute speed;
     private BasicAttribute strength;
     private BasicAttribute agility;
-    private int health;
-    private int maxHealth;
+    private Health health;
     private int level;
     private AdvancedAttribute advancedAttribute;
     private Damage unarmedDamage;
@@ -36,8 +35,7 @@ public class Fighter {
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
         agility = warrior.getAgility();
-        health = warrior.getHealthValue();
-        maxHealth = warrior.getHealthValue();
+        health = new Health(warrior.getHealthValue());
         level = warrior.getLevel();
         advancedAttribute = warrior.getWeaponAttribute();
         unarmedDamage = warrior.getUnarmedDamage();
@@ -73,15 +71,15 @@ public class Fighter {
     }
 
     public int getHealth() {
-        return health;
+        return health.value();
     }
 
     public int getLevel() {
         return level;
     }
 
-    public void updateHealth(int newHealth) {
-        health = newHealth <= maxHealth ? newHealth : maxHealth;
+    public void updateHealth(int value) {
+        health.update(value);
     }
 
     public Damage getUnarmedDamage() {
@@ -140,12 +138,12 @@ public class Fighter {
         if (fighterFlag.mineWaterFlag) {
             MineWater mineWater = (MineWater) specialSkillList.get(SkillIdentity.MINE_WATER);
             int minimum = (int) (mineWater.getRegeneratePercentage() * 100);
-            int regen = minimum > maxHealth * mineWater.getRegeneratePercentage() ? minimum : (int) (maxHealth * mineWater.getRegeneratePercentage());
-            updateHealth(health + regen);
+            int regen = minimum > health.getMaxHealth() * mineWater.getRegeneratePercentage() ? minimum : (int) (health.getMaxHealth() * mineWater.getRegeneratePercentage());
+            updateHealth(getHealth() + regen);
         }
         if (fighterFlag.tickledRounds > 0) {
             // untested, not deal with case of death
-            updateHealth(health - getFighterFlag().tickledDamage);
+            updateHealth(getHealth() - getFighterFlag().tickledDamage);
             fighterFlag.tickledRounds -= 1;
         }
     }

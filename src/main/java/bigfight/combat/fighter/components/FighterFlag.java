@@ -1,4 +1,4 @@
-package bigfight.combat.fighter;
+package bigfight.combat.fighter.components;
 
 public class FighterFlag {
     public boolean mineWaterFlag = false;

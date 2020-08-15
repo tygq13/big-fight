@@ -1,4 +1,4 @@
-package bigfight.combat.fighter;
+package bigfight.combat.fighter.components;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;

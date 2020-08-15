@@ -1,6 +1,7 @@
 package bigfight.combat;
 
 import bigfight.combat.fighter.*;
+import bigfight.combat.fighter.components.FighterFlag;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;

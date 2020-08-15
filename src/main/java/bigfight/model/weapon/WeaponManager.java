@@ -1,6 +1,6 @@
 package bigfight.model.weapon;
 
-import bigfight.combat.fighter.DisposableWeaponList;
+import bigfight.combat.fighter.components.DisposableWeaponList;
 
 import java.util.ArrayList;
 

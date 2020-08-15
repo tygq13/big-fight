@@ -1,5 +1,8 @@
 package bigfight.combat.fighter;
 
+import bigfight.combat.fighter.components.ActiveSkillList;
+import bigfight.combat.fighter.components.DisposableWeaponList;
+import bigfight.combat.fighter.components.SpecialSkillList;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;

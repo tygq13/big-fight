@@ -1,9 +1,8 @@
-package bigfight.combat.fighter;
+package bigfight.combat.fighter.components;
 
-import bigfight.combat.Combat;
-import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
@@ -11,9 +10,6 @@ import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
-import java.util.Map;
 
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
