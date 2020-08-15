@@ -48,6 +48,9 @@ public class SkillAttack implements Attackable {
                 Tickle actualSkill = (Tickle) skill;
                 defender.getFighterFlag().tickledRounds = actualSkill.getMaxRounds();
             }
+            if (skill.getIdentity() == SkillIdentity.GLUE) {
+                defender.getFighterFlag().beingGlued = true;
+            }
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -93,6 +96,10 @@ public class SkillAttack implements Attackable {
              case FOSHAN_KICK: {
                  FoshanKick actualSkill = (FoshanKick) skill;
                  return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
+             }
+             case GLUE: {
+                 Glue actualSkill = (Glue) skill;
+                 return 0;
              }
              case TICKLE: {
                  Tickle actualSkill = (Tickle) skill;

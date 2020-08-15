@@ -1,5 +1,7 @@
 package bigfight.combat.fighter;
 
+import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.special.FastHands;
@@ -28,6 +30,7 @@ public class Fighter {
     private ActiveSkillList activeSkillList;
     private SpecialSkillList specialSkillList;
     private FighterFlag fighterFlag;
+    private Buffs buffs;
 
     public Fighter(FightableWarrior warrior) {
         name = warrior.getName();
@@ -43,6 +46,7 @@ public class Fighter {
         activeSkillList = warrior.getActiveSkills();
         specialSkillList = warrior.getSpecialSkills();
         fighterFlag = new FighterFlag();
+        buffs = new Buffs();
     }
 
     public void changeWeapon(Empowerment empowerment) {
@@ -55,6 +59,10 @@ public class Fighter {
 
     public int getSpeed() {
         return speed.value();
+    }
+
+    public BasicAttribute getSpeedObj() {
+        return speed;
     }
 
     public int getStrength() {
@@ -158,5 +166,13 @@ public class Fighter {
             updateHealth(health - getFighterFlag().tickledDamage);
             fighterFlag.tickledRounds -= 1;
         }
+    }
+
+    public void addBuff(Buff buff) {
+        buffs.add(buff);
+    }
+
+    public void updateStatus() {
+        buffs.invoke(this);
     }
 }

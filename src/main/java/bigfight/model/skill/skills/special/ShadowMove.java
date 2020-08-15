@@ -1,5 +1,7 @@
 package bigfight.model.skill.skills.special;
 
+import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.buff.ShadowMoveBuff;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillStruct;
 
@@ -40,5 +42,9 @@ public class ShadowMove extends SpecialSkill {
     @Override
     public boolean isAuxiliary() {
         return true;
+    }
+
+    public Buff createBuff() {
+        return new ShadowMoveBuff(this);
     }
 }
