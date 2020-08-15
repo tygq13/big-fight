@@ -134,14 +134,6 @@ public class Fighter {
         }
     }
 
-    public void updateStatusByFlag() {
-        if (fighterFlag.tickledRounds > 0) {
-            // untested, not deal with case of death
-            updateHealth(getHealth() - getFighterFlag().tickledDamage);
-            fighterFlag.tickledRounds -= 1;
-        }
-    }
-
     public void addBuff(Buff buff) {
         buffs.add(buff);
     }

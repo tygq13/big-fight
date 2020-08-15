@@ -25,6 +25,7 @@ public class MineWater extends SpecialSkill {
         return true;
     }
 
+    // might be a bad idea to let it control behaviour
     public void updateHealth(Health health) {
         int minimum = (int) (getRegeneratePercentage() * 100);
         int regen = minimum > health.getMaxHealth() * getRegeneratePercentage() ? minimum : (int) (health.getMaxHealth() * getRegeneratePercentage());

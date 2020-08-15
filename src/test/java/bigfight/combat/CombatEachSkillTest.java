@@ -247,7 +247,7 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void tickle_activated_with_agility_multiply() {
+    void tickle_damage_with_agility_multiply() {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TICKLE);
@@ -257,10 +257,8 @@ class CombatEachSkillTest {
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
-        final int EXPECTED_DAMAGE = (int) (tickle.getDamage() + (fighter1.getAgility() * tickle.getAgilityMultiply()));
-        final int EXPECTED_ROUNDS = tickle.getMaxRounds();
+        final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (tickle.getDamage() + (fighter1.getAgility() * tickle.getAgilityMultiply()));
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
-        assertEquals(EXPECTED_ROUNDS, fighter2.getFighterFlag().tickledRounds);
-        assertEquals(EXPECTED_DAMAGE, fighter2.getFighterFlag().tickledDamage);
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
 }

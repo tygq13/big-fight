@@ -1,5 +1,7 @@
 package bigfight.model.skill.skills;
 
+import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.buff.TickleDebuff;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class Tickle extends SkillModel {
@@ -21,5 +23,9 @@ public class Tickle extends SkillModel {
 
     public int getMaxRounds() {
         return TICKLE_ROUND;
+    }
+
+    public Buff createBuff(int damage) {
+        return new TickleDebuff(this, damage);
     }
 }

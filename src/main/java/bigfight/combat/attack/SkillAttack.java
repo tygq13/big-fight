@@ -45,8 +45,8 @@ public class SkillAttack implements Attackable {
         } else {
             // bad bad bad!!! change this
             if (skill.getIdentity() == SkillIdentity.TICKLE) {
-                Tickle actualSkill = (Tickle) skill;
-                defender.getFighterFlag().tickledRounds = actualSkill.getMaxRounds();
+                Tickle tickle = (Tickle) skill;
+                defender.addBuff(tickle.createBuff(damage));
             }
             if (skill.getIdentity() == SkillIdentity.GLUE) {
                 defender.getFighterFlag().beingGlued = true;
@@ -103,8 +103,7 @@ public class SkillAttack implements Attackable {
              }
              case TICKLE: {
                  Tickle actualSkill = (Tickle) skill;
-                 defender.getFighterFlag().tickledDamage = actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
-                 return defender.getFighterFlag().tickledDamage;
+                 return actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
              }
             default:
                 return 0;

@@ -25,8 +25,8 @@ public class Round {
     }
 
     public void fight() {
-        attacker.updateStatusByFlag();
-        defender.updateStatusByFlag();
+        attacker.updateStatus();
+        defender.updateStatus();
         defender.getFighterFlag().ignored += roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         // todo: print weapon ui here instead of insides the attack
