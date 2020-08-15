@@ -11,5 +11,7 @@ public class FighterFlag {
     public boolean ignoredByUnselection = false;
     public int tickledRounds = 0;
     public int tickledDamage = 0;
+
+    public boolean doubleHited = false;
     public int ignored = 0;
 }

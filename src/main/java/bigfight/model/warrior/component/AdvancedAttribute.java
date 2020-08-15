@@ -94,6 +94,8 @@ public class AdvancedAttribute implements Cloneable{
 
     public double counterAttackChance = 0;
 
+    public double doubleHitChance = 0;
+
     public Object clone() {
         try {
             return super.clone();

@@ -36,6 +36,11 @@ public class SmallTypeAttack implements Attackable{
                 counterAttack.counterAttack();
             }
         }
+        if (random.doubleHitRandom() < attacker.getAdvancedAttribute().doubleHitChance && !attacker.getFighterFlag().doubleHited) {
+            attacker.getFighterFlag().doubleHited = true;
+            attack();
+            attacker.getFighterFlag().doubleHited = false;
+        }
     }
 
     private boolean escaped() {

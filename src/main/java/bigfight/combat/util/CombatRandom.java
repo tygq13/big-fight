@@ -77,4 +77,8 @@ public class CombatRandom extends Random{
     public double getGlueRandom() {
         return random.nextDouble();
     }
+
+    public double doubleHitRandom() {
+        return random.nextDouble();
+    }
 }

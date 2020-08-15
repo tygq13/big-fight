@@ -38,7 +38,12 @@ public class ThrowTypeAttack implements Attackable{
                 isEscaped = true;
                 ui.printDodge(defender.getName());
             }
+            if (random.doubleHitRandom() < attacker.getAdvancedAttribute().doubleHitChance && !attacker.getFighterFlag().doubleHited) {
+                attacker.getFighterFlag().doubleHited = true;
+                i -= 1;
+            }
         }
+        attacker.getFighterFlag().doubleHited = false;
         Weapon unarmed = null;
         attacker.changeWeapon(new Empowerment(unarmed));
     }

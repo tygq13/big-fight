@@ -119,4 +119,26 @@ public class CombatAttributeEffectTest {
         new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter2.getHealth());
     }
+
+    @Test
+        // skill medium, small, throw ,unarmed and counter since they copy from big type.
+    void test_double_hit_effective_in_attack_example_big() {
+        final double DOUBLE_HIT_CHANCE = 0.2;
+        final int WEAPON_DAMAGE = 10;
+        final double DOUBLE_HIT = -1.0;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.doubleHitChance = DOUBLE_HIT_CHANCE;
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withAdvancedAttribute(advancedAttribute).build();
+        Weapon weapon = CombatTestUtil.createBigWeapon();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.doubleHitRandom()).thenReturn(DOUBLE_HIT);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
+        // test
+        int expectedHealth = fighter2.getHealth() - 2 * WEAPON_DAMAGE;
+        new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
+        assertEquals(expectedHealth, fighter2.getHealth());
+    }
 }
