@@ -76,21 +76,6 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void fast_hand_hit_twice() {
-        Fighter fighter1 = new FighterBuilderTestUtil().withSkill(SkillIdentity.FAST_HANDS).build();
-        Fighter fighter2 = new FighterBuilderTestUtil().build();
-        fighter1.getFighterFlag().fastHandsFlag = true;
-        Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
-        // test
-        final int EXPECTED = fighter2.getHealth() - DAMAGE * 2;
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
-        assertEquals(EXPECTED, fighter2.getHealth());
-    }
-
-    @Test
     // big, medium, small, throw, throwout are just copy paste. Not used in skill.
     void haki_protect_effective_example_unarmed() {
         final double INVOKE_HAKI = 0;

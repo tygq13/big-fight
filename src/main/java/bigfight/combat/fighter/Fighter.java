@@ -138,14 +138,6 @@ public class Fighter {
     }
 
     public void updateStatusByFlag() {
-        if (fighterFlag.fastHandsFlag) {
-            FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
-            if (!fighterFlag.fastHandsUsed) {
-                advancedAttribute.doubleHitChance += fastHands.getDoubleHit();
-            } else {
-                advancedAttribute.doubleHitChance -= fastHands.getDoubleHit();
-            }
-        }
         if (fighterFlag.mineWaterFlag) {
             MineWater mineWater = (MineWater) specialSkillList.get(SkillIdentity.MINE_WATER);
             int minimum = (int) (mineWater.getRegeneratePercentage() * 100);
