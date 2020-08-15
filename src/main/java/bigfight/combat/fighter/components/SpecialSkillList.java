@@ -1,9 +1,11 @@
 package bigfight.combat.fighter.components;
 
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.FastHands;
+import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.skills.special.SpecialSkill;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -81,7 +83,7 @@ public class SpecialSkillList {
         return null;
     }
 
-    public void select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
+    public void preRoundAuxiliary(Health health, CombatRandom random, int baseSize) {
         int luckyDraw = random.selectSpecialSkill(baseSize);
         SpecialSkill specialSkill = null;
         if (luckyDraw < skillList.size()) {
@@ -89,7 +91,8 @@ public class SpecialSkillList {
         }
         if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
-                fighterFlag.mineWaterFlag = true;
+                MineWater mineWater = (MineWater) specialSkill;
+                mineWater.updateHealth(health);
             }
         }
     }

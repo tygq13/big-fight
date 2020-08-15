@@ -1,8 +1,6 @@
 package bigfight.combat.fighter.components;
 
 public class FighterFlag {
-    public boolean mineWaterFlag = false;
-
     public boolean beingGlued = false;
     public boolean ignoredByUnselection = false;
 

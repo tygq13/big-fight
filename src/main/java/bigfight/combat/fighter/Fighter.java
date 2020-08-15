@@ -114,7 +114,7 @@ public class Fighter {
     // nice fun to have, isn't it?
     public void selectAuxiliarySkill(CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        specialSkillList.select(fighterFlag, random, totalSize);
+        specialSkillList.preRoundAuxiliary(health, random, totalSize);
     }
 
     public Empowerment selectEmpowerment(CombatRandom random) {
@@ -135,12 +135,6 @@ public class Fighter {
     }
 
     public void updateStatusByFlag() {
-        if (fighterFlag.mineWaterFlag) {
-            MineWater mineWater = (MineWater) specialSkillList.get(SkillIdentity.MINE_WATER);
-            int minimum = (int) (mineWater.getRegeneratePercentage() * 100);
-            int regen = minimum > health.getMaxHealth() * mineWater.getRegeneratePercentage() ? minimum : (int) (health.getMaxHealth() * mineWater.getRegeneratePercentage());
-            updateHealth(getHealth() + regen);
-        }
         if (fighterFlag.tickledRounds > 0) {
             // untested, not deal with case of death
             updateHealth(getHealth() - getFighterFlag().tickledDamage);

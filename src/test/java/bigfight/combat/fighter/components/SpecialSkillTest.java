@@ -61,14 +61,14 @@ public class SpecialSkillTest {
 
     @Test
     void selectAuxiliarySkill_mine_water_activated() {
+        final double SELECT = -1.0;
+        SpecialSkillList specialSkillList = new SpecialSkillList();
         MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
-        Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(mineWater)
-                .build();
-
-        // test
-        assertFalse(testFighter.getFighterFlag().mineWaterFlag);
-        testFighter.selectAuxiliarySkill(mock(CombatRandom.class));
-        assertTrue(testFighter.getFighterFlag().mineWaterFlag);
+        MineWater spy = spy(mineWater);
+        specialSkillList.add(spy);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        specialSkillList.preRoundAuxiliary(mock(Health.class), random, 1);
+        verify(spy).updateHealth(any());
     }
 }

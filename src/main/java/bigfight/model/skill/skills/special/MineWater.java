@@ -1,5 +1,6 @@
 package bigfight.model.skill.skills.special;
 
+import bigfight.combat.fighter.components.Health;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class MineWater extends SpecialSkill {
@@ -22,5 +23,11 @@ public class MineWater extends SpecialSkill {
     @Override
     public boolean isAuxiliary() {
         return true;
+    }
+
+    public void updateHealth(Health health) {
+        int minimum = (int) (getRegeneratePercentage() * 100);
+        int regen = minimum > health.getMaxHealth() * getRegeneratePercentage() ? minimum : (int) (health.getMaxHealth() * getRegeneratePercentage());
+        health.update(health.value() + regen);
     }
 }
