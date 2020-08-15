@@ -67,6 +67,8 @@ public class SkillFactory {
                 return new AngelsWings(skillData.getWithStar(identity, 0));
             case FOSHAN_KICK:
                 return new FoshanKick(skillData.getWithStar(identity, 0));
+            case TICKLE:
+                return new Tickle(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

@@ -339,6 +339,19 @@ public class SkillData {
             FOSHAN_KICK_ZERO
     );
 
+    private final SkillStruct TICKLE_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "This is your weakness!\n" +
+                    "Cause damage of 5 + agility*0.2 at each round. Last for 6 rounds. \n" +
+                    "You can only use once.\n",
+            SkillIdentity.TICKLE,
+            "tickle"
+    );
+
+    private final SkillStructArray TICKLE_ARRAY = new SkillStructArray(
+            TICKLE_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -366,7 +379,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.MINE_WATER, MINE_WATER_ARRAY),
                     Map.entry(SkillIdentity.GLUE, GLUE_ARRAY),
                     Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY),
-                    Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY)
+                    Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY),
+                    Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY)
             )
     );
 

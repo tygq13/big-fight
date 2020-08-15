@@ -9,5 +9,7 @@ public class FighterFlag {
     public boolean beingGlued = false;
     public boolean apparentDeathUsed = false;
     public boolean ignoredByUnselection = false;
+    public int tickledRounds = 0;
+    public int tickledDamage = 0;
     public int ignored = 0;
 }

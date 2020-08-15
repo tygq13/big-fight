@@ -1,6 +1,5 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.CombatTestUtil;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;

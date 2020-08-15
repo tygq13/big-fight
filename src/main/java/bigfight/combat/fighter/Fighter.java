@@ -145,5 +145,10 @@ public class Fighter {
             int regen = minimum > maxHealth * mineWater.getRegeneratePercentage() ? minimum : (int) (maxHealth * mineWater.getRegeneratePercentage());
             updateHealth(health + regen);
         }
+        if (fighterFlag.tickledRounds > 0) {
+            // untested, not deal with case of death
+            updateHealth(health - getFighterFlag().tickledDamage);
+            fighterFlag.tickledRounds -= 1;
+        }
     }
 }

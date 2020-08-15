@@ -43,6 +43,11 @@ public class SkillAttack implements Attackable {
         if (random.getEscapeRandom() < escape) {
             ui.printSkillRoarDodge(defender.getName());
         } else {
+            // bad bad bad!!! change this
+            if (skill.getIdentity() == SkillIdentity.TICKLE) {
+                Tickle actualSkill = (Tickle) skill;
+                defender.getFighterFlag().tickledRounds = actualSkill.getMaxRounds();
+            }
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -88,6 +93,11 @@ public class SkillAttack implements Attackable {
              case FOSHAN_KICK: {
                  FoshanKick actualSkill = (FoshanKick) skill;
                  return actualSkill.getDamage() + (int) (attacker.getStrength() * actualSkill.getStrengthMultiply());
+             }
+             case TICKLE: {
+                 Tickle actualSkill = (Tickle) skill;
+                 defender.getFighterFlag().tickledDamage = actualSkill.getDamage() + (int) (attacker.getAgility() * actualSkill.getAgilityMultiply());
+                 return defender.getFighterFlag().tickledDamage;
              }
             default:
                 return 0;

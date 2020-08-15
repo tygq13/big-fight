@@ -214,56 +214,6 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void shadow_move_activated() {
-        final int DEFAULT_ROUND = 3;
-        Fighter fighter = CombatTestUtil.createFighterWithShadowMove();
-        fighter.getFighterFlag().shadowMoveFlag = true;
-        fighter.getFighterFlag().shadowMoveRound = DEFAULT_ROUND;
-        ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
-        final int EXPECTED_SPEED = (int) (fighter.getSpeed() * (1 + shadowMove.getSpeedMultiply()));
-        final double EXPECTED_BIG_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().bigExtraPercentageDamage + shadowMove.getDamageMultiply();
-        final double EXPECTED_MEDIUM_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().mediumExtraPercentageDamage + shadowMove.getDamageMultiply();
-        final double EXPECTED_SMALL_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().smallExtraPercentageDamage + shadowMove.getDamageMultiply();
-        final double EXPECTED_THROW_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().throwExtraPercentageDamage + shadowMove.getDamageMultiply();
-        final double EXPECTED_UNARMED_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().unarmedExtraPercentageDamage + shadowMove.getDamageMultiply();
-        final double EXPECTED_SKILL_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().skillExtraPercentageDamage + shadowMove.getDamageMultiply();
-        fighter.updateStatusByFlag();
-        assertEquals(EXPECTED_SPEED, fighter.getSpeed());
-        assertEquals(EXPECTED_BIG_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().bigExtraPercentageDamage);
-        assertEquals(EXPECTED_MEDIUM_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().mediumExtraPercentageDamage);
-        assertEquals(EXPECTED_SMALL_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().smallExtraPercentageDamage);
-        assertEquals(EXPECTED_THROW_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().throwExtraPercentageDamage);
-        assertEquals(EXPECTED_UNARMED_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().unarmedExtraPercentageDamage);
-        assertEquals(EXPECTED_SKILL_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().skillExtraPercentageDamage);
-    }
-
-    @Test
-    void mine_water_activated() {
-        final int HEALTH = 200;
-        final double DAMAGE_PERCENTAGE = 0.5;
-        Fighter fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
-        fighter.getFighterFlag().mineWaterFlag = true;
-        fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
-        MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
-        final int EXPECTED_HEALTH = fighter.getHealth() + (int) (HEALTH * mineWater.getRegeneratePercentage());
-        fighter.updateStatusByFlag();
-        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
-    }
-
-    @Test
-    void mine_water_minimum_heal() {
-        final int HEALTH = 50;
-        final double DAMAGE_PERCENTAGE = 0.5;
-        Fighter fighter = CombatTestUtil.createFighterWithMineWater(HEALTH);
-        fighter.getFighterFlag().mineWaterFlag = true;
-        fighter.updateHealth(fighter.getHealth() - (int) (fighter.getHealth() * DAMAGE_PERCENTAGE));
-        MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
-        final int EXPECTED_HEALTH = fighter.getHealth() + (int) (mineWater.getRegeneratePercentage() * 100);
-        fighter.updateStatusByFlag();
-        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
-    }
-
-    @Test
     void glue_increases_ignore_when_select_non_throw() {
         final double NOT_SELECT_UNARMED = 1.0;
         final int SELECT_BIG_WEAPON = 0;
@@ -311,5 +261,23 @@ class CombatEachSkillTest {
         final int EXPECTED = fighter2.getHealth() - (int) (foshanKick.getDamage() + (fighter1.getStrength() * foshanKick.getStrengthMultiply()));
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void tickle_activated_with_agility_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TICKLE);
+        Tickle tickle = (Tickle) skill;
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        final int EXPECTED_DAMAGE = (int) (tickle.getDamage() + (fighter1.getAgility() * tickle.getAgilityMultiply()));
+        final int EXPECTED_ROUNDS = tickle.getMaxRounds();
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED_ROUNDS, fighter2.getFighterFlag().tickledRounds);
+        assertEquals(EXPECTED_DAMAGE, fighter2.getFighterFlag().tickledDamage);
     }
 }
