@@ -70,7 +70,7 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
-    public double getHitFromGodRandom() {
+    public double getOnePunchRandom() {
         return random.nextDouble();
     }
 

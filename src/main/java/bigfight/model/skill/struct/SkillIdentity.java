@@ -18,7 +18,7 @@ public enum SkillIdentity {
     TORNADO,
     HEAVY_USUAL,
     OPT_FOR_LIGHTNESS,
-    HIT_FROM_GOD,
+    ONE_PUNCH,
     DISARM,
     SHADOW_MOVE,
     MINE_WATER,

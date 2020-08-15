@@ -7,8 +7,6 @@ import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.special.HakiProtect;
-import bigfight.model.skill.skills.special.MineWater;
-import bigfight.model.skill.skills.special.ShadowMove;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
@@ -131,7 +129,7 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void sea_is_unfathomable_reflect() {
+    void sea_reflect_successfully_reflect() {
         final double INVOKE_SKILL = 0;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
@@ -146,7 +144,7 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void sea_is_unfathomable_invoke_limitation() {
+    void sea_reflect_invoke_limitation() {
         final double INVOKE_SKILL = 0;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
@@ -179,14 +177,14 @@ class CombatEachSkillTest {
     }
 
     @Test
-    void hit_from_god_seckill() {
+    void one_punch_seckill() {
         final double HIT = -1.0;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
-        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HIT_FROM_GOD);
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ONE_PUNCH);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getHitFromGodRandom()).thenReturn(HIT);
+        when(random.getOnePunchRandom()).thenReturn(HIT);
 
         // test
         int EXPECTED = 1;

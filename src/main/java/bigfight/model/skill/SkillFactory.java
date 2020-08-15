@@ -53,8 +53,8 @@ public class SkillFactory {
                 return new HeavyUsual(skillData.getWithStar(identity, 0));
             case OPT_FOR_LIGHTNESS:
                 return new OptForLightness(skillData.getWithStar(identity, 0));
-            case HIT_FROM_GOD:
-                return new HitFromGod(skillData.getWithStar(identity, 0));
+            case ONE_PUNCH:
+                return new OnePunch(skillData.getWithStar(identity, 0));
             case DISARM:
                 return new Disarm(skillData.getWithStar(identity, 0));
             case SHADOW_MOVE:

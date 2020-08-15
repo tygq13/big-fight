@@ -129,7 +129,6 @@ public class Fighter {
     public void updateStatusByFlag() {
         if (fighterFlag.shadowMoveFlag) {
             // todo: throw exception if doesn't have
-            // todo: multiply by base speed instead of speed
             ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkillList.get(SkillIdentity.SHADOW_MOVE);
             if (fighterFlag.shadowMoveRound == 0) {
                 fighterFlag.shadowMoveFlag = false;

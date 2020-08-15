@@ -2,7 +2,7 @@ package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.Glue;
-import bigfight.model.skill.skills.HitFromGod;
+import bigfight.model.skill.skills.OnePunch;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
@@ -56,10 +56,10 @@ public class ActiveSkillList {
         SkillModel skill = skillList.get(luckyDraw);
 
         // redraw in case of rare skill
-        if (skill.getIdentity() == SkillIdentity.HIT_FROM_GOD) {
+        if (skill.getIdentity() == SkillIdentity.ONE_PUNCH) {
             // only hitFromGod.getSeckillChance() of selecting this skill, else redraw
-            HitFromGod hitFromGod = (HitFromGod) skill;
-            if (random.getHitFromGodRandom() < (1 - hitFromGod.getInvocationChance())) {
+            OnePunch onePunch = (OnePunch) skill;
+            if (random.getOnePunchRandom() < (1 - onePunch.getInvocationChance())) {
                 luckyDraw = random.selectActiveSkill(skillList.size());
             }
         }

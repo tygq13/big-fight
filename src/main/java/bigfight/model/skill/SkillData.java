@@ -249,17 +249,17 @@ public class SkillData {
             OPT_FOR_LIGHTNESS_ZERO
     );
 
-    private final SkillStruct HIT_FROM_GOD_ZERO = new SkillStruct(
+    private final SkillStruct ONE_PUNCH_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "The legendary skill that can seckill your opponent.\n" +
                     "only 20% of normal chance in using this skill.\n" +
                     "Reduce opponent’s health to 1 if hit.\n",
-            SkillIdentity.HIT_FROM_GOD,
-            "hit from god"
+            SkillIdentity.ONE_PUNCH,
+            "one punch"
     );
 
-    private final SkillStructArray HIT_FROM_GOD_ARRAY = new SkillStructArray(
-            HIT_FROM_GOD_ZERO
+    private final SkillStructArray ONE_PUNCH_ARRAY = new SkillStructArray(
+            ONE_PUNCH_ZERO
     );
 
     private final SkillStruct DISARM_ZERO = new SkillStruct(
@@ -373,7 +373,7 @@ public class SkillData {
                     Map.entry(SkillIdentity.TORNADO, TORNADO_ARRAY),
                     Map.entry(SkillIdentity.HEAVY_USUAL, HEAVY_USUAL_ARRAY),
                     Map.entry(SkillIdentity.OPT_FOR_LIGHTNESS, OPT_FOR_LIGHTNESS_ARRAY),
-                    Map.entry(SkillIdentity.HIT_FROM_GOD, HIT_FROM_GOD_ARRAY),
+                    Map.entry(SkillIdentity.ONE_PUNCH, ONE_PUNCH_ARRAY),
                     Map.entry(SkillIdentity.DISARM, DISARM_ARRAY),
                     Map.entry(SkillIdentity.SHADOW_MOVE, SHADOW_MOVE_ARRAY),
                     Map.entry(SkillIdentity.MINE_WATER, MINE_WATER_ARRAY),
