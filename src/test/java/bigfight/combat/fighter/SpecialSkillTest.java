@@ -46,7 +46,7 @@ public class SpecialSkillTest {
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectAuxiliarySkill()).thenReturn(SELECT);
-        specialSkillList.select(new FighterFlag(), random, 1);
+        specialSkillList.postWeaponAuxiliary(random, 1);
         verify(spy).createBuff();
     }
 
@@ -59,7 +59,7 @@ public class SpecialSkillTest {
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectAuxiliarySkill()).thenReturn(SELECT);
-        specialSkillList.select(new FighterFlag(), random, 1);
+        specialSkillList.postWeaponAuxiliary(random, 1);
         verify(spy).createBuff();
     }
 

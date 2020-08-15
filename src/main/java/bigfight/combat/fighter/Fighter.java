@@ -116,10 +116,7 @@ public class Fighter {
     // nice fun to have, isn't it?
     public void selectAuxiliarySkill(CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        Buff buff = specialSkillList.select(fighterFlag, random, totalSize);
-        if (buff != null) {
-            addBuff(buff);
-        }
+        specialSkillList.select(fighterFlag, random, totalSize);
     }
 
     public Empowerment selectEmpowerment(CombatRandom random) {
@@ -130,7 +127,9 @@ public class Fighter {
         }
         int weaponOrSkill = random.selectWeaponOrSkill(totalSize);
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
-            return weaponList.select(random, fighterFlag);
+            Empowerment weapon = weaponList.select(random, fighterFlag);
+            specialSkillList.postWeaponAuxiliary(random, totalSize);
+            return weapon;
         } else {
             // create skills
             return activeSkillList.select(random);

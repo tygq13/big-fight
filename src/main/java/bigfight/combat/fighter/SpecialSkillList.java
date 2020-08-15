@@ -62,7 +62,7 @@ public class SpecialSkillList {
         return false;
     }
 
-    public Buff select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
+    public Buff postWeaponAuxiliary(CombatRandom random, int baseSize) {
         int luckyDraw = random.selectSpecialSkill(baseSize);
         SpecialSkill specialSkill = null;
         if (luckyDraw < skillList.size()) {
@@ -77,10 +77,20 @@ public class SpecialSkillList {
                 ShadowMove shadowMove = (ShadowMove) specialSkill;
                 return shadowMove.createBuff();
             }
+        }
+        return null;
+    }
+
+    public void select(FighterFlag fighterFlag, CombatRandom random, int baseSize) {
+        int luckyDraw = random.selectSpecialSkill(baseSize);
+        SpecialSkill specialSkill = null;
+        if (luckyDraw < skillList.size()) {
+            specialSkill = (SpecialSkill) skillList.get(luckyDraw);
+        }
+        if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
                 fighterFlag.mineWaterFlag = true;
             }
         }
-        return null;
     }
 }
