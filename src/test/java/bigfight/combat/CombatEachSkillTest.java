@@ -77,7 +77,7 @@ class CombatEachSkillTest {
 
     @Test
     void fast_hand_hit_twice() {
-        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter1 = new FighterBuilderTestUtil().withSkill(SkillIdentity.FAST_HANDS).build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         fighter1.getFighterFlag().fastHandsFlag = true;
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();

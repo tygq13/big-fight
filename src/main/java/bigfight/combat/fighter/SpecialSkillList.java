@@ -69,6 +69,7 @@ public class SpecialSkillList {
         if (specialSkill != null && specialSkill.isAuxiliary() && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
                 fighterFlag.fastHandsFlag = true;
+                fighterFlag.fastHandsUsed = false;
             }
             if (specialSkill.getIdentity() == SkillIdentity.SHADOW_MOVE) {
                 fighterFlag.shadowMoveFlag = true;

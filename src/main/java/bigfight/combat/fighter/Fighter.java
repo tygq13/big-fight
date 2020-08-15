@@ -2,6 +2,7 @@ package bigfight.combat.fighter;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
+import bigfight.model.skill.skills.special.FastHands;
 import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.special.ShadowMoveUsable;
@@ -127,6 +128,14 @@ public class Fighter {
     }
 
     public void updateStatusByFlag() {
+        if (fighterFlag.fastHandsFlag) {
+            FastHands fastHands = (FastHands) specialSkillList.get(SkillIdentity.FAST_HANDS);
+            if (!fighterFlag.fastHandsUsed) {
+                advancedAttribute.doubleHitChance += fastHands.getDoubleHit();
+            } else {
+                advancedAttribute.doubleHitChance -= fastHands.getDoubleHit();
+            }
+        }
         if (fighterFlag.shadowMoveFlag) {
             // todo: throw exception if doesn't have
             ShadowMoveUsable shadowMove = (ShadowMoveUsable) specialSkillList.get(SkillIdentity.SHADOW_MOVE);

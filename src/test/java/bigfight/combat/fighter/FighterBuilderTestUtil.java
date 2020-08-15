@@ -1,11 +1,14 @@
 package bigfight.combat.fighter;
 
 import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.warrior.component.BasicAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
+
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -47,6 +50,16 @@ public class FighterBuilderTestUtil {
             specialSkillList.add(skill);
         } else if (skill.getType() == SkillType.ACTIVE) {
             activeSkillList.add(skill);
+        }
+        return this;
+    }
+
+    public FighterBuilderTestUtil withSkill(SkillIdentity skill) {
+        SkillModel skillModel = DEFAULT_SKILL_FACTORY.create(skill);
+        if (skillModel.getType() == SkillType.SPECIAL) {
+            specialSkillList.add(skillModel);
+        } else if (skillModel.getType() == SkillType.ACTIVE) {
+            activeSkillList.add(skillModel);
         }
         return this;
     }

@@ -30,29 +30,20 @@ public class Round {
         defender.getFighterFlag().ignored += roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         // todo: print weapon ui here instead of insides the attack
-        Attackable attack = null;
         if (empowerment.getSkill() != null) {
-            attack = new SkillAttack(attacker, defender, empowerment.getSkill(), random, ui);
+            new SkillAttack(attacker, defender, empowerment.getSkill(), random, ui).attack();
         } else if (empowerment.getWeapon() == null) {
-            attack = new UnarmedAttack(attacker, defender, random, ui);
+            new UnarmedAttack(attacker, defender, random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.THROW) {
-            attack = new ThrowTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
+            new ThrowTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         } else if (random.getThrowWeaponRandom() < DataConfig.THROW_WEAPON_CHANCE) {
-            attack = new ThrowOutAttack(attacker, defender, empowerment.getWeapon(), random, ui);
+            new ThrowOutAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.SMALL) {
-            attack = new SmallTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
+            new SmallTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.MEDIUM) {
-            attack = new MediumTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
+            new MediumTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.BIG) {
-            attack = new BigTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui);
-        }
-        if (attack != null) {
-            attack.attack();
-            // double hit
-            if (attacker.getFighterFlag().fastHandsFlag) {
-                attacker.getFighterFlag().fastHandsFlag = false;
-                attack.attack();
-            }
+            new BigTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         }
     }
 
