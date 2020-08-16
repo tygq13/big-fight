@@ -78,6 +78,10 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
+    public double getBloodThirstyRandom() {
+        return random.nextDouble();
+    }
+
     public double doubleHitRandom() {
         return random.nextDouble();
     }

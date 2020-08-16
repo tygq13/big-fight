@@ -71,6 +71,8 @@ public class SkillFactory {
                 return new Tickle(skillData.getWithStar(identity, 0));
             case WEAPON_RAINSTORM:
                 return new WeaponRainstorm(skillData.getWithStar(identity, 0));
+            case BLOOD_THIRSTY:
+                return new BloodThirsty(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

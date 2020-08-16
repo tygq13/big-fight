@@ -3,6 +3,8 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.special.BloodThirsty;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.Uiable;
@@ -28,10 +30,15 @@ public class ThrowTypeAttack implements Attackable{
         for (int i = 0; i < 2; i++) {
             ui.printWeaponThrowAttack(attacker.getName(), weapon.getName());
             if (!escaped()) {
-
                 isEscaped = false;
                 int damage = calculateDamage();
                 defender.updateHealth(defender.getHealth() - damage);
+                if (attacker.hasSkill(SkillIdentity.BLOOD_THIRSTY)) {
+                    BloodThirsty bloodThirsty = (BloodThirsty) attacker.getSkill(SkillIdentity.BLOOD_THIRSTY);
+                    if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
+                        attacker.updateHealth(attacker.getHealth() + (int)(damage * bloodThirsty.getLifeStealPercentage()));
+                    }
+                }
                 ui.printInjury(defender.getName(), damage, defender.getHealth());
                 new CounterAttack(defender, attacker, random, ui).specialCounter(damage);
             } else {

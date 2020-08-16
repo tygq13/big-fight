@@ -6,6 +6,7 @@ import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
+import bigfight.model.skill.skills.special.BloodThirsty;
 import bigfight.model.skill.skills.special.HakiProtect;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
@@ -282,5 +283,26 @@ class CombatEachSkillTest {
         final int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE * weaponRainstorm.getNumOfWeapons();
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
+    void blood_thirsty_life_steal_example_case_of_big_weapon() {
+        final double INVOKE = -1.0;
+        final double NO_THROW = 1.0;
+        BloodThirsty bloodThirsty = (BloodThirsty) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BLOOD_THIRSTY);
+        Fighter fighter1 = new FighterBuilderTestUtil().withSkill(bloodThirsty).build();
+        fighter1.updateHealth(fighter1.getHealth() / 2);
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        Empowerment empowerment = new Empowerment(CombatTestUtil.createBigWeapon());
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
+
+        // test
+        final int EXPECTED_HEALTH = fighter1.getHealth() + (int) (DAMAGE * bloodThirsty.getLifeStealPercentage());
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
     }
 }

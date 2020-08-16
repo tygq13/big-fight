@@ -242,7 +242,8 @@ public class SkillData {
     private final SkillStruct OPT_FOR_LIGHTNESS_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You of featherweight have your own secret skill.\n" +
-                    "Increase 15% damage of small and medium weapons. Increase 20% evasion to big weapons.\n",
+                    "Increase 15% damage of small and medium weapons. Increase 20% evasion to big weapons.\n" +
+                    "Skill is only acquired after level 30. ",
             SkillIdentity.OPT_FOR_LIGHTNESS,
             "opt for lightness"
     );
@@ -366,6 +367,19 @@ public class SkillData {
             TICKLE_ZERO
     );
 
+    private final SkillStruct BLOOD_THIRSTY_ZERO = new SkillStruct(
+            SkillType.SPECIAL,
+            "A secret technique of the Middle Ages.\n" +
+                    "25% chance of increasing 1/3 of life steal.\n" +
+                    "Skill is only acquired after level 30. After level 60, you have high chance of getting this skill at every 5 levels.\n",
+            SkillIdentity.BLOOD_THIRSTY,
+            "blood thirsty"
+    );
+
+    private final SkillStructArray BLOOD_THIRSTY_ARRAY = new SkillStructArray(
+            BLOOD_THIRSTY_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -395,7 +409,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY),
                     Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY),
                     Map.entry(SkillIdentity.WEAPON_RAINSTORM, WEAPON_RAINSTORM_ARRAY),
-                    Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY)
+                    Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY),
+                    Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY)
             )
     );
 

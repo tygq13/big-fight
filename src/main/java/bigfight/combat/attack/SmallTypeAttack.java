@@ -3,6 +3,8 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.special.BloodThirsty;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.ui.Uiable;
@@ -30,6 +32,12 @@ public class SmallTypeAttack implements Attackable{
         } else {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
+            if (attacker.hasSkill(SkillIdentity.BLOOD_THIRSTY)) {
+                BloodThirsty bloodThirsty = (BloodThirsty) attacker.getSkill(SkillIdentity.BLOOD_THIRSTY);
+                if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
+                    attacker.updateHealth(attacker.getHealth() + (int)(damage * bloodThirsty.getLifeStealPercentage()));
+                }
+            }
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
             if (!(counterAttack.specialCounter(damage))) {
