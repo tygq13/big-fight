@@ -282,4 +282,31 @@ class CombatEachSkillTest {
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
     }
+
+    @Test
+    void dash_ignore_one_round() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.DASH);
+
+        // test
+        final int EXPECTED = 1;
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        int result = fighter2.getFighterFlag().ignored;
+        assertEquals(EXPECTED, result);
+    }
+
+    @Test
+    void dash_damage_with_speed_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.DASH);
+        Dash tickle = (Dash) skill;
+        Empowerment empowerment = new Empowerment(skill);
+
+        // test
+        final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (tickle.getDamage() + (fighter1.getSpeed() * tickle.getSpeedMultiply()));
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
 }

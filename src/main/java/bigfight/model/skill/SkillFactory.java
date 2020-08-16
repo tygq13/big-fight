@@ -77,6 +77,8 @@ public class SkillFactory {
                 return new TendonShapingClassic(skillData.getWithStar(identity, 0));
             case DIM_HIT:
                 return new DimHit(skillData.getWithStar(identity, 0));
+            case DASH:
+                return new Dash(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

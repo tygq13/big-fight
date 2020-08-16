@@ -406,6 +406,19 @@ public class SkillData {
             DIM_HIT_ZERO
     );
 
+    private final SkillStruct DASH_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "The most valiant attack by a warrior!\n" +
+                    "Ignore opponent’s next round if hit.\n" +
+                    "Cause damage of 15 + speed*50%.\n",
+            SkillIdentity.DASH,
+            "dash"
+    );
+
+    private final SkillStructArray DASH_ARRAY = new SkillStructArray(
+            DASH_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -438,7 +451,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY),
                     Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY),
                     Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY),
-                    Map.entry(SkillIdentity.DIM_HIT, DIM_HIT_ARRAY)
+                    Map.entry(SkillIdentity.DIM_HIT, DIM_HIT_ARRAY),
+                    Map.entry(SkillIdentity.DASH, DASH_ARRAY)
             )
     );
 

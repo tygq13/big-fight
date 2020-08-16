@@ -60,50 +60,66 @@ public class SkillAttack implements Attackable {
     private int ignoreOpponent() {
         switch (skill.getIdentity()) {
             case ROAR:
-                Roar actualSkill = (Roar) skill;
-                return actualSkill.getIgnore();
+                Roar roar = (Roar) skill;
+                return roar.getIgnore();
+            case DASH:
+                Dash dash = (Dash) skill;
+                return dash.getIgnore();
         }
         return 0;
     }
 
     private int getSkillDamage() {
          switch (skill.getIdentity()) {
-            case ROAR:
+            case ROAR: {
                 Roar roar = (Roar) skill;
                 return roar.getDamage();
-             case BOLT_FROM_THE_BLUE:
+            }
+             case BOLT_FROM_THE_BLUE: {
                  BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
                  return boltFromTheBlue.getDamage() + (int) (attacker.getLevel() * boltFromTheBlue.getLevelMultiply());
-             case TORNADO:
+             }
+             case TORNADO: {
                  Tornado tornado = (Tornado) skill;
                  return tornado.getDamage() + (int) (attacker.getStrength() * tornado.getStrengthMultiply());
-             case ONE_PUNCH:
+             }
+             case ONE_PUNCH: {
                  return defender.getHealth() - 1;
-             case ANGELS_WINGS:
+             }
+             case ANGELS_WINGS: {
                  AngelsWings angelsWings = (AngelsWings) skill;
                  return angelsWings.getDamage() + (int) (attacker.getAgility() * angelsWings.getAgilityMultiply());
-             case FOSHAN_KICK:
+             }
+             case FOSHAN_KICK: {
                  FoshanKick foshanKick = (FoshanKick) skill;
                  return foshanKick.getDamage() + (int) (attacker.getStrength() * foshanKick.getStrengthMultiply());
-             case GLUE:
+             }
+             case GLUE: {
                  defender.getFighterFlag().beingGlued = true;
                  return 0;
-             case WEAPON_RAINSTORM:
+             }
+             case WEAPON_RAINSTORM: {
                  WeaponRainstorm weaponRainstorm = (WeaponRainstorm) skill;
-                  int weaponNum = weaponRainstorm.getNumOfWeapons();
-                  int rainstormDamage = 0;
-                  for(int i = 0; i < weaponNum; i++) {
-                      Weapon weapon = attacker.getCombatSelector().selectWeapon(random).getWeapon();
-                      if (weapon != null) {
-                          rainstormDamage += random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-                      }
-                  }
-                  return rainstormDamage;
-             case TICKLE:
+                 int weaponNum = weaponRainstorm.getNumOfWeapons();
+                 int rainstormDamage = 0;
+                 for (int i = 0; i < weaponNum; i++) {
+                     Weapon weapon = attacker.getCombatSelector().selectWeapon(random).getWeapon();
+                     if (weapon != null) {
+                         rainstormDamage += random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+                     }
+                 }
+                 return rainstormDamage;
+             }
+             case TICKLE: {
                  Tickle tickle = (Tickle) skill;
                  int tickleDamage = tickle.getDamage() + (int) (attacker.getAgility() * tickle.getAgilityMultiply());
                  defender.addBuff(tickle.createBuff(tickleDamage));
                  return tickleDamage;
+             }
+             case DASH: {
+                 Dash dash = (Dash) skill;
+                 return dash.getDamage() + (int) (attacker.getSpeed() * dash.getSpeedMultiply());
+             }
             default:
                 return 0;
         }
