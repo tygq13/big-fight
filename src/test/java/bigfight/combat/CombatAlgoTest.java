@@ -31,14 +31,12 @@ public class CombatAlgoTest {
     }
 
     @Test
-    void multiplyByStrength_bound_correct() {
+    void extraDamageByAttribute_bound_correct() {
         final int SMALLER = 5;
         final int LARGER = 10;
-        double smallToLarger = CombatAlgo.multiplyByStrength(SMALLER, LARGER);
-        assertTrue(smallToLarger >= 0);
-        assertTrue(smallToLarger <= 1);
-        double largerToSmall = CombatAlgo.multiplyByStrength(LARGER, SMALLER);
-        assertTrue(largerToSmall >= 0);
-        assertTrue(largerToSmall <= 1);
+        double smallToLarger = CombatAlgo.extraDamageByAttribute(SMALLER, LARGER);
+        assertEquals(0, smallToLarger);
+        double largerToSmall = CombatAlgo.extraDamageByAttribute(LARGER, SMALLER);
+        assertEquals(LARGER - SMALLER, largerToSmall);
     }
 }

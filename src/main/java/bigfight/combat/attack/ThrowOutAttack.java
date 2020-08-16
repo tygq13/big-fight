@@ -83,7 +83,7 @@ public class ThrowOutAttack implements Attackable {
 
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
+        weaponDamage += CombatAlgo.extraDamageByAttribute(attacker.getStrength(), defender.getStrength());
         double extraDamageMultiply = 0;
         switch (weapon.getType()) {
             case BIG:
@@ -98,8 +98,7 @@ public class ThrowOutAttack implements Attackable {
                 extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
                 extraDamageMultiply -= defender.getAdvancedAttribute().antiSmallExtraPercentageDamage;
         }
-        double multiply = strengthMultiply + extraDamageMultiply;
-        int damage = (int) (weaponDamage * (1 + multiply));
+        int damage = (int) (weaponDamage * (1 + extraDamageMultiply));
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

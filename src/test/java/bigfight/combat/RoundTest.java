@@ -104,23 +104,6 @@ class RoundTest {
     }
 
     @Test
-    void round_attack_multiplied_by_strength() {
-        final int STRENGTH1 = 100;
-        final int STRENGTH2 = 50;
-        final int DAMAGE = 10;
-        Fighter fighter1 = new FighterBuilderTestUtil().withStrength(STRENGTH1).build();
-        Fighter fighter2 = new FighterBuilderTestUtil().withStrength(STRENGTH2).build();
-        double multiply = CombatAlgo.multiplyByStrength(STRENGTH1, STRENGTH2);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
-        int EXPECTED_HEALTH = fighter2.getHealth() - (int) (DAMAGE * (1 + multiply));
-
-        new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
-        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
-    }
-
-    @Test
     void round_counter_attack_both_unarmed_do_damage() {
         final double COUNTER_ATTACK = -1.0;
         final double NO_COUNTER_ATTACK = 1;
@@ -142,17 +125,17 @@ class RoundTest {
 
     @Test
     void round_throw_weapon_cause_damage() {
-        final double THROW_WEAPON = 0.05;
+        final double THROW_WEAPON = 1.0;
+        final int DAMAGE = 10;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
-        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
+        Weapon weapon = CombatTestUtil.createBigWeapon();
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(weapon.getDamage().lower());
-        double multiply = CombatAlgo.multiplyByAgility(fighter1.getAgility(), fighter2.getAgility());
-        int EXPECTED_HEALTH = fighter2.getHealth() - (int) (weapon.getDamage().lower() * (1 + multiply));
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE;
 
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());

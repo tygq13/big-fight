@@ -29,23 +29,8 @@ public class CombatAlgo {
         return escape;
     }
 
-    public static double multiplyByStrength(int first, int second) {
-        double multiply = (first - second);
-        // no cap in strength, the multiply factor is 0.1%
-        multiply = multiply * 0.01;
-        if (multiply < 0) {
-            multiply = 0;
-        }
-        return multiply;
-    }
-
-    public static double multiplyByAgility(int first, int second) {
-        double multiply = (first - second);
-        // no cap in multiply, the multiply factor is 0.5%
-        multiply = multiply * 0.005;
-        if (multiply < 0) {
-            multiply = 0;
-        }
-        return multiply;
+    public static int extraDamageByAttribute(int first, int second) {
+        int damage = first - second;
+        return Math.max(damage, 0);
     }
 }

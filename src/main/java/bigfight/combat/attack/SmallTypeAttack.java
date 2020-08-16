@@ -62,8 +62,7 @@ public class SmallTypeAttack implements Attackable{
 
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        int damage = (int) (weaponDamage * (1 + strengthMultiply));
+        int damage = weaponDamage + CombatAlgo.extraDamageByAttribute(attacker.getStrength(), defender.getStrength());
         damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().smallAttackAttribute(),
                 defender.getAdvancedAttribute().smallDefenceAttribute());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);

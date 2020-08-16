@@ -44,6 +44,16 @@ public class CombatTestUtil {
         return weapon;
     }
 
+    public static Weapon createThrowWeapon() {
+        Weapon weapon = mock(Weapon.class);
+        Damage damage = mock(Damage.class);
+        when(damage.lower()).thenReturn(10);
+        when(damage.higher()).thenReturn(10);
+        when(weapon.getDamage()).thenReturn(damage);
+        when(weapon.getType()).thenReturn(WeaponType.THROW);
+        return weapon;
+    }
+
 
     public static Fighter createDyingFighterWithApparentDeath() {
         return new FighterBuilderTestUtil().

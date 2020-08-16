@@ -63,8 +63,7 @@ public class ThrowTypeAttack implements Attackable{
 
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        int damage = (int) (weaponDamage * (1 + strengthMultiply));
+        int damage = weaponDamage + CombatAlgo.extraDamageByAttribute(attacker.getAgility(), defender.getAgility());
         damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().throwAttackAttribute(),
                 defender.getAdvancedAttribute().throwDefenceAttribute());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
