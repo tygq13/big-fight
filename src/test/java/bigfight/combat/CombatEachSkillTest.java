@@ -309,4 +309,18 @@ class CombatEachSkillTest {
         new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
+
+    @Test
+    void shake_dispose_opponent_weapon() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil()
+                .withWeapon(DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT))
+                .build();
+        Shake shake = (Shake) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHAKE);
+
+        // test
+        int EXPECTED = fighter2.getWeaponSize() - shake.getDisposeNum();
+        new SkillAttack(fighter1, fighter2, shake, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getWeaponSize());
+    }
 }

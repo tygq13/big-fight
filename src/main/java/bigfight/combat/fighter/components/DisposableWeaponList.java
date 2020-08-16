@@ -1,5 +1,6 @@
 package bigfight.combat.fighter.components;
 
+import bigfight.combat.Combat;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
@@ -39,9 +40,19 @@ public class DisposableWeaponList {
     }
 
     public Empowerment select(CombatRandom random) {
+        if (weaponArrayList.size() == 0) {
+            return new Empowerment((Weapon) null);
+        }
         int luckyDraw = random.selectWeapon(weaponArrayList.size());
         Empowerment empowerment = new Empowerment(weaponArrayList.get(luckyDraw));
         weaponArrayList.remove(luckyDraw);
         return empowerment;
+    }
+
+    public void randomDispose(CombatRandom random) {
+        if (weaponArrayList.size() != 0) {
+            int luckyDraw = random.selectWeapon(weaponArrayList.size());
+            weaponArrayList.remove(luckyDraw);
+        }
     }
 }

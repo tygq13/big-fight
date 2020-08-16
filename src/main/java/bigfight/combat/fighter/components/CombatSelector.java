@@ -67,4 +67,8 @@ public class CombatSelector {
         }
         return 0;
     }
+
+    public void randomDisposeWeapon(CombatRandom random) {
+        weaponList.randomDispose(random);
+    }
 }

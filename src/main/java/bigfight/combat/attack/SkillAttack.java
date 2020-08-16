@@ -120,6 +120,14 @@ public class SkillAttack implements Attackable {
                  Dash dash = (Dash) skill;
                  return dash.getDamage() + (int) (attacker.getSpeed() * dash.getSpeedMultiply());
              }
+             case SHAKE: {
+                 Shake shake = (Shake) skill;
+                 // throw away opponent's weapons
+                 for (int i = 0; i < shake.getDisposeNum(); i++) {
+                     defender.getCombatSelector().randomDisposeWeapon(random);
+                 }
+                 return shake.getDamage();
+             }
             default:
                 return 0;
         }

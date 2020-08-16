@@ -419,6 +419,18 @@ public class SkillData {
             DASH_ZERO
     );
 
+    private final SkillStruct SHAKE_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Causes 25 damage and randomly dispose one of the opponent’s weapon. Unevadable.\n" +
+                    "This Skill is only acquired after level 20.\n",
+            SkillIdentity.SHAKE,
+            "shake"
+    );
+
+    private final SkillStructArray SHAKE_ARRAY = new SkillStructArray(
+            SHAKE_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -452,7 +464,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY),
                     Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY),
                     Map.entry(SkillIdentity.DIM_HIT, DIM_HIT_ARRAY),
-                    Map.entry(SkillIdentity.DASH, DASH_ARRAY)
+                    Map.entry(SkillIdentity.DASH, DASH_ARRAY),
+                    Map.entry(SkillIdentity.SHAKE, SHAKE_ARRAY)
             )
     );
 

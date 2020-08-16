@@ -79,6 +79,8 @@ public class SkillFactory {
                 return new DimHit(skillData.getWithStar(identity, 0));
             case DASH:
                 return new Dash(skillData.getWithStar(identity, 0));
+            case SHAKE:
+                return new Shake(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }
