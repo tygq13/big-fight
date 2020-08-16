@@ -380,6 +380,19 @@ public class SkillData {
             BLOOD_THIRSTY_ZERO
     );
 
+    private final SkillStruct TENDON_SHAPING_CLASSIC_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "A classic from Shaolin.\n" +
+                    "Increases the damage of active skill by 20%.\n" +
+                    "This Skill is only acquired after level 40.\n",
+            SkillIdentity.TENDON_SHAPING_CLASSIC,
+            "tendon shaping classic"
+    );
+
+    private final SkillStructArray TENDON_SHAPING_CLASSIC_ARRAY = new SkillStructArray(
+            TENDON_SHAPING_CLASSIC_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -410,7 +423,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY),
                     Map.entry(SkillIdentity.WEAPON_RAINSTORM, WEAPON_RAINSTORM_ARRAY),
                     Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY),
-                    Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY)
+                    Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY),
+                    Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY)
             )
     );
 

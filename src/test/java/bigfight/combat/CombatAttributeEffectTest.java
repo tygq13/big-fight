@@ -1,14 +1,18 @@
 package bigfight.combat;
 
 import bigfight.combat.attack.BigTypeAttack;
+import bigfight.combat.attack.SkillAttack;
 import bigfight.combat.attack.UnarmedAttack;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.Roar;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.warrior.component.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.EnUi;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -139,6 +143,23 @@ public class CombatAttributeEffectTest {
         // test
         int expectedHealth = fighter2.getHealth() - 2 * WEAPON_DAMAGE;
         new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
+        assertEquals(expectedHealth, fighter2.getHealth());
+    }
+
+    @Test
+    void skill_extra_percentage_damage_effective_example_roar() {
+        double EXTRA_PERCENTAGE = 0.2;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.skillExtraPercentageDamage = EXTRA_PERCENTAGE;
+        Fighter fighter1 = new FighterBuilderTestUtil().withAdvancedAttribute(advancedAttribute).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        Roar roar = (Roar) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+
+        // test
+        int expectedHealth = fighter2.getHealth() - (int) (roar.getDamage() * (1 + EXTRA_PERCENTAGE));
+        new SkillAttack(fighter1, fighter2, roar, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter2.getHealth());
     }
 }

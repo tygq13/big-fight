@@ -73,6 +73,8 @@ public class SkillFactory {
                 return new WeaponRainstorm(skillData.getWithStar(identity, 0));
             case BLOOD_THIRSTY:
                 return new BloodThirsty(skillData.getWithStar(identity, 0));
+            case TENDON_SHAPING_CLASSIC:
+                return new TendonShapingClassic(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }
