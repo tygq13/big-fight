@@ -28,7 +28,8 @@ public enum SkillIdentity {
     WEAPON_RAINSTORM,
     TICKLE,
     BLOOD_THIRSTY,
-    TENDON_SHAPING_CLASSIC;
+    TENDON_SHAPING_CLASSIC,
+    DIM_HIT;
 
 
     // use static constant to avoid copying of enum array

@@ -3,6 +3,7 @@ package bigfight.combat.attack;
 import bigfight.combat.fighter.components.CombatSelector;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.data.DataConfig;
 import bigfight.model.warrior.component.attr.AttackAttribute;
 import bigfight.model.warrior.component.attr.DefenceAttribute;
 import bigfight.model.weapon.struct.Damage;
@@ -22,6 +23,13 @@ class AttackCalculator {
         double extraPercentageDamage = attackAttribute.getExtraPercentageDamage() - defenceAttribute.getAntiExtraPercentageDamage();
         extraPercentageDamage = Math.max(extraPercentageDamage, 0);
         damage = (int) (damage * (1 + extraPercentageDamage));
+
+        // critical attack
+        if (random.getCriticalAttackRandom() > (1 - attackAttribute.getCriticalChance() + defenceAttribute.getAntiCriticalChance())) {
+            double criticalMultiply = attackAttribute.getCriticalDamage() - defenceAttribute.getAntiCriticalDamage();
+            criticalMultiply = Math.max(criticalMultiply, 0);
+            damage *= DataConfig.CRITICAL_DAMAGE_BASE + criticalMultiply;
+        }
         return damage;
     }
 

@@ -34,6 +34,10 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
+    public double getCriticalAttackRandom() {
+        return random.nextDouble();
+    }
+
     public double getThrowWeaponRandom() {
         return random.nextDouble();
     }
@@ -85,4 +89,5 @@ public class CombatRandom extends Random{
     public double doubleHitRandom() {
         return random.nextDouble();
     }
+
 }

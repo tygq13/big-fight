@@ -29,13 +29,13 @@ public class AdvancedAttribute implements Cloneable{
     public double antiSkillCriticalChance = 0;
     public double antiUnarmedCriticalChance = 0;
 
-    public int weaponCriticalDamage = 0;
-    public int skillCriticalDamage = 0;
-    public int unarmedCriticalDamage = 0;
+    public double weaponCriticalDamagePercentage = 0;
+    public double skillCriticalDamagePercentage = 0;
+    public double unarmedCriticalDamagePercentage = 0;
 
-    public int antiWeaponCriticalDamage = 0;
-    public int antiSkillCriticalDamage = 0;
-    public int antiUnarmedCriticalDamage = 0;
+    public double antiWeaponCriticalDamagePercentage = 0;
+    public double antiSkillCriticalDamagePercentage = 0;
+    public double antiUnarmedCriticalDamagePercentage = 0;
 
     public int bigExtraDamage = 0;
     public int mediumExtraDamage = 0;
@@ -106,62 +106,62 @@ public class AdvancedAttribute implements Cloneable{
     }
 
     public AttackAttribute bigAttackAttribute() {
-        return new AttackAttribute(bigHitRate, bigCriticalChance, weaponCriticalDamage, bigExtraDamage,
+        return new AttackAttribute(bigHitRate, bigCriticalChance, weaponCriticalDamagePercentage, bigExtraDamage,
                 bigExtraPercentageDamage, bigPenetrate, antiBigTenacity);
     }
 
     public AttackAttribute smallAttackAttribute() {
-        return new AttackAttribute(smallHitRate, smallCriticalChance, weaponCriticalDamage, smallExtraDamage,
+        return new AttackAttribute(smallHitRate, smallCriticalChance, weaponCriticalDamagePercentage, smallExtraDamage,
                 smallExtraPercentageDamage, smallPenetrate, antiSmallTenacity);
     }
 
     public AttackAttribute mediumAttackAttribute() {
-        return new AttackAttribute(mediumHitRate, mediumCriticalChance, weaponCriticalDamage, mediumExtraDamage,
+        return new AttackAttribute(mediumHitRate, mediumCriticalChance, weaponCriticalDamagePercentage, mediumExtraDamage,
                 mediumExtraPercentageDamage, mediumPenetrate, antiMediumTenacity);
     }
 
     public AttackAttribute throwAttackAttribute() {
-        return new AttackAttribute(throwHitRate, throwCriticalChance, weaponCriticalDamage, throwExtraDamage,
+        return new AttackAttribute(throwHitRate, throwCriticalChance, weaponCriticalDamagePercentage, throwExtraDamage,
                 throwExtraPercentageDamage, throwPenetrate, antiThrowTenacity);
     }
 
     public AttackAttribute unarmedAttackAttribute() {
-        return new AttackAttribute(unarmedHitRate, unarmedCriticalChance, unarmedCriticalDamage, unarmedExtraDamage,
+        return new AttackAttribute(unarmedHitRate, unarmedCriticalChance, unarmedCriticalDamagePercentage, unarmedExtraDamage,
                 unarmedExtraPercentageDamage, unarmedPenetrate, 0);
     }
 
     public AttackAttribute skillAttackAttribute() {
-        return new AttackAttribute(skillHitRate, skillCriticalChance, skillCriticalDamage, skillExtraDamage,
+        return new AttackAttribute(skillHitRate, skillCriticalChance, skillCriticalDamagePercentage, skillExtraDamage,
                 skillExtraPercentageDamage, skillPenetrate, antiSkillTenacity);
     }
 
     public DefenceAttribute bigDefenceAttribute() {
-        return new DefenceAttribute(bigEvasionRate, antiBigCriticalChance, weaponCriticalDamage, antiBigExtraDamage,
+        return new DefenceAttribute(bigEvasionRate, antiBigCriticalChance, weaponCriticalDamagePercentage, antiBigExtraDamage,
                 antiBigExtraPercentageDamage, antiBigPenetrate, antiBigTenacity);
     }
 
     public DefenceAttribute mediumDefenceAttribute() {
-        return new DefenceAttribute(mediumEvasionRate, antiMediumCriticalChance, weaponCriticalDamage, antiMediumExtraDamage,
+        return new DefenceAttribute(mediumEvasionRate, antiMediumCriticalChance, weaponCriticalDamagePercentage, antiMediumExtraDamage,
                 antiMediumExtraPercentageDamage, antiMediumPenetrate, mediumTenacity);
     }
 
     public DefenceAttribute smallDefenceAttribute() {
-        return new DefenceAttribute(smallEvasionRate, antiSmallCriticalChance, weaponCriticalDamage, antiSmallExtraDamage,
+        return new DefenceAttribute(smallEvasionRate, antiSmallCriticalChance, weaponCriticalDamagePercentage, antiSmallExtraDamage,
                 antiSmallExtraPercentageDamage, antiSmallPenetrate, smallTenacity);
     }
 
     public DefenceAttribute throwDefenceAttribute() {
-        return new DefenceAttribute(throwEvasionRate, antiThrowCriticalChance, weaponCriticalDamage, antiThrowExtraDamage,
+        return new DefenceAttribute(throwEvasionRate, antiThrowCriticalChance, weaponCriticalDamagePercentage, antiThrowExtraDamage,
                 antiThrowExtraPercentageDamage, antiThrowPenetrate, throwTenacity);
     }
 
     public DefenceAttribute unarmedDefenceAttribute() {
-        return new DefenceAttribute(unarmedEvasionRate, antiUnarmedCriticalChance, antiUnarmedCriticalDamage, antiUnarmedExtraDamage,
+        return new DefenceAttribute(unarmedEvasionRate, antiUnarmedCriticalChance, antiUnarmedCriticalDamagePercentage, antiUnarmedExtraDamage,
                 antiUnarmedExtraPercentageDamage, antiUnarmedPenetrate, 0);
     }
 
     public DefenceAttribute skillDefenceAttribute() {
-        return new DefenceAttribute(skillEvasionRate, antiSkillCriticalChance, antiSkillCriticalDamage, antiSkillExtraDamage,
+        return new DefenceAttribute(skillEvasionRate, antiSkillCriticalChance, antiSkillCriticalDamagePercentage, antiSkillExtraDamage,
                 antiSkillExtraPercentageDamage, antiSkillPenetrate, skillTenacity);
     }
 }

@@ -75,6 +75,8 @@ public class SkillFactory {
                 return new BloodThirsty(skillData.getWithStar(identity, 0));
             case TENDON_SHAPING_CLASSIC:
                 return new TendonShapingClassic(skillData.getWithStar(identity, 0));
+            case DIM_HIT:
+                return new DimHit(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

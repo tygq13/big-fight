@@ -205,7 +205,7 @@ public class SkillData {
     private final SkillStruct RIPPLELESS_STEPS_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "No one can guess your next move.\n" +
-                    "Increases 7% chance of evasion.\n" +
+                    "Your evasion chance increases by 7%.\n" +
                     "After level 60, you have high chance of getting this skill at every 5 levels.\n",
             SkillIdentity.RIPPLESLESS_STEPS,
             "ripple-less steps"
@@ -230,7 +230,7 @@ public class SkillData {
     private final SkillStruct HEAVY_USUAL_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "All kinds of heavy weapons become easy for you.\n" +
-                    "Increase 10% damage of big weapons.\n",
+                    "Your big weapon damage increases by 10%.\n",
             SkillIdentity.HEAVY_USUAL,
             "heavy-usual"
     );
@@ -242,8 +242,8 @@ public class SkillData {
     private final SkillStruct OPT_FOR_LIGHTNESS_ZERO = new SkillStruct(
             SkillType.PERMANENT,
             "You of featherweight have your own secret skill.\n" +
-                    "Increase 15% damage of small and medium weapons. Increase 20% evasion to big weapons.\n" +
-                    "Skill is only acquired after level 30. ",
+                    "Your small and medium weapon damage increases by 15%. Your big weapon evasion rate increases by 20%.\n" +
+                    "Skill is only acquired after level 30.\n",
             SkillIdentity.OPT_FOR_LIGHTNESS,
             "opt for lightness"
     );
@@ -393,6 +393,19 @@ public class SkillData {
             TENDON_SHAPING_CLASSIC_ZERO
     );
 
+    private final SkillStruct DIM_HIT_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "It all comes from a dim mood. Hero Yang Guo created this skill in his miss for his wife.\n" +
+                    "Your chance of skill critical attack increases by 15%.\n" +
+                    "This Skill is only acquired after level 40.\n",
+            SkillIdentity.DIM_HIT,
+            "dim hit"
+    );
+
+    private final SkillStructArray DIM_HIT_ARRAY = new SkillStructArray(
+            DIM_HIT_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -424,7 +437,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.WEAPON_RAINSTORM, WEAPON_RAINSTORM_ARRAY),
                     Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY),
                     Map.entry(SkillIdentity.BLOOD_THIRSTY, BLOOD_THIRSTY_ARRAY),
-                    Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY)
+                    Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY),
+                    Map.entry(SkillIdentity.DIM_HIT, DIM_HIT_ARRAY)
             )
     );
 

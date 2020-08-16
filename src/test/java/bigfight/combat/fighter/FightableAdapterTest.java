@@ -30,17 +30,17 @@ public class FightableAdapterTest {
         final int expectedStrength = strength.value();
         final int expectedAgility = agility.value();
         final int expectedSpeed = speed.value();
-        final double expectedDamage = advancedAttribute.weaponCriticalDamage;
+        final double expectedDamage = advancedAttribute.weaponCriticalDamagePercentage;
         // test
         FightableAdapter test = new FightableAdapter(mockWarrior);
         test.getStrength().addToAddition(10);
         test.getAgility().addToAddition(10);
         test.getSpeed().addToAddition(10);
-        test.getWeaponAttribute().weaponCriticalDamage += 10;
+        test.getWeaponAttribute().weaponCriticalDamagePercentage += 10;
         assertEquals(expectedStrength, strength.value());
         assertEquals(expectedAgility, agility.value());;
         assertEquals(expectedSpeed, speed.value());
-        assertEquals(expectedDamage, advancedAttribute.weaponCriticalDamage);
+        assertEquals(expectedDamage, advancedAttribute.weaponCriticalDamagePercentage);
     }
 
 }

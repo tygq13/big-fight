@@ -3,13 +3,13 @@ package bigfight.model.warrior.component.attr;
 public class DefenceAttribute {
     private double evasionRate;
     private double antiCriticalChance;
-    private int antiCriticalDamage;
+    private double antiCriticalDamage;
     private int antiExtraDamage;
     private double antiExtraPercentageDamage;
     private double antiPenetrate;
     private double Tenacity;
 
-    public DefenceAttribute(double evasionRate, double antiCriticalChance, int antiCriticalDamage, int antiExtraDamage, double antiExtraPercentageDamage,
+    public DefenceAttribute(double evasionRate, double antiCriticalChance, double antiCriticalDamage, int antiExtraDamage, double antiExtraPercentageDamage,
                            double antiPenetrate, double Tenacity) {
         this.evasionRate = evasionRate;
         this.antiCriticalChance = antiCriticalChance;
@@ -32,7 +32,7 @@ public class DefenceAttribute {
         return antiCriticalChance;
     }
 
-    public int getAntiCriticalDamage() {
+    public double getAntiCriticalDamage() {
         return antiCriticalDamage;
     }
 

@@ -15,6 +15,7 @@ public class DataConfig {
     public static final Damage DEFAULT_UNARMED_DAMAGE = new Damage(10, 20);
     public static final double THROW_WEAPON_CHANCE = 0.1;
     public static final double UNARMED_CHANCE = 0.1;
+    public static final double CRITICAL_DAMAGE_BASE = 1.5;
 
     // initialize data set to default value
     public DataConfig() {
