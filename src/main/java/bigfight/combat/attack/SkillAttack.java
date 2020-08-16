@@ -17,6 +17,7 @@ public class SkillAttack implements Attackable {
     private SkillModel skill;
     private CombatRandom random;
     private Uiable ui;
+    private AttackCalculator attackCalculator;
 
     public SkillAttack(Fighter attacker, Fighter defender, SkillModel skill, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -24,6 +25,8 @@ public class SkillAttack implements Attackable {
         this.skill = skill;
         this.random = random;
         this.ui = ui;
+        this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().skillAttackAttribute(),
+                defender.getAdvancedAttribute().skillDefenceAttribute());
     }
 
     @Override
@@ -37,15 +40,12 @@ public class SkillAttack implements Attackable {
             return;
         }
         // should add exception if not initialized;
-        double escape = defender.getAdvancedAttribute().skillEvasionRate - attacker.getAdvancedAttribute().skillHitRate;
-        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
         ui.printSkillAttack(skill.getAttackDescription(), attacker.getName());
-        if (random.getEscapeRandom() < escape) {
+        if (attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random)) {
             ui.printSkillDodge(skill.getDodgeDescription(), defender.getName());
         } else {
             int damage = getSkillDamage();
-            damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().skillAttackAttribute(),
-                    defender.getAdvancedAttribute().skillDefenceAttribute());
+            damage = attackCalculator.damageAttributeMultiply(damage);
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());

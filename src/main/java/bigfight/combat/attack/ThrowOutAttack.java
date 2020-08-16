@@ -9,6 +9,7 @@ import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.weapon.weapons.GasHammer;
 import bigfight.ui.Uiable;
 
+@Deprecated
 public class ThrowOutAttack implements Attackable {
     private Fighter attacker;
     private Fighter defender;
@@ -26,80 +27,16 @@ public class ThrowOutAttack implements Attackable {
 
     @Override
     public void attack() {
-        ui.printThrowOutAttack(attacker.getName(), weapon.getName());
-        // special case
-        // todo: refactor this
-        if (weapon.getIdentity() == WeaponIdentity.TRIDENT) {
-            attacker.getFighterFlag().ignored += 1;
-        }
-
-        if (!escaped()) {
-            defender.getFighterFlag().ignored += ignoreOpponent();
-            int damage = calculateDamage();
-            defender.updateHealth(defender.getHealth() - damage);
-            ui.printInjury(defender.getName(), damage, defender.getHealth());
-            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
-            if (!(counterAttack.specialCounter(damage))) {
-                counterAttack.counterAttack();
-            }
-        }
-        ui.printDodge(defender.getName());
-
-        // loss the weapon after throwing out
-        Weapon unarmed = null;
-        attacker.changeWeapon(new Empowerment(unarmed));
-    }
-
-    private int ignoreOpponent() {
-        if (weapon.getIdentity() == null) {
-            return 0;
-        }
-        switch (weapon.getIdentity()) {
-            case GAS_HAMMER:
-                GasHammer gasHammer = (GasHammer) weapon.getModel();
-                return random.getIgnoreRandom() < gasHammer.getIgnoreChance() ? 1 : 0;
-        }
-        return 0;
-    }
-
-    private boolean escaped() {
-        if (weapon.getIdentity() == WeaponIdentity.DEMON_SCYTHE || weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
-            return false;
-        }
-        double escape = 0;
         switch (weapon.getType()) {
             case BIG:
-                escape = defender.getAdvancedAttribute().bigEvasionRate - attacker.getAdvancedAttribute().bigHitRate;
+                new BigTypeAttack(attacker, defender, weapon, random, ui).attack();
                 break;
             case MEDIUM:
-                escape = defender.getAdvancedAttribute().mediumEvasionRate - attacker.getAdvancedAttribute().mediumHitRate;
+                new MediumTypeAttack(attacker, defender, weapon, random, ui).attack();
                 break;
             case SMALL:
-                escape = defender.getAdvancedAttribute().smallEvasionRate - attacker.getAdvancedAttribute().smallHitRate;
+                new SmallTypeAttack(attacker, defender, weapon, random, ui).attack();
         }
-        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        return random.getEscapeRandom() < escape;
-    }
-
-    private int calculateDamage() {
-        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        weaponDamage += CombatAlgo.extraDamageByAttribute(attacker.getStrength(), defender.getStrength());
-        double extraDamageMultiply = 0;
-        switch (weapon.getType()) {
-            case BIG:
-                extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
-                extraDamageMultiply -= defender.getAdvancedAttribute().antiBigExtraPercentageDamage;
-                break;
-            case MEDIUM:
-                extraDamageMultiply = attacker.getAdvancedAttribute().mediumExtraPercentageDamage;
-                extraDamageMultiply -= defender.getAdvancedAttribute().antiMediumExtraPercentageDamage;
-            break;
-            case SMALL:
-                extraDamageMultiply = attacker.getAdvancedAttribute().smallExtraPercentageDamage;
-                extraDamageMultiply -= defender.getAdvancedAttribute().antiSmallExtraPercentageDamage;
-        }
-        int damage = (int) (weaponDamage * (1 + extraDamageMultiply));
-        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
-        return damage;
+        attacker.changeWeapon(new Empowerment((Weapon) null));
     }
 }

@@ -146,7 +146,7 @@ class RoundTest {
         final double THROW_WEAPON = 1.0;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
-        Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
+        Weapon weapon = CombatTestUtil.createBigWeapon();
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);

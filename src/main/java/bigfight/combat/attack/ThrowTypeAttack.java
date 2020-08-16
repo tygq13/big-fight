@@ -15,7 +15,7 @@ public class ThrowTypeAttack implements Attackable{
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
+    private AttackCalculator attackCalculator;
 
     public ThrowTypeAttack(Fighter attacker, Fighter defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
@@ -23,6 +23,8 @@ public class ThrowTypeAttack implements Attackable{
         this.weapon = weapon;
         this.random = random;
         this.ui = ui;
+        this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().throwAttackAttribute(),
+                defender.getAdvancedAttribute().throwDefenceAttribute());
     }
 
     @Override
@@ -30,7 +32,6 @@ public class ThrowTypeAttack implements Attackable{
         for (int i = 0; i < 2; i++) {
             ui.printWeaponThrowAttack(attacker.getName(), weapon.getName());
             if (!escaped()) {
-                isEscaped = false;
                 int damage = calculateDamage();
                 defender.updateHealth(defender.getHealth() - damage);
                 if (attacker.hasSkill(SkillIdentity.BLOOD_THIRSTY)) {
@@ -42,7 +43,6 @@ public class ThrowTypeAttack implements Attackable{
                 ui.printInjury(defender.getName(), damage, defender.getHealth());
                 new CounterAttack(defender, attacker, random, ui).specialCounter(damage);
             } else {
-                isEscaped = true;
                 ui.printDodge(defender.getName());
             }
             if (random.doubleHitRandom() < attacker.getAdvancedAttribute().doubleHitChance && !attacker.getFighterFlag().doubleHited) {
@@ -56,16 +56,13 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private boolean escaped() {
-        double escape = defender.getAdvancedAttribute().throwEvasionRate - attacker.getAdvancedAttribute().throwHitRate;
-        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        return random.getEscapeRandom() < escape;
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random);
     }
 
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
         int damage = weaponDamage + CombatAlgo.extraDamageByAttribute(attacker.getAgility(), defender.getAgility());
-        damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().throwAttackAttribute(),
-                defender.getAdvancedAttribute().throwDefenceAttribute());
+        damage = attackCalculator.damageAttributeMultiply(damage);
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

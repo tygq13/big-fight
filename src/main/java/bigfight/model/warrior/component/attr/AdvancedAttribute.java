@@ -126,12 +126,12 @@ public class AdvancedAttribute implements Cloneable{
     }
 
     public AttackAttribute unarmedAttackAttribute() {
-        return new AttackAttribute(unarmedHitRate, unarmedCriticalChance, weaponCriticalDamage, unarmedExtraDamage,
+        return new AttackAttribute(unarmedHitRate, unarmedCriticalChance, unarmedCriticalDamage, unarmedExtraDamage,
                 unarmedExtraPercentageDamage, unarmedPenetrate, 0);
     }
 
     public AttackAttribute skillAttackAttribute() {
-        return new AttackAttribute(skillHitRate, skillCriticalChance, weaponCriticalDamage, skillExtraDamage,
+        return new AttackAttribute(skillHitRate, skillCriticalChance, skillCriticalDamage, skillExtraDamage,
                 skillExtraPercentageDamage, skillPenetrate, antiSkillTenacity);
     }
 
@@ -156,12 +156,12 @@ public class AdvancedAttribute implements Cloneable{
     }
 
     public DefenceAttribute unarmedDefenceAttribute() {
-        return new DefenceAttribute(unarmedEvasionRate, antiUnarmedCriticalChance, weaponCriticalDamage, antiUnarmedExtraDamage,
+        return new DefenceAttribute(unarmedEvasionRate, antiUnarmedCriticalChance, antiUnarmedCriticalDamage, antiUnarmedExtraDamage,
                 antiUnarmedExtraPercentageDamage, antiUnarmedPenetrate, 0);
     }
 
     public DefenceAttribute skillDefenceAttribute() {
-        return new DefenceAttribute(skillEvasionRate, antiSkillCriticalChance, weaponCriticalDamage, antiSkillExtraDamage,
+        return new DefenceAttribute(skillEvasionRate, antiSkillCriticalChance, antiSkillCriticalDamage, antiSkillExtraDamage,
                 antiSkillExtraPercentageDamage, antiSkillPenetrate, skillTenacity);
     }
 }
