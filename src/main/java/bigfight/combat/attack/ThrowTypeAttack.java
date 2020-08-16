@@ -61,7 +61,7 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private int calculateDamage() {
-        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength(),
+        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getAgility(), defender.getAgility(),
                 defender.getCombatSelector());
     }
 }
