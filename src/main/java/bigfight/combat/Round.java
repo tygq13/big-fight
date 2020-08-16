@@ -36,7 +36,7 @@ public class Round {
             new UnarmedAttack(attacker, defender, random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.THROW) {
             new ThrowTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
-        } else if (random.getThrowWeaponRandom() < DataConfig.THROW_WEAPON_CHANCE) {
+        } else if (random.getThrowWeaponRandom() > 1 - DataConfig.THROW_WEAPON_CHANCE) {
             new ThrowOutAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();
         } else if (empowerment.getWeapon().getType() == WeaponType.SMALL) {
             new SmallTypeAttack(attacker, defender, empowerment.getWeapon(), random, ui).attack();

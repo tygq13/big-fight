@@ -288,7 +288,6 @@ class CombatEachSkillTest {
     @Test
     void blood_thirsty_life_steal_example_case_of_big_weapon() {
         final double INVOKE = -1.0;
-        final double NO_THROW = 1.0;
         BloodThirsty bloodThirsty = (BloodThirsty) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BLOOD_THIRSTY);
         Fighter fighter1 = new FighterBuilderTestUtil().withSkill(bloodThirsty).build();
         fighter1.updateHealth(fighter1.getHealth() / 2);
@@ -296,7 +295,6 @@ class CombatEachSkillTest {
         Empowerment empowerment = new Empowerment(CombatTestUtil.createBigWeapon());
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
 

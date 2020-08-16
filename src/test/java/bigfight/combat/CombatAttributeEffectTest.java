@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CombatAttributeEffectTest {
     private final static double EPSILON = 0.001;
     private final double NO_ESCAPE = 1.0;
-    private final double NO_THROW = 1.0;
     private final double COUNTER_ATTACK = -1.0;
     private final double NO_COUNTER_ATTACK = 1.0;
     private final double NO_COUNTER_ESCAPE = 1.0;
@@ -38,7 +37,6 @@ public class CombatAttributeEffectTest {
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
         int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 + EXTRA_PERCENTAGE));
@@ -96,7 +94,6 @@ public class CombatAttributeEffectTest {
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
         int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 - EXTRA_PERCENTAGE));
@@ -116,7 +113,6 @@ public class CombatAttributeEffectTest {
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(EXTRA_PERCENTAGE - EPSILON);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
         int expectedHealth = fighter2.getHealth();
@@ -137,7 +133,6 @@ public class CombatAttributeEffectTest {
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.doubleHitRandom()).thenReturn(DOUBLE_HIT);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test

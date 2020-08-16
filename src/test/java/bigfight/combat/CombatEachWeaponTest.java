@@ -22,8 +22,8 @@ class CombatEachWeaponTest {
 
     private final double NO_ESCAPE = 1.0;
     private final double ESCAPE = 0.0;
-    private final double NO_THROW = 1.0;
-    private final double THROW = 0.0;
+    private final double NO_THROW = -1.0;
+    private final double THROW = 1.0;
 
     @Test
     void test_trident_rest_one_round() {
@@ -32,7 +32,6 @@ class CombatEachWeaponTest {
         Weapon trident = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
 
         // test
         final int EXPECTED = 1;
@@ -56,7 +55,6 @@ class CombatEachWeaponTest {
         Weapon gasHammer = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.GAS_HAMMER);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getIgnoreRandom()).thenReturn(IGNORE);
 
         final int EXPECTED = 1;
@@ -81,7 +79,6 @@ class CombatEachWeaponTest {
         Empowerment empowerment = new Empowerment(demonScythe);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(demonScythe.getDamage().lower());
 
         final int EXPECTED = fighter2.getHealth() - demonScythe.getDamage().lower();
@@ -103,7 +100,6 @@ class CombatEachWeaponTest {
         Empowerment empowerment = new Empowerment(judgePencil);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(ESCAPE);
-        when(random.getThrowWeaponRandom()).thenReturn(NO_THROW);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(judgePencil.getDamage().lower());
 
         final int EXPECTED = fighter2.getHealth() - judgePencil.getDamage().lower();
