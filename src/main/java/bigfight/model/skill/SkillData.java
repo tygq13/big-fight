@@ -454,7 +454,33 @@ public class SkillData {
     );
 
     private final SkillStructArray FOCUS_ON_HEART_ARRAY = new SkillStructArray(
-            FOSHAN_KICK_ZERO
+            FOCUS_ON_HEART_ZERO
+    );
+
+    private final SkillStruct BLOOD_SACRIFICE_ZERO = new SkillStruct(
+            SkillType.SPECIAL,
+            "An evil technique from the demon king.\n" +
+                    "20% chance of increasing 10% of life steal.\n" +
+                    "This skill is only acquired after level 30.\n",
+            SkillIdentity.BLOOD_SACRIFICE,
+            "blood sacrifice"
+    );
+
+    private final SkillStructArray BLOOD_SACRIFICE_ARRAY = new SkillStructArray(
+            BLOOD_SACRIFICE_ZERO
+    );
+
+    private final SkillStruct LUCKY_OR_NOT_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Your luck or my luck?\n" +
+                    "70% chance increases opponent’s health by 25%. \n" +
+                    "This skill is only acquired after level 30.\n",
+            SkillIdentity.LUCKY_OR_NOT,
+            "luck or not"
+    );
+
+    private final SkillStructArray LUCK_OR_NOT_ARRAY = new SkillStructArray(
+            LUCKY_OR_NOT_ZERO
     );
 
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
@@ -493,7 +519,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.DASH, DASH_ARRAY),
                     Map.entry(SkillIdentity.SHAKE, SHAKE_ARRAY),
                     Map.entry(SkillIdentity.WINDY_KICK, WINDY_KICK_ARRAY),
-                    Map.entry(SkillIdentity.FOCUS_ON_HEART, FOCUS_ON_HEART_ARRAY)
+                    Map.entry(SkillIdentity.FOCUS_ON_HEART, FOCUS_ON_HEART_ARRAY),
+                    Map.entry(SkillIdentity.BLOOD_SACRIFICE, BLOOD_SACRIFICE_ARRAY),
+                    Map.entry(SkillIdentity.LUCKY_OR_NOT, LUCK_OR_NOT_ARRAY)
             )
     );
 

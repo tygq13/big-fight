@@ -85,6 +85,10 @@ public class SkillFactory {
                 return new WindyKick(skillData.getWithStar(identity, 0));
             case FOCUS_ON_HEART:
                 return new FocusOnHeart(skillData.getWithStar(identity, 0));
+            case BLOOD_SACRIFICE:
+                return new BloodSacrifice(skillData.getWithStar(identity, 0));
+            case LUCKY_OR_NOT:
+                return new LuckyOrNot(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

@@ -124,4 +124,8 @@ public class Fighter {
     public void updateStatus() {
         buffs.invoke(this);
     }
+
+    public Buffs getBuffs() {
+        return buffs;
+    }
 }

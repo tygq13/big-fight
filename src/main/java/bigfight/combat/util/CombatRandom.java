@@ -86,6 +86,10 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
+    public double getLuckyOrNotRandom() {
+        return random.nextDouble();
+    }
+
     public double doubleHitRandom() {
         return random.nextDouble();
     }

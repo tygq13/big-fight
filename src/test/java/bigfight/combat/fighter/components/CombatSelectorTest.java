@@ -2,16 +2,20 @@ package bigfight.combat.fighter.components;
 
 import bigfight.combat.fighter.FightableWarrior;
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.LuckyOrNot;
+import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CombatSelectorTest {
     private final double NOT_UNARMED = 1;
@@ -45,7 +49,7 @@ public class CombatSelectorTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());
+        test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag(), test.getBuffs());
         final int EXPECTED = 1;
         assertEquals(EXPECTED, test.getWeaponSize());
     }
@@ -58,7 +62,7 @@ public class CombatSelectorTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment =test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());;
+        Empowerment empowerment =test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag(), test.getBuffs());;
         assertNotNull(empowerment.getWeapon());
     }
 
@@ -67,7 +71,7 @@ public class CombatSelectorTest {
         FightableWarrior mockWarrior = noEmpowermentWarrior();
         CombatRandom random = mock(CombatRandom.class);
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment = test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());;
+        Empowerment empowerment = test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag(), test.getBuffs());;
         assertNull(empowerment.getWeapon());
         assertNull(empowerment.getSkill());
     }

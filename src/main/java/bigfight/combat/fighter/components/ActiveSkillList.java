@@ -1,7 +1,9 @@
 package bigfight.combat.fighter.components;
 
+import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.Glue;
+import bigfight.model.skill.skills.LuckyOrNot;
 import bigfight.model.skill.skills.OnePunch;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -51,9 +53,13 @@ public class ActiveSkillList {
         return null;
     }
 
-    public Empowerment select(CombatRandom random) {
+    public Empowerment select(CombatRandom random, Buffs buffs) {
         int luckyDraw = random.selectActiveSkill(skillList.size());
         SkillModel skill = skillList.get(luckyDraw);
+        if (skill.getIdentity() == SkillIdentity.LUCKY_OR_NOT) {
+            LuckyOrNot luckyOrNot = (LuckyOrNot) skill;
+            buffs.add(luckyOrNot.createBuff());
+        }
 
         // redraw in case of rare skill
         if (skill.getIdentity() == SkillIdentity.ONE_PUNCH) {

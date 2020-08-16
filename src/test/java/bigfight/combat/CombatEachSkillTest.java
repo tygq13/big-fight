@@ -6,6 +6,7 @@ import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
+import bigfight.model.skill.skills.special.BloodSacrifice;
 import bigfight.model.skill.skills.special.BloodThirsty;
 import bigfight.model.skill.skills.special.HakiProtect;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -27,6 +28,7 @@ class CombatEachSkillTest {
     private Uiable mockUi = mock(EnUi.class);
     private CombatRandom mockRandom = mock(CombatRandom.class);
     private final int DAMAGE = 10;
+    private final double EPSILON = 0.01;
 
     @Test
     void roar_ignore_one_round() {
@@ -197,7 +199,7 @@ class CombatEachSkillTest {
         when(random.selectUnarmed()).thenReturn(NOT_SELECT_UNARMED);
         when(random.selectWeapon(anyInt())).thenReturn(SELECT_BIG_WEAPON);
         // test
-        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag());;
+        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag(), fighter.getBuffs());;
         assertNull(empowerment.getWeapon());
         assertTrue(fighter.getFighterFlag().ignoredByUnselection);
     }
@@ -337,4 +339,51 @@ class CombatEachSkillTest {
         assertEquals(EXPECTED_SPEED, fighter1.getSpeed());
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
+
+    @Test
+    void blood_sacrifice_life_steal_example_roar() {
+        final double INVOKE = -1.0;
+        BloodSacrifice bloodSacrifice = (BloodSacrifice) DEFAULT_SKILL_FACTORY.create(SkillIdentity.BLOOD_SACRIFICE);
+        Fighter fighter1 = new FighterBuilderTestUtil().withSkill(bloodSacrifice).build();
+        fighter1.updateHealth(fighter1.getHealth() / 2);
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        Roar skill = (Roar) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
+        Empowerment empowerment = new Empowerment(skill);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
+
+        // test
+        final int EXPECTED_HEALTH = fighter1.getHealth() + (int) (skill.getDamage() * bloodSacrifice.getLifeStealPercentage());
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter1.getHealth());
+    }
+
+    @Test
+    void lucky_or_not_level_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        LuckyOrNot skill = (LuckyOrNot) DEFAULT_SKILL_FACTORY.create(SkillIdentity.LUCKY_OR_NOT);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (skill.getDamage() + (fighter1.getLevel() * skill.getLevelMultiply()));
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void lucky_or_not_heal_when_bad_luck() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        fighter2.updateHealth(fighter2.getHealth() / 2);
+        LuckyOrNot luckyOrNot = (LuckyOrNot) DEFAULT_SKILL_FACTORY.create(SkillIdentity.LUCKY_OR_NOT);
+        double LUCK = luckyOrNot.getLuckyChance();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getLuckyOrNotRandom()).thenReturn(LUCK + EPSILON);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() + luckyOrNot.getHeal();
+        new SkillAttack(fighter1, fighter2, luckyOrNot, random, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
 }

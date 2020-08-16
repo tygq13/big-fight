@@ -33,7 +33,9 @@ public enum SkillIdentity {
     DASH,
     SHAKE,
     WINDY_KICK,
-    FOCUS_ON_HEART;
+    FOCUS_ON_HEART,
+    BLOOD_SACRIFICE,
+    LUCKY_OR_NOT;
 
 
     // use static constant to avoid copying of enum array

@@ -46,6 +46,7 @@ public class SkillAttack implements Attackable {
         } else {
             int damage = getSkillDamage();
             damage = attackCalculator.damageAttributeMultiply(damage);
+            lifeSteal(damage);
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
@@ -56,6 +57,10 @@ public class SkillAttack implements Attackable {
         }
     }
 
+    private void lifeSteal(int damage) {
+        double lifeSteal = attacker.getCombatSelector().selectBloodSacrifice(random);
+        attacker.updateHealth(attacker.getHealth() + (int) (damage * lifeSteal));
+    }
 
     private int ignoreOpponent() {
         switch (skill.getIdentity()) {
@@ -130,6 +135,15 @@ public class SkillAttack implements Attackable {
              case WINDY_KICK: {
                  WindyKick windyKick = (WindyKick) skill;
                  return (int) (windyKick.getSpeedMultiply() * (attacker.getSpeed() + windyKick.getSpeedAddition()));
+             }
+             case LUCKY_OR_NOT: {
+                 LuckyOrNot luckyOrNot = (LuckyOrNot) skill;
+                 if (random.getLuckyOrNotRandom() < luckyOrNot.getLuckyChance()) {
+                     return luckyOrNot.getDamage() + (int) (attacker.getLevel() * luckyOrNot.getLevelMultiply());
+                 } else {
+                     defender.updateHealth(defender.getHealth() + luckyOrNot.getHeal());
+                     return 0;
+                 }
              }
             default:
                 return 0;

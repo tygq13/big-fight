@@ -2,8 +2,10 @@ package bigfight.combat.fighter.components;
 
 import bigfight.combat.Combat;
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
+import bigfight.model.skill.skills.special.BloodSacrifice;
 import bigfight.model.skill.skills.special.BloodThirsty;
 import bigfight.model.skill.skills.special.HakiProtectUsable;
 import bigfight.model.skill.struct.SkillIdentity;
@@ -21,20 +23,22 @@ public class CombatSelector {
         this.weaponList = disposableWeaponList;
     }
 
-    public Empowerment selectEmpowerment(CombatRandom random, FighterFlag fighterFlag) {
+    public Empowerment selectEmpowerment(CombatRandom random, FighterFlag fighterFlag, Buffs buffs) {
         int totalSize = weaponList.size() + activeSkillList.size();
         if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
             // unarmed attack
+            specialSkillList.postWeaponAuxiliary(random, totalSize);
             return new Empowerment((Weapon) null);
         }
         int weaponOrSkill = random.selectWeaponOrSkill(totalSize);
         if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
+            // create weapon
             Empowerment weapon = weaponList.select(random, fighterFlag);
             specialSkillList.postWeaponAuxiliary(random, totalSize);
             return weapon;
         } else {
             // create skills
-            return activeSkillList.select(random);
+            return activeSkillList.select(random, buffs);
         }
     }
 
@@ -52,6 +56,16 @@ public class CombatSelector {
             BloodThirsty bloodThirsty = (BloodThirsty) specialSkillList.get(SkillIdentity.BLOOD_THIRSTY);
             if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
                 return bloodThirsty.getLifeStealPercentage();
+            }
+        }
+        return 0;
+    }
+
+    public double selectBloodSacrifice(CombatRandom random) {
+        if (specialSkillList.contains(SkillIdentity.BLOOD_SACRIFICE)) {
+            BloodSacrifice bloodSacrifice = (BloodSacrifice) specialSkillList.get(SkillIdentity.BLOOD_SACRIFICE);
+            if (random.getBloodThirstyRandom() < bloodSacrifice.getInvocationChance()) {
+                return bloodSacrifice.getLifeStealPercentage();
             }
         }
         return 0;
