@@ -26,7 +26,7 @@ public class SkillAttack implements Attackable {
         this.random = random;
         this.ui = ui;
         this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().skillAttackAttribute(),
-                defender.getAdvancedAttribute().skillDefenceAttribute());
+                defender.getAdvancedAttribute().skillDefenceAttribute(), random);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SkillAttack implements Attackable {
         }
         // should add exception if not initialized;
         ui.printSkillAttack(skill.getAttackDescription(), attacker.getName());
-        if (attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random)) {
+        if (attackCalculator.isEscape(attacker.getAgility(), defender.getAgility())) {
             ui.printSkillDodge(skill.getDodgeDescription(), defender.getName());
         } else {
             int damage = getSkillDamage();

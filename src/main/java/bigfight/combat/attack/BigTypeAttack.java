@@ -25,7 +25,7 @@ public class BigTypeAttack implements Attackable{
         this.random = random;
         this.ui = ui;
         this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().bigAttackAttribute(),
-                defender.getAdvancedAttribute().bigDefenceAttribute());
+                defender.getAdvancedAttribute().bigDefenceAttribute(), random);
     }
 
     @Override
@@ -78,13 +78,11 @@ public class BigTypeAttack implements Attackable{
         if (weapon.getIdentity() == WeaponIdentity.DEMON_SCYTHE) {
             return false;
         }
-        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random);
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
 
     private int calculateDamage() {
-        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        int damage = weaponDamage + CombatAlgo.extraDamageByAttribute(attacker.getStrength(), defender.getStrength());
-        damage = attackCalculator.damageAttributeMultiply(damage);
+        int damage = attackCalculator.calculateDamage(weapon.getDamage(), attacker.getStrength(), defender.getStrength());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

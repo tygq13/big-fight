@@ -20,7 +20,7 @@ public class UnarmedAttack implements Attackable {
         this.random = random;
         this.ui = ui;
         this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().unarmedAttackAttribute(),
-                defender.getAdvancedAttribute().unarmedDefenceAttribute());
+                defender.getAdvancedAttribute().unarmedDefenceAttribute(), random);
     }
 
     @Override
@@ -51,13 +51,11 @@ public class UnarmedAttack implements Attackable {
     }
 
     private boolean escaped() {
-        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random);
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
 
     private int calculateDamage() {
-        int baseDamage = random.getWeaponDamageRandom(attacker.getUnarmedDamage().lower(), attacker.getUnarmedDamage().higher());
-        int damage = baseDamage + CombatAlgo.extraDamageByAttribute(attacker.getStrength(), defender.getStrength());
-        damage = attackCalculator.damageAttributeMultiply(damage);
+        int damage = attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

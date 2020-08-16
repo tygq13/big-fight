@@ -24,7 +24,7 @@ public class ThrowTypeAttack implements Attackable{
         this.random = random;
         this.ui = ui;
         this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().throwAttackAttribute(),
-                defender.getAdvancedAttribute().throwDefenceAttribute());
+                defender.getAdvancedAttribute().throwDefenceAttribute(), random);
     }
 
     @Override
@@ -56,13 +56,11 @@ public class ThrowTypeAttack implements Attackable{
     }
 
     private boolean escaped() {
-        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility(), random);
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
 
     private int calculateDamage() {
-        int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-        int damage = weaponDamage + CombatAlgo.extraDamageByAttribute(attacker.getAgility(), defender.getAgility());
-        damage = attackCalculator.damageAttributeMultiply(damage);
+        int damage = attackCalculator.calculateDamage(weapon.getDamage(), attacker.getAgility(), defender.getAgility());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

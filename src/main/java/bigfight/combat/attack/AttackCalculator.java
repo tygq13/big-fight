@@ -1,30 +1,39 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.Combat;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.attr.AttackAttribute;
 import bigfight.model.warrior.component.attr.DefenceAttribute;
+import bigfight.model.weapon.struct.Damage;
 
-public class AttackCalculator {
-    AttackAttribute attackAttribute;
-    DefenceAttribute defenceAttribute;
+class AttackCalculator {
+    private AttackAttribute attackAttribute;
+    private DefenceAttribute defenceAttribute;
+    private CombatRandom random;
 
-    public AttackCalculator(AttackAttribute attackAttribute, DefenceAttribute defenceAttribute) {
+    AttackCalculator(AttackAttribute attackAttribute, DefenceAttribute defenceAttribute, CombatRandom random) {
         this.attackAttribute = attackAttribute;
         this.defenceAttribute = defenceAttribute;
+        this.random = random;
     }
 
-    public int damageAttributeMultiply(int damage) {
+    int damageAttributeMultiply(int damage) {
         double extraPercentageDamage = attackAttribute.getExtraPercentageDamage() - defenceAttribute.getAntiExtraPercentageDamage();
         extraPercentageDamage = Math.max(extraPercentageDamage, 0);
         damage = (int) (damage * (1 + extraPercentageDamage));
         return damage;
     }
 
-    public boolean isEscape(int attackerAgility, int defenderAgility, CombatRandom random) {
+    boolean isEscape(int attackerAgility, int defenderAgility) {
         double escape = defenceAttribute.getEvasionRate() - attackAttribute.getHitRate();
         escape += CombatAlgo.escapeByAgility(defenderAgility, attackerAgility);
         return random.getEscapeRandom() < escape;
+    }
+
+    int calculateDamage(Damage damage, int attackerAttribute, int defenderAttribute) {
+        int weaponDamage = damage == null ? 0 : random.getWeaponDamageRandom(damage.lower(), damage.higher());
+        int result = weaponDamage + CombatAlgo.extraDamageByAttribute(attackerAttribute, defenderAttribute);
+        result = damageAttributeMultiply(result);
+        return result;
     }
 }
