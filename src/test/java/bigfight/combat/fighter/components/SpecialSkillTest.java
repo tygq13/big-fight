@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class SpecialSkillTest {
 
     @Test
-    void selectAuxiliarySkill_based_on_invocation_chance() {
+    void selectHealingSKill_based_on_invocation_chance() {
         final double INVOCATION_CHANCE = 0.2;
         SpecialSkill specialSkill = spy(mock(SpecialSkill.class));
         when(specialSkill.getType()).thenReturn(SkillType.SPECIAL);
@@ -28,45 +28,45 @@ public class SpecialSkillTest {
                 .withSkill(specialSkill)
                 .build();
         // test
-        testFighter.selectAuxiliarySkill(mock(CombatRandom.class));
+        testFighter.getCombatSelector().selectHealingSkill(mock(CombatRandom.class), testFighter.getHealthObj());
         verify(specialSkill).getInvocationChance();
     }
 
     @Test
-    void selectAuxiliarySkill_fast_hand_activated() {
+    void selectHealingSKill_fast_hand_activated() {
         final double SELECT = -1.0;
         SpecialSkillList specialSkillList = new SpecialSkillList();
         FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
         FastHands spy = spy(fastHands);
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        when(random.selectHealingSkillRandom()).thenReturn(SELECT);
         specialSkillList.postWeaponAuxiliary(random, 1);
         verify(spy).createBuff();
     }
 
     @Test
-    void selectAuxiliarySkill_shadow_move_activated() {
+    void selectHealingSKill_shadow_move_activated() {
         final double SELECT = -1.0;
         SpecialSkillList specialSkillList = new SpecialSkillList();
         ShadowMove shadowMove = (ShadowMove) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHADOW_MOVE);
         ShadowMove spy = spy(shadowMove);
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        when(random.selectHealingSkillRandom()).thenReturn(SELECT);
         specialSkillList.postWeaponAuxiliary(random, 1);
         verify(spy).createBuff();
     }
 
     @Test
-    void selectAuxiliarySkill_mine_water_activated() {
+    void selectHealingSKill_mine_water_activated() {
         final double SELECT = -1.0;
         SpecialSkillList specialSkillList = new SpecialSkillList();
         MineWater mineWater = (MineWater) DEFAULT_SKILL_FACTORY.create(SkillIdentity.MINE_WATER);
         MineWater spy = spy(mineWater);
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.selectAuxiliarySkill()).thenReturn(SELECT);
+        when(random.selectHealingSkillRandom()).thenReturn(SELECT);
         specialSkillList.preRoundAuxiliary(mock(Health.class), random, 1);
         verify(spy).updateHealth(any());
     }

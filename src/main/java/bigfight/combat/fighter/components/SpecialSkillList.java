@@ -1,6 +1,5 @@
 package bigfight.combat.fighter.components;
 
-import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
@@ -70,7 +69,7 @@ public class SpecialSkillList {
         if (luckyDraw < skillList.size()) {
             specialSkill = (SpecialSkill) skillList.get(luckyDraw);
         }
-        if (specialSkill != null && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
+        if (specialSkill != null && random.selectHealingSkillRandom() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
                 FastHands fastHands = (FastHands) specialSkill;
                 return fastHands.createBuff();
@@ -89,7 +88,7 @@ public class SpecialSkillList {
         if (luckyDraw < skillList.size()) {
             specialSkill = (SpecialSkill) skillList.get(luckyDraw);
         }
-        if (specialSkill != null && random.selectAuxiliarySkill() < specialSkill.getInvocationChance()) {
+        if (specialSkill != null && random.selectHealingSkillRandom() < specialSkill.getInvocationChance()) {
             if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
                 MineWater mineWater = (MineWater) specialSkill;
                 mineWater.updateHealth(health);

@@ -55,8 +55,7 @@ public class UnarmedAttack implements Attackable {
     }
 
     private int calculateDamage() {
-        int damage = attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength());
-        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
-        return damage;
+        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength(),
+                defender.getCombatSelector());
     }
 }

@@ -93,7 +93,7 @@ public class SkillAttack implements Attackable {
                   int weaponNum = weaponRainstorm.getNumOfWeapons();
                   int rainstormDamage = 0;
                   for(int i = 0; i < weaponNum; i++) {
-                      Weapon weapon = attacker.selectWeapon(random).getWeapon();
+                      Weapon weapon = attacker.getCombatSelector().selectWeapon(random).getWeapon();
                       if (weapon != null) {
                           rainstormDamage += random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
                       }

@@ -1,5 +1,6 @@
 package bigfight.combat.attack;
 
+import bigfight.combat.fighter.components.CombatSelector;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.warrior.component.attr.AttackAttribute;
@@ -30,10 +31,11 @@ class AttackCalculator {
         return random.getEscapeRandom() > (1 - escape);
     }
 
-    int calculateDamage(Damage damage, int attackerAttribute, int defenderAttribute) {
+    int calculateDamage(Damage damage, int attackerAttribute, int defenderAttribute, CombatSelector combatSelector) {
         int weaponDamage = damage == null ? 0 : random.getWeaponDamageRandom(damage.lower(), damage.higher());
         int result = weaponDamage + CombatAlgo.extraDamageByAttribute(attackerAttribute, defenderAttribute);
         result = damageAttributeMultiply(result);
+        result *= (1 - combatSelector.selectHakiProtect(random));
         return result;
     }
 }

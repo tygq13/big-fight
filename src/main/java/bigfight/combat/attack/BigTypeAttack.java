@@ -1,6 +1,7 @@
 package bigfight.combat.attack;
 
 import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.components.CombatSelector;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.special.BloodThirsty;
@@ -43,12 +44,7 @@ public class BigTypeAttack implements Attackable{
             defender.getFighterFlag().ignored += ignoreOpponent();
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
-            if (attacker.hasSkill(SkillIdentity.BLOOD_THIRSTY)) {
-                BloodThirsty bloodThirsty = (BloodThirsty) attacker.getSkill(SkillIdentity.BLOOD_THIRSTY);
-                if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
-                    attacker.updateHealth(attacker.getHealth() + (int)(damage * bloodThirsty.getLifeStealPercentage()));
-                }
-            }
+            lifeSteal(damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
             if (!(counterAttack.specialCounter(damage))) {
@@ -61,6 +57,12 @@ public class BigTypeAttack implements Attackable{
             attacker.getFighterFlag().doubleHited = false;
         }
     }
+
+    private void lifeSteal(int damage) {
+        double lifeSteal = attacker.getCombatSelector().selectBloodThirsty(random);
+        attacker.updateHealth(attacker.getHealth() + (int) (damage * lifeSteal));
+    }
+
 
     private int ignoreOpponent() {
         if (weapon.getIdentity() == null) {
@@ -82,8 +84,7 @@ public class BigTypeAttack implements Attackable{
     }
 
     private int calculateDamage() {
-        int damage = attackCalculator.calculateDamage(weapon.getDamage(), attacker.getStrength(), defender.getStrength());
-        damage = AttackUtil.invokeHakiProtect(defender, damage, random);
-        return damage;
+        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength(),
+                defender.getCombatSelector());
     }
 }

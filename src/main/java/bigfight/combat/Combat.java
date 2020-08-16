@@ -39,13 +39,12 @@ public class Combat {
     }
 
     private void startRound(Fighter attacker, Fighter defender, CombatRandom rand) {
+        attacker.getCombatSelector().selectHealingSkill(rand, attacker.getHealthObj());
         Empowerment empowerment = selectEmpowerment(attacker, defender, rand);
         // bad implementation, find a better way to change this
-        if (attacker.getFighterFlag().ignoredByUnselection) {
-            return;
+        if (!attacker.getFighterFlag().ignoredByUnselection) {
+            new Round(attacker, defender, empowerment, rand, ui).fight();
         }
-        attacker.selectAuxiliarySkill(rand);
-        new Round(attacker, defender, empowerment, rand, ui).fight();
     }
 
     private int decideFirstRound() {
@@ -73,11 +72,11 @@ public class Combat {
     }
 
     private Empowerment selectEmpowerment(Fighter attacker, Fighter defender, CombatRandom random) {
-        Empowerment empowerment = attacker.selectEmpowerment(random);
+        Empowerment empowerment = attacker.getCombatSelector().selectEmpowerment(random, attacker.getFighterFlag());
         // this feature untested
         while (empowerment.getSkill() != null && empowerment.getSkill().getIdentity() == SkillIdentity.DISARM &&
             defender.getHoldingWeapon() == null) {
-            empowerment = attacker.selectEmpowerment(random);
+            empowerment = attacker.getCombatSelector().selectEmpowerment(random, attacker.getFighterFlag());
         }
         return empowerment;
     }

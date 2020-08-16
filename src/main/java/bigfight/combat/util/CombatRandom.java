@@ -54,7 +54,7 @@ public class CombatRandom extends Random{
         return random.nextInt(size);
     }
 
-    public double selectAuxiliarySkill() {
+    public double selectHealingSkillRandom() {
         return random.nextDouble();
     }
 

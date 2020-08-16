@@ -3,8 +3,6 @@ package bigfight.combat.fighter;
 import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.fighter.components.*;
-import bigfight.combat.util.CombatRandom;
-import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.attr.BasicAttribute;
@@ -28,6 +26,7 @@ public class Fighter {
     private SpecialSkillList specialSkillList;
     private FighterFlag fighterFlag;
     private Buffs buffs;
+    private CombatSelector combatSelector;
 
     public Fighter(FightableWarrior warrior) {
         name = warrior.getName();
@@ -43,6 +42,7 @@ public class Fighter {
         specialSkillList = warrior.getSpecialSkills();
         fighterFlag = new FighterFlag();
         buffs = new Buffs();
+        combatSelector = new CombatSelector(activeSkillList, specialSkillList, weaponList);
     }
 
     public void changeWeapon(Empowerment empowerment) {
@@ -71,6 +71,10 @@ public class Fighter {
 
     public int getHealth() {
         return health.value();
+    }
+
+    public Health getHealthObj() {
+        return health;
     }
 
     public int getLevel() {
@@ -109,30 +113,8 @@ public class Fighter {
         return specialSkillList.get(identity);
     }
 
-    public void selectAuxiliarySkill(CombatRandom random) {
-        int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        specialSkillList.preRoundAuxiliary(health, random, totalSize);
-    }
-
-    public Empowerment selectWeapon(CombatRandom random) {
-        return weaponList.select(random);
-    }
-
-    public Empowerment selectEmpowerment(CombatRandom random) {
-        int totalSize = weaponList.size() + activeSkillList.size();
-        if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
-            // unarmed attack
-            return new Empowerment((Weapon) null);
-        }
-        int weaponOrSkill = random.selectWeaponOrSkill(totalSize);
-        if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
-            Empowerment weapon = weaponList.select(random, fighterFlag);
-            specialSkillList.postWeaponAuxiliary(random, totalSize);
-            return weapon;
-        } else {
-            // create skills
-            return activeSkillList.select(random);
-        }
+    public CombatSelector getCombatSelector() {
+        return combatSelector;
     }
 
     public void addBuff(Buff buff) {
