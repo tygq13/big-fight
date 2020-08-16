@@ -431,6 +431,32 @@ public class SkillData {
             SHAKE_ZERO
     );
 
+    private final SkillStruct WINDY_KICK_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Ordinary qinggong. \n" +
+                    "Increase speed at this round by 10.\n" +
+                    "Cause damage of speed*50%.\n",
+            SkillIdentity.WINDY_KICK,
+            "windy kick"
+    );
+
+    private final SkillStructArray WINDY_KICK_ARRAY = new SkillStructArray(
+            WINDY_KICK_ZERO
+    );
+
+    private final SkillStruct FOCUS_ON_HEART_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "A method that helps you concentrate. \n" +
+                    "Increase hit rate of all active skill by 3%.\n" +
+                    "High chance of enhancing the skill.\n",
+            SkillIdentity.FOCUS_ON_HEART,
+            "focus on heart"
+    );
+
+    private final SkillStructArray FOCUS_ON_HEART_ARRAY = new SkillStructArray(
+            FOSHAN_KICK_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -465,7 +491,9 @@ public class SkillData {
                     Map.entry(SkillIdentity.TENDON_SHAPING_CLASSIC, TENDON_SHAPING_CLASSIC_ARRAY),
                     Map.entry(SkillIdentity.DIM_HIT, DIM_HIT_ARRAY),
                     Map.entry(SkillIdentity.DASH, DASH_ARRAY),
-                    Map.entry(SkillIdentity.SHAKE, SHAKE_ARRAY)
+                    Map.entry(SkillIdentity.SHAKE, SHAKE_ARRAY),
+                    Map.entry(SkillIdentity.WINDY_KICK, WINDY_KICK_ARRAY),
+                    Map.entry(SkillIdentity.FOCUS_ON_HEART, FOCUS_ON_HEART_ARRAY)
             )
     );
 

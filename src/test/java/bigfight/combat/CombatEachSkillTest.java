@@ -323,4 +323,18 @@ class CombatEachSkillTest {
         new SkillAttack(fighter1, fighter2, shake, mockRandom, mockUi).attack();
         assertEquals(EXPECTED, fighter2.getWeaponSize());
     }
+
+    @Test
+    void windy_kick_speed_addition_and_damage_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        WindyKick windyKick = (WindyKick) DEFAULT_SKILL_FACTORY.create(SkillIdentity.WINDY_KICK);
+
+        // test
+        int EXPECTED_HEALTH = fighter2.getHealth() - (int) ((fighter1.getSpeed() + windyKick.getSpeedAddition()) * windyKick.getSpeedMultiply());
+        int EXPECTED_SPEED = fighter1.getSpeed();
+        new SkillAttack(fighter1, fighter2, windyKick, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED_SPEED, fighter1.getSpeed());
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
 }

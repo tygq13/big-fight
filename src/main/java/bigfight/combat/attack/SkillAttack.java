@@ -122,11 +122,14 @@ public class SkillAttack implements Attackable {
              }
              case SHAKE: {
                  Shake shake = (Shake) skill;
-                 // throw away opponent's weapons
                  for (int i = 0; i < shake.getDisposeNum(); i++) {
                      defender.getCombatSelector().randomDisposeWeapon(random);
                  }
                  return shake.getDamage();
+             }
+             case WINDY_KICK: {
+                 WindyKick windyKick = (WindyKick) skill;
+                 return (int) (windyKick.getSpeedMultiply() * (attacker.getSpeed() + windyKick.getSpeedAddition()));
              }
             default:
                 return 0;

@@ -81,6 +81,10 @@ public class SkillFactory {
                 return new Dash(skillData.getWithStar(identity, 0));
             case SHAKE:
                 return new Shake(skillData.getWithStar(identity, 0));
+            case WINDY_KICK:
+                return new WindyKick(skillData.getWithStar(identity, 0));
+            case FOCUS_ON_HEART:
+                return new FocusOnHeart(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

@@ -1,16 +1,14 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.Fighter;
-import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
+import bigfight.model.skill.skills.special.ApparentDeath;
 import bigfight.model.warrior.component.attr.AdvancedAttribute;
 import bigfight.model.warrior.component.attr.AttackAttribute;
 import bigfight.model.warrior.component.attr.DefenceAttribute;
-import bigfight.ui.EnUi;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -68,5 +66,26 @@ public class AttackCalculatorTest {
         int EXPECTED_DAMAGE = (int) (10 * (DataConfig.CRITICAL_DAMAGE_BASE + CRITICAL_DAMAGE - ANTI_CRITICAL_DAMAGE));
         int result = new AttackCalculator(attackAttribute, defenceAttribute, random).damageAttributeMultiply(DAMAGE);
         assertEquals(EXPECTED_DAMAGE, result);
+    }
+
+    @Test
+    void isEscape_hit_and_evasion_rate_effective() {
+        final double HIT_PERCENTAGE = 0.4;
+        final double EVASION_PERCENTAGE = 0.2;
+        final double HIT = 1 - (EVASION_PERCENTAGE - HIT_PERCENTAGE) - EPSILON;
+        final double EVASION = 1 - (EVASION_PERCENTAGE - HIT_PERCENTAGE) + EPSILON;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.skillEvasionRate = EVASION_PERCENTAGE;
+        advancedAttribute.skillHitRate = HIT_PERCENTAGE;
+        DefenceAttribute defenceAttribute = advancedAttribute.skillDefenceAttribute();
+        AttackAttribute attackAttribute = advancedAttribute.skillAttackAttribute();
+        CombatRandom random = mock(CombatRandom.class);
+        // test
+        when(random.getEscapeRandom()).thenReturn(HIT);
+        boolean result = new AttackCalculator(attackAttribute, defenceAttribute, random).isEscape(0, 0);
+        assertFalse(result);
+        when(random.getEscapeRandom()).thenReturn(EVASION);
+        result = new AttackCalculator(attackAttribute, defenceAttribute, random).isEscape(0, 0);
+        assertTrue(result);
     }
 }

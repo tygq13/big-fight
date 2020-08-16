@@ -31,7 +31,9 @@ public enum SkillIdentity {
     TENDON_SHAPING_CLASSIC,
     DIM_HIT,
     DASH,
-    SHAKE;
+    SHAKE,
+    WINDY_KICK,
+    FOCUS_ON_HEART;
 
 
     // use static constant to avoid copying of enum array
