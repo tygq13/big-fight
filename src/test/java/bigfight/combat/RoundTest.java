@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RoundTest {
-    private final double NO_ESCAPE = 1.0;
-
     private static Uiable mockUi = mock(EnUi.class);
 
     @Test
@@ -32,7 +30,6 @@ class RoundTest {
         Weapon weapon = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(weapon.getDamage().lower());
 
         // test
@@ -49,7 +46,6 @@ class RoundTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int DAMAGE = 15; // the damage of one start ROAR is fixed at 15.
@@ -64,7 +60,6 @@ class RoundTest {
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
 
         int EXPECTED_HEALTH = fighter2.getHealth() - fighter1.getUnarmedDamage().lower();
@@ -111,9 +106,7 @@ class RoundTest {
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Empowerment empowerment = CombatTestUtil.createUnarmedEmpowerment();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getCounterAttackRandom()).thenReturn(COUNTER_ATTACK).thenReturn(NO_COUNTER_ATTACK);
-        when(random.getCounterEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
 
         int EXPECTED_HEALTH_1 = fighter1.getHealth() - fighter2.getUnarmedDamage().lower();
@@ -133,7 +126,6 @@ class RoundTest {
         Empowerment empowerment = new Empowerment(weapon);
         CombatRandom random = mock(CombatRandom.class);
         when(random.getThrowWeaponRandom()).thenReturn(THROW_WEAPON);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE;
 

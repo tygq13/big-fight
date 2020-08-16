@@ -20,9 +20,7 @@ import static org.mockito.Mockito.when;
 class CombatEachWeaponTest {
     private static Uiable mockUi = mock(EnUi.class);
 
-    private final double NO_ESCAPE = 1.0;
-    private final double ESCAPE = 0.0;
-    private final double NO_THROW = -1.0;
+    private final double ESCAPE = 1.0;
     private final double THROW = 1.0;
 
     @Test
@@ -31,7 +29,6 @@ class CombatEachWeaponTest {
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon trident = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.TRIDENT);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = 1;
@@ -54,7 +51,6 @@ class CombatEachWeaponTest {
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Weapon gasHammer = DEFAULT_WEAPON_FACTORY.create(WeaponIdentity.GAS_HAMMER);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getIgnoreRandom()).thenReturn(IGNORE);
 
         final int EXPECTED = 1;

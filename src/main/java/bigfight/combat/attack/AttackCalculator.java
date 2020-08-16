@@ -27,7 +27,7 @@ class AttackCalculator {
     boolean isEscape(int attackerAgility, int defenderAgility) {
         double escape = defenceAttribute.getEvasionRate() - attackAttribute.getHitRate();
         escape += CombatAlgo.escapeByAgility(defenderAgility, attackerAgility);
-        return random.getEscapeRandom() < escape;
+        return random.getEscapeRandom() > (1 - escape);
     }
 
     int calculateDamage(Damage damage, int attackerAttribute, int defenderAttribute) {

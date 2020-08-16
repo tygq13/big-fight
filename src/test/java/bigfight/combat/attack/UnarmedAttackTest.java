@@ -1,6 +1,5 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.CombatTestUtil;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
@@ -14,7 +13,7 @@ class UnarmedAttackTest {
 
     @Test
     void ui_is_executed_attack_and_escape() {
-        double ESCAPE = -1.0;
+        double ESCAPE = 2.0;
         EnUi ui = mock(EnUi.class);
         EnUi uiSpy = spy(ui);
         Fighter fighter1 = new FighterBuilderTestUtil().build();

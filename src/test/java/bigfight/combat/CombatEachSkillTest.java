@@ -24,9 +24,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CombatEachSkillTest {
-    private static Uiable mockUi = mock(EnUi.class);
-
-    private final double NO_ESCAPE = 1.0;
+    private Uiable mockUi = mock(EnUi.class);
+    private CombatRandom mockRandom = mock(CombatRandom.class);
     private final int DAMAGE = 10;
 
     @Test
@@ -35,13 +34,10 @@ class CombatEachSkillTest {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
-        Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = 1;
-        new SkillAttack(fighter1, fighter2, skill, random, mockUi).attack();
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
         int result = fighter2.getFighterFlag().ignored;
         assertEquals(EXPECTED, result);
     }
@@ -51,7 +47,6 @@ class CombatEachSkillTest {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter test = CombatTestUtil.createDyingFighterWithApparentDeath();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(fighter1.getUnarmedDamage().lower());
 
         new Round(fighter1, test, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
@@ -67,12 +62,10 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.BOLT_FROM_THE_BLUE);
         BoltFromTheBlue boltFromTheBlue = (BoltFromTheBlue) skill;
         Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = fighter2.getHealth() - (int) (boltFromTheBlue.getDamage() + (fighter1.getLevel() * boltFromTheBlue.getLevelMultiply()));
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
@@ -85,9 +78,9 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
+        // test
         final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (DAMAGE * (1 - hakiProtect.getProtectionPercentage()));
         new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
@@ -101,7 +94,6 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.HAKI_PROTECT); // same skill used in fighter 2
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
         final int MAX_INVOCATION = hakiProtect.getRemainingUsage();
@@ -120,7 +112,6 @@ class CombatEachSkillTest {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getSeaReflectRandom()).thenReturn(INVOKE_SKILL);
 
@@ -135,7 +126,6 @@ class CombatEachSkillTest {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = CombatTestUtil.createHealthyFighterWithSeaIsUnfathomable();
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getSeaReflectRandom()).thenReturn(INVOKE_SKILL);
         // use once to reduce remaining invocation to zero
@@ -153,12 +143,10 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TORNADO);
         Tornado tornado = (Tornado) skill;
         Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = fighter2.getHealth() - (int) (tornado.getDamage() + (fighter1.getStrength() * tornado.getStrengthMultiply()));
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
@@ -188,7 +176,6 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.DISARM);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
 
         // test
@@ -222,12 +209,10 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.ANGELS_WINGS);
         AngelsWings angelsWings = (AngelsWings) skill;
         Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = fighter2.getHealth() - (int) (angelsWings.getDamage() + (fighter1.getAgility() * angelsWings.getAgilityMultiply()));
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
@@ -238,12 +223,10 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.FOSHAN_KICK);
         FoshanKick foshanKick = (FoshanKick) skill;
         Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED = fighter2.getHealth() - (int) (foshanKick.getDamage() + (fighter1.getStrength() * foshanKick.getStrengthMultiply()));
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
@@ -254,12 +237,10 @@ class CombatEachSkillTest {
         SkillModel skill = DEFAULT_SKILL_FACTORY.create(SkillIdentity.TICKLE);
         Tickle tickle = (Tickle) skill;
         Empowerment empowerment = new Empowerment(skill);
-        CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
 
         // test
         final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (tickle.getDamage() + (fighter1.getAgility() * tickle.getAgilityMultiply()));
-        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        new Round(fighter1, fighter2, empowerment, mockRandom, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
 
@@ -277,7 +258,6 @@ class CombatEachSkillTest {
         WeaponRainstorm weaponRainstorm = (WeaponRainstorm) DEFAULT_SKILL_FACTORY.create(SkillIdentity.WEAPON_RAINSTORM);
         Empowerment empowerment = new Empowerment(weaponRainstorm);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         // test
         final int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE * weaponRainstorm.getNumOfWeapons();
@@ -294,7 +274,6 @@ class CombatEachSkillTest {
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Empowerment empowerment = new Empowerment(CombatTestUtil.createBigWeapon());
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
         when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
 

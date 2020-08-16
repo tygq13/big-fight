@@ -17,7 +17,7 @@ class SkillAttackTest {
 
     @Test
     void ui_is_executed_i_attack_and_escape_example_roar() {
-        double ESCAPE = -1.0;
+        double ESCAPE = 2.0;
         EnUi ui = mock(EnUi.class);
         EnUi uiSpy = spy(ui);
         Fighter fighter1 = new FighterBuilderTestUtil().build();

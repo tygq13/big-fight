@@ -17,7 +17,7 @@ class CounterAttackTest {
     void ui_is_executed_counter_attack_and_escape() {
         double COUNTER_ATTACK = -1.0;
         double NO_COUNTER_ATTACK = 1.0;
-        double ESCAPE = -1.0;
+        double ESCAPE = 2.0;
         EnUi ui = mock(EnUi.class);
         EnUi uiSpy = spy(ui);
         Fighter fighter1 = new FighterBuilderTestUtil().build();
