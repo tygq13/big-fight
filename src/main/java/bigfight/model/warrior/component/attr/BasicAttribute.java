@@ -1,4 +1,4 @@
-package bigfight.model.warrior.component;
+package bigfight.model.warrior.component.attr;
 
 public class BasicAttribute implements Cloneable{
     private int base;

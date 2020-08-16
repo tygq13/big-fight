@@ -9,7 +9,7 @@ import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.Roar;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.ui.EnUi;
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
@@ -85,18 +85,21 @@ public class CombatAttributeEffectTest {
     @Test
     // skill medium, small, throw ,unarmed and counter since they copy from big type.
     void test_anti_extra_percentage_damage_effective_in_attack_example_big() {
-        double EXTRA_PERCENTAGE = 0.2;
+        double ATTACK_PERCENTAGE = 0.4;
+        double DEFENCE_PERCENTAGE = 0.2;
         int WEAPON_DAMAGE = 10;
-        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
-        advancedAttribute.antiBigExtraPercentageDamage = EXTRA_PERCENTAGE;
-        Fighter fighter1 = new FighterBuilderTestUtil().build();
-        Fighter fighter2 = new FighterBuilderTestUtil().withAdvancedAttribute(advancedAttribute).build();
+        AdvancedAttribute attackerAttribute = new AdvancedAttribute();
+        attackerAttribute.bigExtraPercentageDamage = ATTACK_PERCENTAGE;
+        AdvancedAttribute defenderAttribute = new AdvancedAttribute();
+        defenderAttribute.antiBigExtraPercentageDamage = DEFENCE_PERCENTAGE;
+        Fighter fighter1 = new FighterBuilderTestUtil().withAdvancedAttribute(attackerAttribute).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withAdvancedAttribute(defenderAttribute).build();
         Weapon weapon = CombatTestUtil.createBigWeapon();
         CombatRandom random = mock(CombatRandom.class);
         when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(WEAPON_DAMAGE);
         // test
-        int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 - EXTRA_PERCENTAGE));
+        int expectedHealth = fighter2.getHealth() - (int) (WEAPON_DAMAGE * (1 + ATTACK_PERCENTAGE - DEFENCE_PERCENTAGE));
         new BigTypeAttack(fighter1, fighter2, weapon, random, mock(EnUi.class)).attack();
         assertEquals(expectedHealth, fighter2.getHealth());
     }

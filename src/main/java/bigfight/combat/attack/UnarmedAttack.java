@@ -56,10 +56,9 @@ public class UnarmedAttack implements Attackable {
     private int calculateDamage() {
         int baseDamage = random.getWeaponDamageRandom(attacker.getUnarmedDamage().lower(), attacker.getUnarmedDamage().higher());
         double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        double extraDamageMultiply = attacker.getAdvancedAttribute().unarmedExtraPercentageDamage;
-        double antiExtraDamageMultiple = defender.getAdvancedAttribute().antiUnarmedExtraPercentageDamage;
-        double multiply = strengthMultiply + extraDamageMultiply - antiExtraDamageMultiple;
-        int damage = (int) (baseDamage * (1 + multiply));
+        int damage = (int) (baseDamage * (1 + strengthMultiply));
+        damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().unarmedAttackAttribute(),
+                defender.getAdvancedAttribute().unarmedDefenceAttribute());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

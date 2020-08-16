@@ -2,8 +2,8 @@ package bigfight.combat.fighter.buff;
 
 import bigfight.combat.fighter.Fighter;
 import bigfight.model.skill.skills.special.ShadowMove;
-import bigfight.model.warrior.component.AdvancedAttribute;
-import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
 
 public class ShadowMoveBuff implements Buff {
     private int rounds;

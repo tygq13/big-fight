@@ -1,4 +1,4 @@
-package bigfight.model.warrior.component;
+package bigfight.model.warrior.component.attr;
 
 public class Attribute implements Cloneable{
     private BasicAttribute speed;

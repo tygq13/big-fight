@@ -1,8 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.AdvancedAttribute;
-import bigfight.model.warrior.component.Attribute;
+import bigfight.model.warrior.component.attr.Attribute;
 
 public class StoneSkin extends PermanentSkill {
     private final double STONE_SKIN_ZERO = 0.2;

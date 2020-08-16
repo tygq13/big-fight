@@ -2,8 +2,8 @@ package bigfight.combat.fighter;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.builder.Warrior;
-import bigfight.model.warrior.component.AdvancedAttribute;
-import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
 import bigfight.model.weapon.WeaponManager;
 import org.junit.jupiter.api.Test;
 

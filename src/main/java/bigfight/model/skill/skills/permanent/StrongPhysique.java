@@ -1,7 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.Attribute;
+import bigfight.model.warrior.component.attr.Attribute;
 
 public class StrongPhysique extends PermanentSkill {
     private final double STRONG_PHYSIQUE_ZERO_MULTIPLY = 0.15;

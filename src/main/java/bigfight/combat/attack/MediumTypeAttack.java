@@ -59,10 +59,9 @@ public class MediumTypeAttack implements Attackable{
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
         double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        double extraDamageMultiply = attacker.getAdvancedAttribute().mediumExtraPercentageDamage;
-        double antiExtraDamageMultiple = defender.getAdvancedAttribute().antiMediumExtraPercentageDamage;
-        double multiply = strengthMultiply + extraDamageMultiply - antiExtraDamageMultiple;
-        int damage = (int) (weaponDamage * (1 + multiply));
+        int damage = (int) (weaponDamage * (1 + strengthMultiply));
+        damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().mediumAttackAttribute(),
+                defender.getAdvancedAttribute().mediumDefenceAttribute());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

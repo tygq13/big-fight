@@ -1,7 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.Attribute;
+import bigfight.model.warrior.component.attr.Attribute;
 
 public class AStepAhead extends PermanentSkill {
     private final double A_STEP_AHEAD_ZERO_MULTIPLY = 0.5;

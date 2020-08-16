@@ -7,9 +7,9 @@ import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
-import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
-import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
 

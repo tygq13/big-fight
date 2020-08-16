@@ -83,10 +83,9 @@ public class BigTypeAttack implements Attackable{
     private int calculateDamage() {
         int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
         double strengthMultiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-        double extraDamageMultiply = attacker.getAdvancedAttribute().bigExtraPercentageDamage;
-        double antiExtraDamageMultiple = defender.getAdvancedAttribute().antiBigExtraPercentageDamage;
-        double multiply = strengthMultiply + extraDamageMultiply - antiExtraDamageMultiple;
-        int damage = (int) (weaponDamage * (1 + multiply));
+        int damage = (int) (weaponDamage * (1 + strengthMultiply));
+        damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().bigAttackAttribute(),
+                defender.getAdvancedAttribute().bigDefenceAttribute());
         damage = AttackUtil.invokeHakiProtect(defender, damage, random);
         return damage;
     }

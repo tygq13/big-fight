@@ -2,8 +2,9 @@ package bigfight.model.warrior.builder;
 
 import bigfight.logic.command.Commandable;
 import bigfight.model.warrior.component.*;
-import bigfight.model.warrior.component.BasicAttribute;
-import bigfight.model.warrior.component.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
+import bigfight.model.warrior.component.attr.Attribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.weapon.WeaponManager;

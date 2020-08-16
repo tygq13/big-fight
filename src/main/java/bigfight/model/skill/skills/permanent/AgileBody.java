@@ -1,7 +1,7 @@
 package bigfight.model.skill.skills.permanent;
 
 import bigfight.model.skill.struct.SkillStruct;
-import bigfight.model.warrior.component.Attribute;
+import bigfight.model.warrior.component.attr.Attribute;
 
 public class AgileBody extends PermanentSkill {
     private final double AGILE_BODY_ZERO_MULTIPLY = 0.5;

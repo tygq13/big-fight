@@ -2,7 +2,8 @@ package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.component.*;
-import bigfight.model.warrior.component.BasicAttribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
+import bigfight.model.warrior.component.attr.Attribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;

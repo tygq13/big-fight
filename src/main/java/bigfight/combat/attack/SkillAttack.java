@@ -44,7 +44,8 @@ public class SkillAttack implements Attackable {
             ui.printSkillDodge(skill.getDodgeDescription(), defender.getName());
         } else {
             int damage = getSkillDamage();
-            damage = (int) (damage * (1 + attacker.getAdvancedAttribute().skillExtraPercentageDamage));
+            damage = new AttackCalculator().damageAttributeMultiply(damage, attacker.getAdvancedAttribute().skillAttackAttribute(),
+                    defender.getAdvancedAttribute().skillDefenceAttribute());
             defender.getFighterFlag().ignored += ignoreOpponent();
             defender.updateHealth(defender.getHealth() - damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
