@@ -341,6 +341,18 @@ public class SkillData {
             FOSHAN_KICK_ZERO
     );
 
+    private final SkillStruct WEAPON_RAINSTORM_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "No one can guard against the rainstorm-like attack.\n" +
+                    "Throw at most 3 weapons to your opponent at once.\n",
+            SkillIdentity.WEAPON_RAINSTORM,
+            "weapon rainstorm"
+    );
+
+    private final SkillStructArray WEAPON_RAINSTORM_ARRAY = new SkillStructArray(
+            WEAPON_RAINSTORM_ZERO
+    );
+
     private final SkillStruct TICKLE_ZERO = new SkillStruct(
             SkillType.ACTIVE,
             "This is your weakness!\n" +
@@ -382,6 +394,7 @@ public class SkillData {
                     Map.entry(SkillIdentity.GLUE, GLUE_ARRAY),
                     Map.entry(SkillIdentity.ANGELS_WINGS, ANGELS_WINGS_ARRAY),
                     Map.entry(SkillIdentity.FOSHAN_KICK, FOSHAN_KICK_ARRAY),
+                    Map.entry(SkillIdentity.WEAPON_RAINSTORM, WEAPON_RAINSTORM_ARRAY),
                     Map.entry(SkillIdentity.TICKLE, TICKLE_ARRAY)
             )
     );

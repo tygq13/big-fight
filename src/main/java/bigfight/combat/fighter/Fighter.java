@@ -5,7 +5,6 @@ import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.fighter.components.*;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.skills.special.MineWater;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.BasicAttribute;
@@ -110,11 +109,13 @@ public class Fighter {
         return specialSkillList.get(identity);
     }
 
-    // In this implementation, the chance is not exactly equal to the intended invocation chance
-    // nice fun to have, isn't it?
     public void selectAuxiliarySkill(CombatRandom random) {
         int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
         specialSkillList.preRoundAuxiliary(health, random, totalSize);
+    }
+
+    public Empowerment selectWeapon(CombatRandom random) {
+        return weaponList.select(random);
     }
 
     public Empowerment selectEmpowerment(CombatRandom random) {

@@ -261,4 +261,26 @@ class CombatEachSkillTest {
         new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
+
+    @Test
+    void weapon_rainstorm_effective() {
+        Weapon weapon1 = CombatTestUtil.createBigWeapon();
+        Weapon weapon2 = CombatTestUtil.createBigWeapon();
+        Weapon weapon3 = CombatTestUtil.createBigWeapon();
+        Fighter fighter1 = new FighterBuilderTestUtil()
+                .withWeapon(weapon1)
+                .withWeapon(weapon2)
+                .withWeapon(weapon3)
+                .build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        WeaponRainstorm weaponRainstorm = (WeaponRainstorm) DEFAULT_SKILL_FACTORY.create(SkillIdentity.WEAPON_RAINSTORM);
+        Empowerment empowerment = new Empowerment(weaponRainstorm);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(NO_ESCAPE);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
+        // test
+        final int EXPECTED_HEALTH = fighter2.getHealth() - DAMAGE * weaponRainstorm.getNumOfWeapons();
+        new Round(fighter1, fighter2, empowerment, random, mockUi).fight();
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
 }

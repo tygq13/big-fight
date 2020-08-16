@@ -86,11 +86,22 @@ public class SkillAttack implements Attackable {
              case GLUE:
                  defender.getFighterFlag().beingGlued = true;
                  return 0;
+             case WEAPON_RAINSTORM:
+                 WeaponRainstorm weaponRainstorm = (WeaponRainstorm) skill;
+                  int weaponNum = weaponRainstorm.getNumOfWeapons();
+                  int rainstormDamage = 0;
+                  for(int i = 0; i < weaponNum; i++) {
+                      Weapon weapon = attacker.selectWeapon(random).getWeapon();
+                      if (weapon != null) {
+                          rainstormDamage += random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
+                      }
+                  }
+                  return rainstormDamage;
              case TICKLE:
                  Tickle tickle = (Tickle) skill;
-                 int damage = tickle.getDamage() + (int) (attacker.getAgility() * tickle.getAgilityMultiply());
-                 defender.addBuff(tickle.createBuff(damage));
-                 return damage;
+                 int tickleDamage = tickle.getDamage() + (int) (attacker.getAgility() * tickle.getAgilityMultiply());
+                 defender.addBuff(tickle.createBuff(tickleDamage));
+                 return tickleDamage;
             default:
                 return 0;
         }

@@ -69,6 +69,8 @@ public class SkillFactory {
                 return new FoshanKick(skillData.getWithStar(identity, 0));
             case TICKLE:
                 return new Tickle(skillData.getWithStar(identity, 0));
+            case WEAPON_RAINSTORM:
+                return new WeaponRainstorm(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

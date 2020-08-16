@@ -25,6 +25,7 @@ public enum SkillIdentity {
     GLUE,
     ANGELS_WINGS,
     FOSHAN_KICK,
+    WEAPON_RAINSTORM,
     TICKLE;
 
 

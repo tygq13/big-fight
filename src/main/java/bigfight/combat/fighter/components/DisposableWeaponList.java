@@ -37,4 +37,11 @@ public class DisposableWeaponList {
         weaponArrayList.remove(luckyDraw);
         return empowerment;
     }
+
+    public Empowerment select(CombatRandom random) {
+        int luckyDraw = random.selectWeapon(weaponArrayList.size());
+        Empowerment empowerment = new Empowerment(weaponArrayList.get(luckyDraw));
+        weaponArrayList.remove(luckyDraw);
+        return empowerment;
+    }
 }
