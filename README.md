@@ -43,9 +43,9 @@ Next version: 2.0
  
   ----------------------------------August 2020-----------------------------------------------------------------------
   
- Spent 5 weeks on this.
- Firt two weeks collecting the game data for skills, weapons and Toshin tower.
- Next one week trying to implement some skills, got stuck.
- Next one week read up on the _Refactoring : Improving the design of existing code_ and _Growing OOP software: guided by test_
- Able to move on, and spent the last week writing about 3k lines of code. 
- The school term has started, I guess I can only continue in the next holiday (if this project still has value).
+ Spent 5 weeks on this.  
+ Firt two weeks collecting the game data for skills, weapons and Toshin tower.  
+ Next one week trying to implement some skills, got stuck.  
+ Next one week read up on the _Refactoring : Improving the design of existing code_ and _Growing OOP software: guided by test_  
+ Able to move on, and spent the last week writing about 3k lines of code.   
+ The school term has started, I guess I can only continue in the next holiday (if this project still has value).  
