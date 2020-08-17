@@ -32,6 +32,7 @@ Next version: 2.0
  
  ## Some mumbling
  ----------------------------------March 2020-----------------------------------------------------------------------
+ 
  Difficulty to test: in-method new object, callback, private, static, intricate mechanism, intricate interaction, random
  
  Some problems pondering in my head:
@@ -41,6 +42,7 @@ Next version: 2.0
  * Some code good for tests are not good in purely performance.
  
   ----------------------------------August 2020-----------------------------------------------------------------------
+  
  Spent 5 weeks on this.
  Firt two weeks collecting the game data for skills, weapons and Toshin tower.
  Next one week trying to implement some skills, got stuck.
