@@ -101,6 +101,8 @@ public class SkillFactory {
                 return new SwordArt(skillData.getWithStar(identity, 0));
             case ACUPOINTER:
                 return new Acupointer(skillData.getWithStar(identity, 0));
+            case TAI_CHI:
+                return new TaiChi(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

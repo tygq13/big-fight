@@ -563,6 +563,18 @@ public class SkillData {
             ACUPOINTER_ZERO
     );
 
+    private final SkillStruct TAI_CHI_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "It is a body-combat technique based the ying-yang theory of Tai Chi. You rule yourself by your will, conquering the force with skills.\n" +
+                    "Increase unarmed hit rate by 5%.\n",
+            SkillIdentity.TAI_CHI,
+            "tai chi"
+    );
+
+    private final SkillStructArray TAI_CHI_ARRAY = new SkillStructArray(
+            TAI_CHI_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -607,7 +619,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.ASSASSINS_TECHNIQUE, ASSASSINS_TECHNIQUE_ARRAY),
                     Map.entry(SkillIdentity.VALIANT_FORCE, VALIANT_FORCE_ARRAY),
                     Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY),
-                    Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY)
+                    Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY),
+                    Map.entry(SkillIdentity.TAI_CHI, TAI_CHI_ARRAY)
             )
     );
 

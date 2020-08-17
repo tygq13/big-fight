@@ -205,4 +205,14 @@ public class PermanentSkillTest {
         assertEquals(smallExpected, testWarrior.getAdvancedAttribute().mediumHitRate);
     }
 
+    @Test
+    void tai_chi_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        TaiChi taiChi = (TaiChi) DEFAULT_SKILL_FACTORY.create(SkillIdentity.TAI_CHI);
+        double smallExpected = testWarrior.getAdvancedAttribute().unarmedHitRate + taiChi.getHitRate();
+
+        taiChi.upgrade(testWarrior.getAttribute());
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().unarmedHitRate);
+    }
+
 }
