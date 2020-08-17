@@ -20,7 +20,7 @@ public class Acupointer extends SkillModel {
         return LEVEL_MULTIPLY_ZERO;
     }
 
-    public double getHitRateIncrement() {
+    public double getExtraHitRate() {
         return HIT_RATE_INCREMENT_ZERO;
     }
 

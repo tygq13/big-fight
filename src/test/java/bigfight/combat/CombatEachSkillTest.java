@@ -199,7 +199,7 @@ class CombatEachSkillTest {
         when(random.selectUnarmed()).thenReturn(NOT_SELECT_UNARMED);
         when(random.selectWeapon(anyInt())).thenReturn(SELECT_BIG_WEAPON);
         // test
-        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag(), fighter.getBuffs());;
+        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag());;
         assertNull(empowerment.getWeapon());
         assertTrue(fighter.getFighterFlag().ignoredByUnselection);
     }
@@ -387,6 +387,20 @@ class CombatEachSkillTest {
     }
 
     @Test
+    void lucky_or_not_hit_rate_increment() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        CombatRandom random = mock(CombatRandom.class);
+        LuckyOrNot luckyOrNot = (LuckyOrNot) DEFAULT_SKILL_FACTORY.create(SkillIdentity.LUCKY_OR_NOT);
+        // test
+        double EXPECTED_HIT_RATE = luckyOrNot.getExtraHitRate();
+        when(random.getEscapeRandom()).thenReturn(1 + EXPECTED_HIT_RATE - EPSILON);
+        int ORIGINAL_HEALTH = fighter2.getHealth();
+        new SkillAttack(fighter1, fighter2, luckyOrNot, random, mockUi).attack();
+        assertNotEquals(ORIGINAL_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
     void shock_wave_round_increment() {
         final int roundNum = 20;
         Fighter fighter1 = new FighterBuilderTestUtil().build();
@@ -437,7 +451,7 @@ class CombatEachSkillTest {
         CombatRandom random = mock(CombatRandom.class);
         Acupointer acupointer = (Acupointer) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ACUPOINTER);
         // test
-        double EXPECTED_HIT_RATE = acupointer.getHitRateIncrement();
+        double EXPECTED_HIT_RATE = acupointer.getExtraHitRate();
         when(random.getEscapeRandom()).thenReturn(1 + EXPECTED_HIT_RATE - EPSILON);
         int ORIGINAL_HEALTH = fighter2.getHealth();
         new SkillAttack(fighter1, fighter2, acupointer, random, mockUi).attack();

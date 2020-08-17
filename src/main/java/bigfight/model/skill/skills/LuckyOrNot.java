@@ -1,7 +1,5 @@
 package bigfight.model.skill.skills;
 
-import bigfight.combat.fighter.buff.Buff;
-import bigfight.combat.fighter.buff.LuckyOrNotBuff;
 import bigfight.model.skill.struct.SkillStruct;
 
 public class LuckyOrNot extends SkillModel {
@@ -33,9 +31,5 @@ public class LuckyOrNot extends SkillModel {
 
     public int getHeal() {
         return HEAL;
-    }
-
-    public Buff createBuff() {
-        return new LuckyOrNotBuff(this);
     }
 }

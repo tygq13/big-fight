@@ -21,7 +21,7 @@ public class CombatSelector {
         this.weaponList = disposableWeaponList;
     }
 
-    public Empowerment selectEmpowerment(CombatRandom random, FighterFlag fighterFlag, Buffs buffs) {
+    public Empowerment selectEmpowerment(CombatRandom random, FighterFlag fighterFlag) {
         int totalSize = weaponList.size() + activeSkillList.size();
         if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
             // unarmed attack
@@ -36,7 +36,7 @@ public class CombatSelector {
             return weapon;
         } else {
             // create skills
-            return activeSkillList.select(random, buffs);
+            return activeSkillList.select(random);
         }
     }
 

@@ -25,7 +25,7 @@ public class FighterFlagTest {
         fighterFlag.noSelectSkill = 1;
         when(random.selectActiveSkill(anyInt())).thenReturn(SELECT);
         // test
-        Empowerment empowerment = combatSelector.selectEmpowerment(random, fighterFlag, mock(Buffs.class));
+        Empowerment empowerment = combatSelector.selectEmpowerment(random, fighterFlag);
         assertNull(empowerment.getSkill());
     }
 }

@@ -2,7 +2,6 @@ package bigfight.combat.attack;
 
 import bigfight.combat.Round;
 import bigfight.combat.fighter.Fighter;
-import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
 import bigfight.model.skill.skills.*;
@@ -64,9 +63,14 @@ public class SkillAttack implements Attackable {
                 double escape = 0 - attacker.getFighterFlag().rounds * shockWave.getHitRateIncrement();
                 return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
             }
+            case LUCKY_OR_NOT: {
+                LuckyOrNot luckyOrNot = (LuckyOrNot) skill;
+                double escape = 0 - luckyOrNot.getExtraHitRate();
+                return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+            }
             case ACUPOINTER: {
                 Acupointer acupointer = (Acupointer) skill;
-                double escape = 0 - acupointer.getHitRateIncrement();
+                double escape = 0 - acupointer.getExtraHitRate();
                 return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
             }
         }

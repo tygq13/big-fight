@@ -125,7 +125,4 @@ public class Fighter {
         buffs.invoke(this);
     }
 
-    public Buffs getBuffs() {
-        return buffs;
-    }
 }

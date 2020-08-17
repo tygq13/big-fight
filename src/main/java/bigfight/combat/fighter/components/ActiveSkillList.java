@@ -53,13 +53,9 @@ public class ActiveSkillList {
         return null;
     }
 
-    public Empowerment select(CombatRandom random, Buffs buffs) {
+    public Empowerment select(CombatRandom random) {
         int luckyDraw = random.selectActiveSkill(skillList.size());
         SkillModel skill = skillList.get(luckyDraw);
-        if (skill.getIdentity() == SkillIdentity.LUCKY_OR_NOT) {
-            LuckyOrNot luckyOrNot = (LuckyOrNot) skill;
-            buffs.add(luckyOrNot.createBuff());
-        }
         if (skill.getIdentity() == SkillIdentity.SHOCK_WAVE) {
             skillList.remove(skill);
             return new Empowerment(skill);
