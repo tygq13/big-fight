@@ -93,6 +93,12 @@ public class SkillFactory {
                 return new QiGong(skillData.getWithStar(identity, 0));
             case SHOCK_WAVE:
                 return new ShockWave(skillData.getWithStar(identity, 0));
+            case ASSASSINS_TECHNIQUE:
+                return new AssassinsTechnique(skillData.getWithStar(identity, 0));
+            case VALIANT_FORCE:
+                return new ValiantForce(skillData.getWithStar(identity, 0));
+            case SWORD_ART:
+                return new SwordArt(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

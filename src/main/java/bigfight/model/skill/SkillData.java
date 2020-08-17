@@ -499,16 +499,55 @@ public class SkillData {
 
     private final SkillStruct SHOCK_WAVE_ZERO = new SkillStruct(
             SkillType.ACTIVE,
-            "Use all your qi to attack your opponent.\n" +
-                    "Cause at least 40 damage.\n" +
-                    "You accumulate qi at every round, increasing the damage by 1, hit rate by 2%.\n" +
-                    "You can only uses this skill once in a fight.\n",
+                "Use all your qi to attack your opponent.\n" +
+                        "Cause at least 40 damage.\n" +
+                        "You accumulate qi at every round, increasing the damage by 1, hit rate by 2%.\n" +
+                        "You can only uses this skill once in a fight.\n",
             SkillIdentity.SHOCK_WAVE,
             "shock wave"
     );
 
     private final SkillStructArray SHOCK_WAVE_ARRAY = new SkillStructArray(
             SHOCK_WAVE_ZERO
+    );
+
+    private final SkillStruct ASSASSINS_TECHNIQUE_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "Concealed weapons are necessary for a good assassin.\n" +
+                    "Your hit rate for throw and small weapons increases by 1%.\n" +
+                    "This skill is only acquired after level 50.\n",
+            SkillIdentity.ASSASSINS_TECHNIQUE,
+            "assassin's technique"
+    );
+
+    private final SkillStructArray ASSASSINS_TECHNIQUE_ARRAY = new SkillStructArray(
+            ASSASSINS_TECHNIQUE_ZERO
+    );
+
+    private final SkillStruct VALIANT_FORCE_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "Big weapons are necessary for a valiant soldier.\n" +
+                    "Your hit rate for big weapons increases by 1%.\n" +
+                    "This skill is only acquired after level 60.\n",
+            SkillIdentity.VALIANT_FORCE,
+            "valiant force"
+    );
+
+    private final SkillStructArray VALIANT_FORCE_ARRAY = new SkillStructArray(
+            VALIANT_FORCE_ZERO
+    );
+
+    private final SkillStruct SWORD_ART_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "Using medium weapons is an art to a good swordsman.\n" +
+                    "Your hit rate for medium weapons increases by 1%.\n" +
+                    "This skill is only acquired after level 70.\n",
+            SkillIdentity.SWORD_ART,
+            "sword art"
+    );
+
+    private final SkillStructArray SWORD_ART_ARRAY = new SkillStructArray(
+            SWORD_ART_ZERO
     );
 
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
@@ -551,7 +590,10 @@ public class SkillData {
                     Map.entry(SkillIdentity.BLOOD_SACRIFICE, BLOOD_SACRIFICE_ARRAY),
                     Map.entry(SkillIdentity.LUCKY_OR_NOT, LUCK_OR_NOT_ARRAY),
                     Map.entry(SkillIdentity.QI_GONG, QI_GONG_ARRAY),
-                    Map.entry(SkillIdentity.SHOCK_WAVE, SHOCK_WAVE_ARRAY)
+                    Map.entry(SkillIdentity.SHOCK_WAVE, SHOCK_WAVE_ARRAY),
+                    Map.entry(SkillIdentity.ASSASSINS_TECHNIQUE, ASSASSINS_TECHNIQUE_ARRAY),
+                    Map.entry(SkillIdentity.VALIANT_FORCE, VALIANT_FORCE_ARRAY),
+                    Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY)
             )
     );
 

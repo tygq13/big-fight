@@ -173,4 +173,36 @@ public class PermanentSkillTest {
         assertEquals(bigExpected, testWarrior.getAdvancedAttribute().bigEvasionRate);
     }
 
+    @Test
+    void assassins_technique_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        AssassinsTechnique assassinsTechnique = (AssassinsTechnique) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ASSASSINS_TECHNIQUE);
+        double smallExpected = testWarrior.getAdvancedAttribute().smallHitRate + assassinsTechnique.getHitRate();
+        double mediumExpected = testWarrior.getAdvancedAttribute().throwHitRate + assassinsTechnique.getHitRate();
+
+        assassinsTechnique.upgrade(testWarrior.getAttribute());
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().smallHitRate);
+        assertEquals(mediumExpected, testWarrior.getAdvancedAttribute().throwHitRate);
+    }
+
+    @Test
+    void valiant_force_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        ValiantForce valiantForce = (ValiantForce) DEFAULT_SKILL_FACTORY.create(SkillIdentity.VALIANT_FORCE);
+        double smallExpected = testWarrior.getAdvancedAttribute().bigHitRate + valiantForce.getHitRate();
+
+        valiantForce.upgrade(testWarrior.getAttribute());
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().bigHitRate);
+    }
+
+    @Test
+    void sword_art_upgrade_correct() {
+        Warrior testWarrior = WarriorTestUtil.createCustomAttributeWarrior(1, 1, 1,1,1);
+        SwordArt swordArt = (SwordArt) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SWORD_ART);
+        double smallExpected = testWarrior.getAdvancedAttribute().mediumHitRate + swordArt.getHitRate();
+
+        swordArt.upgrade(testWarrior.getAttribute());
+        assertEquals(smallExpected, testWarrior.getAdvancedAttribute().mediumHitRate);
+    }
+
 }
