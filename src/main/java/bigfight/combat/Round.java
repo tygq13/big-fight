@@ -22,6 +22,8 @@ public class Round {
         this.empowerment = empowerment;
         this.random = random;
         this.ui = ui;
+        attacker.getFighterFlag().rounds += 1;
+        defender.getFighterFlag().rounds += 1;
     }
 
     public void fight() {

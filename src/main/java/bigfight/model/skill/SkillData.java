@@ -497,6 +497,20 @@ public class SkillData {
             QI_GOING_ZERO
     );
 
+    private final SkillStruct SHOCK_WAVE_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Use all your qi to attack your opponent.\n" +
+                    "Cause at least 40 damage.\n" +
+                    "You accumulate qi at every round, increasing the damage by 1, hit rate by 2%.\n" +
+                    "You can only uses this skill once in a fight.\n",
+            SkillIdentity.SHOCK_WAVE,
+            "shock wave"
+    );
+
+    private final SkillStructArray SHOCK_WAVE_ARRAY = new SkillStructArray(
+            SHOCK_WAVE_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -536,7 +550,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.FOCUS_ON_HEART, FOCUS_ON_HEART_ARRAY),
                     Map.entry(SkillIdentity.BLOOD_SACRIFICE, BLOOD_SACRIFICE_ARRAY),
                     Map.entry(SkillIdentity.LUCKY_OR_NOT, LUCK_OR_NOT_ARRAY),
-                    Map.entry(SkillIdentity.QI_GONG, QI_GONG_ARRAY)
+                    Map.entry(SkillIdentity.QI_GONG, QI_GONG_ARRAY),
+                    Map.entry(SkillIdentity.SHOCK_WAVE, SHOCK_WAVE_ARRAY)
             )
     );
 

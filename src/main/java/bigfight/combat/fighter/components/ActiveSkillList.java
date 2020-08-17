@@ -60,6 +60,10 @@ public class ActiveSkillList {
             LuckyOrNot luckyOrNot = (LuckyOrNot) skill;
             buffs.add(luckyOrNot.createBuff());
         }
+        if (skill.getIdentity() == SkillIdentity.SHOCK_WAVE) {
+            skillList.remove(skill);
+            return new Empowerment(skill);
+        }
 
         // redraw in case of rare skill
         if (skill.getIdentity() == SkillIdentity.ONE_PUNCH) {

@@ -41,7 +41,7 @@ public class SkillAttack implements Attackable {
         }
         // should add exception if not initialized;
         ui.printSkillAttack(skill.getAttackDescription(), attacker.getName());
-        if (attackCalculator.isEscape(attacker.getAgility(), defender.getAgility())) {
+        if (isEscaped()) {
             ui.printSkillDodge(skill.getDodgeDescription(), defender.getName());
         } else {
             int damage = getSkillDamage();
@@ -55,6 +55,15 @@ public class SkillAttack implements Attackable {
                 counterAttack.counterAttack();
             }
         }
+    }
+
+    private boolean isEscaped() {
+        if (skill.getIdentity() == SkillIdentity.SHOCK_WAVE) {
+            ShockWave shockWave = (ShockWave) skill;
+            double escape = 0 - attacker.getFighterFlag().rounds * shockWave.getHitRateIncrement();
+            return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+        }
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
 
     private void lifeSteal(int damage) {
@@ -144,6 +153,10 @@ public class SkillAttack implements Attackable {
                      defender.updateHealth(defender.getHealth() + luckyOrNot.getHeal());
                      return 0;
                  }
+             }
+             case SHOCK_WAVE: {
+                 ShockWave shockWave = (ShockWave) skill;
+                 return shockWave.getDamage() + attacker.getFighterFlag().rounds * shockWave.getDamageIncrement();
              }
             default:
                 return 0;

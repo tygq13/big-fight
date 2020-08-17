@@ -386,4 +386,23 @@ class CombatEachSkillTest {
         assertEquals(EXPECTED, fighter2.getHealth());
     }
 
+    @Test
+    void shock_wave_round_increment() {
+        final int roundNum = 20;
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(0); // zero damage,
+        for (int i = 0; i < roundNum; i++) {
+            // increase number of rounds
+            new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi);
+        }
+        ShockWave shockWave = (ShockWave) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHOCK_WAVE);
+        // test
+        double EXPECTED_HIT_RATE = roundNum * shockWave.getHitRateIncrement();
+        int EXPECTED_HEALTH = fighter2.getHealth() - (shockWave.getDamage() + roundNum * shockWave.getDamageIncrement());
+        when(random.getEscapeRandom()).thenReturn(1 + EXPECTED_HIT_RATE - EPSILON);
+        new SkillAttack(fighter1, fighter2, shockWave, random, mockUi).attack();
+        assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
+    }
 }

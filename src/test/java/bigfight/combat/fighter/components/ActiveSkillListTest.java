@@ -2,12 +2,15 @@ package bigfight.combat.fighter.components;
 
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
+import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.LuckyOrNot;
+import bigfight.model.skill.skills.ShockWave;
 import bigfight.model.skill.struct.SkillIdentity;
 import org.junit.jupiter.api.Test;
 
 import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
@@ -25,5 +28,19 @@ public class ActiveSkillListTest {
         when(random.selectUnarmed()).thenReturn(NO_SELECT);
         fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag(), fighter.getBuffs());
         verify(spy).createBuff();
+    }
+
+    @Test
+    void shock_wave_removed_after_select() {
+        final int SELECT = 0;
+        ShockWave shockWave = (ShockWave) DEFAULT_SKILL_FACTORY.create(SkillIdentity.SHOCK_WAVE);
+        ActiveSkillList activeSkillList = new ActiveSkillList();
+        activeSkillList.add(shockWave);
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectActiveSkill(anyInt())).thenReturn(SELECT);
+        // test
+        int EXPECTED_SIZE = 0;
+        activeSkillList.select(random, mock(Buffs.class));
+        assertEquals(EXPECTED_SIZE, activeSkillList.size());
     }
 }

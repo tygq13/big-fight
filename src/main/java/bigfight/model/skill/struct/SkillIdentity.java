@@ -36,7 +36,8 @@ public enum SkillIdentity {
     FOCUS_ON_HEART,
     BLOOD_SACRIFICE,
     LUCKY_OR_NOT,
-    QI_GONG;
+    QI_GONG,
+    SHOCK_WAVE;
 
 
     // use static constant to avoid copying of enum array
