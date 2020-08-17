@@ -16,7 +16,7 @@ public class FastHandsBuffTest {
         FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
         final double EXPECTED = fighter.getAdvancedAttribute().doubleHitChance + fastHands.getDoubleHit();
         fighter.addBuff(fastHands.createBuff());
-        fighter.updateStatus();
+        fighter.newRoundUpdate();
         assertEquals(EXPECTED, fighter.getAdvancedAttribute().doubleHitChance);
     }
 
@@ -26,8 +26,8 @@ public class FastHandsBuffTest {
         FastHands fastHands = (FastHands) DEFAULT_SKILL_FACTORY.create(SkillIdentity.FAST_HANDS);
         final double EXPECTED = fighter.getAdvancedAttribute().doubleHitChance;
         fighter.addBuff(fastHands.createBuff());
-        fighter.updateStatus();
-        fighter.updateStatus(); // clean up invocation
+        fighter.newRoundUpdate();
+        fighter.newRoundUpdate(); // clean up invocation
         assertEquals(EXPECTED, fighter.getAdvancedAttribute().doubleHitChance);
     }
 }

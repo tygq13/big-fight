@@ -148,14 +148,14 @@ class RoundTest {
     }
 
     @Test
-    void fight_method_call_update_fighter_status() {
+    void fight_method_call_new_round_update() {
         Fighter fighter1 = new FighterBuilderTestUtil().build();
         Fighter fighter2 = new FighterBuilderTestUtil().build();
         Fighter spy1 = spy(fighter1);
         Fighter spy2 = spy(fighter2);
         CombatRandom random = mock(CombatRandom.class);
-        new Round(spy1, spy2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
-        verify(spy1, atLeastOnce()).updateStatus();
-        verify(spy2, atLeastOnce()).updateStatus();
+        new Round(spy1, spy2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi);
+        verify(spy1, atLeastOnce()).newRoundUpdate();
+        verify(spy2, atLeastOnce()).newRoundUpdate();
     }
 }

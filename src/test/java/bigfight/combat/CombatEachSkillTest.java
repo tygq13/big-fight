@@ -199,7 +199,7 @@ class CombatEachSkillTest {
         when(random.selectUnarmed()).thenReturn(NOT_SELECT_UNARMED);
         when(random.selectWeapon(anyInt())).thenReturn(SELECT_BIG_WEAPON);
         // test
-        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random, fighter.getFighterFlag());;
+        Empowerment empowerment = fighter.getCombatSelector().selectEmpowerment(random);;
         assertNull(empowerment.getWeapon());
         assertTrue(fighter.getFighterFlag().ignoredByUnselection);
     }

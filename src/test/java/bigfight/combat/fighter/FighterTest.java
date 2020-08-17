@@ -13,4 +13,16 @@ class FighterTest {
         fighter.updateHealth(fighter.getHealth() + 1);
         assertEquals(EXPECTED, fighter.getHealth());
     }
+
+    @Test
+    void newRound_clean_up_flag() {
+        Fighter fighter = new FighterBuilderTestUtil().build();
+        fighter.getFighterFlag().noSelectSkill = 1;
+        // test
+        final int EXPECTED_NO_SELECT_SKILL = 0;
+        final int EXPECTED_ROUND = 1;
+        fighter.newRoundUpdate();
+        assertEquals(EXPECTED_NO_SELECT_SKILL, fighter.getFighterFlag().noSelectSkill);
+        assertEquals(EXPECTED_ROUND, fighter.getFighterFlag().rounds);
+    }
 }

@@ -22,7 +22,7 @@ public class ShadowMoveBuffTest {
         final double EXPECTED_UNARMED_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().unarmedExtraPercentageDamage + shadowMove.getDamageMultiply();
         final double EXPECTED_SKILL_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().skillExtraPercentageDamage + shadowMove.getDamageMultiply();
         fighter.addBuff(shadowMove.createBuff());
-        fighter.updateStatus();
+        fighter.newRoundUpdate();
         assertEquals(EXPECTED_SPEED, fighter.getSpeed());
         assertEquals(EXPECTED_BIG_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().bigExtraPercentageDamage);
         assertEquals(EXPECTED_MEDIUM_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().mediumExtraPercentageDamage);
@@ -46,7 +46,7 @@ public class ShadowMoveBuffTest {
         final double EXPECTED_SKILL_PERCENTAGE_DAMAGE = fighter.getAdvancedAttribute().skillExtraPercentageDamage;
         fighter.addBuff(shadowMove.createBuff());
         for (int i = 0; i < DEFAULT_ROUND + 1; i ++) {
-            fighter.updateStatus();
+            fighter.newRoundUpdate();
         }
         assertEquals(EXPECTED_SPEED, fighter.getSpeed());
         assertEquals(EXPECTED_BIG_PERCENTAGE_DAMAGE, fighter.getAdvancedAttribute().bigExtraPercentageDamage);

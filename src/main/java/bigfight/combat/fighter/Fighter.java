@@ -42,7 +42,7 @@ public class Fighter {
         specialSkillList = warrior.getSpecialSkills();
         fighterFlag = new FighterFlag();
         buffs = new Buffs();
-        combatSelector = new CombatSelector(activeSkillList, specialSkillList, weaponList);
+        combatSelector = new CombatSelector(activeSkillList, specialSkillList, weaponList, fighterFlag);
     }
 
     public void changeWeapon(Empowerment empowerment) {
@@ -121,8 +121,14 @@ public class Fighter {
         buffs.add(buff);
     }
 
-    public void updateStatus() {
+    public void newRoundUpdate() {
+        // buff update
         buffs.invoke(this);
-    }
 
+        // fighter flag update
+        fighterFlag.rounds += 1;
+        if (fighterFlag.noSelectSkill > 0) {
+            fighterFlag.noSelectSkill -= 1;
+        }
+    }
 }

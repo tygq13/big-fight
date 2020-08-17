@@ -1,6 +1,5 @@
 package bigfight.combat.fighter.components;
 
-import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
 import bigfight.model.skill.skills.special.BloodSacrifice;
@@ -14,14 +13,17 @@ public class CombatSelector {
     private ActiveSkillList activeSkillList;
     private SpecialSkillList specialSkillList;
     private DisposableWeaponList weaponList;
+    private FighterFlag fighterFlag;
 
-    public CombatSelector(ActiveSkillList activeSkillList, SpecialSkillList specialSkillList, DisposableWeaponList disposableWeaponList) {
+    public CombatSelector(ActiveSkillList activeSkillList, SpecialSkillList specialSkillList, DisposableWeaponList disposableWeaponList,
+                          FighterFlag fighterFlag) {
         this.activeSkillList = activeSkillList;
         this.specialSkillList = specialSkillList;
         this.weaponList = disposableWeaponList;
+        this.fighterFlag = fighterFlag;
     }
 
-    public Empowerment selectEmpowerment(CombatRandom random, FighterFlag fighterFlag) {
+    public Empowerment selectEmpowerment(CombatRandom random) {
         int totalSize = weaponList.size() + activeSkillList.size();
         if (totalSize == 0 || random.selectUnarmed() < DataConfig.UNARMED_CHANCE) {
             // unarmed attack
@@ -45,12 +47,14 @@ public class CombatSelector {
     }
 
     public void selectHealingSkill(CombatRandom random, Health health) {
-        int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-        specialSkillList.preRoundAuxiliary(health, random, totalSize);
+        if (fighterFlag.noSelectSkill == 0) {
+            int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
+            specialSkillList.preRoundAuxiliary(health, random, totalSize);
+        }
     }
 
     public double selectBloodThirsty(CombatRandom random) {
-        if (specialSkillList.contains(SkillIdentity.BLOOD_THIRSTY)) {
+        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.BLOOD_THIRSTY)) {
             BloodThirsty bloodThirsty = (BloodThirsty) specialSkillList.get(SkillIdentity.BLOOD_THIRSTY);
             if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
                 return bloodThirsty.getLifeStealPercentage();
@@ -60,7 +64,7 @@ public class CombatSelector {
     }
 
     public double selectBloodSacrifice(CombatRandom random) {
-        if (specialSkillList.contains(SkillIdentity.BLOOD_SACRIFICE)) {
+        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.BLOOD_SACRIFICE)) {
             BloodSacrifice bloodSacrifice = (BloodSacrifice) specialSkillList.get(SkillIdentity.BLOOD_SACRIFICE);
             if (random.getBloodThirstyRandom() < bloodSacrifice.getInvocationChance()) {
                 return bloodSacrifice.getLifeStealPercentage();
@@ -70,7 +74,7 @@ public class CombatSelector {
     }
 
     public double selectHakiProtect(CombatRandom random) {
-        if (specialSkillList.contains(SkillIdentity.HAKI_PROTECT)) {
+        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.HAKI_PROTECT)) {
             HakiProtectUsable hakiProtect = (HakiProtectUsable) specialSkillList.get(SkillIdentity.HAKI_PROTECT);
             if (hakiProtect.getRemainingUsage() > 0 && random.getHakiProtectRandom() < hakiProtect.getInvocationChance()) {
                 hakiProtect.invoke();

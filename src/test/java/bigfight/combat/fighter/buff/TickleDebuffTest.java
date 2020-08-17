@@ -19,7 +19,7 @@ public class TickleDebuffTest {
         fighter.addBuff(tickle.createBuff(DAMAGE));
         // test
         final int EXPECTED_HEALTH = fighter.getHealth() - DAMAGE;
-        fighter.updateStatus();
+        fighter.newRoundUpdate();
         assertEquals(EXPECTED_HEALTH, fighter.getHealth());
     }
 
@@ -31,11 +31,11 @@ public class TickleDebuffTest {
         final int ROUNDS = tickle.getMaxRounds();
         fighter.addBuff(tickle.createBuff(DAMAGE));
         for(int i = 0; i < ROUNDS; i++) {
-            fighter.updateStatus();
+            fighter.newRoundUpdate();
         }
         // test
         final int EXPECTED_HEALTH = fighter.getHealth();
-        fighter.updateStatus();
+        fighter.newRoundUpdate();
         assertEquals(EXPECTED_HEALTH, fighter.getHealth());
     }
 }

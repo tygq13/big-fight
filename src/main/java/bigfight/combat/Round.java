@@ -22,13 +22,11 @@ public class Round {
         this.empowerment = empowerment;
         this.random = random;
         this.ui = ui;
-        attacker.getFighterFlag().rounds += 1;
-        defender.getFighterFlag().rounds += 1;
+        attacker.newRoundUpdate();
+        defender.newRoundUpdate();
     }
 
     public void fight() {
-        attacker.updateStatus();
-        defender.updateStatus();
         defender.getFighterFlag().ignored += roundChangeBySpeed();
         attacker.changeWeapon(empowerment);
         // todo: print weapon ui here instead of insides the attack

@@ -1,5 +1,6 @@
 package bigfight.combat.fighter.components;
 
+import bigfight.combat.CombatTestUtil;
 import bigfight.combat.fighter.FightableWarrior;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatRandom;
@@ -44,7 +45,7 @@ public class CombatSelectorTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());
+        test.getCombatSelector().selectEmpowerment(random);
         final int EXPECTED = 1;
         assertEquals(EXPECTED, test.getWeaponSize());
     }
@@ -57,7 +58,7 @@ public class CombatSelectorTest {
         when(random.selectWeaponOrSkill(anyInt())).thenReturn(SELECT_WEAPON);
 
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment =test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());;
+        Empowerment empowerment =test.getCombatSelector().selectEmpowerment(random);;
         assertNotNull(empowerment.getWeapon());
     }
 
@@ -66,7 +67,7 @@ public class CombatSelectorTest {
         FightableWarrior mockWarrior = noEmpowermentWarrior();
         CombatRandom random = mock(CombatRandom.class);
         Fighter test = new Fighter(mockWarrior);
-        Empowerment empowerment = test.getCombatSelector().selectEmpowerment(random, test.getFighterFlag());;
+        Empowerment empowerment = test.getCombatSelector().selectEmpowerment(random);;
         assertNull(empowerment.getWeapon());
         assertNull(empowerment.getSkill());
     }

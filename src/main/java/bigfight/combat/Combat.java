@@ -72,11 +72,11 @@ public class Combat {
     }
 
     private Empowerment selectEmpowerment(Fighter attacker, Fighter defender, CombatRandom random) {
-        Empowerment empowerment = attacker.getCombatSelector().selectEmpowerment(random, attacker.getFighterFlag());
+        Empowerment empowerment = attacker.getCombatSelector().selectEmpowerment(random);
         // this feature untested
         while (empowerment.getSkill() != null && empowerment.getSkill().getIdentity() == SkillIdentity.DISARM &&
             defender.getHoldingWeapon() == null) {
-            empowerment = attacker.getCombatSelector().selectEmpowerment(random, attacker.getFighterFlag());
+            empowerment = attacker.getCombatSelector().selectEmpowerment(random);
         }
         return empowerment;
     }
