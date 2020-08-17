@@ -39,6 +39,7 @@ Next version: 2.0
  * I massively use encapsulation but use few inheritance and interface
  * How much should I test the mechanism in method? Should I test the interface only?
  * Some code good for tests are not good in purely performance.
+ 
   ----------------------------------August 2020-----------------------------------------------------------------------
  Spent 5 weeks on this.
  Firt two weeks collecting the game data for skills, weapons and Toshin tower.
