@@ -30,7 +30,8 @@ Next version: 2.0
     4. Basic interaction of select opponents to fight, show certain info of the warrior etc.
     5. 100 layers for the Glory Tower
  
- ## Some reflection and refactoring note
+ ## Some mumbling
+ ----------------------------------March 2020-----------------------------------------------------------------------
  Difficulty to test: in-method new object, callback, private, static, intricate mechanism, intricate interaction, random
  
  Some problems pondering in my head:
@@ -38,3 +39,10 @@ Next version: 2.0
  * I massively use encapsulation but use few inheritance and interface
  * How much should I test the mechanism in method? Should I test the interface only?
  * Some code good for tests are not good in purely performance.
+  ----------------------------------August 2020-----------------------------------------------------------------------
+ Spent 5 weeks on this.
+ Firt two weeks collecting the game data for skills, weapons and Toshin tower.
+ Next one week trying to implement some skills, got stuck.
+ Next one week read up on the _Refactoring : Improving the design of existing code_ and _Growing OOP software: guided by test_
+ Able to move on, and spent the last week writing about 3k lines of code. 
+ The school term has started, I guess I can only continue in the next holiday (if this project still has value).
