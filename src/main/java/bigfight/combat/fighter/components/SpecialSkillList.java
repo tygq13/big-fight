@@ -61,10 +61,10 @@ public class SpecialSkillList {
     }
 
     public Buff postWeaponAuxiliary(CombatRandom random, int baseSize) {
-        int luckyDraw = random.selectSpecialSkill(baseSize);
-        if (luckyDraw >= skillList.size()) {
+        if (baseSize == 0 || skillList.size() == 0) {
             return null;
         }
+        int luckyDraw = random.selectSpecialSkill(baseSize);
         SkillModel skill = skillList.get(luckyDraw);
         switch (skill.getIdentity()) {
             case FAST_HANDS: {
@@ -81,10 +81,10 @@ public class SpecialSkillList {
 
     // todo: bad to add unrelated parameter "level", refactor this.
     public void preRoundAuxiliary(Health health, CombatRandom random, int baseSize, int level) {
-        int luckyDraw = random.selectSpecialSkill(baseSize);
-        if (luckyDraw >= skillList.size()) {
+        if (baseSize == 0 || skillList.size() == 0) {
             return;
         }
+        int luckyDraw = random.selectSpecialSkill(baseSize);
         SkillModel skill = skillList.get(luckyDraw);
         switch (skill.getIdentity()) {
             case MINE_WATER: {

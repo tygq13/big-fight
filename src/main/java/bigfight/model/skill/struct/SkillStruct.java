@@ -13,8 +13,8 @@ public class SkillStruct {
         this.description = description;
         this.identity = identity;
         this.name = name;
-        attackString = "";
-        dodgeString = "";
+        attackString = name;
+        dodgeString = name;
     }
 
     public SkillStruct(SkillType type, String description, SkillIdentity identity, String name, String attackString, String dodgeString) {
