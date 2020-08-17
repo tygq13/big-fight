@@ -550,6 +550,19 @@ public class SkillData {
             SWORD_ART_ZERO
     );
 
+    private final SkillStruct ACUPOINTER_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "The crucial acupoint controls a man’s ability to use skill.\n" +
+                    "Causes damage of 30 + lv*0.3 and makes the opponent unable to use skills for 2 rounds. The hit rate increases 15% when using this skill.\n" +
+                    "This skill is only acquired after level 50.\n",
+            SkillIdentity.ACUPOINTER,
+            "acupointer"
+    );
+
+    private final SkillStructArray ACUPOINTER_ARRAY = new SkillStructArray(
+            ACUPOINTER_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -593,7 +606,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.SHOCK_WAVE, SHOCK_WAVE_ARRAY),
                     Map.entry(SkillIdentity.ASSASSINS_TECHNIQUE, ASSASSINS_TECHNIQUE_ARRAY),
                     Map.entry(SkillIdentity.VALIANT_FORCE, VALIANT_FORCE_ARRAY),
-                    Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY)
+                    Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY),
+                    Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY)
             )
     );
 

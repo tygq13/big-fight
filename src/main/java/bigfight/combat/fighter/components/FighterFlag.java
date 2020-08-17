@@ -4,6 +4,8 @@ public class FighterFlag {
     public boolean beingGlued = false;
     public boolean ignoredByUnselection = false;
 
+    public int noSelectSkill = 0;
+
     public int rounds = 0;
 
     public boolean apparentDeathUsed = false;

@@ -1,7 +1,5 @@
 package bigfight.combat.fighter.components;
 
-import bigfight.combat.Combat;
-import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.buff.Buffs;
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;

@@ -99,6 +99,8 @@ public class SkillFactory {
                 return new ValiantForce(skillData.getWithStar(identity, 0));
             case SWORD_ART:
                 return new SwordArt(skillData.getWithStar(identity, 0));
+            case ACUPOINTER:
+                return new Acupointer(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

@@ -54,6 +54,10 @@ public class CombatTestUtil {
         return weapon;
     }
 
+    public static SkillModel createAnySkill() {
+        return DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
+    }
+
 
     public static Fighter createDyingFighterWithApparentDeath() {
         return new FighterBuilderTestUtil().

@@ -405,4 +405,42 @@ class CombatEachSkillTest {
         new SkillAttack(fighter1, fighter2, shockWave, random, mockUi).attack();
         assertEquals(EXPECTED_HEALTH, fighter2.getHealth());
     }
+
+    @Test
+    void acupointer_level_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        Acupointer skill = (Acupointer) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ACUPOINTER);
+
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) (skill.getDamage() + (fighter1.getLevel() * skill.getLevelMultiply()));
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void acupointer_seal_off_skill() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        Acupointer skill = (Acupointer) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ACUPOINTER);
+
+        // test
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        int EXPECTED = skill.getNoSKillRounds();
+        assertEquals(EXPECTED, fighter2.getFighterFlag().noSelectSkill);
+    }
+
+    @Test
+    void acupointer_hit_rate_increment() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        CombatRandom random = mock(CombatRandom.class);
+        Acupointer acupointer = (Acupointer) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ACUPOINTER);
+        // test
+        double EXPECTED_HIT_RATE = acupointer.getHitRateIncrement();
+        when(random.getEscapeRandom()).thenReturn(1 + EXPECTED_HIT_RATE - EPSILON);
+        int ORIGINAL_HEALTH = fighter2.getHealth();
+        new SkillAttack(fighter1, fighter2, acupointer, random, mockUi).attack();
+        assertNotEquals(ORIGINAL_HEALTH, fighter2.getHealth());
+    }
 }

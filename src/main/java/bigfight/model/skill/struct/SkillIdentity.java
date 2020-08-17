@@ -40,7 +40,8 @@ public enum SkillIdentity {
     SHOCK_WAVE,
     ASSASSINS_TECHNIQUE,
     VALIANT_FORCE,
-    SWORD_ART;
+    SWORD_ART,
+    ACUPOINTER;
 
 
     // use static constant to avoid copying of enum array

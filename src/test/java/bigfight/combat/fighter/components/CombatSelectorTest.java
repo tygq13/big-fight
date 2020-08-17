@@ -2,17 +2,12 @@ package bigfight.combat.fighter.components;
 
 import bigfight.combat.fighter.FightableWarrior;
 import bigfight.combat.fighter.Fighter;
-import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
-import bigfight.model.skill.skills.LuckyOrNot;
-import bigfight.model.skill.skills.SkillModel;
-import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;

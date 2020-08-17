@@ -58,10 +58,17 @@ public class SkillAttack implements Attackable {
     }
 
     private boolean isEscaped() {
-        if (skill.getIdentity() == SkillIdentity.SHOCK_WAVE) {
-            ShockWave shockWave = (ShockWave) skill;
-            double escape = 0 - attacker.getFighterFlag().rounds * shockWave.getHitRateIncrement();
-            return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+        switch (skill.getIdentity()) {
+            case SHOCK_WAVE: {
+                ShockWave shockWave = (ShockWave) skill;
+                double escape = 0 - attacker.getFighterFlag().rounds * shockWave.getHitRateIncrement();
+                return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+            }
+            case ACUPOINTER: {
+                Acupointer acupointer = (Acupointer) skill;
+                double escape = 0 - acupointer.getHitRateIncrement();
+                return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+            }
         }
         return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
@@ -157,6 +164,11 @@ public class SkillAttack implements Attackable {
              case SHOCK_WAVE: {
                  ShockWave shockWave = (ShockWave) skill;
                  return shockWave.getDamage() + attacker.getFighterFlag().rounds * shockWave.getDamageIncrement();
+             }
+             case ACUPOINTER: {
+                 Acupointer acupointer = (Acupointer) skill;
+                 defender.getFighterFlag().noSelectSkill = acupointer.getNoSKillRounds();
+                 return acupointer.getDamage() + (int) (attacker.getLevel() * acupointer.getLevelMultiply());
              }
             default:
                 return 0;
