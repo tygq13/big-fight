@@ -10,13 +10,12 @@ import static org.mockito.Mockito.*;
 
 class SkillFactoryTest {
     @Test
-    void test_create_skill_with_example_identity_born_as_strong() {
-        // rely on existence of SkillIdentity.BORN_AS_STRONG
-        SkillStruct mockStruct = mock(SkillStruct.class);
-        SkillData skillData = mock(SkillData.class);
-        when(skillData.getWithStar(any(SkillIdentity.class), anyInt())).thenReturn(mockStruct);
+    void test_all_skill_creatable() {
+        SkillData skillData = new SkillData();
         SkillFactory testFactory = new SkillFactory(skillData);
-        SkillModel result = testFactory.create(SkillIdentity.BORN_AS_STRONG);
-        assertNotNull(result);
+        for (SkillIdentity testSkill: SkillIdentity.getArray()) {
+            SkillModel result = testFactory.create(testSkill);
+            assertNotNull(result);
+        }
     }
 }

@@ -85,26 +85,14 @@ public class EnUi implements Uiable{
     }
 
     @Override
-    public void printCounterAttackDodge(String fighterName) {
-        String result = String.format("%s carefully dodge the counter-attack. ", fighterName);
+    public void printSkillAttack(String skillAttackDescription, String fighterName) {
+        String result = String.format("%s %s", fighterName, skillAttackDescription);
         System.out.println(result);
     }
 
     @Override
-    public void printCounterAttackInjury(String fighterName, int damage, int health) {
-        String result = String.format("%s neglect the defence the lose HP %d (HP %d remains). ", fighterName, damage, health);
-        System.out.println(result);
-    }
-
-    @Override
-    public void printSkillRoarDodge(String fighterName) {
-        String result = String.format("%s sums up his courage and seems unaffected by the attack. ", fighterName);
-        System.out.println(result);
-    }
-
-    @Override
-    public void printSkillRoarAttack(String fighterName) {
-        String result = String.format("%s roar in anger, as if the king of beasts to scare the enemy away. ", fighterName);
+    public void printSkillDodge(String skillDodgeDescription, String fighterName) {
+        String result = String.format("%s %s", fighterName, skillDodgeDescription);
         System.out.println(result);
     }
 

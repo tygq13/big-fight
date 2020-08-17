@@ -16,10 +16,8 @@ public interface Uiable {
     void printDodge(String fighterName);
     void printInjury(String fighterName, int damage, int health);
     void printCounterAttackWeapon(String fighterName, String weaponName);
-    void printCounterAttackDodge(String fighterName);
-    void printCounterAttackInjury(String fighterName, int damage, int health);
 
-    void printSkillRoarAttack(String fighterName);
-    void printSkillRoarDodge(String fighterName);
+    void printSkillAttack(String skillAttackDescription, String fighterName);
+    void printSkillDodge(String skillDodgeDescription, String fighterName);
     void printSkillApparentDeath(String fighterName);
 }

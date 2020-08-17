@@ -1,5 +1,7 @@
 package bigfight.model.weapon;
 
+import bigfight.combat.fighter.components.DisposableWeaponList;
+
 import java.util.ArrayList;
 
 public class WeaponManager {
@@ -20,6 +22,10 @@ public class WeaponManager {
 
     public int getSize() {
         return weaponList.size();
+    }
+
+    public DisposableWeaponList createDisposableList() {
+        return new DisposableWeaponList((ArrayList<Weapon>) weaponList.clone());
     }
 
     @Override

@@ -21,9 +21,9 @@ public class WeaponData {
     );
 
     private final WeaponStruct GAS_HAMMER_ONE = new WeaponStruct(
-            new Damage(25, 50),
+            new Damage(20, 35),
             WeaponType.BIG,
-            "When you get naughty, you will be hit by this hammer. 10% chance ignore opponent's round",
+            "When you get naughty, you will be hit by this hammer. 10% chance ignore opponent's next round",
             WeaponIdentity.GAS_HAMMER,
             "gas hammer"
     );
@@ -35,7 +35,7 @@ public class WeaponData {
     private final WeaponStruct DEMON_SCYTHE_ONE = new WeaponStruct(
             new Damage(15, 25),
             WeaponType.BIG,
-            "Mysterious magic makes it your eyes focus on it. Inescapable. Uncounterattackable.",
+            "Mysterious magic makes it your eyes focus on it. Unevadable. Uncounterattackable.",
             WeaponIdentity.DEMON_SCYTHE,
             "demon scythe"
     );
@@ -47,7 +47,7 @@ public class WeaponData {
     private final WeaponStruct METEOR_BALL_ONE = new WeaponStruct(
             new Damage(15, 24),
             WeaponType.THROW,
-            "In old folk tales, it is remoulded from meteor hammer by Warrior Yuan." +
+            "In old folk tales, it is remoulded from meteor hammer by Hero Yuan." +
                     "Increase opponent's escape by 15% if hit",
             WeaponIdentity.METEOR_BALL,
             "meteor ball"
@@ -61,7 +61,7 @@ public class WeaponData {
             new Damage(10, 15),
             WeaponType.SMALL,
             "It is the judge used by 'The God of Death' Yama. " +
-                    "When pointed by it, no livings or the dead can escape. Inescapable.",
+                    "When pointed by it, no livings or the dead can escape. Unevadable.",
             WeaponIdentity.JUDGE_PENCIL,
             "judge's pencil"
     );

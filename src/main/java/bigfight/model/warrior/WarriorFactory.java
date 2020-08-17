@@ -1,16 +1,16 @@
 package bigfight.model.warrior;
 
 import bigfight.algo.BigFightAlgo;
+import bigfight.data.DataConfig;
 import bigfight.data.DataGetter;
 import bigfight.model.skill.SkillManager;
-import bigfight.model.skill.skills.AStepAhead;
-import bigfight.model.skill.skills.AgileBody;
-import bigfight.model.skill.skills.BornAsStrong;
-import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.skills.permanent.*;
 import bigfight.model.skill.struct.SkillType;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
 import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.attr.BasicAttribute;
+import bigfight.model.warrior.component.attr.Attribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.warrior.npc.NpcIdentity;
@@ -20,29 +20,40 @@ public class WarriorFactory {
 
     public Warrior create(DataGetter dataGetter, EmpowermentFactory empowermentFactory, WarriorDatabase warriorDatabase, String name) {
         Account account = warriorDatabase.createAccount(name);
-        Speed speed = new Speed();
-        Agility agility = new Agility();
-        Strength strength = new Strength();
+        BasicAttribute speed = new BasicAttribute();
+        BasicAttribute agility = new BasicAttribute();
+        BasicAttribute strength = new BasicAttribute();
         initializeAttributes(strength, agility, speed, dataGetter);
-        int health = dataGetter.getInitialHealth();
+        BasicAttribute health = new BasicAttribute(dataGetter.getInitialHealth());
         WeaponManager weaponManager = new WeaponManager();
         SkillManager skillManager = new SkillManager();
         Friends friends = getInitialFriends(warriorDatabase);
-        initializeEmpowerment(weaponManager, skillManager, strength, agility, speed, empowermentFactory);
+        Attribute attribute = new Attribute(strength, agility, speed, health);
         Warrior warrior = WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
-                .strength(strength)
-                .agility(agility)
-                .speed(speed)
-                .health(health)
+                .level(1)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
+                .isMale(true) // default male
                 .build();
+
+        giveEmpowerment(warrior, empowermentFactory);
         return warrior;
     }
 
-    private void initializeAttributes(Strength strength, Agility agility, Speed speed, DataGetter dataGetter) {
+    public void warriorLevelUp(Warrior warrior, EmpowermentFactory empowermentFactory) {
+        warrior.levelUp();
+        warrior.getHealthObj().addToAddition(DataConfig.LEVEL_UP_HEALTH_ADDITION);
+        int[] distribution = BigFightAlgo.uniformRandomDistribute(3, DataConfig.LEVEL_UP_ATTRIBUTE_ADDITION_NORMAL);
+        warrior.getStrengthObj().addToBase(distribution[0]);
+        warrior.getAgilityObj().addToBase(distribution[1]);
+        warrior.getSpeedObj().addToBase(distribution[2]);
+        giveEmpowerment(warrior, empowermentFactory);
+    }
+
+    private void initializeAttributes(BasicAttribute strength, BasicAttribute agility, BasicAttribute speed, DataGetter dataGetter) {
         // each attribute is at least one
         int valueLeft = dataGetter.getInitialAttributeTotal() - 3;
         speed.addToBase(1);
@@ -56,27 +67,14 @@ public class WarriorFactory {
         }
     }
 
-    private void initializeEmpowerment(WeaponManager weaponManager, SkillManager skillManager, Strength strength,
-                                       Agility agility, Speed speed, EmpowermentFactory empowermentFactory) {
+    private void giveEmpowerment(Warrior warrior, EmpowermentFactory empowermentFactory) {
         Empowerment newEmpowerment =
-                empowermentFactory.randomGetNew(weaponManager.getWeaponList(), skillManager.getSkillMap());
+                empowermentFactory.randomGetNew(warrior.getWeaponManager().getWeaponList(), warrior.getSkillManager().getSkillMap());
         if (newEmpowerment != null) {
-            newEmpowerment.addTo(weaponManager, skillManager);
+            newEmpowerment.addTo(warrior.getWeaponManager(), warrior.getSkillManager());
             if (newEmpowerment.getSkill() != null && newEmpowerment.getSkill().getType() == SkillType.PERMANENT) {
-                SkillModel skillModel = newEmpowerment.getSkill();
-                switch (skillModel.getIdentity()) {
-                    case BORN_AS_STRONG:
-                        BornAsStrong bornAsStrong = (BornAsStrong) skillModel;
-                        strength.add(bornAsStrong.upgrade(strength.getBase()));
-                        break;
-                    case AGILE_BODY:
-                        AgileBody agileBody = (AgileBody) skillModel;
-                        agility.add(agileBody.upgrade(agility.getBase()));
-                        break;
-                    case A_STEP_AHEAD:
-                        AStepAhead aStepAhead = (AStepAhead) skillModel;
-                        speed.add(aStepAhead.upgrade(speed.getBase()));
-                }
+                PermanentSkill permanentSkill = (PermanentSkill) newEmpowerment.getSkill();
+                permanentSkill.upgrade(warrior.getAttribute());
             }
         }
     }

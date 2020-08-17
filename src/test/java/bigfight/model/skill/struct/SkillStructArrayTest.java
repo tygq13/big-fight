@@ -13,7 +13,7 @@ class SkillStructArrayTest {
 
     @Test
     void test_weapon_struct_array_get_with_star() {
-        SkillStruct result = skillStructArray.withStar(1);
+        SkillStruct result = skillStructArray.withStar(0);
         assertEquals(skillStruct, result);
     }
 }

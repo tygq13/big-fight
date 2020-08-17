@@ -2,7 +2,7 @@ package bigfight.model.skill.skills;
 
 import bigfight.model.skill.struct.*;
 
-public class SkillModel {
+public class SkillModel{
     private SkillStruct skill;
 
     public SkillModel(SkillStruct skill) {
@@ -20,6 +20,10 @@ public class SkillModel {
     public String getDescription() {
         return skill.description;
     }
+
+    public String getAttackDescription() {return skill.attackString;}
+
+    public String getDodgeDescription() {return skill.dodgeString;}
 
     public SkillType getType() {
         return skill.type;

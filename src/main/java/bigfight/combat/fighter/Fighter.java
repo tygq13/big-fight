@@ -1,91 +1,140 @@
 package bigfight.combat.fighter;
 
-import bigfight.data.DataConfig;
-import bigfight.model.skill.struct.SkillList;
-import bigfight.model.warrior.builder.Warrior;
+import bigfight.combat.fighter.buff.Buff;
+import bigfight.combat.fighter.buff.Buffs;
+import bigfight.combat.fighter.components.*;
+import bigfight.model.skill.skills.SkillModel;
+import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.warrior.component.attr.BasicAttribute;
 import bigfight.model.warrior.component.Empowerment;
+import bigfight.model.warrior.component.attr.AdvancedAttribute;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.Damage;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Fighter {
-    private int speed;
-    private int strength;
-    private int agility;
-    private int health;
-    private Damage unarmedDamage;
-    private ArrayList<Weapon> weaponList;
-    private SkillList activeSkillList;
-    private SkillList specialSkillList;
     private String name;
+    private boolean isMale;
+    private BasicAttribute speed;
+    private BasicAttribute strength;
+    private BasicAttribute agility;
+    private Health health;
+    private int level;
+    private AdvancedAttribute advancedAttribute;
+    private Damage unarmedDamage;
+    private Weapon holdingWeapon;
+    private DisposableWeaponList weaponList;
+    private ActiveSkillList activeSkillList;
+    private SpecialSkillList specialSkillList;
+    private FighterFlag fighterFlag;
+    private Buffs buffs;
+    private CombatSelector combatSelector;
 
-    public Fighter(Warrior warrior) {
+    public Fighter(FightableWarrior warrior) {
         name = warrior.getName();
+        isMale = warrior.isMale();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
         agility = warrior.getAgility();
-        health = warrior.getHealth();
-        unarmedDamage = DataConfig.DEFAULT_UNARMED_DAMAGE;
-        weaponList = (ArrayList<Weapon>) warrior.getWeaponManager().getWeaponList().clone();
-        // only get the active skills
-        activeSkillList = new SkillList();
-        activeSkillList.addActiveFromMap(warrior.getSkillManager().getSkillMap());
-        specialSkillList = new SkillList();
-        specialSkillList.addSpecialFromMap(warrior.getSkillManager().getSkillMap());
+        health = new Health(warrior.getHealthValue());
+        level = warrior.getLevel();
+        advancedAttribute = warrior.getWeaponAttribute();
+        unarmedDamage = warrior.getUnarmedDamage();
+        weaponList = warrior.getDisposableWeapons();
+        activeSkillList = warrior.getActiveSkills();
+        specialSkillList = warrior.getSpecialSkills();
+        fighterFlag = new FighterFlag();
+        buffs = new Buffs();
+        combatSelector = new CombatSelector(activeSkillList, specialSkillList, weaponList, fighterFlag);
     }
 
-    public Empowerment SelectEmpowerment(Random random) {
-        int totalSize = weaponList.size() + activeSkillList.size();
-        int weaponOrSkill = totalSize > 0 ? random.nextInt(totalSize + 1) : 0;
-        Empowerment empowerment;
-        if (weaponOrSkill < weaponList.size() && weaponList.size() > 0) {
-            // create weapon
-            int luckyDraw = random.nextInt(weaponList.size());
-            empowerment = new Empowerment(weaponList.get(luckyDraw));
-            weaponList.remove(luckyDraw);
-        } else if (weaponOrSkill > weaponList.size() && activeSkillList.size() > 0){
-            // create skills
-            int luckyDraw = random.nextInt(activeSkillList.size());
-            empowerment =  new Empowerment(activeSkillList.get(luckyDraw));
-        } else {
-            // create unarmed
-            Weapon weapon = null;
-            empowerment = new Empowerment(weapon);
-        }
-        return empowerment;
+    public void changeWeapon(Empowerment empowerment) {
+        holdingWeapon = empowerment.getWeapon();
     }
 
     public String getName() {
         return name;
     }
 
-    public int getWeaponSize() {
-        return weaponList.size();
+    public boolean isMale() {
+        return isMale;
     }
 
     public int getSpeed() {
+        return speed.value();
+    }
+
+    public BasicAttribute getSpeedObj() {
         return speed;
     }
 
     public int getStrength() {
-        return strength;
+        return strength.value();
     }
 
     public int getAgility() {
-        return agility;
+        return agility.value();
     }
 
     public int getHealth() {
+        return health.value();
+    }
+
+    public Health getHealthObj() {
         return health;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void updateHealth(int value) {
+        health.update(value);
     }
 
     public Damage getUnarmedDamage() {
         return unarmedDamage;
     }
 
-    SkillList getSpecialSkills() {
-        return specialSkillList;
+    public Weapon getHoldingWeapon() {
+        return holdingWeapon;
+    }
+
+    public AdvancedAttribute getAdvancedAttribute() {
+        return advancedAttribute;
+    }
+
+    public FighterFlag getFighterFlag() {
+        return fighterFlag;
+    }
+
+    public int getWeaponSize() {
+        return weaponList.size();
+    }
+
+    public boolean hasSkill(SkillIdentity identity) {
+        return specialSkillList != null && specialSkillList.contains(identity);
+    }
+
+    public SkillModel getSkill(SkillIdentity identity) {
+        return specialSkillList.get(identity);
+    }
+
+    public CombatSelector getCombatSelector() {
+        return combatSelector;
+    }
+
+    public void addBuff(Buff buff) {
+        buffs.add(buff);
+    }
+
+    public void newRoundUpdate() {
+        // buff update
+        buffs.invoke(this);
+
+        // fighter flag update
+        fighterFlag.rounds += 1;
+        if (fighterFlag.noSelectSkill > 0) {
+            fighterFlag.noSelectSkill -= 1;
+        }
     }
 }

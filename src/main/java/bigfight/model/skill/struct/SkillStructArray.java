@@ -11,6 +11,6 @@ public class SkillStructArray {
     }
 
     public SkillStruct withStar(int num) {
-        return skillStructArray.get(num - 1);
+        return skillStructArray.get(num);
     }
 }

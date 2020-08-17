@@ -1,12 +1,9 @@
 package bigfight.model.warrior.builder;
 
 import bigfight.model.skill.SkillManager;
-import bigfight.model.warrior.component.Agility;
-import bigfight.model.warrior.component.Friends;
-import bigfight.model.warrior.component.Speed;
-import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.component.*;
+import bigfight.model.warrior.component.attr.Attribute;
 import bigfight.model.warrior.database.Account;
-import bigfight.model.warrior.database.DatabaseAccessor;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
 
@@ -22,23 +19,15 @@ public class WarriorBuilder {
     }
 
     public interface AccountStep {
-        StrengthStep account(Account account);
+        LevelStep account(Account account);
     }
 
-    public interface StrengthStep {
-        AgilityStep strength(Strength strength);
+    public interface LevelStep {
+        AttributeStep level(int level);
     }
 
-    public interface  AgilityStep {
-        SpeedStep agility(Agility agility);
-    }
-
-    public interface SpeedStep {
-        HealthStep speed(Speed speed);
-    }
-
-    public interface HealthStep {
-        WeaponManagerStep health(int health);
+    public interface AttributeStep {
+        WeaponManagerStep attribute(Attribute attribute);
     }
 
     public interface WeaponManagerStep {
@@ -50,56 +39,47 @@ public class WarriorBuilder {
     }
 
     public interface FriendsStep {
-        BuildStep friends(Friends friends);
+        SexStep friends(Friends friends);
+    }
+
+    public interface SexStep {
+        BuildStep isMale(boolean isMale);
     }
 
     public interface BuildStep {
         Warrior build();
     }
 
-    private static class WarriorSteps implements AccountStep, StrengthStep, AgilityStep, SpeedStep, HealthStep,
-            WeaponManagerStep, SkillManagerStep, FriendsStep, BuildStep {
+    private static class WarriorSteps implements AccountStep, LevelStep, AttributeStep,
+            WeaponManagerStep, SkillManagerStep, FriendsStep, SexStep, BuildStep {
         private WarriorDatabase warriorDatabase;
         private Account account;
-        private Strength strength;
-        private Agility agility;
-        private Speed speed;
-        private int health;
+        private int level;
+        private Attribute attribute;
         private WeaponManager weaponManager;
         private SkillManager skillManager;
         private Friends friends;
+        private boolean isMale;
 
         WarriorSteps(WarriorDatabase warriorDatabase) {
             this.warriorDatabase = warriorDatabase;
         }
 
         @Override
-        public StrengthStep account(Account account) {
+        public LevelStep account(Account account) {
             this.account = account;
             return this;
         }
 
         @Override
-        public AgilityStep strength(Strength strength) {
-            this.strength = strength;
+        public AttributeStep level(int level) {
+            this.level = level;
             return this;
         }
 
         @Override
-        public SpeedStep agility(Agility agility) {
-            this.agility = agility;
-            return this;
-        }
-
-        @Override
-        public HealthStep speed(Speed speed) {
-            this.speed = speed;
-            return this;
-        }
-
-        @Override
-        public WeaponManagerStep health(int health) {
-            this.health = health;
+        public WeaponManagerStep attribute(Attribute health) {
+            this.attribute = health;
             return this;
         }
 
@@ -116,14 +96,20 @@ public class WarriorBuilder {
         }
 
         @Override
-        public BuildStep friends(Friends friends) {
+        public SexStep friends(Friends friends) {
             this.friends = friends;
             return this;
         }
 
         @Override
+        public BuildStep isMale(boolean isMale) {
+            this.isMale = isMale;
+            return this;
+        }
+
+        @Override
         public Warrior build() {
-            Warrior result = new Warrior(lock, account, strength, agility, speed, health, weaponManager, skillManager, friends);
+            Warrior result = new Warrior(lock, account, attribute, weaponManager, skillManager, friends, isMale);
             warriorDatabase.insertWarrior(account.getId(), result);
             return result;
         }

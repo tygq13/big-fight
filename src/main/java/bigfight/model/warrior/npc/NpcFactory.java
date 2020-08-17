@@ -3,9 +3,8 @@ package bigfight.model.warrior.npc;
 import bigfight.model.skill.SkillManager;
 import bigfight.model.warrior.builder.Warrior;
 import bigfight.model.warrior.builder.WarriorBuilder;
-import bigfight.model.warrior.component.Agility;
-import bigfight.model.warrior.component.Speed;
-import bigfight.model.warrior.component.Strength;
+import bigfight.model.warrior.component.attr.Attribute;
+import bigfight.model.warrior.component.attr.BasicAttribute;
 import bigfight.model.warrior.database.Account;
 import bigfight.model.warrior.database.WarriorDatabase;
 import bigfight.model.weapon.WeaponManager;
@@ -22,21 +21,21 @@ public class NpcFactory {
     }
 
     private static Warrior createNoob(Account account, WarriorDatabase warriorDatabase) {
-        Strength strength = new Strength(2);
-        Agility agility = new Agility(2);
-        Speed speed = new Speed(2);
-        int health = 3;
+        BasicAttribute strength = new BasicAttribute(2);
+        BasicAttribute agility = new BasicAttribute(2);
+        BasicAttribute speed = new BasicAttribute(2);
+        BasicAttribute health = new BasicAttribute(50);
+        Attribute attribute = new Attribute(strength, agility, speed, health);
         WeaponManager weaponManager = new WeaponManager(); // no weapon
         SkillManager skillManager = new SkillManager(); // no skill
         return WarriorBuilder.stepBuilder(warriorDatabase)
                 .account(account)
-                .strength(strength)
-                .agility(agility)
-                .speed(speed)
-                .health(health)
+                .level(1)
+                .attribute(attribute)
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(null)
+                .isMale(true)
                 .build();
     }
 }

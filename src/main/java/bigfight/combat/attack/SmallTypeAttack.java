@@ -1,26 +1,30 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.special.BloodThirsty;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.ui.Uiable;
 
 public class SmallTypeAttack implements Attackable{
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
+    private AttackCalculator attackCalculator;
 
-    public SmallTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
+    public SmallTypeAttack(Fighter attacker, Fighter defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;
         this.random = random;
         this.ui = ui;
+        this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().smallAttackAttribute(),
+                defender.getAdvancedAttribute().smallDefenceAttribute(), random);
     }
 
     @Override
@@ -28,33 +32,37 @@ public class SmallTypeAttack implements Attackable{
         ui.printWeaponSmallAttack(attacker.getName(), weapon.getName());
         if (escaped()) {
             ui.printDodge(defender.getName());
-            isEscaped = true;
         } else {
-            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-            double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            int damage = (int) (weaponDamage * (1 + multiply));
+            int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
+            lifeSteal(damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        counterAttack();
+        if (random.doubleHitRandom() < attacker.getAdvancedAttribute().doubleHitChance && !attacker.getFighterFlag().doubleHited) {
+            attacker.getFighterFlag().doubleHited = true;
+            attack();
+            attacker.getFighterFlag().doubleHited = false;
+        }
     }
 
-    @Override
-    public int getRoundChange() {
-        return 0;
-    }
-
-    private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
-        attacker.updateHealth(attacker.getHealth() - damage);
+    private void lifeSteal(int damage) {
+        double lifeSteal = attacker.getCombatSelector().selectBloodThirsty(random);
+        attacker.updateHealth(attacker.getHealth() + (int) (damage * lifeSteal));
     }
 
     private boolean escaped() {
         if (weapon.getIdentity() == WeaponIdentity.JUDGE_PENCIL) {
             return false;
         }
-        double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        return random.getEscapeRandom() < escape;
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
+    }
+
+    private int calculateDamage() {
+        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength(),
+                defender.getCombatSelector());
     }
 }

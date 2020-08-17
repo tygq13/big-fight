@@ -1,52 +1,74 @@
 package bigfight.combat.attack;
 
-import bigfight.combat.fighter.FighterStatus;
+import bigfight.combat.fighter.Fighter;
+import bigfight.combat.fighter.components.CombatSelector;
 import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
+import bigfight.model.skill.skills.special.BloodThirsty;
+import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
 import bigfight.model.weapon.weapons.GasHammer;
-import bigfight.model.weapon.weapons.Trident;
 import bigfight.ui.Uiable;
 
 public class BigTypeAttack implements Attackable{
-    private FighterStatus attacker;
-    private FighterStatus defender;
+    private Fighter attacker;
+    private Fighter defender;
     private Weapon weapon;
     private CombatRandom random;
     private Uiable ui;
-    private boolean isEscaped;
+    private AttackCalculator attackCalculator;
 
-    public BigTypeAttack(FighterStatus attacker, FighterStatus defender, Weapon weapon, CombatRandom random, Uiable ui) {
+    public BigTypeAttack(Fighter attacker, Fighter defender, Weapon weapon, CombatRandom random, Uiable ui) {
         this.attacker = attacker;
         this.defender = defender;
         this.weapon = weapon;
         this.random = random;
         this.ui = ui;
+        this.attackCalculator = new AttackCalculator(attacker.getAdvancedAttribute().bigAttackAttribute(),
+                defender.getAdvancedAttribute().bigDefenceAttribute(), random);
     }
 
     @Override
     public void attack() {
         ui.printWeaponBigAttack(attacker.getName(), weapon.getName());
+        // special case
+        // todo: refactor this
+        if (weapon.getIdentity() == WeaponIdentity.TRIDENT) {
+            attacker.getFighterFlag().ignored += 1;
+        }
+
         if (escaped()) {
             ui.printDodge(defender.getName());
-            isEscaped = true;
         } else {
-            int weaponDamage = random.getWeaponDamageRandom(weapon.getDamage().lower(), weapon.getDamage().higher());
-            double multiply = CombatAlgo.multiplyByStrength(attacker.getStrength(), defender.getStrength() );
-            int damage = (int) (weaponDamage * (1 + multiply));
+            defender.getFighterFlag().ignored += ignoreOpponent();
+            int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
+            lifeSteal(damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
+            CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
+            if (!(counterAttack.specialCounter(damage))) {
+                counterAttack.counterAttack();
+            }
         }
-        counterAttack();
+        if (random.doubleHitRandom() < attacker.getAdvancedAttribute().doubleHitChance && !attacker.getFighterFlag().doubleHited) {
+            attacker.getFighterFlag().doubleHited = true;
+            attack();
+            attacker.getFighterFlag().doubleHited = false;
+        }
     }
 
-    @Override
-    public int getRoundChange() {
+    private void lifeSteal(int damage) {
+        double lifeSteal = attacker.getCombatSelector().selectBloodThirsty(random);
+        attacker.updateHealth(attacker.getHealth() + (int) (damage * lifeSteal));
+    }
+
+
+    private int ignoreOpponent() {
+        if (weapon.getIdentity() == null) {
+            return 0;
+        }
         switch (weapon.getIdentity()) {
-            case TRIDENT:
-                Trident trident = (Trident) weapon.getModel();
-                return 0 - trident.getRestRound();
             case GAS_HAMMER:
                 GasHammer gasHammer = (GasHammer) weapon.getModel();
                 return random.getIgnoreRandom() < gasHammer.getIgnoreChance() ? 1 : 0;
@@ -54,17 +76,15 @@ public class BigTypeAttack implements Attackable{
         return 0;
     }
 
-    private void counterAttack() {
-        int damage = new CounterAttack(defender, attacker, isEscaped, random, ui).counterAttack();
-        attacker.updateHealth(attacker.getHealth() - damage);
-    }
-
     private boolean escaped() {
         if (weapon.getIdentity() == WeaponIdentity.DEMON_SCYTHE) {
             return false;
         }
-        double escape = attacker.getFocus() - defender.getEscape();
-        escape += CombatAlgo.escapeByAgility(defender.getAgility(), attacker.getAgility());
-        return random.getEscapeRandom() < escape;
+        return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
+    }
+
+    private int calculateDamage() {
+        return attackCalculator.calculateDamage(attacker.getUnarmedDamage(), attacker.getStrength(), defender.getStrength(),
+                defender.getCombatSelector());
     }
 }
