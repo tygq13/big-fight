@@ -31,12 +31,7 @@ public class UnarmedAttack implements Attackable {
         } else {
             int damage = calculateDamage();
             defender.updateHealth(defender.getHealth() - damage);
-            if (attacker.hasSkill(SkillIdentity.BLOOD_THIRSTY)) {
-                BloodThirsty bloodThirsty = (BloodThirsty) attacker.getSkill(SkillIdentity.BLOOD_THIRSTY);
-                if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
-                    attacker.updateHealth(attacker.getHealth() + (int)(damage * bloodThirsty.getLifeStealPercentage()));
-                }
-            }
+            lifeSteal(damage);
             ui.printInjury(defender.getName(), damage, defender.getHealth());
             CounterAttack counterAttack = new CounterAttack(defender, attacker, random, ui);
             if (!(counterAttack.specialCounter(damage))) {
@@ -48,6 +43,11 @@ public class UnarmedAttack implements Attackable {
             attack();
             attacker.getFighterFlag().doubleHited = false;
         }
+    }
+
+    private void lifeSteal(int damage) {
+        double lifeSteal = attacker.getCombatSelector().selectBloodThirsty(random);
+        attacker.updateHealth(attacker.getHealth() + (int) (damage * lifeSteal));
     }
 
     private boolean escaped() {

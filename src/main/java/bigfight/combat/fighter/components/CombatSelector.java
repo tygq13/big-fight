@@ -2,10 +2,6 @@ package bigfight.combat.fighter.components;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.skills.special.BloodSacrifice;
-import bigfight.model.skill.skills.special.BloodThirsty;
-import bigfight.model.skill.skills.special.HakiProtectUsable;
-import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 
@@ -46,40 +42,30 @@ public class CombatSelector {
         return weaponList.select(random);
     }
 
-    public void selectHealingSkill(CombatRandom random, Health health) {
+    public void selectHealingSkill(CombatRandom random, Health health, int level) {
         if (fighterFlag.noSelectSkill == 0) {
             int totalSize = weaponList.size() + specialSkillList.size() + activeSkillList.size();
-            specialSkillList.preRoundAuxiliary(health, random, totalSize);
+            specialSkillList.preRoundAuxiliary(health, random, totalSize, level);
         }
     }
 
     public double selectBloodThirsty(CombatRandom random) {
-        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.BLOOD_THIRSTY)) {
-            BloodThirsty bloodThirsty = (BloodThirsty) specialSkillList.get(SkillIdentity.BLOOD_THIRSTY);
-            if (random.getBloodThirstyRandom() < bloodThirsty.getInvocationChance()) {
-                return bloodThirsty.getLifeStealPercentage();
-            }
+        if (fighterFlag.noSelectSkill == 0) {
+            return specialSkillList.selectBloodThirsty(random);
         }
         return 0;
     }
 
     public double selectBloodSacrifice(CombatRandom random) {
-        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.BLOOD_SACRIFICE)) {
-            BloodSacrifice bloodSacrifice = (BloodSacrifice) specialSkillList.get(SkillIdentity.BLOOD_SACRIFICE);
-            if (random.getBloodThirstyRandom() < bloodSacrifice.getInvocationChance()) {
-                return bloodSacrifice.getLifeStealPercentage();
-            }
+        if (fighterFlag.noSelectSkill == 0) {
+            return specialSkillList.selectBloodSacrifice(random);
         }
         return 0;
     }
 
     public double selectHakiProtect(CombatRandom random) {
-        if (fighterFlag.noSelectSkill == 0 && specialSkillList.contains(SkillIdentity.HAKI_PROTECT)) {
-            HakiProtectUsable hakiProtect = (HakiProtectUsable) specialSkillList.get(SkillIdentity.HAKI_PROTECT);
-            if (hakiProtect.getRemainingUsage() > 0 && random.getHakiProtectRandom() < hakiProtect.getInvocationChance()) {
-                hakiProtect.invoke();
-                return hakiProtect.getProtectionPercentage();
-            }
+        if (fighterFlag.noSelectSkill == 0) {
+            return specialSkillList.selectHakiProtect(random);
         }
         return 0;
     }

@@ -17,20 +17,6 @@ import static org.mockito.Mockito.*;
 public class SpecialSkillTest {
 
     @Test
-    void selectHealingSKill_based_on_invocation_chance() {
-        final double INVOCATION_CHANCE = 0.2;
-        SpecialSkill specialSkill = spy(mock(SpecialSkill.class));
-        when(specialSkill.getType()).thenReturn(SkillType.SPECIAL);
-        when(specialSkill.getInvocationChance()).thenReturn(INVOCATION_CHANCE);
-        Fighter testFighter = new FighterBuilderTestUtil()
-                .withSkill(specialSkill)
-                .build();
-        // test
-        testFighter.getCombatSelector().selectHealingSkill(mock(CombatRandom.class), testFighter.getHealthObj());
-        verify(specialSkill).getInvocationChance();
-    }
-
-    @Test
     void selectHealingSKill_fast_hand_activated() {
         final double SELECT = -1.0;
         SpecialSkillList specialSkillList = new SpecialSkillList();
@@ -65,7 +51,7 @@ public class SpecialSkillTest {
         specialSkillList.add(spy);
         CombatRandom random = mock(CombatRandom.class);
         when(random.selectHealingSkillRandom()).thenReturn(SELECT);
-        specialSkillList.preRoundAuxiliary(mock(Health.class), random, 1);
+        specialSkillList.preRoundAuxiliary(mock(Health.class), random, 1, anyInt());
         verify(spy).updateHealth(any());
     }
 }

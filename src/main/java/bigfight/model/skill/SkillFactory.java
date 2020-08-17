@@ -103,6 +103,8 @@ public class SkillFactory {
                 return new Acupointer(skillData.getWithStar(identity, 0));
             case TAI_CHI:
                 return new TaiChi(skillData.getWithStar(identity, 0));
+            case HEAL:
+                return new Heal(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

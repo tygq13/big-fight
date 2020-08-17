@@ -45,7 +45,7 @@ public class FighterFlagTest {
         CombatSelector combatSelector = new CombatSelector(mock(ActiveSkillList.class), specialSkillList, mock(DisposableWeaponList.class),
                 fighterFlag);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getHakiProtectRandom()).thenReturn(SELECT);
+        when(random.getSingleSpecialRandom()).thenReturn(SELECT);
         // test
         double EXPECTED = 0;
         double result = combatSelector.selectHakiProtect(random);

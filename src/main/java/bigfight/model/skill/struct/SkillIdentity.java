@@ -42,7 +42,8 @@ public enum SkillIdentity {
     VALIANT_FORCE,
     SWORD_ART,
     ACUPOINTER,
-    TAI_CHI;
+    TAI_CHI,
+    HEAL;
 
 
     // use static constant to avoid copying of enum array

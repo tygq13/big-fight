@@ -3,10 +3,7 @@ package bigfight.combat.fighter.components;
 import bigfight.combat.fighter.buff.Buff;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.SkillModel;
-import bigfight.model.skill.skills.special.FastHands;
-import bigfight.model.skill.skills.special.MineWater;
-import bigfight.model.skill.skills.special.ShadowMove;
-import bigfight.model.skill.skills.special.SpecialSkill;
+import bigfight.model.skill.skills.special.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.skill.struct.SkillType;
 
@@ -65,34 +62,79 @@ public class SpecialSkillList {
 
     public Buff postWeaponAuxiliary(CombatRandom random, int baseSize) {
         int luckyDraw = random.selectSpecialSkill(baseSize);
-        SpecialSkill specialSkill = null;
-        if (luckyDraw < skillList.size()) {
-            specialSkill = (SpecialSkill) skillList.get(luckyDraw);
+        if (luckyDraw >= skillList.size()) {
+            return null;
         }
-        if (specialSkill != null && random.selectHealingSkillRandom() < specialSkill.getInvocationChance()) {
-            if (specialSkill.getIdentity() == SkillIdentity.FAST_HANDS) {
-                FastHands fastHands = (FastHands) specialSkill;
+        SkillModel skill = skillList.get(luckyDraw);
+        switch (skill.getIdentity()) {
+            case FAST_HANDS: {
+                FastHands fastHands = (FastHands) skill;
                 return fastHands.createBuff();
             }
-            if (specialSkill.getIdentity() == SkillIdentity.SHADOW_MOVE) {
-                ShadowMove shadowMove = (ShadowMove) specialSkill;
+            case SHADOW_MOVE: {
+                ShadowMove shadowMove = (ShadowMove) skill;
                 return shadowMove.createBuff();
             }
         }
         return null;
     }
 
-    public void preRoundAuxiliary(Health health, CombatRandom random, int baseSize) {
+    // todo: bad to add unrelated parameter "level", refactor this.
+    public void preRoundAuxiliary(Health health, CombatRandom random, int baseSize, int level) {
         int luckyDraw = random.selectSpecialSkill(baseSize);
-        SpecialSkill specialSkill = null;
-        if (luckyDraw < skillList.size()) {
-            specialSkill = (SpecialSkill) skillList.get(luckyDraw);
+        if (luckyDraw >= skillList.size()) {
+            return;
         }
-        if (specialSkill != null && random.selectHealingSkillRandom() < specialSkill.getInvocationChance()) {
-            if (specialSkill.getIdentity() == SkillIdentity.MINE_WATER) {
-                MineWater mineWater = (MineWater) specialSkill;
-                mineWater.updateHealth(health);
+        SkillModel skill = skillList.get(luckyDraw);
+        switch (skill.getIdentity()) {
+            case MINE_WATER: {
+                MineWater mineWater = (MineWater) skill;
+                if (random.selectHealingSkillRandom() < mineWater.getInvocationChance()) {
+                    mineWater.updateHealth(health);
+                }
+                break;
+            }
+            case HEAL: {
+                HealUsable healUsable = (HealUsable) skill;
+                int regen = healUsable.getBaseHeal() + (int)(level * healUsable.getLevelMultiply());
+                health.update(health.value() + regen);
+                healUsable.invoke();
+                if (healUsable.getRemainingUsage() == 0) {
+                    skillList.remove(healUsable);
+                }
+                break;
             }
         }
+    }
+
+    public double selectBloodThirsty(CombatRandom random) {
+        if (contains(SkillIdentity.BLOOD_THIRSTY)) {
+            BloodThirsty bloodThirsty = (BloodThirsty) get(SkillIdentity.BLOOD_THIRSTY);
+            if (random.getSingleSpecialRandom() < bloodThirsty.getInvocationChance()) {
+                return bloodThirsty.getLifeStealPercentage();
+            }
+        }
+        return 0;
+    }
+
+    public double selectBloodSacrifice(CombatRandom random) {
+        if (contains(SkillIdentity.BLOOD_SACRIFICE)) {
+            BloodSacrifice bloodSacrifice = (BloodSacrifice) get(SkillIdentity.BLOOD_SACRIFICE);
+            if (random.getSingleSpecialRandom() < bloodSacrifice.getInvocationChance()) {
+                return bloodSacrifice.getLifeStealPercentage();
+            }
+        }
+        return 0;
+    }
+
+    public double selectHakiProtect(CombatRandom random) {
+        if (contains(SkillIdentity.HAKI_PROTECT)) {
+            HakiProtectUsable hakiProtect = (HakiProtectUsable) get(SkillIdentity.HAKI_PROTECT);
+            if (hakiProtect.getRemainingUsage() > 0 && random.getSingleSpecialRandom() < hakiProtect.getInvocationChance()) {
+                hakiProtect.invoke();
+                return hakiProtect.getProtectionPercentage();
+            }
+        }
+        return 0;
     }
 }

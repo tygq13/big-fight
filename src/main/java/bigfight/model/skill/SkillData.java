@@ -575,6 +575,19 @@ public class SkillData {
             TAI_CHI_ZERO
     );
 
+    private final SkillStruct HEAL_ZERO = new SkillStruct(
+            SkillType.SPECIAL,
+            "You heal your wounds with qi in between the attacks. \n" +
+                    "Recover health 30 + level * 0.4.\n" +
+                    "Can only use once in a fight.\n",
+            SkillIdentity.HEAL,
+            "heal"
+    );
+
+    private final SkillStructArray HEAL_ARRAY = new SkillStructArray(
+            HEAL_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -620,7 +633,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.VALIANT_FORCE, VALIANT_FORCE_ARRAY),
                     Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY),
                     Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY),
-                    Map.entry(SkillIdentity.TAI_CHI, TAI_CHI_ARRAY)
+                    Map.entry(SkillIdentity.TAI_CHI, TAI_CHI_ARRAY),
+                    Map.entry(SkillIdentity.HEAL, HEAL_ARRAY)
             )
     );
 

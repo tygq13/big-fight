@@ -39,7 +39,7 @@ public class Combat {
     }
 
     private void startRound(Fighter attacker, Fighter defender, CombatRandom rand) {
-        attacker.getCombatSelector().selectHealingSkill(rand, attacker.getHealthObj());
+        attacker.getCombatSelector().selectHealingSkill(rand, attacker.getHealthObj(), attacker.getLevel());
         Empowerment empowerment = selectEmpowerment(attacker, defender, rand);
         // bad implementation, find a better way to change this
         if (!attacker.getFighterFlag().ignoredByUnselection) {

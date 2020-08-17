@@ -6,9 +6,7 @@ import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
-import bigfight.model.skill.skills.special.BloodSacrifice;
-import bigfight.model.skill.skills.special.BloodThirsty;
-import bigfight.model.skill.skills.special.HakiProtect;
+import bigfight.model.skill.skills.special.*;
 import bigfight.model.skill.struct.SkillIdentity;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
@@ -81,7 +79,7 @@ class CombatEachSkillTest {
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
-        when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
+        when(random.getSingleSpecialRandom()).thenReturn(INVOKE_HAKI);
         // test
         final int EXPECTED_HEALTH = fighter2.getHealth() - (int) (DAMAGE * (1 - hakiProtect.getProtectionPercentage()));
         new Round(fighter1, fighter2, CombatTestUtil.createUnarmedEmpowerment(), random, mockUi).fight();
@@ -97,7 +95,7 @@ class CombatEachSkillTest {
         HakiProtect hakiProtect = (HakiProtect) skill;
         CombatRandom random = mock(CombatRandom.class);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
-        when(random.getHakiProtectRandom()).thenReturn(INVOKE_HAKI);
+        when(random.getSingleSpecialRandom()).thenReturn(INVOKE_HAKI);
         final int MAX_INVOCATION = hakiProtect.getRemainingUsage();
         // invoke n times
         for (int i = 0; i < MAX_INVOCATION; i += 1) {
@@ -277,7 +275,7 @@ class CombatEachSkillTest {
         Empowerment empowerment = new Empowerment(CombatTestUtil.createBigWeapon());
         CombatRandom random = mock(CombatRandom.class);
         when(random.getWeaponDamageRandom(anyInt(), anyInt())).thenReturn(DAMAGE);
-        when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
+        when(random.getSingleSpecialRandom()).thenReturn(INVOKE);
 
         // test
         final int EXPECTED_HEALTH = fighter1.getHealth() + (int) (DAMAGE * bloodThirsty.getLifeStealPercentage());
@@ -350,7 +348,7 @@ class CombatEachSkillTest {
         Roar skill = (Roar) DEFAULT_SKILL_FACTORY.create(SkillIdentity.ROAR);
         Empowerment empowerment = new Empowerment(skill);
         CombatRandom random = mock(CombatRandom.class);
-        when(random.getBloodThirstyRandom()).thenReturn(INVOKE);
+        when(random.getSingleSpecialRandom()).thenReturn(INVOKE);
 
         // test
         final int EXPECTED_HEALTH = fighter1.getHealth() + (int) (skill.getDamage() * bloodSacrifice.getLifeStealPercentage());
@@ -456,5 +454,40 @@ class CombatEachSkillTest {
         int ORIGINAL_HEALTH = fighter2.getHealth();
         new SkillAttack(fighter1, fighter2, acupointer, random, mockUi).attack();
         assertNotEquals(ORIGINAL_HEALTH, fighter2.getHealth());
+    }
+
+    @Test
+    void heal_level_multiply() {
+        final double SELECT = 0;
+        Heal heal = (Heal) DEFAULT_SKILL_FACTORY.create(SkillIdentity.HEAL);
+        HealUsable healUsable = (HealUsable) heal.getUsableInstance();
+        Fighter fighter = new FighterBuilderTestUtil().withSkill(healUsable).build();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectHealingSkillRandom()).thenReturn(SELECT);
+        int numOfInvocation = healUsable.getRemainingUsage();
+        // test
+        fighter.updateHealth(1);
+        int EXPECTED_HEALTH = fighter.getHealth() + healUsable.getBaseHeal() + (int) (fighter.getLevel() *healUsable.getLevelMultiply());
+        fighter.getCombatSelector().selectHealingSkill(random, fighter.getHealthObj(), fighter.getLevel());
+        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
+    }
+
+    @Test
+    void heal_invoke_limitation() {
+        final double SELECT = 0;
+        Heal heal = (Heal) DEFAULT_SKILL_FACTORY.create(SkillIdentity.HEAL);
+        HealUsable healUsable = (HealUsable) heal.getUsableInstance();
+        Fighter fighter = new FighterBuilderTestUtil().withSkill(healUsable).build();
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.selectHealingSkillRandom()).thenReturn(SELECT);
+        int numOfInvocation = healUsable.getRemainingUsage();
+        for (int i = 0; i < numOfInvocation; i++) {
+            fighter.getCombatSelector().selectHealingSkill(random, fighter.getHealthObj(), fighter.getLevel());
+        }
+        // test
+        fighter.updateHealth(1);
+        int EXPECTED_HEALTH = fighter.getHealth();
+        fighter.getCombatSelector().selectHealingSkill(random, fighter.getHealthObj(), fighter.getLevel());
+        assertEquals(EXPECTED_HEALTH, fighter.getHealth());
     }
 }

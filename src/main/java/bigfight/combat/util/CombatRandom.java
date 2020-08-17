@@ -66,11 +66,11 @@ public class CombatRandom extends Random{
         return random.nextDouble();
     }
 
-    public double getHakiProtectRandom() {
+    public double getSeaReflectRandom() {
         return random.nextDouble();
     }
 
-    public double getSeaReflectRandom() {
+    public double getSingleSpecialRandom() {
         return random.nextDouble();
     }
 
@@ -79,10 +79,6 @@ public class CombatRandom extends Random{
     }
 
     public double getGlueRandom() {
-        return random.nextDouble();
-    }
-
-    public double getBloodThirstyRandom() {
         return random.nextDouble();
     }
 
