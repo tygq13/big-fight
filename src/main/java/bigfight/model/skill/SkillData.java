@@ -588,6 +588,19 @@ public class SkillData {
             HEAL_ZERO
     );
 
+    private final SkillStruct STINKY_FEET_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Smelly feet face on!\n" +
+                    "Cause 30 + strength * 50%. \n" +
+                    "If the opponent is of the same sex, increase damage by 10%.\n",
+            SkillIdentity.STINKY_FEET,
+            "stinky feet"
+    );
+
+    private final SkillStructArray STINKY_FEET_ARRAY = new SkillStructArray(
+            STINKY_FEET_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -634,7 +647,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.SWORD_ART, SWORD_ART_ARRAY),
                     Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY),
                     Map.entry(SkillIdentity.TAI_CHI, TAI_CHI_ARRAY),
-                    Map.entry(SkillIdentity.HEAL, HEAL_ARRAY)
+                    Map.entry(SkillIdentity.HEAL, HEAL_ARRAY),
+                    Map.entry(SkillIdentity.STINKY_FEET, STINKY_FEET_ARRAY)
             )
     );
 

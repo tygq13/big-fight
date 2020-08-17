@@ -174,6 +174,12 @@ public class SkillAttack implements Attackable {
                  defender.getFighterFlag().noSelectSkill = acupointer.getNoSKillRounds();
                  return acupointer.getDamage() + (int) (attacker.getLevel() * acupointer.getLevelMultiply());
              }
+             case STINKY_FEET: {
+                 StinkyFeet stinkyFeet = (StinkyFeet) skill;
+                 double sameSexMultiply = attacker.isMale() ^ defender.isMale() ? 0 : stinkyFeet.getSameSexMultiply();
+                 double strengthDamage = attacker.getStrength() * stinkyFeet.getStrengthMultiply();
+                 return (int) ((stinkyFeet.getDamage() + strengthDamage) * (1 + sameSexMultiply));
+             }
             default:
                 return 0;
         }

@@ -19,5 +19,5 @@ public interface FightableWarrior {
     SpecialSkillList getSpecialSkills();
     ActiveSkillList getActiveSkills();
     Damage getUnarmedDamage();
-
+    boolean isMale();
 }

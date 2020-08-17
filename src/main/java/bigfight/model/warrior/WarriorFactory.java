@@ -36,6 +36,7 @@ public class WarriorFactory {
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
+                .isMale(true) // default male
                 .build();
 
         giveEmpowerment(warrior, empowermentFactory);

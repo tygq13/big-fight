@@ -35,6 +35,7 @@ public class NpcFactory {
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(null)
+                .isMale(true)
                 .build();
     }
 }

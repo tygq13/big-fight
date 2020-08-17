@@ -35,6 +35,7 @@ class WarriorBuilderTest {
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
+                .isMale(true)
                 .build();
         assertNotNull(test);
         assertEquals(account.getName(), test.getName());
@@ -60,6 +61,7 @@ class WarriorBuilderTest {
                 .weaponManager(mock(WeaponManager.class))
                 .skillManager(mock(SkillManager.class))
                 .friends(mock(Friends.class))
+                .isMale(true)
                 .build();
 
         assertNotNull(warriorDatabase.get(account.getId()));

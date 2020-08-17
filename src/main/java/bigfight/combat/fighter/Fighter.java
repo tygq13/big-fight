@@ -13,6 +13,7 @@ import bigfight.model.weapon.struct.Damage;
 
 public class Fighter {
     private String name;
+    private boolean isMale;
     private BasicAttribute speed;
     private BasicAttribute strength;
     private BasicAttribute agility;
@@ -30,6 +31,7 @@ public class Fighter {
 
     public Fighter(FightableWarrior warrior) {
         name = warrior.getName();
+        isMale = warrior.isMale();
         speed = warrior.getSpeed();
         strength = warrior.getStrength();
         agility = warrior.getAgility();
@@ -51,6 +53,10 @@ public class Fighter {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isMale() {
+        return isMale;
     }
 
     public int getSpeed() {

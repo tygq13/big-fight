@@ -72,4 +72,9 @@ public class FightableAdapter implements FightableWarrior {
         return DataConfig.DEFAULT_UNARMED_DAMAGE;
     }
 
+    @Override
+    public boolean isMale() {
+        return warrior.isMale();
+    }
+
 }

@@ -34,6 +34,7 @@ public class WarriorTestUtil {
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
+                .isMale(true)
                 .build();
         return warrior;
     }
@@ -56,6 +57,7 @@ public class WarriorTestUtil {
                 .weaponManager(weaponManager)
                 .skillManager(skillManager)
                 .friends(friends)
+                .isMale(true)
                 .build();
         return warrior;
     }

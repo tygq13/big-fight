@@ -39,7 +39,11 @@ public class WarriorBuilder {
     }
 
     public interface FriendsStep {
-        BuildStep friends(Friends friends);
+        SexStep friends(Friends friends);
+    }
+
+    public interface SexStep {
+        BuildStep isMale(boolean isMale);
     }
 
     public interface BuildStep {
@@ -47,7 +51,7 @@ public class WarriorBuilder {
     }
 
     private static class WarriorSteps implements AccountStep, LevelStep, AttributeStep,
-            WeaponManagerStep, SkillManagerStep, FriendsStep, BuildStep {
+            WeaponManagerStep, SkillManagerStep, FriendsStep, SexStep, BuildStep {
         private WarriorDatabase warriorDatabase;
         private Account account;
         private int level;
@@ -55,6 +59,7 @@ public class WarriorBuilder {
         private WeaponManager weaponManager;
         private SkillManager skillManager;
         private Friends friends;
+        private boolean isMale;
 
         WarriorSteps(WarriorDatabase warriorDatabase) {
             this.warriorDatabase = warriorDatabase;
@@ -91,14 +96,20 @@ public class WarriorBuilder {
         }
 
         @Override
-        public BuildStep friends(Friends friends) {
+        public SexStep friends(Friends friends) {
             this.friends = friends;
             return this;
         }
 
         @Override
+        public BuildStep isMale(boolean isMale) {
+            this.isMale = isMale;
+            return this;
+        }
+
+        @Override
         public Warrior build() {
-            Warrior result = new Warrior(lock, account, attribute, weaponManager, skillManager, friends);
+            Warrior result = new Warrior(lock, account, attribute, weaponManager, skillManager, friends, isMale);
             warriorDatabase.insertWarrior(account.getId(), result);
             return result;
         }

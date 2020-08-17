@@ -27,6 +27,7 @@ public class FighterBuilderTestUtil {
     private DisposableWeaponList disposableWeaponList = new DisposableWeaponList();
     private ActiveSkillList activeSkillList = new ActiveSkillList();
     private SpecialSkillList specialSkillList = new SpecialSkillList();
+    private boolean isMale = true;
 
     public FighterBuilderTestUtil withStrength(int strength) {
         this.strength = new BasicAttribute(strength);
@@ -54,6 +55,11 @@ public class FighterBuilderTestUtil {
         } else if (skill.getType() == SkillType.ACTIVE) {
             activeSkillList.add(skill);
         }
+        return this;
+    }
+
+    public FighterBuilderTestUtil withSex(boolean isMale) {
+        this.isMale = isMale;
         return this;
     }
 
@@ -89,6 +95,7 @@ public class FighterBuilderTestUtil {
         when(fightableAdapter.getActiveSkills()).thenReturn(activeSkillList);
         when(fightableAdapter.getSpecialSkills()).thenReturn(specialSkillList);
         when(fightableAdapter.getUnarmedDamage()).thenReturn(unarmedDamage);
+        when(fightableAdapter.isMale()).thenReturn(isMale);
         return new Fighter(fightableAdapter);
     }
 }

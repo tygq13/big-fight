@@ -4,6 +4,7 @@ package bigfight.combat;
 import bigfight.combat.attack.SkillAttack;
 import bigfight.combat.fighter.Fighter;
 import bigfight.combat.fighter.FighterBuilderTestUtil;
+import bigfight.combat.util.CombatAlgo;
 import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.special.*;
@@ -489,5 +490,31 @@ class CombatEachSkillTest {
         int EXPECTED_HEALTH = fighter.getHealth();
         fighter.getCombatSelector().selectHealingSkill(random, fighter.getHealthObj(), fighter.getLevel());
         assertEquals(EXPECTED_HEALTH, fighter.getHealth());
+    }
+
+    @Test
+    void stinky_feet_strength_and_same_sex_multiply() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        StinkyFeet skill = (StinkyFeet) DEFAULT_SKILL_FACTORY.create(SkillIdentity.STINKY_FEET);
+        final int STRENGTH_DAMAGE = (int) (fighter1.getStrength() * skill.getStrengthMultiply());
+        // test
+        final int EXPECTED = fighter2.getHealth() - (int) ((skill.getDamage() + STRENGTH_DAMAGE) * (1 + skill.getSameSexMultiply()));
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void stinky_feet_opposite_sex_no_multiply() {
+        boolean male = true;
+        boolean female = false;
+        Fighter fighter1 = new FighterBuilderTestUtil().withSex(male).build();
+        Fighter fighter2 = new FighterBuilderTestUtil().withSex(female).build();
+        StinkyFeet skill = (StinkyFeet) DEFAULT_SKILL_FACTORY.create(SkillIdentity.STINKY_FEET);
+        final int STRENGTH_DAMAGE = (int) (fighter1.getStrength() * skill.getStrengthMultiply());
+        // test
+        final int EXPECTED = fighter2.getHealth() - (skill.getDamage() + STRENGTH_DAMAGE);
+        new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
     }
 }

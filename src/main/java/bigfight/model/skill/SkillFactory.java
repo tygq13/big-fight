@@ -105,6 +105,8 @@ public class SkillFactory {
                 return new TaiChi(skillData.getWithStar(identity, 0));
             case HEAL:
                 return new Heal(skillData.getWithStar(identity, 0));
+            case STINKY_FEET:
+                return new StinkyFeet(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

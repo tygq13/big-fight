@@ -20,10 +20,11 @@ public class Warrior {
     private Friends friends;
     private AdvancedAttribute advancedAttribute;
     private Attribute attribute;
+    private boolean isMale;
 
     // although the interface is package private, lock ensures that only builder can access it
     Warrior(WarriorBuilder.Lock lock, Account account, Attribute attribute,
-            WeaponManager weaponManager, SkillManager skillManager, Friends friends) {
+            WeaponManager weaponManager, SkillManager skillManager, Friends friends, boolean isMale) {
         this.account = account;
         this.attribute = attribute;
         level = 1;
@@ -31,6 +32,7 @@ public class Warrior {
         this.skillManager = skillManager;
         this.friends = friends;
         advancedAttribute = new AdvancedAttribute();
+        this.isMale = isMale;
     }
 
     public void execute(Commandable command, Uiable ui) {
@@ -111,6 +113,10 @@ public class Warrior {
 
     public Attribute getAttribute() {
         return attribute;
+    }
+
+    public boolean isMale() {
+        return isMale;
     }
 
     @Override
