@@ -9,6 +9,7 @@ import bigfight.combat.util.CombatRandom;
 import bigfight.model.skill.skills.*;
 import bigfight.model.skill.skills.special.*;
 import bigfight.model.skill.struct.SkillIdentity;
+import bigfight.model.skill.struct.SkillStruct;
 import bigfight.model.warrior.component.Empowerment;
 import bigfight.model.weapon.Weapon;
 import bigfight.model.weapon.struct.WeaponIdentity;
@@ -20,8 +21,8 @@ import static bigfight.model.skill.SkillFactoryTestUtil.DEFAULT_SKILL_FACTORY;
 import static bigfight.model.weapon.WeaponFactoryTestUtil.DEFAULT_WEAPON_FACTORY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.doubleThat;
+import static org.mockito.Mockito.*;
 
 class CombatEachSkillTest {
     private Uiable mockUi = mock(EnUi.class);
@@ -516,5 +517,22 @@ class CombatEachSkillTest {
         final int EXPECTED = fighter2.getHealth() - (skill.getDamage() + STRENGTH_DAMAGE);
         new SkillAttack(fighter1, fighter2, skill, mockRandom, mockUi).attack();
         assertEquals(EXPECTED, fighter2.getHealth());
+    }
+
+    @Test
+    void ghost_one_behaviour_correct() {
+        Fighter fighter1 = new FighterBuilderTestUtil().build();
+        Fighter fighter2 = new FighterBuilderTestUtil().build();
+        GhostOn skill = (GhostOn) DEFAULT_SKILL_FACTORY.create(SkillIdentity.GHOST_ON);
+        GhostOn spy = spy(skill);
+        double EXTRA_HIT_RATE = skill.getExtraHitRate(); // test extra hit rate
+        int LEVEL_DMAGE = (int) (fighter1.getLevel() * skill.getLevelMultiply()); // test level multiply
+        CombatRandom random = mock(CombatRandom.class);
+        when(random.getEscapeRandom()).thenReturn(1 + EXTRA_HIT_RATE - EPSILON);
+        // test
+        final int EXPECTED = fighter2.getHealth() - (skill.getDamage() + LEVEL_DMAGE);
+        new SkillAttack(fighter1, fighter2, spy, random, mockUi).attack();
+        assertEquals(EXPECTED, fighter2.getHealth());
+        verify(spy).createDebuff();
     }
 }

@@ -44,7 +44,8 @@ public enum SkillIdentity {
     ACUPOINTER,
     TAI_CHI,
     HEAL,
-    STINKY_FEET;
+    STINKY_FEET,
+    GHOST_ON;
 
 
     // use static constant to avoid copying of enum array

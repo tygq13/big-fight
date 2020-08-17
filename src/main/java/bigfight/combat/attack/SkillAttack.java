@@ -73,6 +73,11 @@ public class SkillAttack implements Attackable {
                 double escape = 0 - acupointer.getExtraHitRate();
                 return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
             }
+            case GHOST_ON: {
+                GhostOn ghostOn = (GhostOn) skill;
+                double escape = 0 - ghostOn.getExtraHitRate();
+                return attackCalculator.isEscape(escape, attacker.getAgility(), defender.getAgility());
+            }
         }
         return attackCalculator.isEscape(attacker.getAgility(), defender.getAgility());
     }
@@ -179,6 +184,11 @@ public class SkillAttack implements Attackable {
                  double sameSexMultiply = attacker.isMale() ^ defender.isMale() ? 0 : stinkyFeet.getSameSexMultiply();
                  double strengthDamage = attacker.getStrength() * stinkyFeet.getStrengthMultiply();
                  return (int) ((stinkyFeet.getDamage() + strengthDamage) * (1 + sameSexMultiply));
+             }
+             case GHOST_ON: {
+                 GhostOn ghostOn = (GhostOn) skill;
+                 defender.addBuff(ghostOn.createDebuff());
+                 return ghostOn.getDamage() + (int) (attacker.getLevel() * ghostOn.getLevelMultiply());
              }
             default:
                 return 0;

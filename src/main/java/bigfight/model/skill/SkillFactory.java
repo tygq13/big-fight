@@ -107,6 +107,8 @@ public class SkillFactory {
                 return new Heal(skillData.getWithStar(identity, 0));
             case STINKY_FEET:
                 return new StinkyFeet(skillData.getWithStar(identity, 0));
+            case GHOST_ON:
+                return new GhostOn(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }

@@ -601,6 +601,19 @@ public class SkillData {
             STINKY_FEET_ZERO
     );
 
+    private final SkillStruct GHOST_ON_ZERO = new SkillStruct(
+            SkillType.ACTIVE,
+            "Summon the devil on your opponent.\n" +
+                    "Increase 10% hit rate at the current round. Cause damage of 30 + level * 40%.\n" +
+                    "If hit, your opponent’s inflicted damage increases by 20%, evasion rate decreases by 20%. Last for 2 rounds.\n",
+            SkillIdentity.GHOST_ON,
+            "ghost on"
+    );
+
+    private final SkillStructArray GHOST_ON_ARRAY = new SkillStructArray(
+            GHOST_ON_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -648,7 +661,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.ACUPOINTER, ACUPOINTER_ARRAY),
                     Map.entry(SkillIdentity.TAI_CHI, TAI_CHI_ARRAY),
                     Map.entry(SkillIdentity.HEAL, HEAL_ARRAY),
-                    Map.entry(SkillIdentity.STINKY_FEET, STINKY_FEET_ARRAY)
+                    Map.entry(SkillIdentity.STINKY_FEET, STINKY_FEET_ARRAY),
+                    Map.entry(SkillIdentity.GHOST_ON, GHOST_ON_ARRAY)
             )
     );
 
