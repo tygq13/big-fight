@@ -2,7 +2,6 @@ package bigfight.combat.attack;
 
 import bigfight.combat.util.CombatRandom;
 import bigfight.data.DataConfig;
-import bigfight.model.skill.skills.special.ApparentDeath;
 import bigfight.model.warrior.component.attr.AdvancedAttribute;
 import bigfight.model.warrior.component.attr.AttackAttribute;
 import bigfight.model.warrior.component.attr.DefenceAttribute;
@@ -16,7 +15,7 @@ public class AttackCalculatorTest {
     double EPSILON = 0.01;
 
     @Test
-    void critical_attack_effective() {
+    void damageAttributeMultiply_critical_attack_effective() {
         final int DAMAGE = 10;
         final double EXTRA_PERCENTAGE = 0.2;
         AdvancedAttribute advancedAttribute = new AdvancedAttribute();
@@ -32,7 +31,7 @@ public class AttackCalculatorTest {
     }
 
     @Test
-    void anti_critical_chance_effective() {
+    void damageAttributeMultiply_anti_critical_chance_effective() {
         final int DAMAGE = 10;
         final double EXTRA_PERCENTAGE = 0.2;
         final double CRITICAL_ATTACK = 1.0;
@@ -49,7 +48,7 @@ public class AttackCalculatorTest {
     }
 
     @Test
-    void anti_critical_damage_effective() {
+    void damageAttributeMultiply_anti_critical_damage_effective() {
         final int DAMAGE = 10;
         final double EXTRA_PERCENTAGE = 0.2;
         final double CRITICAL_DAMAGE = 0.4;
@@ -64,6 +63,23 @@ public class AttackCalculatorTest {
         when(random.getCriticalAttackRandom()).thenReturn(1 - EXTRA_PERCENTAGE + EPSILON);
         // test
         int EXPECTED_DAMAGE = (int) (10 * (DataConfig.CRITICAL_DAMAGE_BASE + CRITICAL_DAMAGE - ANTI_CRITICAL_DAMAGE));
+        int result = new AttackCalculator(attackAttribute, defenceAttribute, random).damageAttributeMultiply(DAMAGE);
+        assertEquals(EXPECTED_DAMAGE, result);
+    }
+
+    @Test
+    void damageAttributeMultiply_anti_percentage_damage_effective() {
+        final int DAMAGE = 10;
+        final double EXTRA_DAMAGE = 0.4;
+        final double ANTI_EXTRA_DAMAGE = 0.2;
+        AdvancedAttribute advancedAttribute = new AdvancedAttribute();
+        advancedAttribute.skillExtraPercentageDamage = EXTRA_DAMAGE;
+        advancedAttribute.antiSkillExtraPercentageDamage = ANTI_EXTRA_DAMAGE;
+        DefenceAttribute defenceAttribute = advancedAttribute.skillDefenceAttribute();
+        AttackAttribute attackAttribute = advancedAttribute.skillAttackAttribute();
+        CombatRandom random = mock(CombatRandom.class);
+        // test
+        int EXPECTED_DAMAGE = (int) (10 * (1 + EXTRA_DAMAGE - ANTI_EXTRA_DAMAGE));
         int result = new AttackCalculator(attackAttribute, defenceAttribute, random).damageAttributeMultiply(DAMAGE);
         assertEquals(EXPECTED_DAMAGE, result);
     }

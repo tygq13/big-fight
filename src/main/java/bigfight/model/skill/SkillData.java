@@ -483,6 +483,20 @@ public class SkillData {
             LUCKY_OR_NOT_ZERO
     );
 
+    private final SkillStruct QI_GOING_ZERO = new SkillStruct(
+            SkillType.PERMANENT,
+            "Tighten your muscle to endure the attack.\n" +
+                    "Your afflicted skill attack damage reduces by 5%.\n" +
+                    "This skill is only acquired after level 40.\n" +
+                    "After level 60, you have high chance of getting this skill at every 5 levels.\n",
+            SkillIdentity.QI_GONG,
+            "qi gong"
+    );
+
+    private final SkillStructArray QI_GONG_ARRAY = new SkillStructArray(
+            QI_GOING_ZERO
+    );
+
     private final Map<SkillIdentity, SkillStructArray> SKILL_TABLE = new HashMap<>(
             Map.ofEntries(
                     Map.entry(SkillIdentity.BORN_AS_STRONG, BORN_AS_STRONG_ARRAY),
@@ -521,7 +535,8 @@ public class SkillData {
                     Map.entry(SkillIdentity.WINDY_KICK, WINDY_KICK_ARRAY),
                     Map.entry(SkillIdentity.FOCUS_ON_HEART, FOCUS_ON_HEART_ARRAY),
                     Map.entry(SkillIdentity.BLOOD_SACRIFICE, BLOOD_SACRIFICE_ARRAY),
-                    Map.entry(SkillIdentity.LUCKY_OR_NOT, LUCK_OR_NOT_ARRAY)
+                    Map.entry(SkillIdentity.LUCKY_OR_NOT, LUCK_OR_NOT_ARRAY),
+                    Map.entry(SkillIdentity.QI_GONG, QI_GONG_ARRAY)
             )
     );
 

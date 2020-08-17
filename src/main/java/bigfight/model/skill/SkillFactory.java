@@ -89,6 +89,8 @@ public class SkillFactory {
                 return new BloodSacrifice(skillData.getWithStar(identity, 0));
             case LUCKY_OR_NOT:
                 return new LuckyOrNot(skillData.getWithStar(identity, 0));
+            case QI_GONG:
+                return new QiGong(skillData.getWithStar(identity, 0));
             default:
                 return null;
         }
